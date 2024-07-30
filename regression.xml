@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression">
+    <test verbose="2" name="Regression on chrome">
+        <parameter name="browser" value="dockerchrome"/>
+        <classes>
+
+            <class name="login.LoginTests"/>
+        </classes>
+    </test>
+    <test verbose="2" name="Regression on firefox" parallel="classes">
+        <parameter name="browser" value="dockerfirefox"/>
+        <classes>
+            <class name="login.LoginTests">
+                <methods>
+                    <exclude name="testSuccessfulLogin2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
