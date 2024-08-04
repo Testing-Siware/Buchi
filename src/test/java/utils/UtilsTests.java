@@ -30,6 +30,7 @@ public class UtilsTests {
         FileUtils.copyFile(file, new File("report/" + method.getName() + ".png"));
     }
 
+
     public void createReport(){
         extent = new ExtentReports();
         ExtentSparkReporter spark = new ExtentSparkReporter("report/report.html");
