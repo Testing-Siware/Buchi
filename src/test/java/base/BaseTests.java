@@ -40,7 +40,7 @@ public class BaseTests {
     public void setUp(String browser) throws MalformedURLException {
         setUpBrowser(browser);
         driver.manage().window().maximize();
-        homePage = new HomePage(driver);
+        homePage = new HomePage((ChromeDriver) driver);
 
     }
 
