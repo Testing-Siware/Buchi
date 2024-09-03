@@ -140,6 +140,14 @@ public class AffiliatePage extends MethodHandles {
     //clear any sorting
     @FindBy(xpath = "/html/body/div[2]/div/div[7]")
     private WebElement clearSortingOption;
+
+    //name sorting
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
+    private WebElement nameSortingBtn;
+
+    //max users sorting
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[5]")
+    private WebElement maxUsersSortingBtn;
     //</editor-fold>
 
     //<editor-fold desc="Add affiliate page allocators">
