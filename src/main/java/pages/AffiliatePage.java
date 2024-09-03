@@ -4,28 +4,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utiles.MethodHandles;
 
-import java.lang.ref.WeakReference;
-import java.time.Duration;
-import java.util.List;
 
 public class AffiliatePage extends MethodHandles {
-
-    WebDriverWait wait;
-
+    //constructor
     public AffiliatePage(ChromeDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
+
+    /************************Allocators*****************************/
     //<editor-fold desc="Affiliates page allocators">
     //sidebar button expands and collapses it
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[1]/div[1]/div[1]/button")
-    private WebElement sideBarBtn;
+    private WebElement sidebarBtn;
 
     //profile icon
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[1]/div[2]/div[1]/div/span/span")
@@ -35,10 +29,7 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/span")
     private WebElement profileName;
 
-    //profile level
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/p")
-    private WebElement profileLevel;
-
+    //sign out button
     @FindBy(xpath = "/html/body/div[2]/div/div[2]")
     private WebElement signOutBtn;
 
@@ -84,31 +75,31 @@ public class AffiliatePage extends MethodHandles {
 
     //analytics button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[2]/div")
-    private WebElement analyticsDashboardBtn;
+    private WebElement analyticsBtn;
 
     //instruments button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[3]/div")
-    private WebElement instrumentsSidebarBtn;
+    private WebElement instrumentsBtn;
 
     //recipes button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[4]/div")
-    private WebElement recipesSidebarBtn;
+    private WebElement recipesBtn;
 
     //journals button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[5]/div")
-    private WebElement journalsSidebarBtn;
+    private WebElement journalsBtn;
 
     //alerts button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[6]/div")
-    private WebElement alertsSidebarBtn;
+    private WebElement alertsBtn;
 
     //users button in sidebar
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[8]/div")
-    private WebElement usersSidebarBtn;
+    private WebElement usersBtn;
 
     //help and support sidebar btn
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[3]/div[2]/div")
-    private WebElement helpAndSupportSidebarBtn;
+    private WebElement helpAndSupportBtn;
 
     //affiliates page title
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[1]/h4")
@@ -174,7 +165,7 @@ public class AffiliatePage extends MethodHandles {
 
     //affiliate type
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div/div")
-    private Select affiliateType;
+    private WebElement affiliateType;
 
     //cancel button
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[4]/button")
@@ -200,7 +191,7 @@ public class AffiliatePage extends MethodHandles {
 
     //filter affiliate type
     @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
-    private Select filterAffiliateType;
+    private WebElement filterAffiliateType;
 
     //filter cancel button
     @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
@@ -217,263 +208,562 @@ public class AffiliatePage extends MethodHandles {
     //close filter button X
     @FindBy(xpath = "/html/body/div[3]/button/svg")
     private WebElement closeFilterBtn;
-
     //</editor-fold>
 
 
-    /*****************************Click Methods*******************************/
-    //<editor-fold desc="Affiliates page click methods">
-    public boolean clickSideBarBtn(){
-        return clickElement(sideBarBtn);
+    /************************Is Displayed Methods*****************************/
+    //<editor-fold desc="Is displayed methods for affiliates page">
+    //method check if sidebar button is displayed
+    public boolean sidebarBtnIsDisplayed() {
+        return isDisplayed(sidebarBtn, 20);
     }
 
-    public boolean clickSignOutBtn(){
-        return clickElement(signOutBtn);
+    //method check if profile icon is displayed
+    public boolean profileIconBtnIsDisplayed() {
+        return isDisplayed(profileIconBtn, 20);
     }
 
-    public boolean clickSidebarAnalyticsBtn(){
-        return clickElement(analyticsDashboardBtn);
+    //method check if profile name is displayed
+    public boolean profileNameIsDisplayed() {
+        return isDisplayed(profileName, 20);
     }
 
-    public boolean clickDashBoardSidebarBtn(){
-        return clickElement(dashboardSidebarBtn);
+    //method check if sign out is displayed
+    public boolean signOutIsDisplayed() {
+        return isDisplayed(signOutBtn, 20);
     }
 
-    public boolean clickInstrumentsDashboardBtn(){
-        return clickElement(instrumentsSidebarBtn);
+    //method check if change theme button is displayed
+    public boolean changeThemeBtnIsDisplayed() {
+        return isDisplayed(changeThemeBtn, 20);
     }
 
-    public boolean clickRecipesSidebarBtn(){
-        return clickElement(recipesSidebarBtn);
+    //method check if change language button is displayed
+    public boolean changeLanguageBtnIsDisplayed() {
+        return isDisplayed(changeLanguageBtn, 20);
     }
 
-    public boolean clickJournalsSidebarBtn(){
-        return clickElement(journalsSidebarBtn);
+    //method check if first language option is displayed
+    public boolean changeFirstLanguageBtnIsDisplayed() {
+        return isDisplayed(firstLanguageOption, 20);
     }
 
-    public boolean clickAlertsSidebarBtn(){
-        return clickElement(alertsSidebarBtn);
+    //method check if second language option is displayed
+    public boolean changeSecondLanguageBtnIsDisplayed() {
+        return isDisplayed(secondLanguageOption, 20);
     }
 
-    public boolean clickUsersSidebarBtn(){
-        return clickElement(usersSidebarBtn);
+    //method check if third language option is displayed
+    public boolean changeThirdLanguageBtnIsDisplayed() {
+        return isDisplayed(thirdLanguageOption, 20);
     }
 
-    public boolean clickHelpAndSupportSidebarBtn(){
-        return clickElement(helpAndSupportSidebarBtn);
+    //method check if fourth language option is displayed
+    public boolean changeFourthLanguageBtnIsDisplayed() {
+        return isDisplayed(fourthLanguageOption, 20);
     }
 
-    public boolean clickProfileIconBtn(){
-        return clickElement(profileIconBtn);
+    //method check if fifth language option is displayed
+    public boolean changeFifthLanguageBtnIsDisplayed() {
+        return isDisplayed(fifthLanguageOption, 20);
     }
 
-    public boolean clickChangeThemeBtn(){
-        return clickElement(changeThemeBtn);
+    //method check if Sixth language option is displayed
+    public boolean changeSixthLanguageBtnIsDisplayed() {
+        return isDisplayed(sixthLanguageOption, 20);
     }
 
-    public boolean clickChangeLanguageBtn(){
-        return clickElement(changeLanguageBtn);
+    //method check if home page button is displayed
+    public boolean homePageBtnIsDisplayed() {
+        return isDisplayed(homeBtn, 20);
     }
 
-    public boolean clickFirstLanguageOption(){
-        return clickElement(firstLanguageOption);
+    //method check if Dashboard button is displayed
+    public boolean dashboardBtnIsDisplayed() {
+        return isDisplayed(dashboardSidebarBtn, 20);
     }
 
-    public boolean clickSecondLanguageOption(){
-        return clickElement(secondLanguageOption);
+    //method check if analytics button is displayed
+    public boolean analyticsBtnIsDisplayed() {
+        return isDisplayed(analyticsBtn, 20);
     }
 
-    public boolean clickThirdLanguageOption(){
-        return clickElement(thirdLanguageOption);
+    //method check if instrument button is displayed
+    public boolean instrumentBtnIsDisplayed() {
+        return isDisplayed(instrumentsBtn, 20);
     }
 
-    public boolean clickFourthLanguageOption(){
-        return clickElement(fourthLanguageOption);
+    //method check if recipes button is displayed
+    public boolean recipesBtnIsDisplayed() {
+        return isDisplayed(recipesBtn, 20);
     }
 
-    public boolean clickFifthLanguageOption(){
-        return clickElement(fifthLanguageOption);
+    //method check if journals button is displayed
+    public boolean journalsBtnIsDisplayed() {
+        return isDisplayed(journalsBtn, 20);
     }
 
-    public boolean clickSixthLanguageOption(){
-        return clickElement(sixthLanguageOption);
+    //method check if alerts button is displayed
+    public boolean alertsBtnIsDisplayed() {
+        return isDisplayed(alertsBtn, 20);
     }
 
-    public boolean clickHomeBtn(){
-        return clickElement(homeBtn);
+    //method check if users button is displayed
+    public boolean usersBtnIsDisplayed() {
+        return isDisplayed(usersBtn, 20);
     }
 
-    public boolean sendTextToSearchField(String text) {
-        return sendTextToElement(searchField, text);
+    //method check if help and support button is displayed
+    public boolean helpAndSupportBtnIsDisplayed() {
+        return isDisplayed(helpAndSupportBtn, 20);
     }
 
-    public boolean clickSearchBtn() {
-        return clickElement(searchBtn);
+    //method check if affiliates page title label is displayed
+    public boolean affiliatesPageTitleIsDisplayed() {
+        return isDisplayed(affiliatesPageTitle, 20);
     }
 
-    public boolean clickFilterBtn() {
-        return clickElement(filterBtn);
+    //method check if add affiliate button is displayed
+    public boolean addAffiliateBtnIsDisplayed() {
+        return isDisplayed(addAffiliateBtn, 20);
     }
 
-    public boolean clickAddAffiliateBtn() {
-        return clickElement(addAffiliateBtn);
+    //method check if search field is displayed
+    public boolean searchFieldIsDisplayed() {
+        return isDisplayed(searchField, 20);
     }
 
-    public boolean clickViewBtn() {
-        return clickElement(viewBtn);
+    //method check if search button is displayed
+    public boolean searchBtnIsDisplayed() {
+        return isDisplayed(searchBtn, 20);
     }
 
-    public boolean clickToggleCreatedAtColumn() {
-        return clickElement(toggleCreatedAtColumnOption);
+    //method check if filter button is displayed
+    public boolean filterBtnIsDisplayed() {
+        return isDisplayed(filterBtn, 20);
     }
 
-    public boolean clickToggleModifiedAtColumn() {
-        return clickElement(toggleModifiedAtColumnOption);
+    //method check if view button is displayed
+    public boolean viewBtnIsDisplayed() {
+        return isDisplayed(viewBtn, 20);
     }
 
-    public boolean clickClearPinningOption() {
-        return clickElement(clearPinningOption);
+    //method check if toggle created at column option is displayed
+    public boolean toggleCreatedAtColumnOptionIsDisplayed() {
+        return isDisplayed(toggleCreatedAtColumnOption, 20);
     }
 
-    public boolean clickClearSortingOption() {
-        return clickElement(clearSortingOption);
+    //method check if toggle modified at column option is displayed
+    public boolean toggleModifiedAtColumnOptionIsDisplayed() {
+        return isDisplayed(toggleModifiedAtColumnOption, 20);
+    }
+
+    //method check if clear pinning option is displayed
+    public boolean clearPinningOptionIsDisplayed() {
+        return isDisplayed(clearPinningOption, 20);
+    }
+
+    //method check if clear sorting option is displayed
+    public boolean clearSortingOptionIsDisplayed() {
+        return isDisplayed(clearSortingOption, 20);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Is displayed methods for add affiliate page">
+    //method check if add affiliate page title is displayed
+    public boolean addAffiliatePageTitleIsDisplayed() {
+        return isDisplayed(addAffiliatePageTitle, 20);
+    }
+
+    //method check if upload logo button is displayed
+    public boolean uploadLogoBtnIsDisplayed() {
+        return isDisplayed(uploadLogoBtn, 20);
+    }
+
+    //method check if affiliate name text field is displayed
+    public boolean affiliateNameIsDisplayed() {
+        return isDisplayed(affiliateName, 20);
+    }
+
+    //method check if affiliate max users field is displayed
+    public boolean affiliateMaxUsersIsDisplayed() {
+        return isDisplayed(maxUsers, 20);
+    }
+
+    //method check if affiliate abbreviation field is displayed
+    public boolean affiliateAbbreviationIsDisplayed() {
+        return isDisplayed(affiliateAbbreviation, 20);
+    }
+
+    //method check if affiliate Type field is displayed
+    public boolean affiliateTypeIsDisplayed() {
+        return isDisplayed(affiliateType, 20);
+    }
+
+    //method check if cancel button is displayed
+    public boolean cancelBtnIsDisplayed() {
+        return isDisplayed(cancelBtn, 20);
+    }
+
+    //method check if save button is displayed
+    public boolean saveBtnIsDisplayed() {
+        return isDisplayed(saveBtn, 20);
+    }
+
+    //method check if reset button is displayed
+    public boolean resetBtnIsDisplayed() {
+        return isDisplayed(resetBtn, 20);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Is displayed methods for filter window">
+    //method check if filter window title is displayed
+    public boolean filterWindowTitleIsDisplayed() {
+        return isDisplayed(filterPopTitle, 20);
+    }
+
+    //method check if filter affiliate name text field is displayed
+    public boolean filterAffiliateNameTextFieldIsDisplayed() {
+        return isDisplayed(filterAffiliateName, 20);
+    }
+
+    //method check if filter cancel button is displayed
+    public boolean filterCancelBtnIsDisplayed() {
+        return isDisplayed(cancelFilterBtn, 20);
+    }
+
+    //method check if filter affiliate type text field is displayed
+    public boolean filterAffiliateTypeTextFieldIsDisplayed() {
+        return isDisplayed(filterAffiliateType, 20);
+    }
+
+    //method check if filter clear button is displayed
+    public boolean filterClearBtnIsDisplayed() {
+        return isDisplayed(clearFiltersBtn, 20);
+    }
+
+    //method check if filter apply button is displayed
+    public boolean filterApplyBtnIsDisplayed() {
+        return isDisplayed(applyFilterBtn, 20);
+    }
+
+    //method check if filter close (X) button is displayed
+    public boolean filterCloseBtnIsDisplayed() {
+        return isDisplayed(closeFilterBtn, 20);
+    }
+    //</editor-fold>
+
+
+    /************************Click Methods*****************************/
+    //<editor-fold desc="Click methods for affiliates page">
+    //method to click sidebar button
+    public void clickSidebarBtn() {
+        clickElement(sidebarBtn);
+    }
+
+    //method to click profile icon button
+    public void clickProfileIconBtn() {
+        clickElement(profileIconBtn);
+    }
+
+    //method to click sign out button
+    public void clickSignOutBtn() {
+        clickElement(signOutBtn);
+    }
+
+    //method to click change theme button
+    public void clickChangeThemeBtn() {
+        clickElement(changeThemeBtn);
+    }
+
+    //method to click change language button
+    public void clickChangeLanguageBtn() {
+        clickElement(changeLanguageBtn);
+    }
+
+    //method to click first language option
+    public void clickFirstLanguageOption() {
+        clickElement(firstLanguageOption);
+    }
+
+    //method to click second language option
+    public void clickSecondLanguageOption() {
+        clickElement(secondLanguageOption);
+    }
+
+    //method to click first language option
+    public void clickThirdLanguageOption() {
+        clickElement(thirdLanguageOption);
+    }
+
+    //method to click fourth language option
+    public void clickFourthLanguageOption() {
+        clickElement(fourthLanguageOption);
+    }
+
+    //method to click fifth language option
+    public void clickFifthLanguageOption() {
+        clickElement(fifthLanguageOption);
+    }
+
+    //method to click sixth language option
+    public void clickSixthLanguageOption() {
+        clickElement(sixthLanguageOption);
+    }
+
+    //method to click home page button
+    public void clickHomePageBtn() {
+        clickElement(homeBtn);
+    }
+
+    //method to click dashboard button
+    public void clickDashboardBtn() {
+        clickElement(dashboardSidebarBtn);
+    }
+
+    //method to click analytics button
+    public void clickAnalyticsBtn() {
+        clickElement(analyticsBtn);
+    }
+
+    //method to click instrument button
+    public void clickInstrumentBtn() {
+        clickElement(instrumentsBtn);
+    }
+
+    //method to click recipes button
+    public void clickRecipesBtn() {
+        clickElement(recipesBtn);
+    }
+
+    //method to click journals button
+    public void clickJournalsBtn() {
+        clickElement(journalsBtn);
+    }
+
+    //method to click alerts button
+    public void clickAlertsBtn() {
+        clickElement(alertsBtn);
+    }
+
+    //method to click users button
+    public void clickUsersBtn() {
+        clickElement(usersBtn);
+    }
+
+    //method to click help and support button
+    public void clickHelpAndSupportBtn() {
+        clickElement(helpAndSupportBtn);
+    }
+
+    //method to click add affiliate button
+    public void clickAddAffiliateBtn() {
+        clickElement(addAffiliateBtn);
+    }
+
+    //method to click add search field
+    public void clickSearchField() {
+        clickElement(searchField);
+    }
+
+    //method to click add search button
+    public void clickSearchBtn() {
+        clickElement(searchBtn);
+    }
+
+    //method to click add search button
+    public void clickFilterBtn() {
+        clickElement(filterBtn);
+    }
+
+    //method to click view button
+    public void clickViewBtn() {
+        clickElement(viewBtn);
+    }
+
+    //method to click toggle created at column option
+    public void clickToggleCreatedAtColumnOption() {
+        clickElement(toggleCreatedAtColumnOption);
+    }
+
+    //method to click toggle modified at column option
+    public void clickToggleModifiedAtColumnOption() {
+        clickElement(toggleModifiedAtColumnOption);
+    }
+
+    //method to click clear pinning option
+    public void clickClearPinningOption() {
+        clickElement(clearPinningOption);
+    }
+
+    //method to click clear sorting option
+    public void clickClearSortingOption() {
+        clickElement(clearSortingOption);
     }
     //</editor-fold>
 
     //<editor-fold desc="Add affiliate click methods">
-    public boolean clickUploadLogoBtn() {
-        return clickElement(uploadLogoBtn);
+    //method to click upload logo button
+    public void clickUploadLogoBtn() {
+        clickElement(uploadLogoBtn);
     }
 
-    public boolean clickAffiliateName(){
-        return clickElement(affiliateName);
+    //method to click affiliate name text field
+    public void clickAffiliateNameTextField() {
+        clickElement(affiliateName);
     }
 
-    public boolean clickAffiliateMaxUsers(){
-        return clickElement(maxUsers);
+    //method to click affiliate max users text field
+    public void clickAffiliateMaxUsersTextField() {
+        clickElement(maxUsers);
     }
 
-    public boolean clickAffiliateAbbreviation() {
-        return clickElement(affiliateAbbreviation);
+    //method to click affiliate type text field
+    public void clickAffiliateTypeTextField() {
+        clickElement(affiliateType);
     }
 
-    public boolean clickCancelBtn() {
-        return clickElement(cancelBtn);
+    //method to click cancelBtn
+    public void clickCancelBtn() {
+        clickElement(cancelBtn);
     }
-
-    public boolean clickResetBtn() {
-        return clickElement(resetBtn);
-    }
-
-    public boolean clickSaveBtn() {
-        return clickElement(saveBtn);
-    }
-
     //</editor-fold>
 
-    //<editor-fold desc="Filter window click methods">
-    public boolean clickAffiliateNameFilterTextField() {
-        return clickElement(filterAffiliateName);
+    //<editor-fold desc="click methods for filter window">
+    //method to click filter affiliate name text field
+    public void clickFilterAffiliateNameTextField() {
+        clickElement(filterAffiliateName);
     }
 
-    public boolean clickCancelFilterBtn() {
-        return clickElement(cancelFilterBtn);
+    //method to click filter affiliate type text field
+    public void clickFilterAffiliateTypeTextField() {
+        clickElement(filterAffiliateType);
     }
 
-    public boolean clickClearFilterBtn() {
-        return clickElement(clearFiltersBtn);
+    //method to click filter cancel button
+    public void clickFilterCancelBtn() {
+        clickElement(cancelFilterBtn);
     }
 
-    public boolean clickApplyFilterBtn() {
-        return clickElement(applyFilterBtn);
+    //method to click filter clear button
+    public void clickFilterClearBtn() {
+        clickElement(clearFiltersBtn);
     }
 
-    public boolean clickCloseFilterBtn() {
-        return clickElement(closeFilterBtn);
+    //method to click filter apply button
+    public void clickFilterApplyBtn() {
+        clickElement(applyFilterBtn);
     }
-    ///</editor-fold>
+
+    //method to click filter apply button
+    public void clickFilterCloseBtn() {
+        clickElement(closeFilterBtn);
+    }
+    //</editor-fold>
 
 
-    /*****************************Get Text Methods*******************************/
-    //<editor-fold desc="Affiliates page get text methods">
-    public String getProfName(){
+    /************************Get Text Methods*****************************/
+    //<editor-fold desc="Get text methods for affiliates page">
+    //method to get profile name
+    public String getProfileName() {
         return getElementText(profileName);
     }
 
-    public String getProfileLevel (){
-        return getElementText(profileLevel);
-    }
-
-    public String getAffiliatesPageTitle (){
+    //method to get affiliates page title
+    public String getAffiliatesPageTitle() {
         return getElementText(affiliatesPageTitle);
     }
     //</editor-fold>
 
-    //<editor-fold desc="Add affiliate get text methods">
+    //<editor-fold desc="Get text methods for add affiliate page">
+    //method to get add affiliate page title
     public String getAddAffiliatePageTitle() {
         return getElementText(addAffiliatePageTitle);
     }
-
-    public List<WebElement> getAffiliateTypeAllOptions() {
-        return affiliateType.getOptions();
-    }
     //</editor-fold>
 
-    //<editor-fold desc="Filter window get text methods">
+    //<editor-fold desc="Get text methods for filter window">
+    //method to get add affiliate page title
     public String getFilterWindowTitle() {
-        return filterPopTitle.getText();
-    }
-    ///</editor-fold>
-
-    /*****************************Set Text Fields Methods*******************************/
-    //<editor-fold desc="Affiliate set text methods">
-    public void setSearchData(String searchData) {
-        searchField.sendKeys(searchData);
-    }
-
-    public void resetSearchTextField() {
-        searchField.clear();
+        return getElementText(filterPopTitle);
     }
     //</editor-fold>
 
-    //<editor-fold desc="Add affiliate set text methods">
-    public void setAffiliateName(String text) {
-        affiliateName.sendKeys(text);
-    }
-    public void resetAffiliateName() {
-        affiliateName.clear();
+
+    /************************Set And Reset Text Methods*****************************/
+    //<editor-fold desc="Set and reset text methods for affiliates page">
+    //method to send text to search field
+    public void sendTextToSearchField(String text) {
+        sendTextToElement(searchField, text);
     }
 
-    public void setAffiliateMaxUsers(String text) {
-        maxUsers.sendKeys(text);
-    }
-    public void resetAffiliateMaxUsers() {
-        maxUsers.clear();
-    }
-
-    public void setAffiliateAbbreviation(String text) {
-        affiliateAbbreviation.sendKeys(text);
-    }
-    public void resetAffiliateAbbreviation() {
-        affiliateAbbreviation.clear();
-    }
-
-    public void selectAffiliateType (String select) {
-        affiliateType.selectByValue(select);
-    }
-
-    public void uploadAffiliateLogo(String path) {
-        uploadLogoBtn.sendKeys(path);
+    //method to clear  search field text
+    public void resetSearchField() {
+        clearText(searchField);
     }
     //</editor-fold>
 
-    //<editor-fold desc="Filter window set text fields methods"
-    public void SetAffiliateNameFilter(String name) {
-        filterAffiliateName.sendKeys(name);
+    //<editor-fold desc="Set and reset methods for add affiliate page">
+    //method to send text to affiliate name text field
+    public void sendTextToAffiliateNameTextField(String text) {
+        sendTextToElement(affiliateName, text);
     }
 
-    public void selectAffiliateTypeFilter (String select) {
-        filterAffiliateType.selectByValue(select);
+    //method to clear  affiliate name text field
+    public void resetAffiliateNameTextField() {
+        clearText(affiliateName);
+    }
+
+    //method to send text to affiliate max users text field
+    public void sendTextToAffiliateMaxUsersTextField(String text) {
+        sendTextToElement(maxUsers, text);
+    }
+
+    //method to clear affiliate max users text field
+    public void resetAffiliateMaxUsersTextField() {
+        clearText(maxUsers);
+    }
+
+    //method to send text to affiliate abbreviation text field
+    public void sendTextToAffiliateAbbreviationTextField(String text) {
+        sendTextToElement(affiliateAbbreviation, text);
+    }
+
+    //method to clear affiliate abbreviation text field
+    public void resetAffiliateAbbreviationTextField() {
+        clearText(affiliateAbbreviation);
+    }
+
+    //method to send text to affiliate type text field
+    public void sendTextToAffiliateTypeTextField(String text) {
+        sendTextToElement(affiliateType, text);
+    }
+
+    //method to clear affiliate type text field
+    public void resetAffiliateTypeTextField() {
+        clearText(affiliateType);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Set and reset methods for filter window">
+    //method to send text to filter affiliate name text field
+    public void sendTextToFilterAffiliateNameTextField(String text) {
+        sendTextToElement(filterAffiliateName, text);
+    }
+
+    //method to clear filter affiliate name text field
+    public void resetFilterAffiliateNameTextField() {
+        clearText(filterAffiliateName);
+    }
+
+    //method to send text to filter affiliate type text field
+    public void sendTextToFilterAffiliateTypeTextField(String text) {
+        sendTextToElement(filterAffiliateType, text);
+    }
+
+    //method to clear filter affiliate type text field
+    public void resetFilterAffiliateTypeTextField() {
+        clearText(filterAffiliateType);
     }
     //</editor-fold>
 }
