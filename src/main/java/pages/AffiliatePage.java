@@ -185,6 +185,22 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div/p")
     private WebElement firstAffiliateMaxUsers;
 
+    //status of first affiliate in the table
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[6]/div/div")
+    private WebElement firstAffiliateStatus;
+
+    //option of first affiliate in the table
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]/button")
+    private WebElement firstAffiliateOptionsBtn;
+
+    //edit option of first affiliate in the table
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    private WebElement firstAffiliateEditBtn;
+
+    //delete option of first affiliate in the table
+    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
+    private WebElement firstAffiliateDeleteBtn;
+
     //rows per page field
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[1]/div[2]/div/div/div[1]/div[2]/input")
     private WebElement rowsPerPage;
@@ -279,301 +295,301 @@ public class AffiliatePage extends MethodHandles {
     //<editor-fold desc="Is displayed methods for affiliates page">
     //method check if sidebar button is displayed
     public boolean sidebarBtnIsDisplayed() {
-        return isDisplayed(sidebarBtn, 20);
+        return isDisplayed(sidebarBtn, 10);
     }
 
     //method check if profile icon is displayed
     public boolean profileIconBtnIsDisplayed() {
-        return isDisplayed(profileIconBtn, 20);
+        return isDisplayed(profileIconBtn, 10);
     }
 
     //method check if profile name is displayed
     public boolean profileNameIsDisplayed() {
-        return isDisplayed(profileName, 20);
+        return isDisplayed(profileName, 10);
     }
 
     //method check if sign out is displayed
     public boolean signOutIsDisplayed() {
-        return isDisplayed(signOutBtn, 20);
+        return isDisplayed(signOutBtn, 10);
     }
 
     //method check if change theme button is displayed
     public boolean changeThemeBtnIsDisplayed() {
-        return isDisplayed(changeThemeBtn, 20);
+        return isDisplayed(changeThemeBtn, 10);
     }
 
     //method check if change language button is displayed
     public boolean changeLanguageBtnIsDisplayed() {
-        return isDisplayed(changeLanguageBtn, 20);
+        return isDisplayed(changeLanguageBtn, 10);
     }
 
     //method check if first language option is displayed
     public boolean changeFirstLanguageBtnIsDisplayed() {
-        return isDisplayed(firstLanguageOption, 20);
+        return isDisplayed(firstLanguageOption, 10);
     }
 
     //method check if second language option is displayed
     public boolean changeSecondLanguageBtnIsDisplayed() {
-        return isDisplayed(secondLanguageOption, 20);
+        return isDisplayed(secondLanguageOption, 10);
     }
 
     //method check if third language option is displayed
     public boolean changeThirdLanguageBtnIsDisplayed() {
-        return isDisplayed(thirdLanguageOption, 20);
+        return isDisplayed(thirdLanguageOption, 10);
     }
 
     //method check if fourth language option is displayed
     public boolean changeFourthLanguageBtnIsDisplayed() {
-        return isDisplayed(fourthLanguageOption, 20);
+        return isDisplayed(fourthLanguageOption, 10);
     }
 
     //method check if fifth language option is displayed
     public boolean changeFifthLanguageBtnIsDisplayed() {
-        return isDisplayed(fifthLanguageOption, 20);
+        return isDisplayed(fifthLanguageOption, 10);
     }
 
     //method check if Sixth language option is displayed
     public boolean changeSixthLanguageBtnIsDisplayed() {
-        return isDisplayed(sixthLanguageOption, 20);
+        return isDisplayed(sixthLanguageOption, 10);
     }
 
     //method check if home page button is displayed
     public boolean homePageBtnIsDisplayed() {
-        return isDisplayed(homeBtn, 20);
+        return isDisplayed(homeBtn, 10);
     }
 
     //method check if Dashboard button is displayed
     public boolean dashboardBtnIsDisplayed() {
-        return isDisplayed(dashboardSidebarBtn, 20);
+        return isDisplayed(dashboardSidebarBtn, 10);
     }
 
     //method check if analytics button is displayed
     public boolean analyticsBtnIsDisplayed() {
-        return isDisplayed(analyticsBtn, 20);
+        return isDisplayed(analyticsBtn, 10);
     }
 
     //method check if instrument button is displayed
     public boolean instrumentBtnIsDisplayed() {
-        return isDisplayed(instrumentsBtn, 20);
+        return isDisplayed(instrumentsBtn, 10);
     }
 
     //method check if recipes button is displayed
     public boolean recipesBtnIsDisplayed() {
-        return isDisplayed(recipesBtn, 20);
+        return isDisplayed(recipesBtn, 10);
     }
 
     //method check if journals button is displayed
     public boolean journalsBtnIsDisplayed() {
-        return isDisplayed(journalsBtn, 20);
+        return isDisplayed(journalsBtn, 10);
     }
 
     //method check if alerts button is displayed
     public boolean alertsBtnIsDisplayed() {
-        return isDisplayed(alertsBtn, 20);
+        return isDisplayed(alertsBtn, 10);
     }
 
     //method check if users button is displayed
     public boolean usersBtnIsDisplayed() {
-        return isDisplayed(usersBtn, 20);
+        return isDisplayed(usersBtn, 10);
     }
 
     //method check if help and support button is displayed
     public boolean helpAndSupportBtnIsDisplayed() {
-        return isDisplayed(helpAndSupportBtn, 20);
+        return isDisplayed(helpAndSupportBtn, 10);
     }
 
     //method check if affiliates page title label is displayed
     public boolean affiliatesPageTitleIsDisplayed() {
-        return isDisplayed(affiliatesPageTitle, 20);
+        return isDisplayed(affiliatesPageTitle, 10);
     }
 
     //method check if add affiliate button is displayed
     public boolean addAffiliateBtnIsDisplayed() {
-        return isDisplayed(addAffiliateBtn, 20);
+        return isDisplayed(addAffiliateBtn, 10);
     }
 
     //method check if search field is displayed
     public boolean searchFieldIsDisplayed() {
-        return isDisplayed(searchField, 20);
+        return isDisplayed(searchField, 10);
     }
 
     //method check if search button is displayed
     public boolean searchBtnIsDisplayed() {
-        return isDisplayed(searchBtn, 20);
+        return isDisplayed(searchBtn, 10);
     }
 
     //method check if filter button is displayed
     public boolean filterBtnIsDisplayed() {
-        return isDisplayed(filterBtn, 20);
+        return isDisplayed(filterBtn, 10);
     }
 
     //method check if view button is displayed
     public boolean viewBtnIsDisplayed() {
-        return isDisplayed(viewBtn, 20);
+        return isDisplayed(viewBtn, 10);
     }
 
     //method check if toggle created at column option is displayed
     public boolean toggleCreatedAtColumnOptionIsDisplayed() {
-        return isDisplayed(toggleCreatedAtColumnOption, 20);
+        return isDisplayed(toggleCreatedAtColumnOption, 10);
     }
 
     //method check if toggle modified at column option is displayed
     public boolean toggleModifiedAtColumnOptionIsDisplayed() {
-        return isDisplayed(toggleModifiedAtColumnOption, 20);
+        return isDisplayed(toggleModifiedAtColumnOption, 10);
     }
 
     //method check if clear pinning option is displayed
     public boolean clearPinningOptionIsDisplayed() {
-        return isDisplayed(clearPinningOption, 20);
+        return isDisplayed(clearPinningOption, 10);
     }
 
     //method check if clear sorting option is displayed
     public boolean clearSortingOptionIsDisplayed() {
-        return isDisplayed(clearSortingOption, 20);
+        return isDisplayed(clearSortingOption, 10);
     }
 
     //method check if name sorting button is displayed
     public boolean nameSortingBtnIsDisplayed() {
-        return isDisplayed(nameSortingBtn, 20);
+        return isDisplayed(nameSortingBtn, 10);
     }
 
     //method check if users count sorting button is displayed
     public boolean usersCountSortingBtnIsDisplayed() {
-        return isDisplayed(usersCountSortingBtn, 20);
+        return isDisplayed(usersCountSortingBtn, 10);
     }
 
     //method check if sorting name Asc button is displayed
     public boolean sortingNameAscBtnIsDisplayed() {
-        return isDisplayed(sortingNameAsc, 20);
+        return isDisplayed(sortingNameAsc, 10);
     }
 
     //method check if sorting name Desc button is displayed
     public boolean sortingNameDescBtnIsDisplayed() {
-        return isDisplayed(sortingNameDesc, 20);
+        return isDisplayed(sortingNameDesc, 10);
     }
 
     //method check if pin column button is displayed
     public boolean pinColumnIsDisplayed() {
-        return isDisplayed(pinColumn, 20);
+        return isDisplayed(pinColumn, 10);
     }
 
     //method check if sorting users count Asc button is displayed
     public boolean sortingUsersCountAscBtnIsDisplayed() {
-        return isDisplayed(sortingUsersCountAsc, 20);
+        return isDisplayed(sortingUsersCountAsc, 10);
     }
 
     //method check if sorting users count Desc button is displayed
     public boolean sortingUsersCountDescBtnIsDisplayed() {
-        return isDisplayed(sortingUsersCountDesc, 20);
+        return isDisplayed(sortingUsersCountDesc, 10);
     }
 
     //method check if rows per page is displayed
     public boolean rowsPerPageIsDisplayed() {
-        return isDisplayed(rowsPerPage, 20);
+        return isDisplayed(rowsPerPage, 10);
     }
 
     //method check if back page button is displayed
     public boolean backPageBtnIsDisplayed() {
-        return isDisplayed(backPageBtn, 20);
+        return isDisplayed(backPageBtn, 10);
     }
 
     //method check if back row button is displayed
     public boolean backRowBtnIsDisplayed() {
-        return isDisplayed(backRowBtn, 20);
+        return isDisplayed(backRowBtn, 10);
     }
     
     //method check if froward row button is displayed
     public boolean frowardRowBtnIsDisplayed() {
-        return isDisplayed(frowardRowBtn, 20);
+        return isDisplayed(frowardRowBtn, 10);
     }
 
     //method check if froward row button is displayed
     public boolean frowardPageBtnIsDisplayed() {
-        return isDisplayed(frowardPageBtn, 20);
+        return isDisplayed(frowardPageBtn, 10);
     }
     //</editor-fold>
 
     //<editor-fold desc="Is displayed methods for add affiliate page">
     //method check if add affiliate page title is displayed
     public boolean addAffiliatePageTitleIsDisplayed() {
-        return isDisplayed(addAffiliatePageTitle, 20);
+        return isDisplayed(addAffiliatePageTitle, 10);
     }
 
     //method check if upload logo button is displayed
     public boolean uploadLogoBtnIsDisplayed() {
-        return isDisplayed(uploadLogoBtn, 20);
+        return isDisplayed(uploadLogoBtn, 10);
     }
 
     //method check if affiliate name text field is displayed
     public boolean affiliateNameIsDisplayed() {
-        return isDisplayed(affiliateName, 20);
+        return isDisplayed(affiliateName, 10);
     }
 
     //method check if affiliate max users field is displayed
     public boolean affiliateMaxUsersIsDisplayed() {
-        return isDisplayed(maxUsers, 20);
+        return isDisplayed(maxUsers, 10);
     }
 
     //method check if affiliate abbreviation field is displayed
     public boolean affiliateAbbreviationIsDisplayed() {
-        return isDisplayed(affiliateAbbreviation, 20);
+        return isDisplayed(affiliateAbbreviation, 10);
     }
 
     //method check if affiliate Type field is displayed
     public boolean affiliateTypeIsDisplayed() {
-        return isDisplayed(affiliateType, 20);
+        return isDisplayed(affiliateType, 10);
     }
 
     //method check if cancel button is displayed
     public boolean cancelBtnIsDisplayed() {
-        return isDisplayed(cancelBtn, 20);
+        return isDisplayed(cancelBtn, 10);
     }
 
     //method check if save button is displayed
     public boolean saveBtnIsDisplayed() {
-        return isDisplayed(saveBtn, 20);
+        return isDisplayed(saveBtn, 10);
     }
 
     //method check if reset button is displayed
     public boolean resetBtnIsDisplayed() {
-        return isDisplayed(resetBtn, 20);
+        return isDisplayed(resetBtn, 10);
     }
     //</editor-fold>
 
     //<editor-fold desc="Is displayed methods for filter window">
     //method check if filter window title is displayed
     public boolean filterWindowTitleIsDisplayed() {
-        return isDisplayed(filterPopTitle, 20);
+        return isDisplayed(filterPopTitle, 10);
     }
 
     //method check if filter affiliate name text field is displayed
     public boolean filterAffiliateNameTextFieldIsDisplayed() {
-        return isDisplayed(filterAffiliateName, 20);
+        return isDisplayed(filterAffiliateName, 10);
     }
 
     //method check if filter cancel button is displayed
     public boolean filterCancelBtnIsDisplayed() {
-        return isDisplayed(cancelFilterBtn, 20);
+        return isDisplayed(cancelFilterBtn, 10);
     }
 
     //method check if filter affiliate type text field is displayed
     public boolean filterAffiliateTypeTextFieldIsDisplayed() {
-        return isDisplayed(filterAffiliateType, 20);
+        return isDisplayed(filterAffiliateType, 10);
     }
 
     //method check if filter clear button is displayed
     public boolean filterClearBtnIsDisplayed() {
-        return isDisplayed(clearFiltersBtn, 20);
+        return isDisplayed(clearFiltersBtn, 10);
     }
 
     //method check if filter apply button is displayed
     public boolean filterApplyBtnIsDisplayed() {
-        return isDisplayed(applyFilterBtn, 20);
+        return isDisplayed(applyFilterBtn, 10);
     }
 
     //method check if filter close (X) button is displayed
     public boolean filterCloseBtnIsDisplayed() {
-        return isDisplayed(closeFilterBtn, 20);
+        return isDisplayed(closeFilterBtn, 10);
     }
     //</editor-fold>
 
@@ -779,6 +795,21 @@ public class AffiliatePage extends MethodHandles {
     public boolean clickFrowardPageBtn() {
         return clickElement(frowardPageBtn);
     }
+
+    //method to click first affiliate options button
+    public boolean clickFirstAffiliateOptionsBtn() {
+        return clickElement(firstAffiliateOptionsBtn);
+    }
+
+    //method to click first affiliate edit button
+    public boolean clickFirstAffiliateEditBtn() {
+        return clickElement(firstAffiliateEditBtn);
+    }
+
+    //method to click first affiliate delete button
+    public boolean clickFirstAffiliateDeleteBtn() {
+        return clickElement(firstAffiliateDeleteBtn);
+    }
     //</editor-fold>
 
     //<editor-fold desc="Add affiliate click methods">
@@ -871,6 +902,11 @@ public class AffiliatePage extends MethodHandles {
     //method to get first affiliate max users count in table
     public String getFirstAffiliateMaxUsers() {
         return getElementText(firstAffiliateMaxUsers);
+    }
+
+    //method to get first affiliate status in table
+    public String getFirstAffiliateStatus() {
+        return getElementText(firstAffiliateStatus);
     }
     //</editor-fold>
 
