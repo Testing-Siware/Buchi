@@ -14,11 +14,7 @@ public class AffiliatePage extends MethodHandles {
         PageFactory.initElements(driver, this);
     }
 
-    //test2 commit from si-ware account!!
-    public void testAccount() {
-        
-    }
-
+    
     /************************Allocators*****************************/
     //<editor-fold desc="Affiliates page allocators">
     //sidebar button expands and collapses it
