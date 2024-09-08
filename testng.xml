@@ -6,7 +6,7 @@
             <class name="base.MainTestRunner"></class>
             <class name="base.LoginModule"></class>
             <class name="base.UsersModule"></class>
-
+<!--            <class name="base.deleteUsers"></class>-->
 
         </classes>
     </test>

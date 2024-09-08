@@ -201,7 +201,7 @@ public class LoginModule {
     }
 
     @Test(priority = 7)
-    public void loginWithPSupport() throws  InterruptedException {
+    public void loginWithSupport() throws  InterruptedException {
         loginPage.EnterEmailField(Credentials.supportUsername);
         loginPage.ClickLoginNextButton();
         loginPage.EnterPasswordField(Credentials.supportPassword);

@@ -105,7 +105,23 @@ public class HomePage extends MethodHandles {
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[8]/div")
     private WebElement helpAndSupportSidebarBtn;
 
-    ////////////////////////Click Methods////////////////////////
+    //users sidebar button for superadmin
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[3]/div")
+    private WebElement usersSidebarBtnSuperAdmin;
+
+    //users sidebar button for superadmin
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[7]/div")
+    private WebElement usersSidebarBtnAdmin;
+
+
+    ///////////////////////////////////////Click Methods///////////////////////////////////////
+    public boolean clickUsersSidebarBtnAdmin(){
+        return clickElement(usersSidebarBtnAdmin);
+    }
+
+    public boolean clickUsersSidebarBtnSuperAdmin(){
+        return clickElement(usersSidebarBtnSuperAdmin);
+    }
     public boolean clickSideBarBtn(){
         return clickElement(sideBarBtn);
     }
