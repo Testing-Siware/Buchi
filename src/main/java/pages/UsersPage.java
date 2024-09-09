@@ -24,6 +24,14 @@ public class UsersPage extends MethodHandles {
     @FindBy(id="search")
     private WebElement searchField;
 
+    //confirm delete button
+    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    private WebElement confirmDeleteBtn;
+
+    //confirm edit button
+    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    private WebElement confirmEditBtn;
+
     //search button to fetch searched results
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
     private WebElement searchBtn;
@@ -68,9 +76,21 @@ public class UsersPage extends MethodHandles {
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
     private WebElement filteredEmail;
 
+    //created at of first user in search result
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[6]")
+    private WebElement filteredCreatedAt;
+
+    //modified at of first user in search result
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]")
+    private WebElement filteredModifiedAt;
+
     //actions button to edit or delete user
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[8]/button")
     private WebElement actionsBtn;
+
+    //actions button to edit or delete user when logged in with admin
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]/button")
+    private WebElement actionsBtnAdmin;
 
     //option to edit user from actions button dropdown
     @FindBy(xpath = "/html/body/div[2]/div/div[1]")
@@ -99,6 +119,30 @@ public class UsersPage extends MethodHandles {
     //clear any sorting
     @FindBy(xpath = "/html/body/div[2]/div/div[7]")
     private WebElement clearSortingOption;
+
+    //second user in table name
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]")
+    private WebElement secondUsername;
+
+    //email of second user in table name
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[5]")
+    private WebElement secondUserEmail;
+
+    //second user created at
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[5]")
+    private WebElement secondUserCreatedAt;
+
+    //second user modified at
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[7]")
+    private WebElement secondUserModifiedAt;
+
+    //sort ascending button for any column
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    private WebElement sortAscOption;
+
+    //sort descending button for any column
+    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    private WebElement sortDescOption;
 
     ///////////////////////////////////////Add User Page///////////////////////////////////////
 
@@ -129,6 +173,9 @@ public class UsersPage extends MethodHandles {
     //password confirm field
     @FindBy(id = "passwordConfirmation")
     private WebElement confirmPasswordTextField;
+
+    @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
+    private WebElement cancelDeleteBtn;
 
     //error message if first name is invalid
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[1]/div[2]/span")
@@ -174,9 +221,47 @@ public class UsersPage extends MethodHandles {
     @FindBy(id="isPasswordRequired" )
     private WebElement createPasswordOnBehalfCheckBox;
 
+    //image appears when search or filter don't return results
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/div/div/img")
+    private WebElement noResultsImg;
+
+    //clear search field icon
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[2]/form/div/div/div/div/div/svg")
+    private WebElement clearSearchIcon;
+
+    //sort by email button
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[5]/div/div/div")
+    private WebElement sortByEmail;
+
+    //sort by created at button
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[6]/div/div/div")
+    private WebElement sortByCreatedAt;
+
+    //sort by modified at button
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[7]/div/div/div")
+    private WebElement sortByModifiedAt;
+
+    //sort by name button
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
+    private WebElement sortByName;
+
     ///////////////////////////////////////Click Methods///////////////////////////////////////
+
+
     public boolean clickAddUserBtn() {
         return clickElement(addUserBtn);
+    }
+
+    public boolean clickConfirmDeleteBtn(){
+        return clickElement(confirmDeleteBtn);
+    }
+
+    public boolean clickConfirmEditBtn(){
+        return clickElement(confirmEditBtn);
+    }
+
+    public boolean clickCancelDeleteBtn(){
+        return clickElement(cancelDeleteBtn);
     }
 
     public boolean clickSearchBtn() {
@@ -207,6 +292,9 @@ public class UsersPage extends MethodHandles {
         return clickElement(actionsBtn);
     }
 
+    public boolean clickActionsBtnAdmin(){
+        return clickElement(actionsBtnAdmin);
+    }
     public boolean clickEditUserOption() {
         return clickElement(editUserOption);
     }
@@ -243,9 +331,34 @@ public class UsersPage extends MethodHandles {
         return clickElement(resetBtn);
     }
 
+    public boolean clickSortByEmailBtn(){
+        return clickElement(sortByEmail);
+    }
+
+    public boolean clickSortByCreatedAtBtn(){
+        return clickElement(sortByCreatedAt);
+    }
+
+    public boolean clickSortByModifiedAtBtn(){
+        return clickElement(sortByModifiedAt);
+    }
+
+    public boolean clickSortByName(){
+        return clickElement(sortByName);
+    }
+
     public boolean clickPasswordOnBehalfCheckbox(){
         return clickElement(createPasswordOnBehalfCheckBox);
     }
+
+    public boolean clickSortAscBtn(){
+        return clickElement(sortAscOption);
+    }
+
+    public boolean clickSortDescBtn(){
+        return clickElement(sortDescOption);
+    }
+
     ///////////////////////////////////////Get Text Methods///////////////////////////////////////
     public String getFilteredUserNameText() {
         return getElementText(filteredUserName);
@@ -253,6 +366,14 @@ public class UsersPage extends MethodHandles {
 
     public String getFilteredEmailText() {
         return getElementText(filteredEmail);
+    }
+
+    public String getFilteredCreatedAtText() {
+        return getElementText(filteredCreatedAt);
+    }
+
+    public String getFilteredModifiedAtText() {
+        return getElementText(filteredModifiedAt);
     }
 
     public String getFifthColumnHeaderText() {
@@ -285,6 +406,22 @@ public class UsersPage extends MethodHandles {
 
     public String getConfirmPasswordErrorMsg(){
         return getElementText(confirmPasswordErrorMsg);
+    }
+
+    public String getSecondUsernameText(){
+        return getElementText(secondUsername);
+    }
+
+    public String getSecondEmailText(){
+        return getElementText(secondUserEmail);
+    }
+
+    public String getSecondCreatedAtText(){
+        return getElementText(secondUserCreatedAt);
+    }
+
+    public String getSecondModifiedAtText(){
+        return getElementText(secondUserModifiedAt);
     }
 
     ///////////////////////////////////////send Text Methods///////////////////////////////////////
@@ -346,6 +483,17 @@ public class UsersPage extends MethodHandles {
     }
 
     public boolean clearPasswordField(){return clearText(passwordTextField);}
+
+    public boolean clearSearchField(){return clearText(searchField);}
+
+    ///////////////////////////////////////isDisplayed Methods///////////////////////////////////////
+    public boolean isFifthColumnHeaderDisplayed(){
+        return isDisplayed(fifthColumnHeader,10);
+    }
+
+    public boolean isSearchResultsDisplayed(){
+        return isDisplayed(filteredUserName,10);
+    }
 
 
 }
