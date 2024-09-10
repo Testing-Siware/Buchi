@@ -192,6 +192,185 @@ public class RecipePage extends MethodHandles {
     private WebElement filterCloseBtn;
     //</editor-fold>
 
+    //<editor-fold desc = "Allocators for recipe parameters page">
+    //recipe page title
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[1]/div[1]/div[1]/h4")
+    private WebElement recipeParametersPageTitle;
+
+    //parameter search field
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/form/div/div/div/div/div/input")
+    private WebElement recipeParameterSearchField;
+
+    //search button
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/form/div/button")
+    private WebElement recipeParametersSearchBtn;
+
+    //add parameter button
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[1]/div[1]/div[2]/button")
+    private WebElement addParameterBtn;
+
+    //rows per page field
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[1]/div[2]/div/div/div[1]/div[2]/input")
+    private WebElement recipeParametersRowsPerPage;
+
+    //back page button
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[1]")
+    private WebElement recipeParametersBackPageBtn;
+
+    //back row button
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[2]")
+    private WebElement recipeParametersBckRowBtn;
+
+    //froward row button
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[3]")
+    private WebElement recipeParametersFrowardRowBtn;
+
+    //froward page button
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[4]")
+    private WebElement recipeParametersFrowardPageBtn;
+
+    //filter button in recipe parameters page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/div/div/button")
+    private WebElement filterRecipeParametersBtn;
+
+    //recipe parameters filter window title
+    @FindBy(xpath = "/html/body/div[3]/div/h4")
+    private WebElement recipeParametersFilterWindowTitle;
+
+    //name text field in recipe parameters filter window
+    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    private WebElement recipeParametersFilterName;
+
+    //created at text field in recipe parameters filter window
+    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[2]/div/input")
+    private WebElement recipeParametersFilterCreatedAt;
+
+    //created by text field in recipe parameters filter window
+    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[3]/div/div/div[1]/div[2]/input")
+    private WebElement recipeParametersFilterCreatedBy;
+
+    //cancel filter button in recipe parameters filter window
+    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    private WebElement recipeParametersCancelFilterBtn;
+
+    //clear filter button in recipe parameters filter window
+    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    private WebElement recipeParametersClearFilterBtn;
+
+    //apply filter button in recipe parameters filter window
+    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    private WebElement recipeParametersApplyFilterBtn;
+
+    //close filter button in recipe parameters filter window
+    @FindBy(xpath = "/html/body/div[3]/button/svg")
+    private WebElement recipeParametersCloseFilterBtn;
+
+    //view button in recipe parameters page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/div/button")
+    private WebElement viewRecipeParametersBtn;
+
+    //toggle to location view
+    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
+    private WebElement toggleToLocationViewRP;
+
+    //toggle to slope view
+    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    private WebElement toggleToSlopeViewRP;
+
+    //toggle to min view
+    @FindBy(xpath = "/html/body/div[2]/div/div[5]")
+    private WebElement toggleToMinViewRP;
+
+    //toggle to max view
+    @FindBy(xpath = "/html/body/div[2]/div/div[6]")
+    private WebElement toggleToMaxViewRP;
+
+    //toggle to mahalanobis view
+    @FindBy(xpath = "/html/body/div[2]/div/div[7]")
+    private WebElement toggleToMahalanobisViewRP;
+
+    //toggle to created by view
+    @FindBy(xpath = "/html/body/div[2]/div/div[8]")
+    private WebElement toggleToCreatedByViewRP;
+
+    //toggle to created at view
+    @FindBy(xpath = "/html/body/div[2]/div/div[9]")
+    private WebElement toggleToCreatedAtViewRP;
+
+    //clear any pinning view option
+    @FindBy(xpath = "/html/body/div[2]/div/div[11]")
+    private WebElement clearPinningViewRP;
+
+    //clear any sorting view option
+    @FindBy(xpath = "/html/body/div[2]/div/div[12]")
+    private WebElement clearSortingViewRP;
+
+    //name sorting button in recipe parameters page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
+    private WebElement nameSortingRPBtn;
+
+    //sorting name column in recipe parameters page Asc
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    private WebElement sortingRPNameAsc;
+
+    //sorting name column in recipe parameters page Desc
+    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    private WebElement sortingRPNameDesc;
+
+    //pin name column in recipe parameters page
+    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    private WebElement pinRPName;
+
+    //sorting alias button in recipe parameters page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/thead/tr/th[3]/div/div/div")
+    private WebElement aliasSortingRPBtn;
+
+    //sorting alias column in recipe parameters page Asc
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    private WebElement sortingRPAliasAsc;
+
+    //sorting alias column in recipe parameters page Desc
+    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    private WebElement sortingRPAliasDesc;
+
+    //sorting parameter alias button in recipe parameters page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/thead/tr/th[4]/div/div/div")
+    private WebElement parameterAliasSortingRPBtn;
+
+    //sorting parameter alias column in recipe parameters page Asc
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    private WebElement sortingRPParameterAliasAsc;
+
+    //sorting parameter alias column in recipe parameters page Desc
+    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    private WebElement sortingRPParameterAliasDesc;
+
+    //first row name in recipe parameter page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div/p")
+    private WebElement firstRowNameRP;
+
+    //first row alias in recipe parameter page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[3]/div/p")
+    private WebElement firstRowAliasRP;
+
+    //first row parameter alias in recipe parameter page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[4]/div/p")
+    private WebElement firstRowParameterAliasRP;
+
+    //first row bias in recipe parameter page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[5]/div/p")
+    private WebElement firstRowBiasRP;
+
+    //first row actions button in recipe parameter page
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[6]/button")
+    private WebElement firstRowActionsBtn;
+
+    //first row view calibration files action
+    @FindBy(xpath = "/html/body/div[2]/div/div")
+    private WebElement firstRowViewCalibrationActions;
+    //</editor-fold
+
+
     /************************Is Displayed Methods*****************************/
     //<editor-fold desc = "Is displayed methods for recipe page">
     //method check if recipe page title is displayed
@@ -332,38 +511,135 @@ public class RecipePage extends MethodHandles {
     }
 
     //method check if filter name text field is displayed
-    public boolean filterNameTxtField() {
+    public boolean filterNameTxtFieldIsDisplayed() {
         return isDisplayed(filterName, 10);
     }
 
     //method check if filter created at text field is displayed
-    public boolean filterCreatedAtTxtField() {
+    public boolean filterCreatedAtTxtFieldIsDisplayed() {
         return isDisplayed(filterCreatedAt, 10);
     }
 
     //method check if filter affiliate text field is displayed
-    public boolean filterAffiliateTxtField() {
+    public boolean filterAffiliateTxtFieldIsDisplayed() {
         return isDisplayed(filterAffiliate, 10);
     }
 
     //method check if filter cancel button is displayed
-    public boolean filterCancelBtn() {
+    public boolean filterCancelBtnIsDisplayed() {
         return isDisplayed(filterCancelBtn, 10);
     }
 
     //method check if filter clear button is displayed
-    public boolean filterClearBtn() {
+    public boolean filterClearBtnIsDisplayed() {
         return isDisplayed(filterClearBtn, 10);
     }
 
     //method check if filter apply button is displayed
-    public boolean filterApplyBtn() {
+    public boolean filterApplyBtnIsDisplayed() {
         return isDisplayed(filterApplyBtn, 10);
     }
 
     //method check if filter close button is displayed
-    public boolean filterCloseBtn() {
+    public boolean filterCloseBtnIsDisplayed() {
         return isDisplayed(filterCloseBtn, 10);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc = "Is displayed methods for recipe parameters page">
+    //method check if recipe parameters title is displayed
+    public boolean recipeParameterPageTitleIsDisplayed() {
+        return isDisplayed(recipeParametersPageTitle, 10);
+    }
+
+    //method check if recipe parameters search text field is displayed
+    public boolean recipeParametersSearchTextFieldIsDisplayed() {
+        return isDisplayed(recipeParameterSearchField, 10);
+    }
+
+    //method check if search button is displayed
+    public boolean recipeParametersSearchBtnIsDisplayed() {
+        return isDisplayed(recipeParametersSearchBtn, 10);
+    }
+
+    //method check if rows per page in recipe page is displayed
+    public boolean recipeParametersRowsPerPageIsDisplayed() {
+        return isDisplayed(recipeParametersRowsPerPage, 10);
+    }
+
+    //method check if back page button in recipe page is displayed
+    public boolean recipeParametersBackPageBtnIsDisplayed() {
+        return isDisplayed(recipeParametersBackPageBtn, 10);
+    }
+
+    //method check if back row button in recipe page is displayed
+    public boolean recipeParametersBckRowBtnIsDisplayed() {
+        return isDisplayed(recipeParametersBckRowBtn, 10);
+    }
+
+    //method check if froward row button in recipe page is displayed
+    public boolean recipeParametersFrowardRowBtnIsDisplayed() {
+        return isDisplayed(recipeParametersFrowardRowBtn, 10);
+    }
+
+    //method check if froward row button in recipe page is displayed
+    public boolean recipeParametersFrowardPageBtnIsDisplayed() {
+        return isDisplayed(recipeParametersFrowardPageBtn, 10);
+    }
+
+    //method check if add parameter button in recipe page is displayed
+    public boolean addParameterBtnIsDisplayed() {
+        return isDisplayed(addParameterBtn, 10);
+    }
+
+    //method check if filter button in recipe page is displayed
+    public boolean filterRecipeParametersBtnIsDisplayed() {
+        return isDisplayed(filterRecipeParametersBtn, 10);
+    }
+
+    //method check if recipe page filter window title is displayed
+    public boolean recipeParametersFilterWindowTitleIsDisplayed() {
+        return isDisplayed(recipeParametersFilterWindowTitle, 10);
+    }
+
+    //method check if filter name text field in recipe page is displayed
+    public boolean recipeParametersFilterNameIsDisplayed() {
+        return isDisplayed(recipeParametersFilterName, 10);
+    }
+
+    //method check if filter created at text field in recipe page is displayed
+    public boolean recipeParametersFilterCreatedAtIsDisplayed() {
+        return isDisplayed(recipeParametersFilterCreatedAt, 10);
+    }
+
+    //method check if filter created by text field in recipe page is displayed
+    public boolean recipeParametersFilterCreatedByIsDisplayed() {
+        return isDisplayed(recipeParametersFilterCreatedBy, 10);
+    }
+
+    //method check if filter cancel button in recipe parameters filter window is displayed
+    public boolean recipeParametersCancelFilterBtnIsDisplayed() {
+        return isDisplayed(recipeParametersCancelFilterBtn, 10);
+    }
+
+    //method check if filter clear button in recipe parameters filter window is displayed
+    public boolean recipeParametersClearFilterBtnIsDisplayed() {
+        return isDisplayed(recipeParametersClearFilterBtn, 10);
+    }
+
+    //method check if filter apply button in recipe parameters filter window is displayed
+    public boolean recipeParametersApplyFilterBtnIsDisplayed() {
+        return isDisplayed(recipeParametersApplyFilterBtn, 10);
+    }
+
+    //method check if filter close button in recipe parameters filter window is displayed
+    public boolean recipeParametersCloseFilterBtnIsDisplayed() {
+        return isDisplayed(recipeParametersCloseFilterBtn, 10);
+    }
+
+    //method check if view button in recipe page is displayed
+    public boolean viewRecipeParametersBtnIsDisplayed() {
+        return isDisplayed(viewRecipeParametersBtn, 10);
     }
     //</editor-fold>
 
@@ -559,6 +835,193 @@ public class RecipePage extends MethodHandles {
     }
     //</editor-fold>
 
+    //<editor-fold desc = "Click methods for recipe parameters page">
+    //method to click recipe parameters search field
+    public boolean clickRecipeParametersSearchField() {
+        return clickElement(recipeParameterSearchField);
+    }
+
+    //method to click recipe parameters search button
+    public boolean clickRecipeParametersSearchBtn() {
+        return clickElement(recipeParametersSearchBtn);
+    }
+
+    //method to click add parameter button in recipe parameters page
+    public boolean clickAddParameterBtn() {
+        return clickElement(addParameterBtn);
+    }
+
+    //method to click back page button in recipe parameters page
+    public boolean clickRecipeParametersBackPageBtn() {
+        return clickElement(recipeParametersBackPageBtn);
+    }
+
+    //method to click back row button in recipe parameters page
+    public boolean clickRecipeParametersBackRowBtn() {
+        return clickElement(recipeParametersBckRowBtn);
+    }
+
+    //method to click froward row button in recipe parameters page
+    public boolean clickRecipeParametersFrowardRowBtn() {
+        return clickElement(recipeParametersFrowardRowBtn);
+    }
+
+    //method to click froward page button in recipe parameters page
+    public boolean clickRecipeParametersFrowardPageBtn() {
+        return clickElement(recipeParametersFrowardPageBtn);
+    }
+
+    //method to click filter button in recipe parameters page
+    public boolean clickFilterRecipeParametersBtn() {
+        return clickElement(filterRecipeParametersBtn);
+    }
+
+    //method to click view button in recipe parameters page
+    public boolean clickViewRecipeParametersBtn() {
+        return clickElement(viewRecipeParametersBtn);
+    }
+
+    //method to click filter name text field in recipe parameters page
+    public boolean clickRecipeParametersFilterName() {
+        return clickElement(recipeParametersFilterName);
+    }
+
+    //method to click filter created at text field in recipe parameters page
+    public boolean clickRecipeParametersFilterCreatedAt() {
+        return clickElement(recipeParametersFilterCreatedAt);
+    }
+
+    //method to click filter created by text field in recipe parameters page
+    public boolean clickRecipeParametersFilterCreatedBy() {
+        return clickElement(recipeParametersFilterCreatedBy);
+    }
+
+    //method to click filter cancel button in recipe parameters filter window
+    public boolean ClickRecipeParametersCancelFilterBtn() {
+        return clickElement(recipeParametersCancelFilterBtn);
+    }
+
+    //method to click filter clear button in recipe parameters filter window
+    public boolean ClickRecipeParametersClearFilterBtn() {
+        return clickElement(recipeParametersClearFilterBtn);
+    }
+
+    //method to click filter apply button in recipe parameters filter window
+    public boolean ClickRecipeParametersApplyFilterBtn() {
+        return clickElement(recipeParametersApplyFilterBtn);
+    }
+
+    //method to click filter close button in recipe parameters filter window
+    public boolean ClickRecipeParametersCloseFilterBtn() {
+        return clickElement(recipeParametersCloseFilterBtn);
+    }
+
+    //method to click toggle to location view option in recipe parameters
+    public boolean ClickToggleToLocationViewRPOption() {
+        return clickElement(toggleToLocationViewRP);
+    }
+
+    //method to click toggle to slop view option in recipe parameters
+    public boolean ClickToggleToSlopViewRPOption() {
+        return clickElement(toggleToSlopeViewRP);
+    }
+
+    //method to click toggle to min view option in recipe parameters
+    public boolean ClickToggleToMinViewRPOption() {
+        return clickElement(toggleToMinViewRP);
+    }
+
+    //method to click toggle to max view option in recipe parameters
+    public boolean ClickToggleToMaxViewRPOption() {
+        return clickElement(toggleToMaxViewRP);
+    }
+
+    //method to click toggle to mahalanobis view option in recipe parameters
+    public boolean ClickToggleToMahalanobisViewRPOption() {
+        return clickElement(toggleToMahalanobisViewRP);
+    }
+
+    //method to click toggle to create at view option in recipe parameters
+    public boolean ClickToggleToCreateAtViewRPOption() {
+        return clickElement(toggleToCreatedAtViewRP);
+    }
+
+    //method to click toggle to create by view option in recipe parameters
+    public boolean ClickToggleToCreateByViewRPOption() {
+        return clickElement(toggleToCreatedByViewRP);
+    }
+
+    //method to click clear pinning view option in recipe parameters
+    public boolean ClickClearPinningViewRPViewRPOption() {
+        return clickElement(clearPinningViewRP);
+    }
+
+    //method to click clear sorting view option in recipe parameters
+    public boolean ClickClearSortingViewRPViewRPOption() {
+        return clickElement(clearSortingViewRP);
+    }
+
+    //method to click sorting name button in recipe parameters
+    public boolean ClickSortingNameRPBtn() {
+        return clickElement(nameSortingRPBtn);
+    }
+
+    //method to click sorting name Asc option in recipe parameters
+    public boolean ClickSortingNameAscRP() {
+        return clickElement(sortingRPNameAsc);
+    }
+
+    //method to click sorting name Desc option in recipe parameters
+    public boolean ClickSortingNameDescRP() {
+        return clickElement(sortingRPNameDesc);
+    }
+
+    //method to click pin name column option in recipe parameters
+    public boolean ClickPinNameRP() {
+        return clickElement(pinRPName);
+    }
+
+    //method to click sorting alias button in recipe parameters
+    public boolean ClickSortingAliasRPBtn() {
+        return clickElement(aliasSortingRPBtn);
+    }
+
+    //method to click sorting alias Asc option in recipe parameters
+    public boolean ClickSortingAliasAscRP() {
+        return clickElement(sortingRPAliasAsc);
+    }
+
+    //method to click sorting alias Desc option in recipe parameters
+    public boolean ClickSortingAliasDescRP() {
+        return clickElement(sortingRPAliasDesc);
+    }
+
+    //method to click sorting parameter alias button in recipe parameters
+    public boolean ClickSortingParameterAliasRPBtn() {
+        return clickElement(parameterAliasSortingRPBtn);
+    }
+
+    //method to click sorting parameter alias Asc option in recipe parameters
+    public boolean ClickSortingParameterAliasAscRP() {
+        return clickElement(sortingRPParameterAliasAsc);
+    }
+
+    //method to click sorting parameter alias Desc option in recipe parameters
+    public boolean ClickSortingParameterAliasDescRP() {
+        return clickElement(sortingRPParameterAliasDesc);
+    }
+
+    //method to click actions button in recipe parameters
+    public boolean ClickFirstRowActionsBtnRP() {
+        return clickElement(firstRowActionsBtn);
+    }
+
+    //method to click view calibration files action in recipe parameters
+    public boolean ClickFirstRowViewCalFilesOptionRP() {
+        return clickElement(firstRowViewCalibrationActions);
+    }
+    //</editor-fold
+
 
     /************************Get Text Methods*****************************/
     //<editor-fold desc = "Get text methods for recipe page">
@@ -609,6 +1072,58 @@ public class RecipePage extends MethodHandles {
         return getElementText(filterAffiliate);
     }
     //</editor-fold>
+
+    //<editor-fold desc = "Get text methods for recipe parameters page">
+    //method to get recipe parameters page title
+    public String getRecipeParametersTitle() {
+        return getElementText(recipeParametersPageTitle);
+    }
+
+    //method to get text from recipe parameters search field
+    public String getRecipeParameterSearchFieldText() {
+        return getElementText(recipeParameterSearchField);
+    }
+
+    //method to get recipe parameters filter window title
+    public String getRecipeParametersFilterWindowTitle() {
+        return getElementText(recipeParametersFilterWindowTitle);
+    }
+
+    //method to get recipe parameters filter name text field
+    public String getRecipeParametersFilterName() {
+        return getElementText(recipeParametersFilterName);
+    }
+
+    //method to get recipe parameters filter created at text field
+    public String getRecipeParametersFilterCreatedAt() {
+        return getElementText(recipeParametersFilterCreatedAt);
+    }
+
+    //method to get recipe parameters filter created by text field
+    public String getRecipeParametersFilterCreatedBy() {
+        return getElementText(recipeParametersFilterCreatedBy);
+    }
+
+    //method to get first row name in recipe parameters page
+    public String getFirstRowNameRP() {
+        return getElementText(firstRowNameRP);
+    }
+
+    //method to get first row alias in recipe parameters page
+    public String getFirstRowAliasRP() {
+        return getElementText(firstRowAliasRP);
+    }
+
+    //method to get first row parameter alias in recipe parameters page
+    public String getFirstRowParameterAliasRP() {
+        return getElementText(firstRowParameterAliasRP);
+    }
+
+    //method to get first row bias in recipe parameters page
+    public String getFirstRowBiasRP() {
+        return getElementText(firstRowBiasRP);
+    }
+    //</editor-fold
 
 
     /************************Set And Reset Text Methods*****************************/
@@ -663,6 +1178,58 @@ public class RecipePage extends MethodHandles {
     //method to reset filter affiliate field
     public boolean resetFilterAffiliateTextField(String text) {
         return clearText(filterAffiliate);
+    }
+    //</editor-fold>
+
+    //<editor-fold desc = "Set and reset methods for recipe parameters page">
+    //method to send text to search field in recipe parameters page
+    public boolean sendTextToRecipeParameterSearchField(String text) {
+        return sendTextToElement(recipeParameterSearchField, text);
+    }
+
+    //method to clear rows per page field text in recipe parameters page
+    public boolean resetRecipeParameterSearchField() {
+        return clearText(recipeParameterSearchField);
+    }
+
+    //method to send text to rows per page field in recipe parameters page
+    public boolean sendTextToRecipeParametersRowsPerPageField(String text) {
+        return sendTextToElement(recipeParametersRowsPerPage, text);
+    }
+
+    //method to clear rows per page field text in recipe parameters page
+    public boolean resetRecipeParametersRowsPerPageField() {
+        return clearText(recipeParametersRowsPerPage);
+    }
+
+    //method to send text to recipe parameters filter name text field
+    public boolean sendTextToRecipeParametersFilterNameField(String text) {
+        return sendTextToElement(recipeParametersFilterName, text);
+    }
+
+    //method to clear recipe parameters filter name text field
+    public boolean resetRecipeParametersFilterNameField() {
+        return clearText(recipeParametersFilterName);
+    }
+
+    //method to send text to recipe parameters filter created at text field
+    public boolean sendTextToRecipeParametersFilterCreatedAtField(String text) {
+        return sendTextToElement(recipeParametersFilterCreatedAt, text);
+    }
+
+    //method to clear recipe parameters filter created at text field
+    public boolean resetRecipeParametersFilterCreatedAtField() {
+        return clearText(recipeParametersFilterCreatedAt);
+    }
+
+    //method to send text to recipe parameters filter created by text field
+    public boolean sendTextToRecipeParametersFilterCreatedByField(String text) {
+        return sendTextToElement(recipeParametersFilterCreatedBy, text);
+    }
+
+    //method to clear recipe parameters filter created by text field
+    public boolean resetRecipeParametersFilterCreatedByField() {
+        return clearText(recipeParametersFilterCreatedBy);
     }
     //</editor-fold>
 }
