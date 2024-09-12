@@ -17,11 +17,14 @@ public class MethodHandles {
     Actions scroll;
     ChromeDriver driver;
 
-    @FindBy(xpath = "/html/body/div/div[3]/div/div/div[1]/div")
+    @FindBy(xpath = "/html/body/div/div[2]/div/div/div[2]/div")
     private WebElement alertMessage;
+
+
 
     @FindBy(xpath = "//*[@id=\"main-sidebar\"]/div[3]")
     private WebElement sideBar;
+
 
     private final By loader = By.cssSelector("");
     public MethodHandles(ChromeDriver driver){

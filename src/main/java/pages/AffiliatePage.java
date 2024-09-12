@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
@@ -118,7 +119,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement searchBtn;
 
     //filter button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
     private WebElement filterBtn;
 
     //views button
@@ -158,7 +159,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement pinColumn;
 
     //max users sorting
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[5]")
+    @FindBy(xpath = "/html/body/div[1]/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[4]/div/div/div")
     private WebElement usersCountSortingBtn;
 
     //sorting users count asc
@@ -170,15 +171,15 @@ public class AffiliatePage extends MethodHandles {
     private WebElement sortingUsersCountDesc;
 
     //name of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div/p")
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div")
     private WebElement firstAffiliateName;
 
     //type of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[3]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr/td[3]/div")
     private WebElement firstAffiliateType;
 
     //users count of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[4]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
     private WebElement firstAffiliateUsersCount;
 
     //max users count of first affiliate in the table
@@ -190,7 +191,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement firstAffiliateStatus;
 
     //option of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr/td[7]/button")
     private WebElement firstAffiliateOptionsBtn;
 
     //edit option of first affiliate in the table
@@ -244,7 +245,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement affiliateAbbreviation;
 
     //affiliate type
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div/div/div[1]/div[2]/input")
     private WebElement affiliateType;
 
     //cancel button
@@ -981,7 +982,7 @@ public class AffiliatePage extends MethodHandles {
 
     //method to send text to affiliate type text field
     public boolean sendTextToAffiliateTypeTextField(String text) {
-        return sendTextToElement(affiliateType, text);
+        return sendTextToElement(affiliateType, text, Keys.ENTER);
     }
 
     //method to clear affiliate type text field
@@ -1003,7 +1004,7 @@ public class AffiliatePage extends MethodHandles {
 
     //method to send text to filter affiliate type text field
     public boolean sendTextToFilterAffiliateTypeTextField(String text) {
-        return sendTextToElement(filterAffiliateType, text);
+        return sendTextToElement(filterAffiliateType, text,Keys.ENTER);
     }
 
     //method to clear filter affiliate type text field
@@ -1011,4 +1012,95 @@ public class AffiliatePage extends MethodHandles {
         return clearText(filterAffiliateType);
     }
     //</editor-fold>
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////M
+
+    //method to click save affiliate button
+    public boolean clickSaveAffiliateBtn(){return clickElement(saveBtn);}
+
+    //the error message appears under affiliate text field
+    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
+    private WebElement affiliateRequiredErrorMsg;
+
+    //the error message appears under max users text field
+    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
+    private WebElement maxUsersRequiredErrorMsg;
+
+    //the error message appears under type text field
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div[2]/span")
+    private WebElement typeRequiredErrorMsg;
+
+    //the input field to upload image as logo
+    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[1]/div/input")
+    private WebElement uploadAffiliateLogoField;
+
+    //submit affiliate edits button
+    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    private WebElement submitAffiliateEditBtn;
+
+    //second affiliate name
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]/div")
+    private WebElement secondAffiliateName;
+
+    //second afffiliate users count
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[4]/div")
+    private WebElement secondAffiliateUsersCount;
+
+    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    private WebElement confirmDeleteBtn;
+
+    @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
+    private WebElement cancelDeleteBtn;
+
+    public boolean clickCancelDeleteBtn(){
+        return clickElement(cancelDeleteBtn);
+    }
+    public boolean clickConfirmDeleteBtn(){
+        return clickElement(confirmDeleteBtn);
+    }
+    public boolean clickSubmitAffiliateBtn(){
+        return clickElement(submitAffiliateEditBtn);
+    }
+    public String getAffiliateRequiredErrorMsg(){
+        return getElementText(affiliateRequiredErrorMsg);
+    }
+
+    public String getMaxUsersRequiredErrorMsg(){
+        return getElementText(maxUsersRequiredErrorMsg);
+    }
+
+    public String getTypeRequiredErrorMsg(){
+        return getElementText(typeRequiredErrorMsg);
+    }
+
+    public boolean uploadAffiliateLogo(String filePath){
+        try{
+            uploadAffiliateLogoField.sendKeys(filePath);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean clearAffiliateNameTextField(){
+        return clearText(affiliateName);
+    }
+
+    public boolean clearMaxUsersTextField(){
+        return clearText(maxUsers);
+    }
+
+    public boolean clearAbbreviation(){
+        return clearText(affiliateAbbreviation);
+    }
+
+    public String getSecondAffiliateName(){
+        return getElementText(secondAffiliateName);
+    }
+
+    public String getSecondAffiliateUserCount(){
+        return getElementText(secondAffiliateUsersCount);
+    }
 }
