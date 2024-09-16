@@ -18,7 +18,7 @@ public class UsersModule {
     String userEmail;
 
     @Test(priority = 0)
-    public void createInvalidUserySupport() throws InterruptedException {
+    public void createInvalidUserBySupport() throws InterruptedException {
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
 
@@ -265,7 +265,6 @@ public class UsersModule {
 
     }
 
-
     @Test(priority = 0)
     public void createUserBySupport() throws InterruptedException {
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
@@ -328,7 +327,6 @@ public class UsersModule {
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
 
     }
-
 
     @Test(priority = 1)
     public void cancelUserEdits() throws InterruptedException {
