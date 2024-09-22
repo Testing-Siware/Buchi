@@ -37,6 +37,8 @@ public class HomePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[2]/div/div[6]")
     private WebElement signoutBtn;
 
+    @FindBy(xpath = "/html/body/div[2]/div/div[7]")
+    private WebElement signoutBtnAdmin;
     //button to view profile info
     @FindBy(xpath = "/html/body/div[2]/div/div[3]")
     private WebElement securityBtn;
@@ -141,6 +143,9 @@ public class HomePage extends MethodHandles {
 
     public boolean clickSignoutBtn(){
         return clickElement(signoutBtn);
+    }
+    public boolean clickSignoutBtnAdmin(){
+        return clickElement(signoutBtnAdmin);
     }
     public boolean clickSecurityBtn(){
         return clickElement(securityBtn);

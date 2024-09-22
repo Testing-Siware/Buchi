@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
@@ -20,20 +21,25 @@ public class InstrumentsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[1]/h4")
     private WebElement instrumentsPageTitle;
 
+
     //search text field
     @FindBy(id = "search")
     private WebElement searchField;
 
     //search button
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/form/div/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
     private WebElement searchBtn;
 
+    //seventh column header
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[8]/div/div/div")
+    private WebElement eigthColHeader;
+
     //filter button
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/div/div/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
     private WebElement filterBtn;
 
     //view button
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/div/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button")
     private WebElement viewBtn;
 
     //toggle the created at view
@@ -52,6 +58,14 @@ public class InstrumentsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[2]/div/div[7]")
     private WebElement clearSortingOption;
 
+    //second instrument name
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[1]/div")
+    private WebElement secondInstrumentName;
+
+    //second instrument serial
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]/div")
+    private WebElement secondSerialNumber;
+
     //name sorting button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/thead/tr/th[1]/div/div/div")
     private WebElement nameSortingBtn;
@@ -69,7 +83,7 @@ public class InstrumentsPage extends MethodHandles {
     private WebElement pinNameColumn;
 
     //sorting serial number button
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
     private WebElement serialNumberSortingBtn;
 
     //sorting serial number Asc
@@ -81,8 +95,12 @@ public class InstrumentsPage extends MethodHandles {
     private WebElement sortingSerialNumberDesc;
 
     //sorting created by button
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/thead/tr/th[7]/div/div/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[7]/div/div/div")
     private WebElement sortingCreatedByBtn;
+
+    //second created at date
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[7]")
+    private WebElement secondCreatedAtDate;
 
     //sorting created by Asc
     @FindBy(xpath = "/html/body/div[2]/div/div[1]")
@@ -109,39 +127,39 @@ public class InstrumentsPage extends MethodHandles {
     private WebElement hideCreatedAtColumn;
 
     //first row name
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[1]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[1]/div")
     private WebElement firstRowName;
 
     //first row serial number
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div")
     private WebElement firstRowSerialNumber;
 
     //first row type
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[3]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[3]/div")
     private WebElement firstRowType;
 
     //first row affiliate
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[4]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[4]/div")
     private WebElement firstRowAffiliate;
 
     //first row model
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
     private WebElement firstRowModel;
 
     //first row installation point
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[6]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
     private WebElement firstRowInstallationPoint;
 
     //first row created by
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[6]/div")
     private WebElement firstRowCreatedBy;
 
     //first row created at
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[8]/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[8]/div")
     private WebElement firstRowCreatedAt;
 
     //first row options button
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[9]/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[8]/button")
     private WebElement firstRowOptionsBtn;
 
     //first row edit option
@@ -199,10 +217,17 @@ public class InstrumentsPage extends MethodHandles {
     private WebElement applyFilterBtn;
     //</editor-fold>
 
+    //sort by name option
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[1]/div/div/div")
+    private WebElement sortByNameBtn;
+
     //<editor-fold desc="Allocators for edit instrument page">
     //edit page instrument name
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/form/div/div[3]/div/div/div[1]/div/div/div/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[1]/div/div/div/input")
     private WebElement editName;
+
+    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    private WebElement submitEditBtn;
 
     //edit page instrument serial number
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/form/div/div[3]/div/div/div[2]/div/div/div/input")
@@ -213,15 +238,19 @@ public class InstrumentsPage extends MethodHandles {
     private WebElement editType;
 
     //edit page instrument model
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/form/div/div[3]/div/div/div[4]/div/div/div/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div/div/div/input")
     private WebElement editModel;
+
+    //error message appearing under instrument name
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[1]/div[2]/span")
+    private WebElement errorMsgNameRequired;
 
     //edit page instrument installation point
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/form/div/div[3]/div/div/div[2]/div/div/div/input")
     private WebElement editInstallationPoint;
 
     //cancel edit point
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/form/div/div[4]/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[4]/button")
     private WebElement cancelEditBtn;
 
     //reset edit point
@@ -229,7 +258,7 @@ public class InstrumentsPage extends MethodHandles {
     private WebElement resetEditBtn;
 
     //save edit point
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/form/div/div[4]/div/button[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[4]/div/button[2]")
     private WebElement saveEditBtn;
     //</editor-fold>
 
@@ -444,6 +473,10 @@ public class InstrumentsPage extends MethodHandles {
         return clickElement(searchField);
     }
 
+    public boolean clickSortByNameBtn(){
+        return clickElement(sortByNameBtn);
+    }
+
     //method to click Search button
     public boolean clickSearchBtn() {
         return clickElement(searchBtn);
@@ -467,6 +500,10 @@ public class InstrumentsPage extends MethodHandles {
     //method to click toggle last updated at column option
     public boolean clickToggleLastUpdatedAtColumnOption() {
         return clickElement(toggleLastUpdatedAtColumnOption);
+    }
+
+    public boolean clickSubmitEditBtn(){
+        return clickElement(submitEditBtn);
     }
 
     //method to click clear pinning option
@@ -667,6 +704,12 @@ public class InstrumentsPage extends MethodHandles {
         return getElementText(searchField);
     }
 
+    public String getSecondInstrumentNameText(){return getElementText(secondInstrumentName);}
+
+    public String getSecondSerialNumber(){return getElementText(secondSerialNumber);}
+
+    public String getErrorMsgNameRequired(){return getElementText(errorMsgNameRequired);}
+
     //method to get instruments page title text
     public String getInstrumentsPageTitle() {
         return getElementText(instrumentsPageTitle);
@@ -762,6 +805,11 @@ public class InstrumentsPage extends MethodHandles {
     }
     //</editor-fold>
 
+    public String getEigtthColHeaderText(){
+        return getElementText(eigthColHeader);
+    }
+
+    public String getSecondCreatedAtDate(){return getElementText(secondCreatedAtDate);}
 
     /************************Set And Reset Text Methods*****************************/
     //<editor-fold desc="Set And Reset Text methods for instruments page">
@@ -810,7 +858,7 @@ public class InstrumentsPage extends MethodHandles {
 
     //method to send text to filter type text field
     public boolean sendTextToFilterTypeTextField(String text) {
-        return sendTextToElement(filterTypeField, text);
+        return sendTextToElement(filterTypeField, text, Keys.ENTER);
     }
 
     //method to reset filter type text field
@@ -837,7 +885,8 @@ public class InstrumentsPage extends MethodHandles {
 
     //method to reset edit name text field
     public boolean resetEditNameField(String text) {
-        return clearText(editName);
+        editName.clear();
+        return true;
     }
 
     //method to send text to edit serial number text field
@@ -867,7 +916,8 @@ public class InstrumentsPage extends MethodHandles {
 
     //method to reset edit model text field
     public boolean resetEditModelField(String text) {
-        return clearText(editModel);
+        editModel.clear();
+        return true;
     }
 
     //method to send text to edit installation point text field
