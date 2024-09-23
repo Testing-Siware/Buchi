@@ -1,11 +1,14 @@
 package utils;
 
+import data.Credentials;
 import net.sourceforge.tess4j.TesseractException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import pages.HomePage;
+import pages.LoginPage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -263,6 +266,17 @@ public class Helpers {
         JFrame frame = new JFrame();
         File image = makeScreenshot();
         return GetOCR.readScreen(image);
+    }
+
+    public static void loginWithValidUser(ChromeDriver driver,String email,String password) throws  InterruptedException {
+        LoginPage loginPage=new LoginPage(driver);
+        HomePage homePage=new HomePage(driver);
+
+        loginPage.EnterEmailField(email);
+        loginPage.ClickLoginNextButton();
+        loginPage.EnterPasswordField(password);
+        loginPage.ClickSignInButton();
+
     }
 
 }

@@ -33,8 +33,16 @@ public class HomePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div")
     private WebElement profileInfo;
 
-    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    //button to signout from user
+    @FindBy(xpath = "/html/body/div[2]/div/div[6]")
     private WebElement signoutBtn;
+
+    //button to view profile info
+    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
+    private WebElement securityBtn;
+
+    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    private WebElement profileBtn;
 
     //change theme button
     @FindBy(xpath = "//*[@id=\"main-layout\"]/div[1]/div[2]/button[2]")
@@ -105,7 +113,28 @@ public class HomePage extends MethodHandles {
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[8]/div")
     private WebElement helpAndSupportSidebarBtn;
 
-    ////////////////////////Click Methods////////////////////////
+    //users sidebar button for superadmin
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[3]/div")
+    private WebElement usersSidebarBtnSuperAdmin;
+
+    //users sidebar button for superadmin
+    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[7]/div")
+    private WebElement usersSidebarBtnAdmin;
+
+    //affiliates sidebar button for superadmin
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[2]/div")
+    private WebElement affiliateSidebarBtnSuperAdmin;
+
+    ///////////////////////////////////////Click Methods///////////////////////////////////////
+    public boolean clickAffiliateSidebarBtnSuperAdmin(){ return clickElement(affiliateSidebarBtnSuperAdmin);}
+
+    public boolean clickUsersSidebarBtnAdmin(){
+        return clickElement(usersSidebarBtnAdmin);
+    }
+
+    public boolean clickUsersSidebarBtnSuperAdmin(){
+        return clickElement(usersSidebarBtnSuperAdmin);
+    }
     public boolean clickSideBarBtn(){
         return clickElement(sideBarBtn);
     }
@@ -113,6 +142,13 @@ public class HomePage extends MethodHandles {
     public boolean clickSignoutBtn(){
         return clickElement(signoutBtn);
     }
+    public boolean clickSecurityBtn(){
+        return clickElement(securityBtn);
+    }
+    public boolean clickProfileBtn(){
+        return clickElement(profileBtn);
+    }
+
 
     public boolean clickSidebarAnalyticsBtn(){
         return clickElement(analyticsDashboardBtn);
