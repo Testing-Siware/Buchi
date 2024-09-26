@@ -1,5 +1,6 @@
 package pages;
 
+import net.bytebuddy.asm.Advice;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
@@ -105,6 +106,14 @@ public class LoginPage extends MethodHandles {
     public void EnterEmailField(String email){
         wait.until(ExpectedConditions.visibilityOf(EmailField));
         EmailField.sendKeys(email);
+    }
+    public void loginWithCredentials(String username, String password){
+        EnterEmailField(username);
+        ClickLoginNextButton();
+        EnterPasswordField(password);
+        ClickSignInButton();
+
+
     }
 
     public boolean clickResetViaEmailBtn(){return clickElement(resetViaEmailBtn);}

@@ -34,7 +34,7 @@ public class HomePage extends MethodHandles {
     private WebElement profileInfo;
 
     //button to signout from user
-    @FindBy(xpath = "/html/body/div[2]/div/div[6]")
+    @FindBy(xpath = "/html/body/div[2]/div/div[7]/span")
     private WebElement signoutBtn;
 
     //button to view profile info
@@ -93,7 +93,7 @@ public class HomePage extends MethodHandles {
     private WebElement instrumentsSidebarBtn;
 
     //recipes button in sidebar
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[4]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[4]/div/div")
     private WebElement recipesSidebarBtn;
 
     //journals button in sidebar
@@ -163,6 +163,7 @@ public class HomePage extends MethodHandles {
     }
 
     public boolean clickRecipesSidebarBtn(){
+
         return clickElement(recipesSidebarBtn);
     }
 
@@ -189,6 +190,7 @@ public class HomePage extends MethodHandles {
     public boolean clickProfileIconBtn(){
         return clickElement(profileIconBtn);
     }
+
 
     public boolean clickChangeThemeBtn(){
         return clickElement(changeThemeBtn);
