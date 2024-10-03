@@ -188,4 +188,12 @@ public class LoginPage extends MethodHandles {
         AccountRecoveryUsernameFiled.click();
     }
 
+    public void loginWithCredentials(String username, String password){
+       EnterEmailField(username);
+       ClickLoginNextButton();
+        EnterPasswordField(password);
+        ClickSignInButton();
+
+
+    }
 }
