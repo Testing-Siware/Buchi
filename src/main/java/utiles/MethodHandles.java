@@ -134,7 +134,7 @@ public class MethodHandles {
 */
     protected boolean isDisplayed(WebElement element, int time){
        try{
-           invisibilityOfElement(element,10);
+           invisibilityOfElement(element,1);
            explicitWait(element,time);
            return element.isDisplayed();
        }

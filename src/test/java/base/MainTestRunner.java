@@ -31,7 +31,7 @@ public class MainTestRunner {
     @BeforeTest
     public void InitializePortalTest()
     {
-        System.setProperty("webdriver.chrome.driver","src/main/java/utiles/chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver","src/main/java/utiles/chromedriver.exe");
 
         Map<String, Object> chromePrefs = new HashMap<String, Object>();
 
