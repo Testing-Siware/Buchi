@@ -11,7 +11,6 @@ import utiles.MethodHandles;
 public class AffiliatePage extends MethodHandles {
     //constructor
     public AffiliatePage(ChromeDriver driver) {
-        super(driver);
         PageFactory.initElements(driver, this);
     }
 
