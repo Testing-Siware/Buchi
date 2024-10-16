@@ -3,8 +3,6 @@ package base;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import utils.EnvironmentSelector;
@@ -22,7 +20,8 @@ public class MainTestRunner {
     static DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     static Date date = new Date();
     public static String CurrentTestTime = formatter.format(date);
-    static String downloadDir = "/Users/mohamedelgendy/Downloads";
+    public static String  downloadDir = System.getProperty("user.home") + "\\Downloads";
+
 
     static File passwordFile = new File("src/main/resources/createdUserPassword.txt");
 
@@ -36,7 +35,7 @@ public class MainTestRunner {
         Map<String, Object> chromePrefs = new HashMap<String, Object>();
 
         ChromeOptions chromeOptions = new ChromeOptions();
-
+        System.out.println(downloadDir);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--start-maximized");

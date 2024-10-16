@@ -21,7 +21,6 @@ public class MethodHandles {
     private WebElement alertMessage;
 
 
-
     @FindBy(xpath = "//*[@id=\"main-sidebar\"]/div[3]")
     private WebElement sideBar;
 
