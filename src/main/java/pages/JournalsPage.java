@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utiles.MethodHandles;
 
-public class journalsPage extends MethodHandles {
+public class JournalsPage extends MethodHandles {
 
-    journalsPage(WebDriver driver) {
+    public JournalsPage(WebDriver driver) {
         super((ChromeDriver) driver);
         PageFactory.initElements(driver, this);
     }
@@ -31,6 +31,18 @@ public class journalsPage extends MethodHandles {
     //name filter text field
     @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
     private WebElement nameFilterTextField;
+
+    //apply filter button
+    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    private WebElement applyFilterBtn;
+
+    //cancel filter button
+    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    private WebElement cancelFilterBtn;
+
+    //clear filters button
+    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    private WebElement clearFilterBtn;
 
     //view button
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button[1]")
@@ -116,9 +128,10 @@ public class journalsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/div/div[1]/table/tbody/tr[1]/td")
     private WebElement firstInstrument;
 
-    //next button
+    //next button to expand instrument
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/div/div[2]/button")
     private WebElement nextBtn;
+
 
     //-----------------------send text methods-----------------------//
     public boolean sendTextToSearchField(String text) {
@@ -126,7 +139,7 @@ public class journalsPage extends MethodHandles {
     }
 
     public boolean sendTextToNameFilterTextField(String text) {
-        return sendTextToElement(filterBtn, text);
+        return sendTextToElement(nameFilterTextField, text);
     }
 
     //-----------------------clear text methods-----------------------//
@@ -142,6 +155,10 @@ public class journalsPage extends MethodHandles {
     public boolean clickFilterBtn() {
         return clickElement(filterBtn);
     }
+
+    public boolean clickApplyFilterBtn(){return clickElement(applyFilterBtn);}
+
+    public boolean clickClearFilterBtn(){return clickElement(clearFilterBtn);}
 
     public boolean clickToggleAffiliateBtn() {
         return clickElement(toggleAffiliateBtn);
@@ -194,6 +211,8 @@ public class journalsPage extends MethodHandles {
     public boolean clickFirstInstrumentBtn(){
         return clickElement(firstInstrument);
     }
+
+    public boolean clickNextBtn(){return clickElement(nextBtn);}
     //-----------------------get text methods-----------------------//
     public String getFirstRecipeName() {
         return getElementText(firstRecipeName);
