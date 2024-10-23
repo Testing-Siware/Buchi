@@ -102,11 +102,11 @@ public class AffiliatePage extends MethodHandles {
     private WebElement helpAndSupportBtn;
 
     //affiliates page title
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[1]/h4")
+    @FindBy(id = "affiliate-list-add-section-text-content")
     private WebElement affiliatesPageTitle;
 
     //add affiliates button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[2]")
+    @FindBy(id = "affiliate-list-add-section-button")
     private WebElement addAffiliateBtn;
 
     //search field to search by user
@@ -118,11 +118,11 @@ public class AffiliatePage extends MethodHandles {
     private WebElement searchBtn;
 
     //filter button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
+    @FindBy(id = "affiliate-list-table-filter-button")
     private WebElement filterBtn;
 
     //views button
-    @FindBy(xpath = "//html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button")
+    @FindBy(id = "affiliate-list-table-viewing-option-dropdown-trigger")
     private WebElement viewBtn;
 
     //toggle the created at view
@@ -224,7 +224,7 @@ public class AffiliatePage extends MethodHandles {
 
     //<editor-fold desc="Add affiliate page allocators">
     //add affiliates page title
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[1]/div/h3")
+    @FindBy(id = "affiliate-form-container-typography-title")
     private WebElement addAffiliatePageTitle;
 
     //upload logo
@@ -236,11 +236,11 @@ public class AffiliatePage extends MethodHandles {
     private WebElement affiliateName;
 
     //max users field
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[3]/div/div/div/input")
+    @FindBy(id = "affiliate-form-input-maxUsersNumber")
     private WebElement maxUsers;
 
     //abbreviation text field
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[5]/div/div/div/input")
+    @FindBy(id = "affiliate-form-input-abbreviation")
     private WebElement affiliateAbbreviation;
 
     //affiliate type
@@ -248,15 +248,15 @@ public class AffiliatePage extends MethodHandles {
     private WebElement affiliateType;
 
     //cancel button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[4]/button")
+    @FindBy(id = "affiliate-form-container-button-cancel")
     private WebElement cancelBtn;
 
     //reset button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[4]/div/button[1]")
+    @FindBy(id = "affiliate-form-container-button-clear")
     private WebElement resetBtn;
 
     //save button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[4]/div/button[2]")
+    @FindBy(xpath = "affiliate-form-container-button-submit")
     private WebElement saveBtn;
     //</editor-fold>
 
@@ -289,7 +289,6 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[3]/button/svg")
     private WebElement closeFilterBtn;
     //</editor-fold>
-
 
     /************************Is Displayed Methods*****************************/
     //<editor-fold desc="Is displayed methods for affiliates page">
