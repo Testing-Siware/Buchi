@@ -17,7 +17,7 @@ public class UsersPage extends MethodHandles {
     ///////////////////////////////////////Users Homepage///////////////////////////////////////
 
     //new user button
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[2]/button")
+    @FindBy(id = "user-list-add-section-button")
     private WebElement addUserBtn;
 
     //search field to search by user
@@ -37,7 +37,7 @@ public class UsersPage extends MethodHandles {
     private WebElement searchBtn;
 
     //filter button to show filter menu
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
+    @FindBy(id = "user-list-table-filter-button")
     private WebElement filterBtn;
 
     //text field to filter by first name
@@ -65,7 +65,7 @@ public class UsersPage extends MethodHandles {
     private WebElement cancelFiltersBtn;
 
     //views button to view extra columns in grid view
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button")
+    @FindBy(id = "user-list-table-viewing-option-dropdown-trigger")
     private WebElement viewBtn;
 
     //name of first user in search results
@@ -147,11 +147,11 @@ public class UsersPage extends MethodHandles {
     ///////////////////////////////////////Add User Page///////////////////////////////////////
 
     //first name text field
-    @FindBy(id = "firstName")
+    @FindBy(id = "user-create-form-input-firstName")
     private WebElement firstNameTextField;
 
     //last name text field
-    @FindBy(id = "lastName")
+    @FindBy(id = "user-create-form-input-lastName")
     private WebElement lastNameTextField;
 
     //affiliate dropdown list
@@ -163,15 +163,15 @@ public class UsersPage extends MethodHandles {
     private WebElement roleDropDown;
 
     //email text field
-    @FindBy(id= "email")
+    @FindBy(id= "user-create-form-input-email")
     private WebElement emailTextField;
 
     //password field
-    @FindBy(id = "password")
+    @FindBy(id = "user-create-form-input-password")
     private WebElement passwordTextField;
 
     //password confirm field
-    @FindBy(id = "passwordConfirmation")
+    @FindBy(id = "user-create-form-input-passwordConfirmation")
     private WebElement confirmPasswordTextField;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
@@ -206,19 +206,19 @@ public class UsersPage extends MethodHandles {
     private WebElement confirmPasswordErrorMsg;
 
     //button to reset and clear all data entered in all fields
-    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[4]/div/button[1]")
+    @FindBy(id = "user-create-form-container-button-clear")
     private WebElement resetBtn;
 
     //button to cancel and return to users homepage
-    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[4]/button")
+    @FindBy(id = "user-create-form-container-button-cancel")
     private WebElement cancelBtn;
 
     //button to save and create the user
-    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[4]/div/button[2]")
+    @FindBy(id = "user-create-form-container-button-submit")
     private WebElement saveBtn;
 
     //create password on behalf of user checkbox
-    @FindBy(id="isPasswordRequired" )
+    @FindBy(id="user-create-form-checkbox-isPasswordRequired" )
     private WebElement createPasswordOnBehalfCheckBox;
 
     //image appears when search or filter don't return results
@@ -226,7 +226,7 @@ public class UsersPage extends MethodHandles {
     private WebElement noResultsImg;
 
     //clear search field icon
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[2]/form/div/div/div/div/div/svg")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/div/div/div/div/svg")
     private WebElement clearSearchIcon;
 
     //sort by email button
