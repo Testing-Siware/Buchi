@@ -25,6 +25,7 @@ public class AffiliatesModule {
         homePage.clickAffiliateSidebarBtn();
 
         //click add affiliate button
+        affiliatePage.addAffiliateBtnIsDisplayed();
         affiliatePage.clickAddAffiliateBtn();
 
         //click save without adding any data
@@ -56,10 +57,13 @@ public class AffiliatesModule {
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage= new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
 
+        Thread.sleep(1500);
         //navigate to affiliates page
         homePage.clickAffiliateSidebarBtn();
 
         //click add affiliate button
+        Thread.sleep(1000);
+        affiliatePage.addAffiliateBtnIsDisplayed();
         affiliatePage.clickAddAffiliateBtn();
 
         //insert affiliate name

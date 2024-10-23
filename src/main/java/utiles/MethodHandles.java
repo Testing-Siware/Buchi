@@ -51,7 +51,7 @@ public class MethodHandles {
 
     //method to click on element
     public boolean clickElement(WebElement element){
-        wait.until(ExpectedConditions.visibilityOf(element));
+       // wait.until(ExpectedConditions.visibilityOf(element));
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
         return true;

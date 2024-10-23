@@ -106,7 +106,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement affiliatesPageTitle;
 
     //add affiliates button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[2]/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[2]")
     private WebElement addAffiliateBtn;
 
     //search field to search by user
@@ -232,7 +232,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement uploadLogoBtn;
 
     //affiliate name text field
-    @FindBy(xpath = "//*[@id=\"name\"]")
+    @FindBy(id = "affiliate-form-input-name")
     private WebElement affiliateName;
 
     //max users field
