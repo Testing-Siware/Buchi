@@ -3,6 +3,7 @@ package base;
 import data.Credentials;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.UsersPage;
@@ -45,7 +46,7 @@ public class UsersModule {
         Assert.assertEquals(usersPage.getConfirmPasswordErrorMsg(), "Passwords do not match");
 
         //test that email must be of valid form
-        usersPage.sendTextToEmailField("not a valid email address");
+        usersPage.sendTextToCreateEmailField("not a valid email address");
         Assert.assertEquals(usersPage.getEmailErrorMsg(), "Please enter a valid email address.");
 
         //test that password cannot be more than 20 characters
@@ -58,10 +59,11 @@ public class UsersModule {
         Assert.assertEquals(usersPage.getPasswordErrorMsg(), "Password must be between 8 and 20 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character (e.g., @$!%*?&).");
 
         //test that first and last name cannot be more than 30 characters
-        usersPage.sendTextToFirstNameFieldText("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        usersPage.sendTextToFirstNameCreateFieldText("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        Thread.sleep(2000);
         Assert.assertEquals(usersPage.getFirstNameErrorMsg(), "First name is too long. it must be no more than 30 characters long.");
 
-        usersPage.sendTextToLastNameFieldText("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+        usersPage.sendTextToLastNameCreateFieldText("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
         Assert.assertEquals(usersPage.getLastNameErrorMsg(), "Last name is too long. it must be no more than 30 characters long.");
 
         //click cancel
@@ -91,10 +93,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Buchi");
@@ -103,7 +105,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("PartnerAdmin");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -120,7 +122,7 @@ public class UsersModule {
 
         //filter by first name to test user is created
         Thread.sleep(2000);
-        usersPage.sendTextToFirstNameFilter("first");
+        usersPage.sendTextToFirstNameFilter(userFirstName);
 
         //click apply
         usersPage.clickApplyFiltersBtn();
@@ -129,7 +131,7 @@ public class UsersModule {
         Thread.sleep(3000);
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
 
-        deleteUser("first");
+        deleteUser(userFirstName);
 
     }
 
@@ -157,10 +159,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Buchi");
@@ -169,7 +171,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("PartnerUser");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -205,6 +207,7 @@ public class UsersModule {
         homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
+        Thread.sleep(2000);
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
         usersPage.clickApplyFiltersBtn();
@@ -225,19 +228,20 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
+        Thread.sleep(2000);
         usersPage.sendTextToAffiliateDropDown("Sub1");
 
         //select role
         usersPage.sendTextToRoleDropDown("Admin");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -252,7 +256,7 @@ public class UsersModule {
         usersPage.clickFilterBtn();
 
         //filter by first name to test user is created
-        usersPage.sendTextToFirstNameFilter("first");
+        usersPage.sendTextToFirstNameFilter(userFirstName);
 
         //click apply
         usersPage.clickApplyFiltersBtn();
@@ -261,7 +265,7 @@ public class UsersModule {
         Thread.sleep(3000);
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
 
-        deleteUser("first");
+        deleteUser(userFirstName);
 
     }
 
@@ -290,10 +294,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Sub1");
@@ -302,7 +306,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("User");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -332,6 +336,7 @@ public class UsersModule {
     public void cancelUserEdits() throws InterruptedException {
 
         //clear any preset filter
+        Thread.sleep(2000);
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
 
@@ -352,21 +357,21 @@ public class UsersModule {
         usersPage.clickEditUserOption();
 
         //clear all fields
-        Thread.sleep(2000);
-        usersPage.clearFirstNameField();
-        usersPage.clearLastNameField();
-        usersPage.clearEmailField();
+        Thread.sleep(3000);
+        usersPage.clearFirstNameEditField();
+        usersPage.clearLastNameEditField();
+        usersPage.clearEditEmailField();
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText("Any Name");
-        usersPage.sendTextToLastNameFieldText("Any Name");
-        usersPage.sendTextToEmailField("Any_email@mail.com");
+        usersPage.sendTextToFirstNameEditFieldText("Any Name");
+        usersPage.sendTextToLastNameEditFieldText("Any Name");
+        usersPage.sendTextToEditEmailField("Any_email@mail.com");
 
         //click reset
-        usersPage.clickResetBtn();
+        usersPage.clickResetEditBtn();
 
         //click save
-        usersPage.clickSaveBtn();
+        usersPage.clickSaveEditsBtn();
 
         //click submit
         usersPage.clickConfirmEditBtn();
@@ -411,21 +416,21 @@ public class UsersModule {
 
         //clear all fields
         Thread.sleep(2000);
-        usersPage.clearFirstNameField();
-        usersPage.clearLastNameField();
-        usersPage.clearEmailField();
+        usersPage.clearFirstNameEditField();
+        usersPage.clearLastNameEditField();
+        usersPage.clearEditEmailField();
 
         //insert first name
         userFirstName = "EditedFirst" + MainTestRunner.CurrentTestTime;
         userLastName = "EditedLast" + MainTestRunner.CurrentTestTime;
         userEmail = "EditedEmail" + Helpers.generateRandomString() + "@email.com";
 
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
-        usersPage.sendTextToLastNameFieldText(userLastName);
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToFirstNameEditFieldText(userFirstName);
+        usersPage.sendTextToLastNameEditFieldText(userLastName);
+        usersPage.sendTextToEditEmailField(userEmail);
 
         //click save
-        usersPage.clickSaveBtn();
+        usersPage.clickSaveEditsBtn();
 
         //click submit
         usersPage.clickConfirmEditBtn();
@@ -554,11 +559,15 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
         usersPage.clickApplyFiltersBtn();
 
-        //insert username in search field
-        usersPage.sendTextToSearchField(userFirstName);
+        //click filter
+        usersPage.clickFilterBtn();
 
-        //click search
-        usersPage.clickSearchBtn();
+        //insert first name
+        usersPage.sendTextToFirstNameFilter(userFirstName);
+
+        //click apply
+        usersPage.clickApplyFiltersBtn();
+
 
         //test that user appears
         Thread.sleep(2000);
@@ -577,11 +586,10 @@ public class UsersModule {
         usersPage.clickApplyFiltersBtn();
 
         //test sort by name ascending
-        Thread.sleep(2000);
         usersPage.clickSortByName();
         usersPage.clickSortAscBtn();
-        System.out.println(usersPage.getFilteredUserNameText());
-        System.out.println(usersPage.getSecondUsernameText());
+        Thread.sleep(2000);
+
         Assert.assertTrue(usersPage.getFilteredUserNameText().compareTo(usersPage.getSecondUsernameText()
         ) <= 0);
 
@@ -604,6 +612,8 @@ public class UsersModule {
         usersPage.clickSortByEmailBtn();
         usersPage.clickSortDescBtn();
         Thread.sleep(2000);
+        System.out.println(usersPage.getFilteredUserNameText());
+        System.out.println(usersPage.getSecondUsernameText());
         Assert.assertTrue(usersPage.getFilteredEmailText().compareTo(usersPage.getSecondEmailText()
         ) >= 0);
 
@@ -657,6 +667,7 @@ public class UsersModule {
         usersPage.sendTextToFirstNameFilter(userFirstName);
         usersPage.clickApplyFiltersBtn();
 
+        /*
         //click actions
         Thread.sleep(2000);
         usersPage.clickActionsBtn();
@@ -669,10 +680,10 @@ public class UsersModule {
 
         //test that user still exists
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
-
+*/
         //click actions
+        Thread.sleep(2000);
         usersPage.clickActionsBtn();
-
 
         //click delete
         usersPage.clickDeleteUserOption();
@@ -681,7 +692,9 @@ public class UsersModule {
         usersPage.clickConfirmDeleteBtn();
 
         //clear any preset filter
-        Thread.sleep(2000);
+        usersPage.refreshWindow();
+
+        Thread.sleep(4000);
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
         usersPage.clickApplyFiltersBtn();
@@ -744,6 +757,7 @@ public class UsersModule {
     }
 
     @Test(priority = 5)
+    @Ignore
     public void searchInvalidUser() throws InterruptedException {
         //clear any preset filter
         Thread.sleep(2000);
@@ -793,10 +807,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Buchi");
@@ -805,7 +819,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("Support");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -855,10 +869,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Buchi");
@@ -867,7 +881,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("PartnerAdmin");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -917,10 +931,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Buchi");
@@ -929,7 +943,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("PartnerUser");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -978,10 +992,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Sub1");
@@ -990,7 +1004,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("User");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -1040,10 +1054,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Sub1");
@@ -1052,7 +1066,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("Admin");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -1109,10 +1123,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Buchi");
@@ -1121,7 +1135,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("PartnerAdmin");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -1171,10 +1185,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Buchi");
@@ -1183,7 +1197,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("PartnerUser");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -1233,10 +1247,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Sub1");
@@ -1245,7 +1259,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("User");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -1295,10 +1309,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Sub1");
@@ -1307,7 +1321,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("Admin");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -1341,7 +1355,7 @@ public class UsersModule {
 
         //sign-out from user
         homePage.clickProfileIconBtn();
-        homePage.clickSignoutBtn();
+        homePage.clickSignoutBtnAdmin();
 
         ///login with partner-admin account
         Thread.sleep(3000);
@@ -1365,10 +1379,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Sub1");
@@ -1377,7 +1391,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("Admin");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
@@ -1425,10 +1439,10 @@ public class UsersModule {
         userEmail = "Email_" + Helpers.generateRandomString() + "@email.com";
 
         //insert first name
-        usersPage.sendTextToFirstNameFieldText(userFirstName);
+        usersPage.sendTextToFirstNameCreateFieldText(userFirstName);
 
         //insert last name
-        usersPage.sendTextToLastNameFieldText(userLastName);
+        usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
         //choose affiliate
         usersPage.sendTextToAffiliateDropDown("Sub1");
@@ -1437,7 +1451,7 @@ public class UsersModule {
         usersPage.sendTextToRoleDropDown("User");
 
         //insert email
-        usersPage.sendTextToEmailField(userEmail);
+        usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);

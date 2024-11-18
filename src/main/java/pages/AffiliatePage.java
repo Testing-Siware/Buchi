@@ -11,6 +11,7 @@ import utiles.MethodHandles;
 public class AffiliatePage extends MethodHandles {
     //constructor
     public AffiliatePage(ChromeDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -256,7 +257,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement resetBtn;
 
     //save button
-    @FindBy(xpath = "affiliate-form-container-button-submit")
+    @FindBy(id = "affiliate-form-container-button-submit")
     private WebElement saveBtn;
     //</editor-fold>
 
@@ -1018,11 +1019,11 @@ public class AffiliatePage extends MethodHandles {
     public boolean clickSaveAffiliateBtn(){return clickElement(saveBtn);}
 
     //the error message appears under affiliate text field
-    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
     private WebElement affiliateRequiredErrorMsg;
 
     //the error message appears under max users text field
-    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
     private WebElement maxUsersRequiredErrorMsg;
 
     //the error message appears under type text field

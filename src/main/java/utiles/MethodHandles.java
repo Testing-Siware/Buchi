@@ -17,7 +17,7 @@ public class MethodHandles {
     Actions scroll;
     ChromeDriver driver;
 
-    @FindBy(xpath = "/html/body/div/div[2]/div/div/div[2]/div")
+    @FindBy(xpath = "/html/body/div/div[2]/div/div/div[2]/div/p")
     private WebElement alertMessage;
 
 

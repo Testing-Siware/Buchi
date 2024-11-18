@@ -35,7 +35,6 @@ public class MainTestRunner {
         Map<String, Object> chromePrefs = new HashMap<String, Object>();
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        System.out.println(downloadDir);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--remote-allow-origins=*");
         chromeOptions.addArguments("--start-maximized");
