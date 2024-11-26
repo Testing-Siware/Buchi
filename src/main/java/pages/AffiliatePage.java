@@ -119,11 +119,11 @@ public class AffiliatePage extends MethodHandles {
     private WebElement searchBtn;
 
     //filter button
-    @FindBy(id = "affiliate-list-table-filter-button")
+    @FindBy(id = "affiliates-list-table-filter-button")
     private WebElement filterBtn;
 
     //views button
-    @FindBy(id = "affiliate-list-table-viewing-option-dropdown-trigger")
+    @FindBy(id = "affiliates-list-table-viewing-options")
     private WebElement viewBtn;
 
     //toggle the created at view
@@ -171,11 +171,11 @@ public class AffiliatePage extends MethodHandles {
     private WebElement sortingUsersCountDesc;
 
     //name of first affiliate in the table
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[2]")
     private WebElement firstAffiliateName;
 
     //type of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr/td[3]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[3]")
     private WebElement firstAffiliateType;
 
     //users count of first affiliate in the table
@@ -191,7 +191,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement firstAffiliateStatus;
 
     //option of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr/td[7]/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[4]/button")
     private WebElement firstAffiliateOptionsBtn;
 
     //edit option of first affiliate in the table
@@ -267,23 +267,23 @@ public class AffiliatePage extends MethodHandles {
     private WebElement filterPopTitle;
 
     //filter affiliate name
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id = "affiliates-list-table-filter-input-name")
     private WebElement filterAffiliateName;
 
     //filter affiliate type
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
     private WebElement filterAffiliateType;
 
     //filter cancel button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    @FindBy(id = "affiliates-list-table-filter-button-cancel")
     private WebElement cancelFilterBtn;
 
     //clear filter button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    @FindBy(id = "affiliates-list-table-filter-button-clear")
     private WebElement clearFiltersBtn;
 
     //apply filter button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    @FindBy(id = "affiliates-list-table-filter-button-submit")
     private WebElement applyFilterBtn;
 
     //close filter button X

@@ -136,7 +136,7 @@ public class UsersModule {
     }
 
     @Test(priority = 0)
-    public void createPartnerUserUserySupport() throws InterruptedException {
+    public void createPartnerUserBySupport() throws InterruptedException {
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
 
@@ -203,17 +203,13 @@ public class UsersModule {
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
 
+        Thread.sleep(2000);
         //navigate to users page
+        homePage.clickUsersSidebarBtn();
         homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
         Thread.sleep(2000);
-        usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
-
-
-        //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
         usersPage.clickApplyFiltersBtn();
@@ -281,8 +277,6 @@ public class UsersModule {
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
         usersPage.clickApplyFiltersBtn();
-
-
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -675,6 +669,7 @@ public class UsersModule {
         //click delete
         usersPage.clickDeleteUserOption();
 
+
         //cancel cancel
         usersPage.clickCancelDeleteBtn();
 
@@ -757,7 +752,6 @@ public class UsersModule {
     }
 
     @Test(priority = 5)
-    @Ignore
     public void searchInvalidUser() throws InterruptedException {
         //clear any preset filter
         Thread.sleep(2000);
@@ -1480,17 +1474,19 @@ public class UsersModule {
 
     //helper method to delete any created user
     public void deleteUser(String username) throws InterruptedException {
+
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
         usersPage.clickApplyFiltersBtn();
 
-        //insert username in search field
-        usersPage.sendTextToSearchField(username);
+       //click filter
+        usersPage.clickFilterBtn();
 
-        //click search
-        usersPage.clickSearchBtn();
+        //insert firstname
+        usersPage.sendTextToFirstNameFilter(username);
 
+        usersPage.clickApplyFiltersBtn();
 
         //click actions
         Thread.sleep(2000);

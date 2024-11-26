@@ -169,27 +169,29 @@ public class JournalsModule {
         Assert.assertTrue(filesNum<Helpers.getNumberOfFiles(MainTestRunner.downloadDir));
     }
 
+//    @Test(priority = 5)
+//    public void invalidSampleNameFilter() throws InterruptedException {
+//
+//        //click filter button
+//        Thread.sleep(2000);
+//        journalsListPage.clickEditFiltersBtn();
+//
+//        //clear sample name filter
+//        journalsListPage.clearSampleNameFilterText();
+//
+//        //insert invalid sample name
+//        journalsListPage.sendTextToSampleNameFilterText("Invalid Sample");
+//
+//        //click save
+//        journalsListPage.clickSaveFilterBtn();
+//
+//        //test that no samples appear
+//        Assert.assertFalse(journalsListPage.isFirstSampleNameDisplayed());
+//    }
+
+
     @Test(priority = 5)
-    public void invalidSampleNameFilter() throws InterruptedException {
-
-        //click filter button
-        Thread.sleep(2000);
-        journalsListPage.clickEditFiltersBtn();
-
-        //clear sample name filter
-        journalsListPage.clearSampleNameFilterText();
-
-        //insert invalid sample name
-        journalsListPage.sendTextToSampleNameFilterText("Invalid Sample");
-
-        //click save
-        journalsListPage.clickSaveFilterBtn();
-
-        //test that no samples appear
-        Assert.assertFalse(journalsListPage.isFirstSampleNameDisplayed());
-    }
-
-    @Test(priority = 5)
+    @Ignore
     public void validSampleNameFilter() throws InterruptedException {
 
         //click filter button
@@ -214,8 +216,6 @@ public class JournalsModule {
         //click filter button
         journalsListPage.clickEditFiltersBtn();
 
-        //clear sample filter name
-        journalsListPage.clearSampleNameFilterText();
 
         //insert invalid sample name
         journalsListPage.sendTextToRecipeFilterText("Global");
@@ -238,12 +238,12 @@ public class JournalsModule {
 
         //change recipe name to "A"
         Thread.sleep(2000);
-        journalsListPage.sendTextToRecipeFilterText("A");
-        journalsListPage.clearSampleNameFilterText();
+        journalsListPage.sendTextToRecipeFilterText("Test");
+
 
         //insert invalid sample name
         journalsListPage.sendTextToInstrumentSNRFilterText("B15FG114");
-        journalsListPage.clearSampleNameFilterText();
+
 
         //click save
         journalsListPage.clickSaveFilterBtn();

@@ -21,7 +21,7 @@ public class UsersPage extends MethodHandles {
     private WebElement addUserBtn;
 
     //search field to search by user
-    @FindBy(id="search")
+    @FindBy(id="users-list-table-search-input")
     private WebElement searchField;
 
     //confirm delete button
@@ -33,35 +33,35 @@ public class UsersPage extends MethodHandles {
     private WebElement confirmEditBtn;
 
     //search button to fetch searched results
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
+    @FindBy(id = "users-list-table-search-submit")
     private WebElement searchBtn;
 
     //filter button to show filter menu
-    @FindBy(id = "user-list-table-filter-button")
+    @FindBy(id = "users-list-table-filter-button")
     private WebElement filterBtn;
 
     //text field to filter by first name
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id = "users-list-table-filter-input-firstName")
     private WebElement firstNameFilterTextField;
 
     //text field to filter by second name
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[2]/div/div/div/input")
+    @FindBy(id = "users-list-table-filter-input-lastName")
     private WebElement lastNameFilterTextField;
 
     //text field to filter by email
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[3]/div/div/div/input")
+    @FindBy(id = "users-list-table-filter-input-email")
     private WebElement emailFilterTextField;
 
     //clear any set filters button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    @FindBy(id = "users-list-table-filter-button-clear")
     private WebElement clearFiltersBtn;
 
     //apply any set filters button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    @FindBy(id = "users-list-table-filter-button-submit")
     private WebElement applyFiltersBtn;
 
     //cancel any edits in filters button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    @FindBy(id = "users-list-table-filter-button-cancel")
     private WebElement cancelFiltersBtn;
 
     //views button to view extra columns in grid view
@@ -69,23 +69,23 @@ public class UsersPage extends MethodHandles {
     private WebElement viewBtn;
 
     //name of first user in search results
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[2]")
     private WebElement filteredUserName;
 
     //email of first user in search results
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[4]")
     private WebElement filteredEmail;
 
     //created at of first user in search result
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[6]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[4]")
     private WebElement filteredCreatedAt;
 
     //modified at of first user in search result
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[3]")
     private WebElement filteredModifiedAt;
 
     //actions button to edit or delete user
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[8]/button")
+    @FindBy(xpath="/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[5]/button")
     private WebElement actionsBtn;
 
     //actions button to edit or delete user when logged in with admin
@@ -101,7 +101,7 @@ public class UsersPage extends MethodHandles {
     private WebElement deleteUserOption;
 
     //fifth column header (can be created or modified at)
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[6]/div/div/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[1]/div[2]/div/div/div[5]/div[3]/div/div/div")
     private WebElement fifthColumnHeader;
 
     //toggle the created at column option to hide or view

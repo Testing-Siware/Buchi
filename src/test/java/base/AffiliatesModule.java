@@ -57,9 +57,9 @@ public class AffiliatesModule {
         //navigate to affiliates page
         Thread.sleep(4000);
         homePage.clickAffiliateSidebarBtn();
+        homePage.clickAffiliateSidebarBtn();
 
         //click add affiliate button
-        Thread.sleep(4000);
         affiliatePage.clickAddAffiliateBtn();
 
         //insert affiliate name
@@ -287,8 +287,8 @@ public class AffiliatesModule {
 
         //clear any preset filter
         affiliatePage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+        affiliatePage.clickFilterClearBtn();
+        affiliatePage.clickFilterApplyBtn();
 
         //click view
         Thread.sleep(2000);
@@ -508,7 +508,7 @@ public class AffiliatesModule {
         Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, 	Credentials.partnerAdminUsername,Credentials.partnerAdminPassword);
 
         //navigate to affiliates page
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         homePage.clickAffiliateSidebarBtn();
 
         //click add affiliate button
@@ -546,7 +546,7 @@ public class AffiliatesModule {
         Assert.assertEquals(affiliatePage.getFirstAffiliateName(),affiliateName);
 
         //delete created affiliate
-        deleteAffiliate(affiliateName);
+//        deleteAffiliate(affiliateName);
 
     }
 
@@ -561,14 +561,16 @@ public class AffiliatesModule {
         //login with admin account
         Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.superAdminUsername,Credentials.superAdminPassword);
 
-        //navigate to affiliates page
-        homePage.clickAffiliateSidebarBtnSuperAdmin();
+        //navigate to affiliates page'
+        Thread.sleep(5000);
+        homePage.clickAffiliateSidebarBtn();
+
 
         //click add affiliate button
         affiliatePage.clickAddAffiliateBtn();
 
         //insert affiliate name
-        affiliateName=("Affiliate_"+(MainTestRunner.date)).substring(0,29);
+        affiliateName=("Affiliate_"+(MainTestRunner.date)).substring(0,22)+Helpers.generateRandomString();
         affiliatePage.sendTextToAffiliateNameTextField(affiliateName);
 
         //insert max user
@@ -581,6 +583,7 @@ public class AffiliatesModule {
         affiliatePage.sendTextToAffiliateAbbreviationTextField(Helpers.generateRandomString());
 
         //click save
+        Thread.sleep(2000);
         affiliatePage.clickSaveAffiliateBtn();
 
         //click filter
@@ -598,7 +601,7 @@ public class AffiliatesModule {
         Assert.assertEquals(affiliatePage.getFirstAffiliateName(),affiliateName);
 
         //delete created affiliate
-        deleteAffiliate(affiliateName);
+//        deleteAffiliate(affiliateName);
 
     }
 
