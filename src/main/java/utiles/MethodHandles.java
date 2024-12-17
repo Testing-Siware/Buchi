@@ -16,6 +16,8 @@ public class MethodHandles {
     WebDriverWait wait;
     Actions scroll;
     ChromeDriver driver;
+    JavascriptExecutor js ;
+
 
     @FindBy(xpath = "/html/body/div/div[2]/div/div/div[2]/div/p")
     private WebElement alertMessage;
@@ -30,6 +32,7 @@ public class MethodHandles {
         this.driver = driver;
         wait=new WebDriverWait(driver, Duration.ofSeconds(20));
         scroll=new Actions(driver);
+        js=(JavascriptExecutor) driver;
     }
 
     protected WebElement webElement(By locator){
@@ -65,9 +68,14 @@ public class MethodHandles {
 
     //method to scroll to element
     public boolean scrollToElement(WebElement element){
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView();", element);
+        js.executeScript(
+                "arguments[0].scrollIntoView({inline:'end',behavior:'smooth'});", element);
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         wait.until(ExpectedConditions.visibilityOf(element));
         return true;
     }

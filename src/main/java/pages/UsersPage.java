@@ -101,7 +101,7 @@ public class UsersPage extends MethodHandles {
     private WebElement deleteUserOption;
 
     //fifth column header (can be created or modified at)
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[1]/div[2]/div/div/div[5]/div[3]/div/div/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[1]/div[2]/div/div/div[3]/div[3]/div/div/div")
     private WebElement fifthColumnHeader;
 
     //toggle the created at column option to hide or view
