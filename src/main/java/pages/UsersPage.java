@@ -21,7 +21,7 @@ public class UsersPage extends MethodHandles {
     private WebElement addUserBtn;
 
     //search field to search by user
-    @FindBy(id="search")
+    @FindBy(id="users-list-table-search-input")
     private WebElement searchField;
 
     //confirm delete button
@@ -33,35 +33,35 @@ public class UsersPage extends MethodHandles {
     private WebElement confirmEditBtn;
 
     //search button to fetch searched results
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
+    @FindBy(id = "users-list-table-search-submit")
     private WebElement searchBtn;
 
     //filter button to show filter menu
-    @FindBy(id = "user-list-table-filter-button")
+    @FindBy(id = "users-list-table-filter-button")
     private WebElement filterBtn;
 
     //text field to filter by first name
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id = "users-list-table-filter-input-firstName")
     private WebElement firstNameFilterTextField;
 
     //text field to filter by second name
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[2]/div/div/div/input")
+    @FindBy(id = "users-list-table-filter-input-lastName")
     private WebElement lastNameFilterTextField;
 
     //text field to filter by email
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[3]/div/div/div/input")
+    @FindBy(id = "users-list-table-filter-input-email")
     private WebElement emailFilterTextField;
 
     //clear any set filters button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    @FindBy(id = "users-list-table-filter-button-clear")
     private WebElement clearFiltersBtn;
 
     //apply any set filters button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    @FindBy(id = "users-list-table-filter-button-submit")
     private WebElement applyFiltersBtn;
 
     //cancel any edits in filters button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    @FindBy(id = "users-list-table-filter-button-cancel")
     private WebElement cancelFiltersBtn;
 
     //views button to view extra columns in grid view
@@ -69,23 +69,23 @@ public class UsersPage extends MethodHandles {
     private WebElement viewBtn;
 
     //name of first user in search results
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[2]")
     private WebElement filteredUserName;
 
     //email of first user in search results
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[4]")
     private WebElement filteredEmail;
 
     //created at of first user in search result
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[6]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[4]")
     private WebElement filteredCreatedAt;
 
     //modified at of first user in search result
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[3]")
     private WebElement filteredModifiedAt;
 
     //actions button to edit or delete user
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[8]/button")
+    @FindBy(xpath="/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[5]/button")
     private WebElement actionsBtn;
 
     //actions button to edit or delete user when logged in with admin
@@ -101,7 +101,7 @@ public class UsersPage extends MethodHandles {
     private WebElement deleteUserOption;
 
     //fifth column header (can be created or modified at)
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[6]/div/div/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[1]/div[2]/div/div/div[3]/div[3]/div/div/div")
     private WebElement fifthColumnHeader;
 
     //toggle the created at column option to hide or view
@@ -148,11 +148,18 @@ public class UsersPage extends MethodHandles {
 
     //first name text field
     @FindBy(id = "user-create-form-input-firstName")
-    private WebElement firstNameTextField;
+    private WebElement firstNameCreateTextField;
+
+    ///first name text field in edit
+    @FindBy(id = "user-edit-form-input-firstName")
+    private WebElement firstNameEditTextField;
 
     //last name text field
     @FindBy(id = "user-create-form-input-lastName")
-    private WebElement lastNameTextField;
+    private WebElement lastNameCreateTextField;
+
+    @FindBy(id="user-edit-form-input-lastName")
+    private WebElement lastNameEditTextField;
 
     //affiliate dropdown list
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[3]/div[1]/div/div[1]/div[2]/input")
@@ -164,7 +171,11 @@ public class UsersPage extends MethodHandles {
 
     //email text field
     @FindBy(id= "user-create-form-input-email")
-    private WebElement emailTextField;
+    private WebElement createEmailTextField;
+
+
+    @FindBy(id= "user-edit-form-input-email")
+    private WebElement editEmailTextField;
 
     //password field
     @FindBy(id = "user-create-form-input-password")
@@ -207,7 +218,10 @@ public class UsersPage extends MethodHandles {
 
     //button to reset and clear all data entered in all fields
     @FindBy(id = "user-create-form-container-button-clear")
-    private WebElement resetBtn;
+    private WebElement resetCreateBtn;
+
+    @FindBy(id="user-edit-form-container-button-clear")
+    private WebElement resetEditBtn;
 
     //button to cancel and return to users homepage
     @FindBy(id = "user-create-form-container-button-cancel")
@@ -216,6 +230,10 @@ public class UsersPage extends MethodHandles {
     //button to save and create the user
     @FindBy(id = "user-create-form-container-button-submit")
     private WebElement saveBtn;
+
+    //button to save and edit user
+    @FindBy(id = "user-edit-form-container-button-submit")
+    private WebElement saveEditsBtn;
 
     //create password on behalf of user checkbox
     @FindBy(id="user-create-form-checkbox-isPasswordRequired" )
@@ -327,9 +345,19 @@ public class UsersPage extends MethodHandles {
         return clickElement(saveBtn);
     }
 
-    public boolean clickResetBtn(){
-        return clickElement(resetBtn);
+    public boolean clickSaveEditsBtn(){
+        return clickElement(saveEditsBtn);
     }
+
+
+    public boolean clickResetCreateBtn(){
+        return clickElement(resetCreateBtn);
+    }
+
+    public boolean clickResetEditBtn(){
+        return clickElement(resetEditBtn);
+    }
+
 
     public boolean clickSortByEmailBtn(){
         return clickElement(sortByEmail);
@@ -441,12 +469,20 @@ public class UsersPage extends MethodHandles {
         return sendTextToElement(emailFilterTextField, text);
     }
 
-    public boolean sendTextToFirstNameFieldText(String text) {
-        return sendTextToElement(firstNameTextField, text);
+    public boolean sendTextToFirstNameCreateFieldText(String text) {
+        return sendTextToElement(firstNameCreateTextField, text);
     }
 
-    public boolean sendTextToLastNameFieldText(String text) {
-        return sendTextToElement(lastNameTextField, text);
+    public boolean sendTextToFirstNameEditFieldText(String text) {
+        return sendTextToElement(firstNameEditTextField, text);
+    }
+
+    public boolean sendTextToLastNameCreateFieldText(String text) {
+        return sendTextToElement(lastNameCreateTextField, text);
+    }
+
+    public boolean sendTextToLastNameEditFieldText(String text) {
+        return sendTextToElement(lastNameEditTextField, text);
     }
 
     public boolean sendTextToAffiliateDropDown(String text) {
@@ -457,8 +493,12 @@ public class UsersPage extends MethodHandles {
         return sendTextToElement(roleDropDown, text, Keys.ENTER);
     }
 
-    public boolean sendTextToEmailField(String text) {
-        return sendTextToElement(emailTextField,text);
+    public boolean sendTextToCreateEmailField(String text) {
+        return sendTextToElement(createEmailTextField,text);
+    }
+
+    public boolean sendTextToEditEmailField(String text) {
+        return sendTextToElement(editEmailTextField,text);
     }
 
     public boolean sendTextToPasswordField(String text) {
@@ -470,18 +510,30 @@ public class UsersPage extends MethodHandles {
     }
 
     ///////////////////////////////////////clear Text Methods///////////////////////////////////////
-    public boolean clearFirstNameField(){
-        return clearText(firstNameTextField);
+    public boolean clearFirstNameCreateField(){
+        return clearText(firstNameCreateTextField);
     }
 
-    public boolean clearLastNameField(){
-        return clearText(lastNameTextField);
+    public boolean clearFirstNameEditField(){
+        return clearText(firstNameEditTextField);
     }
 
-    public boolean clearEmailField(){
-        return clearText(emailTextField);
+    public boolean clearLastNameCreateField(){
+        return clearText(lastNameCreateTextField);
     }
 
+    public boolean clearLastNameEditField(){
+        return clearText(lastNameEditTextField);
+    }
+
+    public boolean clearCreateEmailField(){
+        return clearText(createEmailTextField);
+    }
+
+
+    public boolean clearEditEmailField(){
+        return clearText(editEmailTextField);
+    }
     public boolean clearPasswordField(){return clearText(passwordTextField);}
 
     public boolean clearSearchField(){return clearText(searchField);}

@@ -11,6 +11,7 @@ import utiles.MethodHandles;
 public class AffiliatePage extends MethodHandles {
     //constructor
     public AffiliatePage(ChromeDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -118,11 +119,11 @@ public class AffiliatePage extends MethodHandles {
     private WebElement searchBtn;
 
     //filter button
-    @FindBy(id = "affiliate-list-table-filter-button")
+    @FindBy(id = "affiliates-list-table-filter-button")
     private WebElement filterBtn;
 
     //views button
-    @FindBy(id = "affiliate-list-table-viewing-option-dropdown-trigger")
+    @FindBy(id = "affiliates-list-table-viewing-options")
     private WebElement viewBtn;
 
     //toggle the created at view
@@ -141,40 +142,47 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[2]/div/div[7]")
     private WebElement clearSortingOption;
 
-    //name sorting
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
-    private WebElement nameSortingBtn;
+    //fifth column header (can be created or modified at)
+    @FindBy(id = "affiliates-list-table-lastUpdatedAt-column-options-trigger")
+    private WebElement lastUpdatedAtColumn;
 
-    //sorting name asc
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
-    private WebElement sortingNameAsc;
+    @FindBy(id="affiliates-list-table-name-column-options-trigger")
+    private WebElement nameColumn;
 
-    //sorting name desc
-    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
-    private WebElement sortingNameDesc;
+    @FindBy(id="affiliates-list-table-type-column")
+    private WebElement typeColumn;
 
-    //pin column
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
-    private WebElement pinColumn;
+    @FindBy(id="affiliates-list-table-currentActiveUsers-column")
+    private WebElement currentActiveUsersColumn;
 
-    //max users sorting
-    @FindBy(xpath = "/html/body/div[1]/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[4]/div/div/div")
-    private WebElement usersCountSortingBtn;
+    @FindBy(id="affiliates-list-table-maxUsersNumber-column")
+    private WebElement maxUsersNumberColumn;
 
-    //sorting users count asc
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
-    private WebElement sortingUsersCountAsc;
+    @FindBy(id="affiliates-list-table-createdAt-column-options-trigger")
+    private WebElement createdAtColumn;
 
-    //sorting users count desc
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
-    private WebElement sortingUsersCountDesc;
+    @FindBy(id="affiliates-list-table-name-column-options-menu-item-asc")
+    private WebElement sortNamesAscOption;
+
+    @FindBy(id="affiliates-list-table-name-column-options-menu-item-desc")
+    private WebElement sortNamesDescOption;
+
+    @FindBy(id="affiliates-list-table-name-column-options-menu-item-pin")
+    private WebElement pinNameColumnOption;
+
+    @FindBy(id="affiliates-list-table-currentActiveUsers-column-options-menu-item-asc")
+    private WebElement sortActiveUsersAscOption;
+
+    @FindBy(id="affiliates-list-table-currentActiveUsers-column-options-menu-item-desc")
+    private WebElement sortActiveUsersDescOption;
+
 
     //name of first affiliate in the table
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[2]")
     private WebElement firstAffiliateName;
 
     //type of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr/td[3]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[3]")
     private WebElement firstAffiliateType;
 
     //users count of first affiliate in the table
@@ -190,7 +198,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement firstAffiliateStatus;
 
     //option of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr/td[7]/button")
+    @FindBy(id = "affiliates-list-table-actions-cell-0")
     private WebElement firstAffiliateOptionsBtn;
 
     //edit option of first affiliate in the table
@@ -256,7 +264,7 @@ public class AffiliatePage extends MethodHandles {
     private WebElement resetBtn;
 
     //save button
-    @FindBy(xpath = "affiliate-form-container-button-submit")
+    @FindBy(id = "affiliate-form-container-button-submit")
     private WebElement saveBtn;
     //</editor-fold>
 
@@ -266,23 +274,23 @@ public class AffiliatePage extends MethodHandles {
     private WebElement filterPopTitle;
 
     //filter affiliate name
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id = "affiliates-list-table-filter-input-name")
     private WebElement filterAffiliateName;
 
     //filter affiliate type
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
     private WebElement filterAffiliateType;
 
     //filter cancel button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    @FindBy(id = "affiliates-list-table-filter-button-cancel")
     private WebElement cancelFilterBtn;
 
     //clear filter button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    @FindBy(id = "affiliates-list-table-filter-button-clear")
     private WebElement clearFiltersBtn;
 
     //apply filter button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    @FindBy(id = "affiliates-list-table-filter-button-submit")
     private WebElement applyFilterBtn;
 
     //close filter button X
@@ -445,41 +453,6 @@ public class AffiliatePage extends MethodHandles {
     //method check if clear sorting option is displayed
     public boolean clearSortingOptionIsDisplayed() {
         return isDisplayed(clearSortingOption, 10);
-    }
-
-    //method check if name sorting button is displayed
-    public boolean nameSortingBtnIsDisplayed() {
-        return isDisplayed(nameSortingBtn, 10);
-    }
-
-    //method check if users count sorting button is displayed
-    public boolean usersCountSortingBtnIsDisplayed() {
-        return isDisplayed(usersCountSortingBtn, 10);
-    }
-
-    //method check if sorting name Asc button is displayed
-    public boolean sortingNameAscBtnIsDisplayed() {
-        return isDisplayed(sortingNameAsc, 10);
-    }
-
-    //method check if sorting name Desc button is displayed
-    public boolean sortingNameDescBtnIsDisplayed() {
-        return isDisplayed(sortingNameDesc, 10);
-    }
-
-    //method check if pin column button is displayed
-    public boolean pinColumnIsDisplayed() {
-        return isDisplayed(pinColumn, 10);
-    }
-
-    //method check if sorting users count Asc button is displayed
-    public boolean sortingUsersCountAscBtnIsDisplayed() {
-        return isDisplayed(sortingUsersCountAsc, 10);
-    }
-
-    //method check if sorting users count Desc button is displayed
-    public boolean sortingUsersCountDescBtnIsDisplayed() {
-        return isDisplayed(sortingUsersCountDesc, 10);
     }
 
     //method check if rows per page is displayed
@@ -739,42 +712,6 @@ public class AffiliatePage extends MethodHandles {
     public boolean clickClearSortingOption() {
         return clickElement(clearSortingOption);
     }
-
-    //method to click name sorting button
-    public boolean clickNameSortingBtn() {
-        return clickElement(nameSortingBtn);
-    }
-
-    //method to click users count sorting button
-    public boolean clickUsersCountSortingBtn() {
-        return clickElement(usersCountSortingBtn);
-    }
-
-    //method to click sorting name Asc button
-    public boolean clickSortingNameAscBtn() {
-        return clickElement(sortingNameAsc);
-    }
-
-    //method to click sorting name Desc button
-    public boolean clickSortingNameDescBtn() {
-        return clickElement(sortingNameDesc);
-    }
-
-    //method to click pin column button
-    public boolean clickPinColumnBtn() {
-        return clickElement(pinColumn);
-    }
-
-    //method to click sorting users count Asc button
-    public boolean clickSortingUsersCountAscBtn() {
-        return clickElement(sortingUsersCountAsc);
-    }
-
-    //method to click sorting users count Desc button
-    public boolean clickSortingUsersCountDescBtn() {
-        return clickElement(sortingUsersCountDesc);
-    }
-
     //method to click back page button
     public boolean clickBackPageBtn() {
         return clickElement(backPageBtn);
@@ -802,6 +739,7 @@ public class AffiliatePage extends MethodHandles {
 
     //method to click first affiliate edit button
     public boolean clickFirstAffiliateEditBtn() {
+        scrollToElement(firstAffiliateEditBtn);
         return clickElement(firstAffiliateEditBtn);
     }
 
@@ -887,6 +825,50 @@ public class AffiliatePage extends MethodHandles {
     public String getFirstAffiliateName() {
         return getElementText(firstAffiliateName);
     }
+
+    public String getlastUpdatedAtColumnText(){
+        return getElementText(lastUpdatedAtColumn);
+    }
+
+    public boolean clickNameColumn(){
+        return clickElement(nameColumn);
+    }
+
+    public boolean clickSortNameAscOption(){
+        return clickElement(sortNamesAscOption);
+    }
+
+    public boolean clickSortNameDescOption(){
+        return clickElement(sortNamesDescOption);
+    }
+
+    public boolean clickActiveUsersColumn(){
+        return clickElement(currentActiveUsersColumn);
+    }
+
+    public boolean clickSortActiveUsersAscOption(){
+        return clickElement(sortActiveUsersAscOption);
+    }
+
+    public boolean clickSortActiveUsersDescOption(){
+        return clickElement(sortActiveUsersDescOption);
+    }
+
+
+
+
+
+
+
+    public boolean isLastUpdatedAtColumnDisplayed(){
+        return isDisplayed(lastUpdatedAtColumn,5);
+    }
+
+    public boolean isCreatedAtColumnDisplayed(){
+        return isDisplayed(createdAtColumn,5);
+    }
+
+
 
     //method to get first affiliate type in table
     public String getFirstAffiliateType() {
@@ -1018,11 +1000,11 @@ public class AffiliatePage extends MethodHandles {
     public boolean clickSaveAffiliateBtn(){return clickElement(saveBtn);}
 
     //the error message appears under affiliate text field
-    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
     private WebElement affiliateRequiredErrorMsg;
 
     //the error message appears under max users text field
-    @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
     private WebElement maxUsersRequiredErrorMsg;
 
     //the error message appears under type text field
@@ -1034,15 +1016,15 @@ public class AffiliatePage extends MethodHandles {
     private WebElement uploadAffiliateLogoField;
 
     //submit affiliate edits button
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    @FindBy(id = "affiliate-form-alert-dialog-button-confirm")
     private WebElement submitAffiliateEditBtn;
 
     //second affiliate name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[2]/div[2]")
     private WebElement secondAffiliateName;
 
     //second afffiliate users count
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[4]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[2]/div[4]")
     private WebElement secondAffiliateUsersCount;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")

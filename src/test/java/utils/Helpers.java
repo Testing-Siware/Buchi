@@ -288,7 +288,6 @@ public class Helpers {
         loginPage.ClickLoginNextButton();
         loginPage.EnterPasswordField(password);
         loginPage.ClickSignInButton();
-
     }
 
 }
