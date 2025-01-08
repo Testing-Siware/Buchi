@@ -18,15 +18,15 @@ public class RecipePage extends MethodHandles {
     /************************Allocators*****************************/
     //<editor-fold desc="Allocators for recipe page">
     //recipe page title
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[1]/h4")
+    @FindBy(id="recipe-list-header-text-title")
     private WebElement pageTitle;
 
     //search field
-    @FindBy(id = "search")
+    @FindBy(id = "recipes-list-table-search-input")
     private WebElement searchField;
 
     //search button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
+    @FindBy(id="recipes-list-table-search-submit")
     private WebElement searchBtn;
 
     // header of the table list
@@ -34,80 +34,105 @@ public class RecipePage extends MethodHandles {
     private WebElement headerOfTable;
 
     //first column header in recipe
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div/p")
+    @FindBy(id="recipes-list-table-name-column")
     private WebElement firstColumnHeader;
 
     //second column header in recipe
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[3]/div/div/div/p")
+    @FindBy(id = "recipes-list-table-affiliateName-column")
     private WebElement secondColumnHeader;
 
     //third column header in recipe
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[4]/div/div/div/p")
+    @FindBy(id = "recipes-list-table-createdBy-column")
     private WebElement thirdColumnHeader;
 
     //fourth column header in recipe
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[5]/div/div/div/p")
+    @FindBy(id = "recipes-list-table-createdAt-column")
     private WebElement fourthColumnHeader;
 
     //fifth column header in parameter
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[6]/div/div/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[1]/div[2]/div/div/div[5]/div[3]/div/div/div/p")
     private WebElement fifthColumnHeaderRP;
 
+    //sixth column header in parameter
+    @FindBy(id="bias")
+    private WebElement sixthColumnHeaderRP;
+
+    //seventh column header in parameter
+    @FindBy(id = "avg")
+    private WebElement seventhColumnHeaderRP;
+
+    //eighth column header in parameter
+    @FindBy(id = "slope")
+    private WebElement eighthColumnHeaderRP;
+
+    //ninth column header in parameter
+    @FindBy(id = "min")
+    private WebElement ninthColumnHeaderRP;
+
+    //tenth column header in parameter
+    @FindBy(id = "max")
+    private WebElement tenthColumnHeaderRP;
+
+    //eleventh column header in parameter
+    @FindBy(id = "mahalanobis")
+    private WebElement eleventhColumnHeaderRP;
+
+    //twelfth column header in parameter
+    @FindBy(id = "createdAt")
+    private WebElement twelfthColumnHeaderRP;
+
+
     //name column sorting button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
+    @FindBy(id="recipes-list-table-name-column-options-trigger")
     private WebElement nameSortingBtn;
 
     //sorting name Asc
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    @FindBy(id = "recipes-list-table-name-column-options-menu-item-asc")
     private WebElement sortingNameAsc;
 
     //sorting name Desc
-    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    @FindBy(id = "recipes-list-table-name-column-options-menu-item-desc")
     private WebElement sortingNameDesc;
 
     //pin name column
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    @FindBy(id = "recipes-list-table-name-column-options-menu-item-pin")
     private WebElement pinNameColumn;
 
     //sorting affiliate column
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[3]/div/div/div")
+    @FindBy(id = "recipes-list-table-affiliateName-column-options-trigger")
     private WebElement sortingAffiliateBtn;
 
     //sorting affiliate Asc
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    @FindBy(id = "recipes-list-table-affiliateName-column-options-menu-item-asc")
     private WebElement sortingAffiliateAsc;
 
     //sorting affiliate Desc
-    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    @FindBy(id = "recipes-list-table-affiliateName-column-options-menu-item-desc")
     private WebElement sortingAffiliateDesc;
 
-    //hide affiliate column
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
-    private WebElement hideAffiliateColumn;
-
     //sorting created by column button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[4]/div/div/div")
+    @FindBy(id = "recipes-list-table-createdBy-column")
     private WebElement sortingCreatedByBtn;
 
     //sorting created by column Asc
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    @FindBy(id = "recipes-list-table-createdBy-column-options-menu-item-asc")
     private WebElement sortingCreatedByAsc;
 
     //sorting created by column Desc
-    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    @FindBy(id="recipes-list-table-createdBy-column-options-menu-item-desc")
     private WebElement sortingCreatedByDesc;
 
-    //hide created by column option
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
-    private WebElement hideCreatedByColumn;
-
     //first row name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[2]")
     private WebElement firstRowName;
 
     //second row name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[2]/div[2]")
     private WebElement secondRowName;
+
+    //third row name
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[3]/div[2]")
+    private WebElement thirdRowName;
 
     //first row affiliate
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[3]/div/p")
@@ -118,20 +143,24 @@ public class RecipePage extends MethodHandles {
     private WebElement firstRowCreatedBy;
 
     //first row action button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/button")
+    @FindBy(id="recipes-list-table-actions-cell-0")
     private WebElement firstRowActions;
 
     //second row action button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[5]/button")
+    @FindBy(id="recipes-list-table-actions-cell-1")
     private WebElement secondRowActions;
+
+    //third row action button
+    @FindBy(id="recipes-list-table-actions-cell-2")
+    private WebElement thirdRowActions;
 
     //first row edit action
     @FindBy(xpath = "/html/body/div[2]/div/div[1]")
     private WebElement firstRowEditAction;
 
     //first row view parameters action
-    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
-    private WebElement firstRowViewParametersAction;
+    @FindBy(id="dropdown-menu-item-recipe-list-table-option-view-parameters")
+    private WebElement RowViewParametersAction;
 
     //first row assign to instrument action
     @FindBy(xpath = "/html/body/div[2]/div/div[3]")
@@ -162,11 +191,11 @@ public class RecipePage extends MethodHandles {
     private WebElement frowardPageBtn;
 
     //filter button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
+    @FindBy(id="recipes-list-table-filter-button")
     private WebElement filterBtn;
 
     //view button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button[1]")
+    @FindBy(id="recipes-list-table-viewing-options")
     private WebElement viewBtn;
 
     //toggle to affiliate view
@@ -178,7 +207,7 @@ public class RecipePage extends MethodHandles {
     private WebElement toggleToCreatedByView;
 
     //toggle to created at view
-    @FindBy(xpath = "/html/body/div[2]/div/div[5]")
+    @FindBy(id="createdAt")
     private WebElement toggleToCreatedAtView;
 
     //toggle to clear pinning view
@@ -196,7 +225,7 @@ public class RecipePage extends MethodHandles {
     private WebElement filterWindowTitle;
 
     //filter name text field
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id="recipes-list-table-filter-input-name")
     private WebElement filterName;
 
     //filter created at text field
@@ -208,19 +237,19 @@ public class RecipePage extends MethodHandles {
     private WebElement filterAffiliate;
 
     //filter cancel button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    @FindBy(id="recipes-list-table-filter-button-cancel")
     private WebElement filterCancelBtn;
 
     //filter clear button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    @FindBy(id="recipes-list-table-filter-button-clear")
     private WebElement filterClearBtn;
 
     //filter apply button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    @FindBy(id="recipes-list-table-filter-button-submit")
     private WebElement filterApplyBtn;
 
     //filter close button
-    @FindBy(xpath = "/html/body/div[3]/button")
+    @FindBy(id="recipes-list-table-filter-icon-close")
     private WebElement filterCloseBtn;
     //</editor-fold>
 
@@ -230,11 +259,11 @@ public class RecipePage extends MethodHandles {
     private WebElement recipeParametersPageTitle;
 
     //parameter search field
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/div/div/div/div/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/form/div/div/div/div/div/input")
     private WebElement recipeParameterSearchField;
 
     //search button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
+    @FindBy(id="recipes-parameters-list-table-search-submit")
     private WebElement recipeParametersSearchBtn;
 
     //add parameter button
@@ -262,7 +291,7 @@ public class RecipePage extends MethodHandles {
     private WebElement recipeParametersFrowardPageBtn;
 
     //filter button in recipe parameters page
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
+    @FindBy(id = "recipes-parameters-list-table-filter-button")
     private WebElement filterRecipeParametersBtn;
 
     //recipe parameters filter window title
@@ -270,7 +299,7 @@ public class RecipePage extends MethodHandles {
     private WebElement recipeParametersFilterWindowTitle;
 
     //name text field in recipe parameters filter window
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id = "recipes-parameters-list-table-filter-input-name")
     private WebElement recipeParametersFilterName;
 
     //created at text field in recipe parameters filter window
@@ -282,43 +311,47 @@ public class RecipePage extends MethodHandles {
     private WebElement recipeParametersFilterCreatedBy;
 
     //cancel filter button in recipe parameters filter window
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    @FindBy(id = "recipes-parameters-list-table-filter-button-cancel")
     private WebElement recipeParametersCancelFilterBtn;
 
     //clear filter button in recipe parameters filter window
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    @FindBy(id = "recipes-parameters-list-table-filter-button-clear")
     private WebElement recipeParametersClearFilterBtn;
 
     //apply filter button in recipe parameters filter window
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    @FindBy(id = "recipes-parameters-list-table-filter-button-submit")
     private WebElement recipeParametersApplyFilterBtn;
 
     //close filter button in recipe parameters filter window
-    @FindBy(xpath = "/html/body/div[3]/button/svg")
+    @FindBy(id = "recipes-parameters-list-table-filter-icon-close")
     private WebElement recipeParametersCloseFilterBtn;
 
     //view button in recipe parameters page
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button[1]")
+    @FindBy(id="recipes-parameters-list-table-viewing-options")
     private WebElement viewRecipeParametersBtn;
 
     //toggle to location view
     @FindBy(xpath = "/html/body/div[2]/div/div[3]")
     private WebElement toggleToLocationViewRP;
 
+    //toggle to bias view
+    @FindBy(id="bias")
+    private WebElement toggleToBiasViewRP;
+
     //toggle to slope view
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    @FindBy(id="slope")
     private WebElement toggleToSlopeViewRP;
 
     //toggle to min view
-    @FindBy(xpath = "/html/body/div[2]/div/div[5]")
+    @FindBy(id="min")
     private WebElement toggleToMinViewRP;
 
     //toggle to max view
-    @FindBy(xpath = "/html/body/div[2]/div/div[6]")
+    @FindBy(id="max")
     private WebElement toggleToMaxViewRP;
 
     //toggle to mahalanobis view
-    @FindBy(xpath = "/html/body/div[2]/div/div[7]")
+    @FindBy(id="mahalanobis")
     private WebElement toggleToMahalanobisViewRP;
 
     //toggle to created by view
@@ -326,8 +359,16 @@ public class RecipePage extends MethodHandles {
     private WebElement toggleToCreatedByViewRP;
 
     //toggle to created at view
-    @FindBy(xpath = "/html/body/div[2]/div/div[9]")
+    @FindBy(id="createdAt")
     private WebElement toggleToCreatedAtViewRP;
+
+    //toggle to index at view
+    @FindBy(id="index")
+    private WebElement toggleToIndexViewRP;
+
+    //toggle to Avg at view
+    @FindBy(id="avg")
+    private WebElement toggleToAvgViewRP;
 
     //clear any pinning view option
     @FindBy(xpath = "/html/body/div[2]/div/div[11]")
@@ -338,16 +379,28 @@ public class RecipePage extends MethodHandles {
     private WebElement clearSortingViewRP;
 
     //name sorting button in recipe parameters page
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
+    @FindBy(id = "recipes-parameters-list-table-name-column")
     private WebElement nameSortingRPBtn;
 
     //sorting name column in recipe parameters page Asc
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    @FindBy(id = "recipes-parameters-list-table-name-column-options-menu-item-asc")
     private WebElement sortingRPNameAsc;
 
     //sorting name column in recipe parameters page Desc
     @FindBy(xpath = "/html/body/div[2]/div/div[2]")
     private WebElement sortingRPNameDesc;
+
+    //index sorting button in recipe parameters page
+    @FindBy(id = "recipes-parameters-list-table-index-column-options-trigger")
+    private WebElement indexSortingRPBtn;
+
+    //sorting name column in recipe parameters page Asc
+    @FindBy(id = "recipes-parameters-list-table-index-column-options-menu-item-asc")
+    private WebElement sortingRPIndexAsc;
+
+    //sorting name column in recipe parameters page Desc
+    @FindBy(id = "recipes-parameters-list-table-index-column-options-menu-item-desc")
+    private WebElement sortingRPIndexDesc;
 
     //pin name column in recipe parameters page
     @FindBy(xpath = "/html/body/div[2]/div/div[4]")
@@ -378,11 +431,11 @@ public class RecipePage extends MethodHandles {
     private WebElement sortingRPParameterAliasDesc;
 
     //first row name in recipe parameter page
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[2]")
     private WebElement firstRowNameRP;
 
     //second row name in recipe parameter page
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]/div/p")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[2]/div[2]")
     private WebElement secondRowNameRP;
 
     //first row alias in recipe parameter page
@@ -401,8 +454,12 @@ public class RecipePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr/td[6]/button")
     private WebElement firstRowActionsBtnInParameters;
 
+    //first row action button in recipe parameter page
+    @FindBy(id="recipes-parameters-list-table-actions-cell-0")
+    private WebElement firstRowActionBtnInParameters;
+
     //first row view calibration files action
-    @FindBy(xpath = "/html/body/div[2]/div/div")
+    @FindBy(id="dropdown-menu-item-recipe-parameter-list-table-option-view-calibration")
     private WebElement firstRowViewCalibrationActions;
     //</editor-fold
 
@@ -664,11 +721,6 @@ public class RecipePage extends MethodHandles {
         return isDisplayed(sortingAffiliateDesc, 10);
     }
 
-    //method check if hide affiliate column option is displayed
-    public boolean hideAffiliateColumnOptionIsDisplayed() {
-        return isDisplayed(hideAffiliateColumn, 10);
-    }
-
     //method check if sorting created by column button is displayed
     public boolean sortingCreatedByColumnOptionIsDisplayed() {
         return isDisplayed(sortingCreatedByBtn, 10);
@@ -682,11 +734,6 @@ public class RecipePage extends MethodHandles {
     //method check if sorting created by Desc option is displayed
     public boolean sortingCreatedByDescIsDisplayed() {
         return isDisplayed(sortingCreatedByDesc, 10);
-    }
-
-    //method check if hide created by column option is displayed
-    public boolean hideCreatedByColumnOptionIsDisplayed() {
-        return isDisplayed(hideCreatedByColumn, 10);
     }
 
     //method check if first row name is displayed
@@ -1034,11 +1081,6 @@ public class RecipePage extends MethodHandles {
         return clickElement(sortingAffiliateDesc);
     }
 
-    //method to click hide affiliate column option
-    public boolean clickHideAffiliateColOption() {
-        return clickElement(hideAffiliateColumn);
-    }
-
     //method to click sorting created by button
     public boolean clickSortingCreatedByBtn() {
         return clickElement(sortingCreatedByBtn);
@@ -1054,11 +1096,6 @@ public class RecipePage extends MethodHandles {
         return clickElement(sortingCreatedByDesc);
     }
 
-    //method to click hide created by column option
-    public boolean clickHideCreatedByColOption() {
-        return clickElement(hideCreatedByColumn);
-    }
-
     //method to click first row actions button
     public boolean clickFirstRowActions() {
         return clickElement(firstRowActions);
@@ -1069,15 +1106,21 @@ public class RecipePage extends MethodHandles {
         return clickElement(secondRowActions);
     }
 
+    //method to click third row action button
+    public boolean clickThirdRowActions(){
+        return clickElement(thirdRowActions);
+    }
+
     //method to click first row edit action button
     public boolean clickFirstRowEditAction() {
         return clickElement(firstRowEditAction);
     }
 
-    //method to click first row view parameters action button
-    public boolean clickFirstRowViewParametersAction() {
-        return clickElement(firstRowViewParametersAction);
+    //method to click row view parameters action button
+    public boolean clickRowViewParametersAction() {
+        return clickElement(RowViewParametersAction);
     }
+
 
     //method to click first row assign to instrument action button
     public boolean clickFirstRowAssignInstrumentAction() {
@@ -1269,8 +1312,16 @@ public class RecipePage extends MethodHandles {
         return clickElement(toggleToLocationViewRP);
     }
 
+     public boolean ClickToggleToBiasViewRPOption(){return clickElement(toggleToBiasViewRP);}
+
+    //method to click toggle to index view option in recipe parameters
+    public boolean ClickToggleToIndexViewRPOption() {return clickElement(toggleToIndexViewRP);}
+
+    //method to click toggle to Avg view option in recipe parameters
+    public boolean ClickToggleToAvgViewRPOption(){return clickElement(toggleToAvgViewRP);}
+
     //method to click toggle to slop view option in recipe parameters
-    public boolean ClickToggleToSlopViewRPOption() {
+    public boolean ClickToggleToSlopeViewRPOption() {
         return clickElement(toggleToSlopeViewRP);
     }
 
@@ -1293,6 +1344,13 @@ public class RecipePage extends MethodHandles {
     public boolean ClickToggleToCreateAtViewRPOption() {
         return clickElement(toggleToCreatedAtViewRP);
     }
+    public void scrollToRight(){
+        scrollToElement(firstRowActionBtnInParameters);
+    }
+//    @FindBy(css = ".ag-body-viewport")
+//    private WebElement container;
+
+
 
     //method to click toggle to create by view option in recipe parameters
     public boolean ClickToggleToCreateByViewRPOption() {
@@ -1318,6 +1376,17 @@ public class RecipePage extends MethodHandles {
     public boolean ClickSortingNameAscRP() {
         return clickElement(sortingRPNameAsc);
     }
+
+    //method to click sorting index button in recipe parameters
+    public boolean ClickSortingIndexRPBtn() {
+        return clickElement(indexSortingRPBtn);
+    }
+
+    //method to click sorting index Asc option in recipe parameters
+    public boolean ClickSortingIndexAscRP() {
+        return clickElement(sortingRPIndexAsc);
+    }
+
 
     //method to click sorting name Desc option in recipe parameters
     public boolean ClickSortingNameDescRP() {
@@ -1363,6 +1432,10 @@ public class RecipePage extends MethodHandles {
     public boolean ClickFirstRowActionsBtnRP() {
         return clickElement(firstRowActionsBtnInParameters);}
 
+    //method to click actions button in recipes parameters
+    public boolean clickFirstRowActionBtnRP(){
+        return  clickElement(firstRowActionBtnInParameters);
+    }
     //<editor-fold desc = "Click methods for calibration files page">
 
     //method to click view calibration files action in recipe parameters
@@ -1445,8 +1518,8 @@ public class RecipePage extends MethodHandles {
         return clickElement(clearSortingViewCalibrationFiles);}
 
     //method to click sorting name button in calibration files
-    public boolean ClickSortingNameCalibrationFilesBtn() {
-        return clickElement(nameSortingRPBtn);}
+//    public boolean ClickSortingNameCalibrationFilesBtn() {
+//        return clickElement(nameSortingRPBtn);}
 
     //method to click sorting name Asc option in calibration files
     public boolean ClickSortingNameAscCalibrationFiles() {
@@ -1517,6 +1590,30 @@ public class RecipePage extends MethodHandles {
     //method to get fifth column header text
     public String getFifthColumnText(){return  getElementText(fifthColumnHeaderRP);}
 
+    //method to get sixth column header text
+    public String getSixthColumnText(){return  getElementText(sixthColumnHeaderRP);}
+
+    //method to get seventh column header text
+    public String getSeventhColumnText(){return getElementText(seventhColumnHeaderRP);}
+
+    //method to get eighth column header text
+    public String getEighthColumnText(){return getElementText(eighthColumnHeaderRP);}
+
+    //method to get ninth column header text
+    public String getNinthColumnText(){return getElementText(ninthColumnHeaderRP);}
+
+    //method to get tenth column header text
+    public String getTenthColumnText(){return getElementText(tenthColumnHeaderRP);}
+
+    //method to get eleventh column header text
+    public String getEleventhColumnText(){return getElementText(eleventhColumnHeaderRP);}
+
+    //method to get twelfth  column header text
+    public String getTwelfthColumnText(){return getElementText(twelfthColumnHeaderRP);}
+
+
+
+
     //method to get first row name
     public String getFirstRowName() {
         return getElementText(firstRowName);
@@ -1524,6 +1621,10 @@ public class RecipePage extends MethodHandles {
 
     //method to get second row name
     public String getSecondRowName() {return getElementText(secondRowName);
+    }
+
+    //method to get third row name
+    public String getThirdRowName(){return getElementText(thirdRowName);
     }
 
     //method to get first row affiliate
@@ -1657,7 +1758,7 @@ public class RecipePage extends MethodHandles {
     /************************Set And Reset Text Methods*****************************/
     //<editor-fold desc = "Set and reset text methods for recipe page">
     //method to send text to search field
-    public boolean sendTextToSearchField(String text) {
+    public boolean sendTextToSearchNameTextField(String text) {
         return sendTextToElement(searchField, text);
     }
 
@@ -1713,6 +1814,10 @@ public class RecipePage extends MethodHandles {
     //method to send text to search field in recipe parameters page
     public boolean sendTextToRecipeParameterSearchField(String text) {
         return sendTextToElement(recipeParameterSearchField, text);
+
+    }
+    public boolean clickSearchFieldParameter(){
+        return clickElement(recipeParameterSearchField);
     }
 
     //method to clear rows per page field text in recipe parameters page
@@ -1734,6 +1839,11 @@ public class RecipePage extends MethodHandles {
     public boolean sendTextToRecipeParametersFilterNameField(String text) {
         return sendTextToElement(recipeParametersFilterName, text);
     }
+
+    public boolean sendTextToSearchNameTextFieldRP(String text) {
+        return sendTextToElement(recipeParameterSearchField, text);
+    }
+
 
     //method to clear recipe parameters filter name text field
     public boolean resetRecipeParametersFilterNameField() {
