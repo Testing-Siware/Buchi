@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utiles.MethodHandles;
 
-public class journalsPage extends MethodHandles {
+public class JournalsPage extends MethodHandles {
 
-    journalsPage(WebDriver driver) {
+    public JournalsPage(WebDriver driver) {
         super((ChromeDriver) driver);
         PageFactory.initElements(driver, this);
     }
@@ -25,39 +25,51 @@ public class journalsPage extends MethodHandles {
     private WebElement  submitSearchBtn;
 
     //filter button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
+    @FindBy(id = "select-recipe-table-filter-button")
     private WebElement filterBtn;
 
     //name filter text field
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id = "select-recipe-table-filter-input-name")
     private WebElement nameFilterTextField;
 
+    //apply filter button
+    @FindBy(id = "select-recipe-table-filter-button-submit")
+    private WebElement applyFilterBtn;
+
+    //cancel filter button
+    @FindBy(id = "select-recipe-table-filter-button-cancel")
+    private WebElement cancelFilterBtn;
+
+    //clear filters button
+    @FindBy(id = "select-recipe-table-filter-button-clear")
+    private WebElement clearFilterBtn;
+
     //view button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button[1]")
+    @FindBy(id = "select-recipe-table-viewing-option-dropdown-trigger")
     private WebElement viewBtn;
 
     //toggle affiliate button from view
-    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
+    @FindBy(id = "select-recipe-table-column-affiliate-name-view-option")
     private WebElement toggleAffiliateBtn;
 
     //toggle created by button from view
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    @FindBy(id = "select-recipe-table-column-created-by-view-option")
     private WebElement toggleCreatedBy;
 
     //toggle created at button from view
-    @FindBy(xpath = "/html/body/div[2]/div/div[5]")
+    @FindBy(id = "select-recipe-table-column-created-at-view-option")
     private WebElement toggleCreatedAt;
 
     //clear pinning button
-    @FindBy(xpath = "/html/body/div[2]/div/div[7]")
+    @FindBy(id = "select-recipe-table-viewing-option-dropdown-menu-item-clear-pin")
     private WebElement clearPinningBtn;
 
     //clear sorting button
-    @FindBy(xpath = "/html/body/div[2]/div/div[8]")
+    @FindBy(id = "select-recipe-table-viewing-option-dropdown-menu-item-clear-sort")
     private WebElement clearSortingBtn;
 
     //fetch recipes button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button[2]")
+    @FindBy(id = "select-recipe-table-refresh")
     private WebElement fetchRecipesBtn;
 
     //expand first recipe button
@@ -116,9 +128,10 @@ public class journalsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/div/div[1]/table/tbody/tr[1]/td")
     private WebElement firstInstrument;
 
-    //next button
+    //next button to expand instrument
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/div/div[2]/button")
     private WebElement nextBtn;
+
 
     //-----------------------send text methods-----------------------//
     public boolean sendTextToSearchField(String text) {
@@ -126,7 +139,7 @@ public class journalsPage extends MethodHandles {
     }
 
     public boolean sendTextToNameFilterTextField(String text) {
-        return sendTextToElement(filterBtn, text);
+        return sendTextToElement(nameFilterTextField, text);
     }
 
     //-----------------------clear text methods-----------------------//
@@ -142,6 +155,10 @@ public class journalsPage extends MethodHandles {
     public boolean clickFilterBtn() {
         return clickElement(filterBtn);
     }
+
+    public boolean clickApplyFilterBtn(){return clickElement(applyFilterBtn);}
+
+    public boolean clickClearFilterBtn(){return clickElement(clearFilterBtn);}
 
     public boolean clickToggleAffiliateBtn() {
         return clickElement(toggleAffiliateBtn);
@@ -194,6 +211,8 @@ public class journalsPage extends MethodHandles {
     public boolean clickFirstInstrumentBtn(){
         return clickElement(firstInstrument);
     }
+
+    public boolean clickNextBtn(){return clickElement(nextBtn);}
     //-----------------------get text methods-----------------------//
     public String getFirstRecipeName() {
         return getElementText(firstRecipeName);

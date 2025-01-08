@@ -28,6 +28,19 @@ public class Helpers {
         return NewDateAndTime;
     }
 
+    // Method to get the number of files in a directory
+    public static int getNumberOfFiles(String directoryPath) {
+        File directory = new File(directoryPath);
+
+        if (directory.exists() && directory.isDirectory()) {
+            // Get all files and directories inside the given directory
+            File[] files = directory.listFiles();
+
+            return files.length;
+        }
+        return 0; // Return 0 if the directory doesn't exist or has no files
+    }
+
 
     public static String generateRandomString() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -81,7 +94,6 @@ public class Helpers {
         wait.until(ExpectedConditions.urlToBe(EnvironmentSelector.OverviewUrl));
 
     }
-
 
     //Helper logs out from Partner User
     public static void logoutPartnerUser(String userName, String password, ChromeDriver driver) throws InterruptedException {
@@ -276,7 +288,6 @@ public class Helpers {
         loginPage.ClickLoginNextButton();
         loginPage.EnterPasswordField(password);
         loginPage.ClickSignInButton();
-
     }
 
 }
