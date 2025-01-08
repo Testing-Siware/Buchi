@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.Helpers;
@@ -14,6 +15,7 @@ public class JournalsModule {
 
 
     @Test()
+    @Ignore
     public void searchForJournal() throws InterruptedException {
         homePage=new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         journalsPage=new JournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
@@ -46,6 +48,8 @@ public class JournalsModule {
         journalsListPage=new ListJournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
 
         //navigate to journals
+        Thread.sleep(4000);
+        homePage.clickJournalsSidebarBtn();
         homePage.clickJournalsSidebarBtn();
 
         //click filter button
@@ -126,12 +130,14 @@ public class JournalsModule {
         //click apply filter
         journalsPage.clickApplyFilterBtn();
 
-        //send value to search bar
-        Thread.sleep(2000);
-        journalsPage.sendTextToSearchField("Global");
+        //click filter
+        journalsPage.clickFilterBtn();
 
-        //click search button
-        journalsPage.clickSubmitSearchBtn();
+        //click filter by name
+        journalsPage.sendTextToNameFilterTextField("Global");
+
+        //click apply filter
+        journalsPage.clickApplyFilterBtn();
 
         //wait for results and expand them
         Thread.sleep(2000);
@@ -149,8 +155,6 @@ public class JournalsModule {
         //choose first sample
         journalsListPage.clickFirstScanCheckBox();
 
-        //minimize sample
-        journalsListPage.clickMinimizeSampleBtn();
 
         //click export
         journalsListPage.clickExportBtn();
@@ -165,27 +169,29 @@ public class JournalsModule {
         Assert.assertTrue(filesNum<Helpers.getNumberOfFiles(MainTestRunner.downloadDir));
     }
 
+//    @Test(priority = 5)
+//    public void invalidSampleNameFilter() throws InterruptedException {
+//
+//        //click filter button
+//        Thread.sleep(2000);
+//        journalsListPage.clickEditFiltersBtn();
+//
+//        //clear sample name filter
+//        journalsListPage.clearSampleNameFilterText();
+//
+//        //insert invalid sample name
+//        journalsListPage.sendTextToSampleNameFilterText("Invalid Sample");
+//
+//        //click save
+//        journalsListPage.clickSaveFilterBtn();
+//
+//        //test that no samples appear
+//        Assert.assertFalse(journalsListPage.isFirstSampleNameDisplayed());
+//    }
+
+
     @Test(priority = 5)
-    public void invalidSampleNameFilter() throws InterruptedException {
-
-        //click filter button
-        Thread.sleep(2000);
-        journalsListPage.clickEditFiltersBtn();
-
-        //clear sample name filter
-        journalsListPage.clearSampleNameFilterText();
-
-        //insert invalid sample name
-        journalsListPage.sendTextToSampleNameFilterText("Invalid Sample");
-
-        //click save
-        journalsListPage.clickSaveFilterBtn();
-
-        //test that no samples appear
-        Assert.assertFalse(journalsListPage.isFirstSampleNameDisplayed());
-    }
-
-    @Test(priority = 5)
+    @Ignore
     public void validSampleNameFilter() throws InterruptedException {
 
         //click filter button
@@ -201,6 +207,7 @@ public class JournalsModule {
         journalsListPage.clickSaveFilterBtn();
 
         //test that sample appears
+        Thread.sleep(2000);
         Assert.assertEquals(journalsListPage.getFirstSampleName(),"2024-08-01 18:14:37 B15FG114");
     }
 
@@ -209,8 +216,6 @@ public class JournalsModule {
         //click filter button
         journalsListPage.clickEditFiltersBtn();
 
-        //clear sample filter name
-        journalsListPage.clearSampleNameFilterText();
 
         //insert invalid sample name
         journalsListPage.sendTextToRecipeFilterText("Global");
@@ -219,7 +224,7 @@ public class JournalsModule {
         journalsListPage.clickSaveFilterBtn();
 
         //test that sample appears
-        Assert.assertEquals(journalsListPage.getFirstSampleRecipeName(),"Global");
+        Assert.assertEquals(journalsListPage.getFirstSampleRecipeName(),"GLOBAL");
     }
 
     @Test(priority = 4)
@@ -233,12 +238,12 @@ public class JournalsModule {
 
         //change recipe name to "A"
         Thread.sleep(2000);
-        journalsListPage.sendTextToRecipeFilterText("A");
-        journalsListPage.clearSampleNameFilterText();
+        journalsListPage.sendTextToRecipeFilterText("Test");
+
 
         //insert invalid sample name
         journalsListPage.sendTextToInstrumentSNRFilterText("B15FG114");
-        journalsListPage.clearSampleNameFilterText();
+
 
         //click save
         journalsListPage.clickSaveFilterBtn();

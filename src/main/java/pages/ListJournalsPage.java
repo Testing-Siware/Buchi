@@ -50,7 +50,7 @@ public class ListJournalsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[1]/form/div/button")
     private WebElement searchBtn;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[1]/div/button[1]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[3]")
     private WebElement exportBtn;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[1]/div/button[2]")
@@ -65,7 +65,7 @@ public class ListJournalsPage extends MethodHandles {
     private WebElement clearSortingBtn;
 
     //first scan checkbox
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[2]/table/tbody/tr/td[1]/div/button")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[1]/div[1]/div/div/div/div/div[2]")
     private WebElement firstSampleCheckBox;
 
     //minimize expanded recipe name
@@ -73,15 +73,15 @@ public class ListJournalsPage extends MethodHandles {
     private WebElement minimizeSampleBtn;
 
     //first sample name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[2]/table/tbody/tr/td[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/span")
     private WebElement firstSampleName;
 
     //first sample recipe name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[2]/table/tbody/tr/td[3]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[2]/div[3]/div[1]/div")
     private WebElement firstSampleRecipeName;
 
     //first sample instrument
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[2]/table/tbody/tr/td[6]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[2]/div[3]/div[2]/div")
     private WebElement firstSampleInstrument;
 
     //-----------------------Click Methods-----------------------//

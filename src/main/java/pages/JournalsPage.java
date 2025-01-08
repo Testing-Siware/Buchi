@@ -25,51 +25,51 @@ public class JournalsPage extends MethodHandles {
     private WebElement  submitSearchBtn;
 
     //filter button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div/button")
+    @FindBy(id = "select-recipe-table-filter-button")
     private WebElement filterBtn;
 
     //name filter text field
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[1]/div/div/div/input")
+    @FindBy(id = "select-recipe-table-filter-input-name")
     private WebElement nameFilterTextField;
 
     //apply filter button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[2]")
+    @FindBy(id = "select-recipe-table-filter-button-submit")
     private WebElement applyFilterBtn;
 
     //cancel filter button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/button")
+    @FindBy(id = "select-recipe-table-filter-button-cancel")
     private WebElement cancelFilterBtn;
 
     //clear filters button
-    @FindBy(xpath = "/html/body/div[3]/form/div[2]/div/button[1]")
+    @FindBy(id = "select-recipe-table-filter-button-clear")
     private WebElement clearFilterBtn;
 
     //view button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button[1]")
+    @FindBy(id = "select-recipe-table-viewing-option-dropdown-trigger")
     private WebElement viewBtn;
 
     //toggle affiliate button from view
-    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
+    @FindBy(id = "select-recipe-table-column-affiliate-name-view-option")
     private WebElement toggleAffiliateBtn;
 
     //toggle created by button from view
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    @FindBy(id = "select-recipe-table-column-created-by-view-option")
     private WebElement toggleCreatedBy;
 
     //toggle created at button from view
-    @FindBy(xpath = "/html/body/div[2]/div/div[5]")
+    @FindBy(id = "select-recipe-table-column-created-at-view-option")
     private WebElement toggleCreatedAt;
 
     //clear pinning button
-    @FindBy(xpath = "/html/body/div[2]/div/div[7]")
+    @FindBy(id = "select-recipe-table-viewing-option-dropdown-menu-item-clear-pin")
     private WebElement clearPinningBtn;
 
     //clear sorting button
-    @FindBy(xpath = "/html/body/div[2]/div/div[8]")
+    @FindBy(id = "select-recipe-table-viewing-option-dropdown-menu-item-clear-sort")
     private WebElement clearSortingBtn;
 
     //fetch recipes button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/button[2]")
+    @FindBy(id = "select-recipe-table-refresh")
     private WebElement fetchRecipesBtn;
 
     //expand first recipe button

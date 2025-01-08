@@ -14,7 +14,7 @@ public class Credentials {
     public static String userPassword = "Cqc@12345";
 
     public static String supportUsername="mohamed.khaled+Support@si-ware.com";
-    public static String supportPassword = "Cqc@12345";
+    public static String supportPassword = "Qwer@1234";
 
     public static String partnerUserUsername="Mohamed.khaled+PU@si-ware.com";
     public static String partnerUserPassword="Cqc@12345";
