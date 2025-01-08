@@ -1,4 +1,5 @@
 package base;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -6,26 +7,30 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.RecipePage;
 
+import java.util.concurrent.TransferQueue;
+
 
 public class RecipesModule {
     HomePage homePage;
     RecipePage recipesPage;
     LoginPage loginPage;
-    LoginModule loginModule;
-
 @BeforeClass
 public void startTestRecipesList() throws InterruptedException {
     homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
     recipesPage= new RecipePage((ChromeDriver) MainTestRunner.ChromeDriver);
     loginPage= new LoginPage((ChromeDriver) MainTestRunner.ChromeDriver);
-
     //login and navigate to Recipes page
     Thread.sleep(1000);
     loginPage.loginWithCredentials("mostafa.hassan+pa@si-ware.com","Cqc@12345");
+    Thread.sleep(2000);
     homePage.clickRecipesSidebarBtn();
+
 }
     @Test(priority = 1)
     public void sortRecipesList () throws InterruptedException {
+        Thread.sleep(2000);
+        homePage.clickRecipesSidebarBtn();
+        Thread.sleep(2000);
         //clear any preset filter
         //click filter
         recipesPage.clickFilterBtn();
@@ -42,8 +47,7 @@ public void startTestRecipesList() throws InterruptedException {
         recipesPage.sortingNameDescIsDisplayed();
         recipesPage.pinNameColumnOptionIsDisplayed();
         //sorting by name ascending
-        recipesPage.clickSortingNameAscOption();
-        Assert.assertTrue(recipesPage.getFirstRowName().compareTo(recipesPage.getSecondRowName())<=0);
+        Assert.assertTrue(recipesPage.getFirstRowName().compareTo(recipesPage.getThirdRowName())<=0);
     }
     @Test(priority = 2)
     public void displayOfTableAndButtons() throws InterruptedException {
@@ -68,6 +72,8 @@ public void startTestRecipesList() throws InterruptedException {
 
         //clear any preset filter
         //click filter and check the display of filter window
+        recipesPage.refreshWindow();
+        Thread.sleep(1000);
         recipesPage.clickFilterBtn();
         recipesPage.filterWindowTitleIsDisplayed();
         recipesPage.filterNameTxtFieldIsDisplayed();
@@ -85,9 +91,12 @@ public void startTestRecipesList() throws InterruptedException {
         recipesPage.clickFilterBtn();
         recipesPage.sendTextToFilterNameTextField(recipesPage.getFirstRowName());
         recipesPage.clickFilterApplyBtn();
+
     }
     @Test(priority = 4)
     public void viewColumns () throws InterruptedException {
+        recipesPage.refreshWindow();
+        Thread.sleep(1000);
         //clear any preset filter
         //click filter
         recipesPage.clickFilterBtn();
@@ -95,29 +104,31 @@ public void startTestRecipesList() throws InterruptedException {
         recipesPage.clickFilterClearBtn();
         //click apply
         recipesPage.clickFilterApplyBtn();
-
         //show the created at column
-        recipesPage.clickViewBtn();
-        recipesPage.clickToggleToCreateAtView();
-        Assert.assertEquals(recipesPage.getFourthHeaderColumnText(), "Created at");
+        Assert.assertEquals(recipesPage.getFourthHeaderColumnText(), "Created At");
         //hide the created at column
         Thread.sleep(1000);
         recipesPage.clickViewBtn();
         recipesPage.clickToggleToCreateAtView();
         Assert.assertFalse(recipesPage.createdAtColumnHeaderDisplayed());
+        Thread.sleep(1000);
+        recipesPage.clickViewBtn();
+        recipesPage.clickToggleToCreateAtView();
     }
     @Test(priority = 5)
     public void searchByRecipeName() throws InterruptedException {
         //clear any preset filter
         //click filter
+        recipesPage.refreshWindow();
         recipesPage.clickFilterBtn();
         //click clear
         recipesPage.clickFilterClearBtn();
         //click apply
         recipesPage.clickFilterApplyBtn();
         //search by recipe name
-        String recipeName = recipesPage.getSecondRowName();
-        recipesPage.sendTextToSearchField(recipeName);
+        Thread.sleep(1000);
+        String recipeName = recipesPage.getFirstRowName();
+        recipesPage.sendTextToSearchNameTextField(recipeName);
         recipesPage.clickSearchBtn();
         Thread.sleep(2000);
         Assert.assertEquals(recipesPage.getFirstRowName(),recipeName);
@@ -126,10 +137,12 @@ public void startTestRecipesList() throws InterruptedException {
     }
      //parameter list scenarios
     @Test(priority = 6)
-    public void checkParameterList(){
+    public void checkParameterList() throws InterruptedException {
     //go to parameters list
+        recipesPage.refreshWindow();
+        Thread.sleep(2000);
     recipesPage.clickFirstRowActions();
-    recipesPage.clickFirstRowViewParametersAction();
+    recipesPage.clickRowViewParametersAction();
     //check display of parameter list
     recipesPage.recipeParameterPageTitleIsDisplayed();
     recipesPage.recipeParametersBackPageBtnIsDisplayed();
@@ -144,7 +157,29 @@ public void startTestRecipesList() throws InterruptedException {
     recipesPage.recipeParametersRowsPerPageIsDisplayed();
     recipesPage.recipeParameterActionBtnIsDisplayed();
     }
+
     @Test(priority = 7)
+    public void searchByParameterName() throws InterruptedException {
+
+    //preset any filter
+    recipesPage.clickFilterRecipeParametersBtn();
+    //clear any preset filter
+    recipesPage.ClickRecipeParametersClearFilterBtn();
+    //click apply button
+    recipesPage.ClickRecipeParametersApplyFilterBtn();
+    //search by second parameter name
+    String parameterName = recipesPage.getSecondRowNameRP();
+        System.out.println(parameterName);
+        Thread.sleep(2000);
+        recipesPage.sendTextToSearchNameTextFieldRP(parameterName);
+        recipesPage.clickRecipeParametersSearchBtn();
+    Thread.sleep(2000);
+    Assert.assertEquals(recipesPage.getFirstRowNameRP(),parameterName);
+    Thread.sleep(2000);
+    recipesPage.refreshWindow();
+    Thread.sleep(2000);
+    }
+        @Test(priority = 8)
     public void filterByNameInParameters(){
     //filter by name and check display of filter window
     recipesPage.clickFilterRecipeParametersBtn();
@@ -165,106 +200,102 @@ public void startTestRecipesList() throws InterruptedException {
     recipesPage.sendTextToRecipeParametersFilterNameField(recipesPage.getFirstRowName());
     recipesPage.ClickRecipeParametersApplyFilterBtn();
     }
-    @Test(priority = 8)
-    public void searchByParameterName() throws InterruptedException {
-
-    //preset any filter
-    recipesPage.clickFilterRecipeParametersBtn();
-    //clear any preset filter
-    recipesPage.ClickRecipeParametersClearFilterBtn();
-    //click apply button
-    recipesPage.ClickRecipeParametersApplyFilterBtn();
-    //search by second parameter name
-    String parameterName = recipesPage.getSecondRowName();
-    recipesPage.sendTextToRecipeParameterSearchField(parameterName);
-    recipesPage.clickRecipeParametersSearchBtn();
-    Thread.sleep(2000);
-    Assert.assertEquals(recipesPage.getFirstRowName(),parameterName);
-    Thread.sleep(2000);
-    recipesPage.clickSearchField();
-    recipesPage.resetSearchField(parameterName);
-    recipesPage.refreshWindow();
-    Thread.sleep(2000);
-    }
     @Test(priority = 9)
     public void sortParametersList() throws InterruptedException {
-
     //sorting by name
+        // preset any filter
+        recipesPage.clickFilterRecipeParametersBtn();
+        //clear any preset filter
+        recipesPage.ClickRecipeParametersClearFilterBtn();
+        //click apply button
+        recipesPage.ClickRecipeParametersApplyFilterBtn();
+    Thread.sleep(2000);
+    recipesPage.clickViewRecipeParametersBtn();
+    recipesPage.ClickToggleToIndexViewRPOption();
+    recipesPage.ClickSortingIndexRPBtn();
+    recipesPage.ClickSortingIndexAscRP();
+    Thread.sleep(1000);
     recipesPage.ClickSortingNameRPBtn();
     recipesPage.ClickSortingNameAscRP();
-    Assert.assertTrue(recipesPage.getFirstRowNameRP().compareTo(recipesPage.getSecondRowNameRP())<=0);
-//    recipesPage.ClickSortingNameRPBtn();
-//    recipesPage.clickPinNameColumnOption();
-    recipesPage.refreshWindow();
+        Thread.sleep(1000);
+    Assert.assertTrue(recipesPage.getFirstRowName().compareTo(recipesPage.getSecondRowName())<=0);
+        Thread.sleep(2000);
+        recipesPage.ClickSortingNameRPBtn();
+        recipesPage.ClickSortingNameAscRP();
+        Thread.sleep(1000);
+        recipesPage.ClickSortingIndexRPBtn();
+        recipesPage.ClickSortingIndexAscRP();
+
     }
     @Test(priority = 10)
     public void viewColumnsInParametersList () throws InterruptedException {
-    // view and hide columns
+        // view and hide columns
         Thread.sleep(1000);
-    recipesPage.clickViewRecipeParametersBtn();
-        Thread.sleep(1000);
-    recipesPage.ClickToggleToLocationViewRPOption();
-        Thread.sleep(1000);
-    Assert.assertEquals(recipesPage.getFifthColumnText(), "Location");
-    Thread.sleep(1000);
-    recipesPage.clickViewRecipeParametersBtn();
-        Thread.sleep(1000);
-    recipesPage.ClickToggleToLocationViewRPOption();
-        Thread.sleep(1000);
-        recipesPage.clickViewRecipeParametersBtn();
-    recipesPage.ClickToggleToSlopViewRPOption();
-    Assert.assertEquals(recipesPage.getFifthColumnText(), "Slope");
-        Thread.sleep(1000);
-    recipesPage.clickViewRecipeParametersBtn();
-        Thread.sleep(1000);
-    recipesPage.ClickToggleToSlopViewRPOption();
+        Assert.assertEquals(recipesPage.getFifthColumnText(), "Index");
         Thread.sleep(1000);
         recipesPage.clickViewRecipeParametersBtn();
         Thread.sleep(1000);
-    recipesPage.ClickToggleToMinViewRPOption();
-    Assert.assertEquals(recipesPage.getFifthColumnText(), "min");
-        Thread.sleep(1000);
-    recipesPage.clickViewRecipeParametersBtn();
-        Thread.sleep(1000);
-    recipesPage.ClickToggleToMinViewRPOption();
+        recipesPage.ClickToggleToBiasViewRPOption();
+        Assert.assertEquals(recipesPage.getSixthColumnText(), "Bias");
         Thread.sleep(1000);
         recipesPage.clickViewRecipeParametersBtn();
         Thread.sleep(1000);
-    recipesPage.ClickToggleToMaxViewRPOption();
-    Assert.assertEquals(recipesPage.getFifthColumnText(), "max");
-        Thread.sleep(1000);
-    recipesPage.clickViewRecipeParametersBtn();
-        Thread.sleep(1000);
-    recipesPage.ClickToggleToMaxViewRPOption();
+        recipesPage.ClickToggleToAvgViewRPOption();
+        Assert.assertEquals(recipesPage.getSeventhColumnText(), "Avg");
         Thread.sleep(1000);
         recipesPage.clickViewRecipeParametersBtn();
         Thread.sleep(1000);
-    recipesPage.ClickToggleToMahalanobisViewRPOption();
-    Assert.assertEquals(recipesPage.getFifthColumnText(), "Mahalanobis");
-         Thread.sleep(1000);
+        recipesPage.ClickToggleToSlopeViewRPOption();
+        Assert.assertEquals(recipesPage.getEighthColumnText(), "Slope");
+        Thread.sleep(1000);
+        recipesPage.clickViewRecipeParametersBtn();
+        Thread.sleep(1000);
+        recipesPage.ClickToggleToMinViewRPOption();
+        Assert.assertEquals(recipesPage.getNinthColumnText(), "Min");
+        Thread.sleep(1000);
+        recipesPage.clickViewRecipeParametersBtn();
+        Thread.sleep(1000);
+        recipesPage.ClickToggleToMaxViewRPOption();
+        Assert.assertEquals(recipesPage.getTenthColumnText(), "Max");
+        Thread.sleep(1000);
         recipesPage.clickViewRecipeParametersBtn();
         Thread.sleep(1000);
         recipesPage.ClickToggleToMahalanobisViewRPOption();
+        Assert.assertEquals(recipesPage.getEleventhColumnText(), "Mahalanobis");
         Thread.sleep(1000);
         recipesPage.clickViewRecipeParametersBtn();
         Thread.sleep(1000);
-        recipesPage.ClickToggleToCreateByViewRPOption();
-        Assert.assertEquals(recipesPage.getFifthColumnText(), "Created by");
-        Thread.sleep(1000);
-    recipesPage.clickViewRecipeParametersBtn();
-        Thread.sleep(1000);
-    recipesPage.ClickToggleToCreateByViewRPOption();
+        recipesPage.ClickToggleToCreateAtViewRPOption();
         Thread.sleep(1000);
         recipesPage.clickViewRecipeParametersBtn();
         Thread.sleep(1000);
-    recipesPage.ClickToggleToCreateAtViewRPOption();
-    Assert.assertEquals(recipesPage.getFifthColumnText(), "Created at");
+        recipesPage.ClickToggleToBiasViewRPOption();
         Thread.sleep(1000);
-        recipesPage.refreshWindow();
+        recipesPage.clickViewRecipeParametersBtn();
+        Thread.sleep(1000);
+        recipesPage.ClickToggleToAvgViewRPOption();
+        Thread.sleep(1000);
+        recipesPage.clickViewRecipeParametersBtn();
+        Thread.sleep(1000);
+        recipesPage.ClickToggleToSlopeViewRPOption();
+        Thread.sleep(1000);
+        recipesPage.clickViewRecipeParametersBtn();
+        Thread.sleep(1000);
+        recipesPage.ClickToggleToMinViewRPOption();
+        Thread.sleep(1000);
+        recipesPage.clickViewRecipeParametersBtn();
+        Thread.sleep(1000);
+        recipesPage.ClickToggleToMaxViewRPOption();
+        Thread.sleep(1000);
+        recipesPage.clickViewRecipeParametersBtn();
+        Thread.sleep(1000);
+        recipesPage.ClickToggleToMahalanobisViewRPOption();
     }
     @Test(priority = 11)
-    public void viewCalibrationFiles(){
-    recipesPage.ClickFirstRowActionsBtnRP();
+    public void viewCalibrationFiles() throws InterruptedException {
+    //recipesPage.refreshWindow();
+    Thread.sleep(1000);
+    recipesPage.clickFirstRowActionBtnRP();
     recipesPage.ClickFirstRowViewCalFilesOptionRP();
     }
     @Test(priority = 12)
@@ -281,39 +312,41 @@ public void startTestRecipesList() throws InterruptedException {
     recipesPage.viewCalibrationFilesBtnIsDisplayed();
     recipesPage.filterCalibrationFilesBtnIsDisplayed();
     }
-    @Test(priority = 13)
-    public void filterCalibrationFiles(){
-    recipesPage.clickFilterCalibrationFilesBtn();
-    recipesPage.calibrationFilesApplyFilterBtnIsDisplayed();
-    recipesPage.calibrationFilesClearFilterBtnIsDisplayed();
-    recipesPage.calibrationFilesCloseFilterBtnIsDisplayed();
-    recipesPage.calibrationFilesCancelFilterBtnIsDisplayed();
-    recipesPage.calibrationFilesFilterWindowTitleIsDisplayed();
-    recipesPage.calibrationFilesFilterCreatedAtIsDisplayed();
-    recipesPage.calibrationFilesFilterNameIsDisplayed();
-    recipesPage.calibrationFilesFilterCreatedByIsDisplayed();
-    recipesPage.ClickCalibrationFilesCancelFilterBtn();
 
-    }
-
-    @Test(priority = 14)
-    public void expandCalibrationFilesList(){
-    recipesPage.clickExpandBtnCalibrationFiles();
-    recipesPage.calibrationFilesStatusFieldIsDisplayed();
-    recipesPage.calibrationFilesDeployedAtFieldIsDisplayed();
-    recipesPage.calibrationFilesModifiedAtFieldIsDisplayed();
-    recipesPage.calibrationFilesCreatedAtFieldIsDisplayed();
-    recipesPage.calibrationFilesSecondRowActionBtnIsDisplayed();
-    }
-    @Test(priority = 15)
-    public void deployFileOnCalibrationFiles(){
-    recipesPage.clickOnActionBtnCalibrationFiles();
-    recipesPage.clickOnDeployBtn();
-    recipesPage.calibrationFilesDeploymentPopupCloseBtnIsDisplayed();
-    recipesPage.calibrationFilesDeploymentPopupTitleIsDisplayed();
-    recipesPage.calibrationFilesDeploymentPopupCancelBtnIsDisplayed();
-    recipesPage.calibrationFilesDeploymentPopupSubmitBtnIsDisplayed();
-    }
+    //delay until migrate the calibration files table to AG-grid
+//    @Test(priority = 13)
+//    public void filterCalibrationFiles(){
+//    recipesPage.clickFilterCalibrationFilesBtn();
+//    recipesPage.calibrationFilesApplyFilterBtnIsDisplayed();
+//    recipesPage.calibrationFilesClearFilterBtnIsDisplayed();
+//    recipesPage.calibrationFilesCloseFilterBtnIsDisplayed();
+//    recipesPage.calibrationFilesCancelFilterBtnIsDisplayed();
+//    recipesPage.calibrationFilesFilterWindowTitleIsDisplayed();
+//    recipesPage.calibrationFilesFilterCreatedAtIsDisplayed();
+//    recipesPage.calibrationFilesFilterNameIsDisplayed();
+//    recipesPage.calibrationFilesFilterCreatedByIsDisplayed();
+//    recipesPage.ClickCalibrationFilesCancelFilterBtn();
+//
+//    }
+//
+//    @Test(priority = 14)
+//    public void expandCalibrationFilesList(){
+//    recipesPage.clickExpandBtnCalibrationFiles();
+//    recipesPage.calibrationFilesStatusFieldIsDisplayed();
+//    recipesPage.calibrationFilesDeployedAtFieldIsDisplayed();
+//    recipesPage.calibrationFilesModifiedAtFieldIsDisplayed();
+//    recipesPage.calibrationFilesCreatedAtFieldIsDisplayed();
+//    recipesPage.calibrationFilesSecondRowActionBtnIsDisplayed();
+//    }
+//    @Test(priority = 15)
+//    public void deployFileOnCalibrationFiles(){
+//    recipesPage.clickOnActionBtnCalibrationFiles();
+//    recipesPage.clickOnDeployBtn();
+//    recipesPage.calibrationFilesDeploymentPopupCloseBtnIsDisplayed();
+//    recipesPage.calibrationFilesDeploymentPopupTitleIsDisplayed();
+//    recipesPage.calibrationFilesDeploymentPopupCancelBtnIsDisplayed();
+//    recipesPage.calibrationFilesDeploymentPopupSubmitBtnIsDisplayed();
+//    }
 
 
 
