@@ -103,7 +103,7 @@ public class HomePage extends MethodHandles {
     private WebElement journalsSidebarBtn;
 
     //alerts button in sidebar
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[6]/div")
+    @FindBy(id = "side-menu-fleet-management-alerts")
     private WebElement alertsSidebarBtn;
 
     @FindBy(id = "side-menu-access-management-affiliates")

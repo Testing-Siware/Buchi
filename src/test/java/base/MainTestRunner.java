@@ -1,10 +1,12 @@
 package base;
 
+import com.beust.ah.A;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import pages.Actions;
 import utils.EnvironmentSelector;
 
 import java.io.File;
@@ -21,14 +23,14 @@ public class MainTestRunner {
     static Date date = new Date();
     public static String CurrentTestTime = formatter.format(date);
     public static String  downloadDir = System.getProperty("user.home") + "\\Downloads";
-
+    public static Actions actions;
 
     static File passwordFile = new File("src/main/resources/createdUserPassword.txt");
 
     static DateFormat myFormat;
 
     @BeforeTest
-    public void InitializePortalTest()
+    static public void InitializePortalTest()
     {
         //System.setProperty("webdriver.chrome.driver","src/main/java/utiles/chromedriver.exe");
 
@@ -42,6 +44,8 @@ public class MainTestRunner {
         chromePrefs.put("download.prompt_for_download", false);
 
         ChromeDriver = new ChromeDriver(chromeOptions);
+
+        actions=new Actions((org.openqa.selenium.chrome.ChromeDriver) ChromeDriver,20);
 
         //CurrentTestTime = formatter.format(date);
 
