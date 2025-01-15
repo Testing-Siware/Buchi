@@ -55,6 +55,18 @@ public class Actions {
         }
     }
 
+    public void sendKeys(WebElement element, Keys[] keys){
+        try{
+            wait.until(ExpectedConditions.visibilityOf(element));
+            for (Keys key : keys){
+                element.sendKeys(key);
+            }
+        }
+        catch (Exception ignored){
+
+        }
+    }
+
     public void enterText(WebElement element, String text){
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
@@ -86,7 +98,6 @@ public class Actions {
 
     public void chooseFromDropDown(WebElement element, String text){
         try {
-            wait.until(ExpectedConditions.visibilityOf(element));
             Thread.sleep(2000);
             element.sendKeys(text, Keys.ENTER);
         }

@@ -1,8 +1,10 @@
 package base;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.Actions;
 import pages.AlertsPage;
@@ -31,7 +33,10 @@ public class AlertsModule {
         //click new alert button
         actions.clickElement(alertsPage.newAlertBtn);
 
-        //insert alert details
+        //test that user is redirected to new alert creation page
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),alertsPage.newAlertPageURL);
+
+        //insert alert details1
         //alert name
         createdAlert="Alert_"+MainTestRunner.formatter.format(new Date());
         actions.enterText(alertsPage.newAlertName,createdAlert);
@@ -93,10 +98,133 @@ public class AlertsModule {
         //test that alert is created
         Thread.sleep(2000);
         Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
-
-
-
-
-
     }
+
+    @Test(priority = 1)
+    public void createEmptyAlert() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click new alert button
+        actions.clickElement(alertsPage.newAlertBtn);
+
+        //click save button without entering any data
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that all error messages appear
+        Assert.assertEquals(actions.getText(alertsPage.newAlertNameEmptyMsg),"Name can not be empty!");
+        Assert.assertEquals(actions.getText(alertsPage.newAlertAffiliateEmptyMsg),"Affiliate can not be empty!");
+        Assert.assertEquals(actions.getText(alertsPage.newAlertRecipeEmptyMsg),"Recipe can not be empty!");
+        Assert.assertEquals(actions.getText(alertsPage.newAlertIngredientEmptyMsg),"Instruments can not be empty!");
+        Assert.assertEquals(actions.getText(alertsPage.newAlertParameterEmptyMsg),"Parameter can not be empty!");
+        Assert.assertEquals(actions.getText(alertsPage.newAlertRecipientsEmptyMsg),"Alert recipients can not be empty!");
+
+        //add all required fields except parameter constraint
+        actions.enterText(alertsPage.newAlertName,"Alert Name");
+
+        //affiliate
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub2");
+
+        //recipe
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
+
+        //instruments SNR
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"416FG106");
+
+        //alerts constraints
+        //first parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+
+        Thread.sleep(2000);
+        //clear min and max value
+        //first parameter max value
+
+        actions.sendKeys(alertsPage.newAlertFirstParameterMaxValue,new Keys[]{Keys.BACK_SPACE,Keys.BACK_SPACE});
+
+        //first parameter min value
+        actions.sendKeys(alertsPage.newAlertFirstParameterMinValue, new Keys[]{Keys.BACK_SPACE});
+
+        //click save alert
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+        Assert.assertEquals(actions.getText(alertsPage.newAlertParameterEmptyMsg),"Parameter constraints must have at least 1 constraint");
+    }
+
+    @Test(priority = 2)
+    public void filterAlertByName() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is created
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+    }
+
+    @Test(priority = 2)
+    public void filterRecipe() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert affiliate
+        actions.chooseFromDropDown(alertsPage.filterAffiliateInput,"Sub1");
+
+        //insert recipe
+         actions.chooseFromDropDown(alertsPage.filterRecipeInput,"Milk");
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is created
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertRecipe),"Milk");
+    }
+
+    @Test(priority = 2)
+    public void filterAffiliate() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert affiliate
+        actions.chooseFromDropDown(alertsPage.filterAffiliateInput,"Sub2");
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is created
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+    }
+
 }

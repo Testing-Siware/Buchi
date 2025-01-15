@@ -10,13 +10,14 @@ import java.time.Duration;
 
 public class AlertsPage {
     WebDriverWait wait;
-
+    public String newAlertPageURL;
     public AlertsPage(){
     }
 
     public AlertsPage(ChromeDriver driver){
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        newAlertPageURL="https://lablake-dev.neospectra.cloud/fleet-management/alert/add";
     }
 
     //new alert button
@@ -56,7 +57,7 @@ public class AlertsPage {
     @FindBy(id="alerts-list-table-filter-input-name")
     public WebElement filterNameInput;
 
-    @FindBy(xpath = "/html/body/div[3]/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
     public WebElement filterAffiliateInput;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[3]/div/div/div[1]/div[2]/input")
@@ -88,6 +89,12 @@ public class AlertsPage {
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[1]/div/span")
     public WebElement firstAlertName;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[4]")
+    public WebElement firstAlertAffiliate;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[2]")
+    public WebElement firstAlertRecipe;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[1]/div[2]/span")
     public WebElement newAlertNameEmptyMsg;
