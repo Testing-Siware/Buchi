@@ -227,4 +227,182 @@ public class AlertsModule {
         Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
     }
 
+    @Test(priority = 3)
+    public void editAlert() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //click actions button
+        Thread.sleep(2000);
+
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //test that user is redirected to edit page
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/fleet-management/alert/edit");
+
+
+        //edit name
+        createdAlert="Edit_Alert_"+MainTestRunner.formatter.format(new Date());
+        actions.clearText(alertsPage.newAlertName);
+        actions.enterText(alertsPage.newAlertName,createdAlert);
+
+        //choose new affiliate
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub1");
+
+        //choose new recipe
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Milk");
+
+        //choose isntrument
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"B15");
+
+        //select parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+
+        //click save
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is created
+        Thread.sleep(2000);
+        System.out.println(actions.getText(alertsPage.firstAlertAffiliate));
+        System.out.println(actions.getText(alertsPage.newAlertRecipe));
+        System.out.println(actions.getText(alertsPage.newAlertInstrument));
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+
+    }
+
+    @Test(priority = 3)
+    public void emptyEdits() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //clear alert name
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.newAlertName);
+        actions.sendKeys(alertsPage.newAlertName,new Keys[]{Keys.NUMPAD0,Keys.BACK_SPACE});
+
+        //clear alert recipients
+        actions.sendKeys(alertsPage.newAlertRecipients,new Keys[]{Keys.BACK_SPACE});
+
+        //click save
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that alert messages appear
+        Assert.assertEquals(actions.getText(alertsPage.newAlertRecipientsEmptyMsg),"Alert recipients can not be empty!");
+        Assert.assertEquals(actions.getText(alertsPage.newAlertNameEmptyMsg),"Name is required.");
+
+        //click cancel
+        actions.clickElement(alertsPage.newAlertCancelBtn);
+    }
+
+    @Test(priority = 3)
+    public void cancelEdits() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //clear alert name
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.newAlertName);
+        actions.sendKeys(alertsPage.newAlertName,new Keys[]{Keys.NUMPAD0,Keys.BACK_SPACE});
+
+        //insert a temporary name
+        actions.enterText(alertsPage.newAlertName,"Temp_Name");
+
+        //click cancel
+        actions.clickElement(alertsPage.newAlertCancelBtn);
+
+        //test that alert name didn't change
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+    }
 }
