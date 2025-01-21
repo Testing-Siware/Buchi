@@ -508,7 +508,7 @@ public class AlertsModule {
         Thread.sleep(2000);
 
         System.out.println(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName)));
-        Assert.assertTrue(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName))>=0);
+        Assert.assertTrue(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName))<=0);
         Thread.sleep(2000);
 
         //click column
@@ -519,7 +519,7 @@ public class AlertsModule {
         actions.clickElement(alertsPage.sortAlertsByNameDescOption);
         Thread.sleep(2000);
         System.out.println(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName)));
-        Assert.assertTrue(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName))<=0);
+        Assert.assertTrue(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName))>=0);
 
 
     }
