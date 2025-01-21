@@ -67,6 +67,17 @@ public class Actions {
         }
     }
 
+    public boolean isElementDisplayed(WebElement element){
+        try {
+            wait.until(ExpectedConditions.visibilityOf(element));
+            return element.isDisplayed();
+
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
     public void enterText(WebElement element, String text){
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
