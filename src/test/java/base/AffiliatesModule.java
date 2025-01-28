@@ -47,7 +47,6 @@ public class AffiliatesModule {
 
         //click cancel
         affiliatePage.clickCancelBtn();
-
     }
 
     @Test(priority = 0)

@@ -223,7 +223,7 @@ public class AlertsModule {
         actions.clickElement(alertsPage.submitFilterBtn);
 
         //test that displayed alert is active
-        System.out.println(actions.getText(alertsPage.firstAlertStatus));
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"ACTIVE");
     }
     @Test(priority = 2)
     public void filterAffiliate() throws InterruptedException {
@@ -304,7 +304,7 @@ public class AlertsModule {
         actions.clickElement(alertsPage.newAlertSaveBtn);
 
         //verify it redirects user to listing page
-        System.out.println(MainTestRunner.ChromeDriver.getCurrentUrl());
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/fleet-management/alert/edit");
 
         //click filter button
         actions.clickElement(alertsPage.filterBtn);
@@ -323,9 +323,7 @@ public class AlertsModule {
 
         //test that alert is created
         Thread.sleep(2000);
-        System.out.println(actions.getText(alertsPage.firstAlertAffiliate));
-        System.out.println(actions.getText(alertsPage.newAlertRecipe));
-        System.out.println(actions.getText(alertsPage.newAlertInstrument));
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
         Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
 
     }
@@ -484,7 +482,7 @@ public class AlertsModule {
         actions.clickElement(alertsPage.submitFilterBtn);
 
         //test that the alert is not displayed
-        System.out.println(actions.isElementDisplayed(alertsPage.firstAlertName));
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
     }
 
     @Test(priority = 5)

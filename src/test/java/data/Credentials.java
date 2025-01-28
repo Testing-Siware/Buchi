@@ -13,7 +13,7 @@ public class Credentials {
     public static String userName = "Mostafa.hassan+U@si-ware.com";
     public static String userPassword = "Cqc@12345";
 
-    public static String supportUsername="mohamed.khaled+Support@si-ware.com";
+    public static String supportUsername="malek.ali@email.com";
     public static String supportPassword = "Qwer@1234";
 
     public static String partnerUserUsername="Mohamed.khaled+PU@si-ware.com";
