@@ -1,6 +1,8 @@
 package base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -433,6 +435,9 @@ public class AlertsModule {
 
     @Test(priority = 4)
     public void deleteAlert() throws InterruptedException{
+
+
+
         //navigate to alerts page
         homePage.clickAlertsSidebarBtn();
 

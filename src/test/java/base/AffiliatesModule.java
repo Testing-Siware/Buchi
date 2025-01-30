@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import pages.Actions;
 import pages.AffiliatePage;
 import pages.HomePage;
 import pages.UsersPage;
@@ -16,10 +17,18 @@ public class AffiliatesModule {
     AffiliatePage affiliatePage;
     String affiliateName;
 
+    Actions actions;
+
     @Test(priority = 0)
-    public void createInvalidAffilateBySupport() {
+    public void intializeClasses(){
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        actions = new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
+    }
+
+    @Test(priority = 1)
+    public void createInvalidAffilateBySupport() {
+
 
         //navigate to affiliates page
         homePage.clickAffiliateSidebarBtn();
@@ -49,7 +58,7 @@ public class AffiliatesModule {
         affiliatePage.clickCancelBtn();
     }
 
-    @Test(priority = 0)
+    @Test(priority = 1)
     public void createAffiliateBySupport() throws InterruptedException {
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
@@ -94,10 +103,53 @@ public class AffiliatesModule {
 
         //test that affiliate appears
         Thread.sleep(4000);
-        Assert.assertEquals(affiliatePage.getFirstAffiliateName(), affiliateName);
+        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1 ,dependsOnMethods = "createAffiliateBySupport")
+    public void generateLicense () throws InterruptedException {
+        //clear any preset filter
+        //click filter
+        affiliatePage.clickFilterBtn();
+
+        //click clear
+        affiliatePage.clickFilterClearBtn();
+
+        //filter for created affiliate
+        affiliatePage.clickFilterBtn();
+
+        //insert affiliate name
+        affiliatePage.sendTextToFilterAffiliateNameTextField(affiliateName);
+
+        //click apply filter
+        affiliatePage.clickFilterApplyBtn();
+
+        //test that affiliate appears
+        Thread.sleep(3000);
+
+        //click options
+        affiliatePage.clickFirstAffiliateOptionsBtn();
+
+        //test text is "Generate license"
+        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateGenerateLicenseBtn),"Generate license");
+
+        //click generate license option
+        actions.clickElement(affiliatePage.firstAffiliateGenerateLicenseBtn);
+
+        //test that confirmation dialog box appears
+        Assert.assertTrue(actions.isElementDisplayed(affiliatePage.confirmLicenseGenerateBtn));
+
+        //confirm license generation
+        actions.clickElement(affiliatePage.confirmLicenseGenerateBtn);
+
+        //click options button
+        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+
+        //test that text is
+        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateGenerateLicenseBtn),"Generate license");
+
+    }
+    @Test(priority = 2)
     public void cancelAffiliateEdits() throws InterruptedException {
         //clear any preset filter
         //click filter
@@ -106,8 +158,7 @@ public class AffiliatesModule {
         //click clear
         affiliatePage.clickFilterClearBtn();
 
-        //click apply
-        affiliatePage.clickFilterApplyBtn();
+
 
         //filter for created affiliate
         affiliatePage.clickFilterBtn();
@@ -148,8 +199,6 @@ public class AffiliatesModule {
         //click clear
         affiliatePage.clickFilterClearBtn();
 
-        //click apply
-        affiliatePage.clickFilterApplyBtn();
 
         //filter for created affiliate
         affiliatePage.clickFilterBtn();
@@ -166,7 +215,7 @@ public class AffiliatesModule {
 
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void editAffiliate() throws InterruptedException {
         try {
             //clear any preset filter
@@ -175,10 +224,6 @@ public class AffiliatesModule {
 
             //click clear
             affiliatePage.clickFilterClearBtn();
-
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
-
 
             //filter for created affiliate
             affiliatePage.clickFilterBtn();
@@ -233,7 +278,7 @@ public class AffiliatesModule {
         }
     }
 
-        @Test(priority = 2)
+        @Test(priority = 3)
         public void filterByAffiliateName () throws InterruptedException {
             //clear any preset filter
             //click filter
@@ -241,10 +286,6 @@ public class AffiliatesModule {
 
             //click clear
             affiliatePage.clickFilterClearBtn();
-
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
-
 
             //filter for created affiliate
             affiliatePage.clickFilterBtn();
@@ -261,7 +302,7 @@ public class AffiliatesModule {
 
         }
 
-        @Test(priority = 2)
+        @Test(priority = 3)
         public void filterByType () throws InterruptedException {
             //clear any preset filter
             //click filter
@@ -269,9 +310,6 @@ public class AffiliatesModule {
 
             //click clear
             affiliatePage.clickFilterClearBtn();
-
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
 
             //filter for created affiliate
             affiliatePage.clickFilterBtn();
@@ -284,20 +322,20 @@ public class AffiliatesModule {
 
             //test that affiliates that appear are of the filtered type
             Thread.sleep(3000);
-            Assert.assertEquals(affiliatePage.getFirstAffiliateType(), "Farm");
+            Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateType), "Farm");
 
 
         }
 
-        @Test(priority = 2)
+        @Test(priority = 3)
         public void toggleColumns () throws InterruptedException {
             UsersPage usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
             usersPage.refreshWindow();
 
             //clear any preset filter
+            Thread.sleep(2000);
             affiliatePage.clickFilterBtn();
             affiliatePage.clickFilterClearBtn();
-            affiliatePage.clickFilterApplyBtn();
 
             //click view
             Thread.sleep(2000);
@@ -332,7 +370,7 @@ public class AffiliatesModule {
 
         }
 
-        @Test(priority = 2)
+        @Test(priority = 3)
         @Ignore
         public void searchAffiliate () throws InterruptedException {
             //clear any preset filter
@@ -341,9 +379,6 @@ public class AffiliatesModule {
 
             //click clear
             affiliatePage.clickFilterClearBtn();
-
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
 
             //insert affiliate name
             affiliatePage.sendTextToSearchField(affiliateName);
@@ -360,7 +395,7 @@ public class AffiliatesModule {
             Thread.sleep(6000);
         }
 
-        @Test(priority = 3)
+        @Test(priority = 4)
         @Ignore
         public void deleteAffiliate ()throws InterruptedException {
             //clear any preset filter
@@ -369,9 +404,6 @@ public class AffiliatesModule {
 
             //click clear
             affiliatePage.clickFilterClearBtn();
-
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
 
             //filter for created affiliate
             Thread.sleep(2000);
@@ -412,9 +444,6 @@ public class AffiliatesModule {
             //click clear
             affiliatePage.clickFilterClearBtn();
 
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
-
             //filter for created affiliate
             affiliatePage.clickFilterBtn();
 
@@ -429,7 +458,7 @@ public class AffiliatesModule {
 
         }
 
-        @Test(priority = 3  /*,dependsOnMethods = "deleteAffiliate"*/)
+        @Test(priority = 4  /*,dependsOnMethods = "deleteAffiliate"*/)
         public void sortData () throws InterruptedException {
             //clear any preset filter
             //click filter
@@ -438,8 +467,6 @@ public class AffiliatesModule {
             //click clear
             affiliatePage.clickFilterClearBtn();
 
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
 
             //sort by name ascending
             affiliatePage.clickNameColumn();
@@ -513,7 +540,7 @@ public class AffiliatesModule {
         }
 
 
-        @Test(priority = 4)
+        @Test(priority = 5)
         public void createAffiliateByAdmin () throws InterruptedException {
             //sign-out from support
             homePage.clickProfileIconBtn();
@@ -565,7 +592,7 @@ public class AffiliatesModule {
 
         }
 
-        @Test(priority = 4)
+        @Test(priority = 5)
         public void createAffiliateBySuperAdmin () throws InterruptedException {
 
             //sign-out from support
@@ -627,9 +654,6 @@ public class AffiliatesModule {
 
             //click clear
             affiliatePage.clickFilterClearBtn();
-
-            //click apply
-            affiliatePage.clickFilterApplyBtn();
 
             //filter for created affiliate
             affiliatePage.clickFilterBtn();

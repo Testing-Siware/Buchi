@@ -25,12 +25,12 @@ public class UsersPage extends MethodHandles {
     private WebElement searchField;
 
     //confirm delete button
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
-    private WebElement confirmDeleteBtn;
+    @FindBy(id = "user-list-alert-dialog-button-confirm")
+    public WebElement confirmDeleteBtn;
 
     //confirm edit button
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
-    private WebElement confirmEditBtn;
+    @FindBy(id = "user-edit-form-alert-dialog-button-confirm")
+    public WebElement confirmEditBtn;
 
     //search button to fetch searched results
     @FindBy(id = "users-list-table-search-submit")
@@ -38,7 +38,7 @@ public class UsersPage extends MethodHandles {
 
     //filter button to show filter menu
     @FindBy(id = "users-list-table-filter-button")
-    private WebElement filterBtn;
+    public WebElement filterBtn;
 
     //text field to filter by first name
     @FindBy(id = "users-list-table-filter-input-firstName")
@@ -69,11 +69,11 @@ public class UsersPage extends MethodHandles {
     private WebElement viewBtn;
 
     //name of first user in search results
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[2]")
-    private WebElement filteredUserName;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
+    public WebElement filteredUserName;
 
     //email of first user in search results
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[4]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[4]")
     private WebElement filteredEmail;
 
     //created at of first user in search result
@@ -85,20 +85,20 @@ public class UsersPage extends MethodHandles {
     private WebElement filteredModifiedAt;
 
     //actions button to edit or delete user
-    @FindBy(xpath="/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[5]/button")
-    private WebElement actionsBtn;
+    @FindBy(id="users-list-table-actions-cell-0")
+    public WebElement actionsBtn;
 
     //actions button to edit or delete user when logged in with admin
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]/button")
     private WebElement actionsBtnAdmin;
 
     //option to edit user from actions button dropdown
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    @FindBy(id = "dropdown-menu-item-user-list-table-option-edit")
     private WebElement editUserOption;
 
     //option to delete user from actions button dropdown
-    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
-    private WebElement deleteUserOption;
+    @FindBy(id = "dropdown-menu-item-user-list-table-option-delete")
+    public WebElement deleteUserOption;
 
     //fifth column header (can be created or modified at)
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[1]/div[2]/div/div/div[3]/div[3]/div/div/div")
@@ -144,6 +144,8 @@ public class UsersPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[2]/div/div[2]")
     private WebElement sortDescOption;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
+    public WebElement tableHorizontalScrollBar;
     ///////////////////////////////////////Add User Page///////////////////////////////////////
 
     //first name text field
@@ -209,11 +211,11 @@ public class UsersPage extends MethodHandles {
     private WebElement emailErrorMsg;
 
     //error message if first name is invalid
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[2]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[3]/div[2]/span")
     private WebElement passwordErrorMsg;
 
-    //error message if first name is invalid
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[3]/div[2]/span")
+    //error message if passwords don't match
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[4]/div[2]/span")
     private WebElement confirmPasswordErrorMsg;
 
     //button to reset and clear all data entered in all fields

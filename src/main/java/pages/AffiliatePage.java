@@ -178,12 +178,12 @@ public class AffiliatePage extends MethodHandles {
 
 
     //name of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[2]")
-    private WebElement firstAffiliateName;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[2]")
+    public WebElement firstAffiliateName;
 
     //type of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[1]/div[3]")
-    private WebElement firstAffiliateType;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[3]")
+    public WebElement firstAffiliateType;
 
     //users count of first affiliate in the table
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
@@ -199,15 +199,26 @@ public class AffiliatePage extends MethodHandles {
 
     //option of first affiliate in the table
     @FindBy(id = "affiliates-list-table-actions-cell-0")
-    private WebElement firstAffiliateOptionsBtn;
+    public WebElement firstAffiliateOptionsBtn;
 
     //edit option of first affiliate in the table
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
-    private WebElement firstAffiliateEditBtn;
+    @FindBy(id = "dropdown-menu-item-edit")
+    public WebElement firstAffiliateEditBtn;
 
     //delete option of first affiliate in the table
-    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
-    private WebElement firstAffiliateDeleteBtn;
+    @FindBy(id = "dropdown-menu-item-delete")
+    public WebElement firstAffiliateDeleteBtn;
+
+    //generate license option of first affiliate in the table
+    @FindBy(id="dropdown-menu-item-generateLicense")
+    public WebElement firstAffiliateGenerateLicenseBtn;
+
+    //confirm license generate butto
+    @FindBy(id="affiliate-list-alert-dialog-button-confirm")
+    public WebElement confirmLicenseGenerateBtn;
+
+    @FindBy(id = "affiliate-list-alert-dialog-button-cancel")
+    public WebElement cancelLicenseGenerateBtn;
 
     //rows per page field
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[1]/div[2]/div/div/div[1]/div[2]/input")
@@ -1020,12 +1031,12 @@ public class AffiliatePage extends MethodHandles {
     private WebElement submitAffiliateEditBtn;
 
     //second affiliate name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[2]/div[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
     private WebElement secondAffiliateName;
 
     //second afffiliate users count
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[2]/div[4]")
-    private WebElement secondAffiliateUsersCount;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[4]")
+    public WebElement secondAffiliateUsersCount;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
     private WebElement confirmDeleteBtn;

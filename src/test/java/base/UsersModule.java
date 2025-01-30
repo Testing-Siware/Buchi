@@ -1,10 +1,14 @@
 package base;
 
 import data.Credentials;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import pages.Actions;
 import pages.HomePage;
 import pages.UsersPage;
 import utils.Helpers;
@@ -14,14 +18,17 @@ import java.util.Date;
 public class UsersModule {
     UsersPage usersPage;
     HomePage homePage;
+    Actions actions;
     String userFirstName;
     String userLastName;
     String userEmail;
+
 
     @Test(priority = 0)
     public void createInvalidUserBySupport() throws InterruptedException {
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        actions=new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
 
         //navigate to users page
         Thread.sleep(2000);
@@ -81,7 +88,7 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -145,8 +152,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
 
         //click add user
@@ -195,13 +202,15 @@ public class UsersModule {
         Thread.sleep(2000);
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
 
-        deleteUser("first");
+        deleteUser(userFirstName);
     }
 
     @Test(priority = 0)
     public void createAdminUserBySupport() throws InterruptedException {
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        actions=new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
+
 
         Thread.sleep(2000);
         //navigate to users page
@@ -212,7 +221,6 @@ public class UsersModule {
         Thread.sleep(2000);
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -276,7 +284,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -336,7 +343,7 @@ public class UsersModule {
 
         //filter by username
         Thread.sleep(2000);
-        usersPage.clickClearFiltersBtn();
+        usersPage.clickFilterBtn();
 
         //filter by first name to test user is created
         usersPage.sendTextToFirstNameFilter(userFirstName);
@@ -345,6 +352,8 @@ public class UsersModule {
         usersPage.clickApplyFiltersBtn();
 
         //click actions button
+        Thread.sleep(2000);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
         usersPage.clickActionsBtn();
 
         //click edit
@@ -364,18 +373,29 @@ public class UsersModule {
         //click reset
         usersPage.clickResetEditBtn();
 
+        //select affiliate
+        usersPage.sendTextToAffiliateDropDown("Buchi");
+
+        //select role
+        usersPage.sendTextToRoleDropDown("PartnerAdmin");
+
         //click save
         usersPage.clickSaveEditsBtn();
 
         //click submit
-        usersPage.clickConfirmEditBtn();
+        Thread.sleep(2000);
+        actions.clickElement(usersPage.confirmEditBtn);
 
         //filter for created user
 
-        //click filter button
+        //clear any preset filter
         usersPage.clickFilterBtn();
+        usersPage.clickClearFiltersBtn();
 
+
+        Thread.sleep(2000);
         //filter by first name to test user is created
+        actions.clickElement(usersPage.filterBtn);
         usersPage.sendTextToFirstNameFilter(userFirstName);
 
         //click apply
@@ -394,7 +414,7 @@ public class UsersModule {
 
         //filter by username
         Thread.sleep(2000);
-        usersPage.clickClearFiltersBtn();
+        usersPage.clickFilterBtn();
 
         //filter by first name to test user is created
         usersPage.sendTextToFirstNameFilter(userFirstName);
@@ -403,6 +423,8 @@ public class UsersModule {
         usersPage.clickApplyFiltersBtn();
 
         //click actions button
+        Thread.sleep(2000);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
         usersPage.clickActionsBtn();
 
         //click edit
@@ -423,6 +445,14 @@ public class UsersModule {
         usersPage.sendTextToLastNameEditFieldText(userLastName);
         usersPage.sendTextToEditEmailField(userEmail);
 
+
+        //select affiliate
+        usersPage.sendTextToAffiliateDropDown("Buchi");
+
+        //select role
+        usersPage.sendTextToRoleDropDown("PartnerAdmin");
+
+
         //click save
         usersPage.clickSaveEditsBtn();
 
@@ -431,9 +461,14 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
+        Thread.sleep(2000);
         usersPage.clickClearFiltersBtn();
 
         //filter by first name to test user is edited
+
+        usersPage.clickFilterBtn();
+        Thread.sleep(2000);
+
         usersPage.sendTextToFirstNameFilter(userFirstName);
 
         //click apply
@@ -452,6 +487,7 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
 
         //filter by first name
+        actions.clickElement(usersPage.filterBtn);
         usersPage.sendTextToFirstNameFilter(userFirstName);
         usersPage.clickApplyFiltersBtn();
 
@@ -469,6 +505,7 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
 
         //filter by last name
+        actions.clickElement(usersPage.filterBtn);
         usersPage.sendTextToLastNameFilter(userLastName);
         usersPage.clickApplyFiltersBtn();
 
@@ -487,6 +524,7 @@ public class UsersModule {
 
 
         //filter by last name
+        actions.clickElement(usersPage.filterBtn);
         usersPage.sendTextToEmailFilter(userEmail);
         usersPage.clickApplyFiltersBtn();
 
@@ -501,7 +539,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //click view
         Thread.sleep(2000);
@@ -551,7 +588,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //click filter
         usersPage.clickFilterBtn();
@@ -577,7 +613,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //test sort by name ascending
         usersPage.clickSortByName();
@@ -654,7 +689,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //filter by first name
         usersPage.clickFilterBtn();
@@ -678,6 +712,7 @@ public class UsersModule {
 */
         //click actions
         Thread.sleep(2000);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
         usersPage.clickActionsBtn();
 
         //click delete
@@ -692,7 +727,6 @@ public class UsersModule {
         Thread.sleep(4000);
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //filter by first name
         usersPage.clickFilterBtn();
@@ -757,7 +791,6 @@ public class UsersModule {
         Thread.sleep(2000);
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //insert username in search field
         usersPage.sendTextToSearchField(userFirstName);
@@ -789,7 +822,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -851,7 +883,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -913,7 +944,6 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -973,8 +1003,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1035,8 +1065,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1104,8 +1134,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1166,8 +1196,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1228,8 +1258,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1290,8 +1320,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1360,8 +1390,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1420,8 +1450,8 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //click add user
         usersPage.clickAddUserBtn();
@@ -1478,7 +1508,7 @@ public class UsersModule {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+
 
        //click filter
         usersPage.clickFilterBtn();
@@ -1488,9 +1518,12 @@ public class UsersModule {
 
         usersPage.clickApplyFiltersBtn();
 
+
         //click actions
+
         Thread.sleep(2000);
-        usersPage.clickActionsBtn();
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.clickElement(usersPage.actionsBtn);
 
         //click delete
         usersPage.clickDeleteUserOption();
@@ -1507,8 +1540,8 @@ public class UsersModule {
     public void deleteUserAdmin(String username) throws InterruptedException {
         //clear any preset filter
         usersPage.clickFilterBtn();
-        usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
+                usersPage.clickClearFiltersBtn();
+
 
         //insert username in search field
         usersPage.sendTextToSearchField(username);
@@ -1518,6 +1551,7 @@ public class UsersModule {
 
         //click actions
         Thread.sleep(2000);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
         usersPage.clickActionsBtnAdmin();
 
         //click delete

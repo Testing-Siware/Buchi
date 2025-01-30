@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -76,6 +77,10 @@ public class Actions {
         catch (Exception e){
             return false;
         }
+    }
+
+    public void scrollToElementHorizontally(WebElement element,ChromeDriver driver){
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollLeft += 500;", element);
     }
 
     public void enterText(WebElement element, String text){
