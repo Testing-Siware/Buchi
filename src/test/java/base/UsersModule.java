@@ -402,6 +402,7 @@ public class UsersModule {
         usersPage.clickApplyFiltersBtn();
 
         //test that user appears
+        Thread.sleep(2000);
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
     }
 
@@ -546,7 +547,7 @@ public class UsersModule {
         usersPage.clickToggleCreatedAtColumn();
 
         //test that column is not visible and the fifth column is modified at
-        Assert.assertEquals(usersPage.getFifthColumnHeaderText(), "Modified at");
+        Assert.assertFalse(actions.isElementDisplayed(usersPage.createdAtColumnHeader));
 
         //click view
         Thread.sleep(2000);
@@ -554,7 +555,7 @@ public class UsersModule {
         usersPage.clickToggleCreatedAtColumn();
 
         //test that column is  visible and the fifth column is created at
-        Assert.assertEquals(usersPage.getFifthColumnHeaderText(), "Created at");
+        Assert.assertTrue(actions.isElementDisplayed(usersPage.createdAtColumnHeader));
 
         //hide both created at and modified at
         //click view
@@ -566,6 +567,8 @@ public class UsersModule {
         usersPage.clickViewBtn();
         usersPage.clickToggleModifiedAtColumn();
 
+        Assert.assertFalse(actions.isElementDisplayed(usersPage.lastUpdatedAtColumnHeader));
+
         //reset the to default view (both columns viewed)
         //click view
         Thread.sleep(2000);
@@ -575,10 +578,6 @@ public class UsersModule {
         Thread.sleep(2000);
         usersPage.clickViewBtn();
         usersPage.clickToggleModifiedAtColumn();
-
-
-        //test that there is no fifth column
-        Assert.assertFalse(usersPage.isFifthColumnHeaderDisplayed());
 
     }
 
@@ -615,59 +614,81 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
 
         //test sort by name ascending
-        usersPage.clickSortByName();
-        usersPage.clickSortAscBtn();
+        actions.clickElement(usersPage.sortByName);
+        actions.clickElement(usersPage.sortNameAscOption);
+        actions.clickElement(usersPage.sortByName);
+        actions.clickElement(usersPage.sortNameAscOption);
         Thread.sleep(2000);
-
-        Assert.assertTrue(usersPage.getFilteredUserNameText().compareTo(usersPage.getSecondUsernameText()
-        ) <= 0);
+        System.out.println(usersPage.getFilteredUserNameText());
+        System.out.println(usersPage.getSecondUsernameText());
+        Assert.assertTrue(usersPage.getFilteredUserNameText().compareTo(usersPage.getSecondUsernameText()) <= 0);
 
         //test sort name descending
         Thread.sleep(2000);
         usersPage.clickSortByName();
-        usersPage.clickSortDescBtn();
+        actions.clickElement(usersPage.sortNameDescOption);
         Thread.sleep(2000);
-        Assert.assertTrue(usersPage.getFilteredUserNameText().compareTo(usersPage.getSecondUsernameText()
-        ) >= 0);
+        Assert.assertTrue(usersPage.getFilteredUserNameText().compareTo(usersPage.getSecondUsernameText()) >= 0);
+
+        //clear sorting
+        usersPage.clickSortByName();
+        actions.clickElement(usersPage.sortNameDescOption);
 
         //test sort by email ascending
-        usersPage.clickSortByEmailBtn();
-        usersPage.clickSortAscBtn();
         Thread.sleep(2000);
-        Assert.assertTrue(usersPage.getFilteredEmailText().compareTo(usersPage.getSecondEmailText()
-        ) <= 0);
+        actions.clickElement(usersPage.sortByEmail);
+        actions.clickElement(usersPage.sortEmailAscOption);
+        Thread.sleep(3000);
+        System.out.println(usersPage.getFilteredEmailText());
+        System.out.println(usersPage.getSecondEmailText());
+        System.out.println(usersPage.getFilteredEmailText().compareTo(usersPage.getSecondEmailText()));
+        Assert.assertTrue(usersPage.getFilteredEmailText().compareTo(usersPage.getSecondEmailText()) <= 0);
 
         //test sort email descending
-        usersPage.clickSortByEmailBtn();
-        usersPage.clickSortDescBtn();
+        actions.clickElement(usersPage.sortByEmail);
+        actions.clickElement(usersPage.sortEmailDescOption);
         Thread.sleep(2000);
-        System.out.println(usersPage.getFilteredUserNameText());
-        System.out.println(usersPage.getSecondUsernameText());
+        System.out.println(usersPage.getFilteredEmailText());
+        System.out.println(usersPage.getSecondEmailText());
+        System.out.println(usersPage.getFilteredEmailText().compareTo(usersPage.getSecondEmailText()));
         Assert.assertTrue(usersPage.getFilteredEmailText().compareTo(usersPage.getSecondEmailText()
         ) >= 0);
 
+
+        //clear sorting
+        actions.clickElement(usersPage.sortByEmail);
+        actions.clickElement(usersPage.sortEmailDescOption);
+
         //test sort created at ascending
-        usersPage.clickSortByCreatedAtBtn();
-        usersPage.clickSortAscBtn();
+        Thread.sleep(2000);
+        actions.clickElement(usersPage.sortByCreatedAt);
+        actions.clickElement(usersPage.sortCreatedAtAscOption);
         Thread.sleep(2000);
         Date firstDate = new Date(usersPage.getFilteredCreatedAtText());
         Date secondDate = new Date(usersPage.getFilteredModifiedAtText());
 
+        System.out.println(firstDate);
+        System.out.println(secondDate);
+
         Assert.assertTrue(firstDate.compareTo(secondDate) <= 0);
 
         //test sort created at descending
-        usersPage.clickSortByCreatedAtBtn();
-        usersPage.clickSortDescBtn();
+        actions.clickElement(usersPage.sortByCreatedAt);
+        actions.clickElement(usersPage.sortCreatedAtDescOption);
         Thread.sleep(2000);
         firstDate = new Date(usersPage.getFilteredCreatedAtText());
         secondDate = new Date(usersPage.getFilteredModifiedAtText());
 
         Assert.assertTrue(firstDate.compareTo(secondDate) <= 0);
 
+        //clear sorting
+        actions.clickElement(usersPage.sortByCreatedAt);
+        actions.clickElement(usersPage.sortCreatedAtDescOption);
+        Thread.sleep(2000);
 
         //test sort modified at ascending
-        usersPage.clickSortByModifiedAtBtn();
-        usersPage.clickSortAscBtn();
+        actions.clickElement(usersPage.sortByUpdatedAt);
+        actions.clickElement(usersPage.sortUpdatedAtAscOption);
         Thread.sleep(2000);
         firstDate = new Date(usersPage.getFilteredCreatedAtText());
         secondDate = new Date(usersPage.getFilteredModifiedAtText());
@@ -675,8 +696,8 @@ public class UsersModule {
         Assert.assertTrue(firstDate.compareTo(secondDate) <= 0);
 
         //test sort created at descending
-        usersPage.clickSortByModifiedAtBtn();
-        usersPage.clickSortDescBtn();
+        actions.clickElement(usersPage.sortByUpdatedAt);
+        actions.clickElement(usersPage.sortUpdatedAtDescOption);
         Thread.sleep(2000);
         firstDate = new Date(usersPage.getFilteredCreatedAtText());
         secondDate = new Date(usersPage.getFilteredModifiedAtText());
@@ -702,7 +723,6 @@ public class UsersModule {
 
         //click delete
         usersPage.clickDeleteUserOption();
-
 
         //cancel cancel
         usersPage.clickCancelDeleteBtn();
@@ -746,6 +766,7 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
 
         //filter by first name
+        usersPage.clickFilterBtn();
         usersPage.sendTextToFirstNameFilter(userFirstName);
         usersPage.clickApplyFiltersBtn();
 
@@ -762,6 +783,7 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
 
         //filter by first name
+        usersPage.clickFilterBtn();
         usersPage.sendTextToLastNameFilter(userLastName);
         usersPage.clickApplyFiltersBtn();
 
@@ -777,6 +799,7 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
 
         //filter by first name
+        usersPage.clickFilterBtn();
         usersPage.sendTextToEmailFilter(userFirstName);
         usersPage.clickApplyFiltersBtn();
 
@@ -793,6 +816,7 @@ public class UsersModule {
         usersPage.clickClearFiltersBtn();
 
         //insert username in search field
+        Thread.sleep(2000);
         usersPage.sendTextToSearchField(userFirstName);
 
         //click search
@@ -817,7 +841,7 @@ public class UsersModule {
         Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver,Credentials.superAdminUsername,Credentials.superAdminPassword);
 
         //navigate to users page
-        homePage.clickUsersSidebarBtnSuperAdmin();
+        homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
         usersPage.clickFilterBtn();
@@ -838,11 +862,6 @@ public class UsersModule {
         //insert last name
         usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
-        //choose affiliate
-        usersPage.sendTextToAffiliateDropDown("Buchi");
-
-        //select role
-        usersPage.sendTextToRoleDropDown("Support");
 
         //insert email
         usersPage.sendTextToCreateEmailField(userEmail);
@@ -850,6 +869,24 @@ public class UsersModule {
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
         usersPage.sendTextToConfirmPasswordField(Credentials.adminPassword);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"Support");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Sub1");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"Admin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //click save
         usersPage.clickSaveBtn();
@@ -878,7 +915,7 @@ public class UsersModule {
     public void createPartnerAdminUserBySuperAdmin() throws InterruptedException {
 
         //navigate to users page
-        homePage.clickUsersSidebarBtnSuperAdmin();
+        homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
         usersPage.clickFilterBtn();
@@ -899,18 +936,30 @@ public class UsersModule {
         //insert last name
         usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
-        //choose affiliate
-        usersPage.sendTextToAffiliateDropDown("Buchi");
-
-        //select role
-        usersPage.sendTextToRoleDropDown("PartnerAdmin");
-
         //insert email
         usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
         usersPage.sendTextToConfirmPasswordField(Credentials.adminPassword);
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Sub1");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"Admin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
 
         //click save
         usersPage.clickSaveBtn();
@@ -939,7 +988,7 @@ public class UsersModule {
     public void createPartnerUserUserBySuperAdmin() throws InterruptedException {
 
         //navigate to users page
-        homePage.clickUsersSidebarBtnSuperAdmin();
+        homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
         usersPage.clickFilterBtn();
@@ -960,23 +1009,32 @@ public class UsersModule {
         //insert last name
         usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
-        //choose affiliate
-        usersPage.sendTextToAffiliateDropDown("Buchi");
-
-        //select role
-        usersPage.sendTextToRoleDropDown("PartnerUser");
-
         //insert email
         usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
         usersPage.sendTextToConfirmPasswordField(Credentials.adminPassword);
+//select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerUser");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Sub1");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"Admin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //click save
         usersPage.clickSaveBtn();
-
-        //filter for created user
 
         //click filter button
         usersPage.clickFilterBtn();
@@ -999,7 +1057,7 @@ public class UsersModule {
     public void createUserBySuperAdmin() throws InterruptedException {
 
         //navigate to users page
-        homePage.clickUsersSidebarBtnSuperAdmin();
+        homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
         usersPage.clickFilterBtn();
@@ -1021,18 +1079,30 @@ public class UsersModule {
         //insert last name
         usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
-        //choose affiliate
-        usersPage.sendTextToAffiliateDropDown("Sub1");
-
-        //select role
-        usersPage.sendTextToRoleDropDown("User");
-
         //insert email
         usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
         usersPage.sendTextToConfirmPasswordField(Credentials.adminPassword);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Sub1");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"user");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //click save
         usersPage.clickSaveBtn();
@@ -1061,11 +1131,11 @@ public class UsersModule {
     public void createAdminUserBySuperAdmin() throws InterruptedException {
 
         //navigate to users page
-        homePage.clickUsersSidebarBtnSuperAdmin();
+        homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-                usersPage.clickClearFiltersBtn();
+        usersPage.clickClearFiltersBtn();
 
 
         //click add user
@@ -1083,18 +1153,41 @@ public class UsersModule {
         //insert last name
         usersPage.sendTextToLastNameCreateFieldText(userLastName);
 
-        //choose affiliate
-        usersPage.sendTextToAffiliateDropDown("Sub1");
-
-        //select role
-        usersPage.sendTextToRoleDropDown("Admin");
-
         //insert email
         usersPage.sendTextToCreateEmailField(userEmail);
 
         //insert password and password confirmation
         usersPage.sendTextToPasswordField(Credentials.adminPassword);
         usersPage.sendTextToConfirmPasswordField(Credentials.adminPassword);
+//select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Sub1");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"Admin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Sub1");
+
+        //select role
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"Admin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //click save
         usersPage.clickSaveBtn();
@@ -1134,7 +1227,7 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-                usersPage.clickClearFiltersBtn();
+        usersPage.clickClearFiltersBtn();
 
 
         //click add user
@@ -1386,7 +1479,7 @@ public class UsersModule {
         Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver,Credentials.adminUsername,Credentials.adminPassword);
 
         //navigate to users page
-        homePage.clickUsersSidebarBtnAdmin();
+        homePage.clickUsersSidebarBtn();
 
         //clear any preset filter
         usersPage.clickFilterBtn();
@@ -1440,7 +1533,7 @@ public class UsersModule {
         Thread.sleep(2000);
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
 
-        deleteUserAdmin(userFirstName);
+        deleteUser(userFirstName);
 
     }
 
@@ -1450,7 +1543,7 @@ public class UsersModule {
 
         //clear any preset filter
         usersPage.clickFilterBtn();
-                usersPage.clickClearFiltersBtn();
+        usersPage.clickClearFiltersBtn();
 
 
         //click add user
@@ -1499,7 +1592,7 @@ public class UsersModule {
         Thread.sleep(2000);
         Assert.assertEquals(usersPage.getFilteredUserNameText(), userFirstName + " " + userLastName);
 
-        deleteUserAdmin(userFirstName);
+        deleteUser(userFirstName);
     }
 
     //helper method to delete any created user
@@ -1540,10 +1633,12 @@ public class UsersModule {
     public void deleteUserAdmin(String username) throws InterruptedException {
         //clear any preset filter
         usersPage.clickFilterBtn();
-                usersPage.clickClearFiltersBtn();
+        usersPage.clickClearFiltersBtn();
 
 
         //insert username in search field
+        Thread.sleep(1000);
+
         usersPage.sendTextToSearchField(username);
 
         //click search
