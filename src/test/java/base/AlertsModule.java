@@ -437,7 +437,6 @@ public class AlertsModule {
     public void deleteAlert() throws InterruptedException{
 
 
-
         //navigate to alerts page
         homePage.clickAlertsSidebarBtn();
 

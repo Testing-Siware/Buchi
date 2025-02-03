@@ -11,6 +11,11 @@ import pages.HomePage;
 import pages.UsersPage;
 import utils.Helpers;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+
 
 public class AffiliatesModule {
     HomePage homePage;
@@ -128,26 +133,65 @@ public class AffiliatesModule {
         Thread.sleep(3000);
 
         //click options
+        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage.clickFirstAffiliateOptionsBtn();
 
         //test text is "Generate license"
-        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateGenerateLicenseBtn),"Generate license");
+        Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
 
         //click generate license option
-        actions.clickElement(affiliatePage.firstAffiliateGenerateLicenseBtn);
+        actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
 
         //test that confirmation dialog box appears
         Assert.assertTrue(actions.isElementDisplayed(affiliatePage.confirmLicenseGenerateBtn));
+
+        //click cancel button of popup
+        actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
+
+        //test that generate license still appears
+        affiliatePage.clickFirstAffiliateOptionsBtn();
+
+        //test text is "Generate license"
+        Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
+
+        //click generate license option
+        actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
+
+        //test that confirmation dialog box appears
+        Assert.assertTrue(actions.isElementDisplayed(affiliatePage.confirmLicenseGenerateBtn));
+
+
+
+
 
         //confirm license generation
         actions.clickElement(affiliatePage.confirmLicenseGenerateBtn);
 
         //click options button
+        Thread.sleep(2000);
         actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
 
-        //test that text is
-        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateGenerateLicenseBtn),"Generate license");
+        //test that text is "View license"
+        Assert.assertEquals(actions.getText(affiliatePage.affiliateViewLicenseOptionBtn),"View license");
 
+        actions.clickElement(affiliatePage.affiliateViewLicenseOptionBtn);
+
+        //copy affiliate license into clipboard
+        actions.clickElement(affiliatePage.copyLicenseBtn);
+
+        //test that affiliate license is copied into clipboard
+        try{
+            String clipboardText = (String) Toolkit.getDefaultToolkit()
+                    .getSystemClipboard()
+                    .getData(DataFlavor.stringFlavor);
+            Assert.assertTrue(clipboardText.contains("sync"));
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        //click cancel
+        actions.clickElement(affiliatePage.cancelLicenseCopyBtn);
     }
     @Test(priority = 2)
     public void cancelAffiliateEdits() throws InterruptedException {
@@ -476,7 +520,7 @@ public class AffiliatesModule {
             //sort by name ascending (click again as it is default and ensure it is set)
             affiliatePage.clickNameColumn();
             affiliatePage.clickSortNameAscOption();
-            Thread.sleep(6000);
+            Thread.sleep(3000);
 
             System.out.println(affiliatePage.getFirstAffiliateName());
             System.out.println(affiliatePage.getSecondAffiliateName());
@@ -493,7 +537,12 @@ public class AffiliatesModule {
             System.out.println(affiliatePage.getFirstAffiliateName().compareTo(affiliatePage.getSecondAffiliateName()));
             Assert.assertTrue(affiliatePage.getFirstAffiliateName().compareTo(affiliatePage.getSecondAffiliateName()) >= 0);
 
+            //clear name sorting
+            affiliatePage.clickNameColumn();
+            affiliatePage.clickSortNameDescOption();
+
             //sort by user count ascending
+            Thread.sleep(2000);
             affiliatePage.clickActiveUsersColumn();
             affiliatePage.clickSortActiveUsersAscOption();
             Thread.sleep(3000);
@@ -538,7 +587,6 @@ public class AffiliatesModule {
 
             Assert.assertTrue(num1 <= num2);
         }
-
 
         @Test(priority = 5)
         public void createAffiliateByAdmin () throws InterruptedException {
@@ -587,9 +635,19 @@ public class AffiliatesModule {
             Thread.sleep(3000);
             Assert.assertEquals(affiliatePage.getFirstAffiliateName(), affiliateName);
 
-            //delete created affiliate
-//        deleteAffiliate(affiliateName);
+            //click options
+            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+            affiliatePage.clickFirstAffiliateOptionsBtn();
 
+            //test text is "Generate license"
+            Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
+
+
+            //click generate license
+            actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
+
+            //click cancel button
+            actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
         }
 
         @Test(priority = 5)
@@ -641,10 +699,21 @@ public class AffiliatesModule {
             Thread.sleep(3000);
             Assert.assertEquals(affiliatePage.getFirstAffiliateName(), affiliateName);
 
-            //delete created affiliate
-//        deleteAffiliate(affiliateName);
+            //click options
+            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+            affiliatePage.clickFirstAffiliateOptionsBtn();
 
+            //test text is "Generate license"
+            Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
+
+            //click generate license
+            actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
+
+            //click cancel button
+            actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
         }
+
+
 
         public void deleteAffiliate (String afiliateName) throws InterruptedException {
 
@@ -686,6 +755,7 @@ public class AffiliatesModule {
 */
         //click confirm delete
         affiliatePage.clickConfirmDeleteBtn();}
+
 
     }
 

@@ -114,6 +114,9 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id="search")
     private WebElement searchField;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
+    public WebElement tableHorizontalScrollBar;
+
     //search button
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
     private WebElement searchBtn;
@@ -203,15 +206,24 @@ public class AffiliatePage extends MethodHandles {
 
     //edit option of first affiliate in the table
     @FindBy(id = "dropdown-menu-item-edit")
-    public WebElement firstAffiliateEditBtn;
+    public WebElement affiliateEditOptionBtn;
 
     //delete option of first affiliate in the table
     @FindBy(id = "dropdown-menu-item-delete")
-    public WebElement firstAffiliateDeleteBtn;
+    public WebElement affiliateDeleteOptionBtn;
+
+    @FindBy(id="license-button-cancel")
+    public WebElement cancelLicenseCopyBtn;
 
     //generate license option of first affiliate in the table
     @FindBy(id="dropdown-menu-item-generateLicense")
-    public WebElement firstAffiliateGenerateLicenseBtn;
+    public WebElement affiliateGenerateLicenseBtn;
+
+    @FindBy(id="dropdown-menu-item-viewLicense")
+    public WebElement affiliateViewLicenseOptionBtn;
+
+    @FindBy(id="license-button-copy")
+    public WebElement copyLicenseBtn;
 
     //confirm license generate butto
     @FindBy(id="affiliate-list-alert-dialog-button-confirm")
@@ -750,13 +762,13 @@ public class AffiliatePage extends MethodHandles {
 
     //method to click first affiliate edit button
     public boolean clickFirstAffiliateEditBtn() {
-        scrollToElement(firstAffiliateEditBtn);
-        return clickElement(firstAffiliateEditBtn);
+        scrollToElement(affiliateEditOptionBtn);
+        return clickElement(affiliateEditOptionBtn);
     }
 
     //method to click first affiliate delete button
     public boolean clickFirstAffiliateDeleteBtn() {
-        return clickElement(firstAffiliateDeleteBtn);
+        return clickElement(affiliateDeleteOptionBtn);
     }
     //</editor-fold>
 
