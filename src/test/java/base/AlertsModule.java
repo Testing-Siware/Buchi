@@ -486,6 +486,7 @@ public class AlertsModule {
         actions.clickElement(alertsPage.submitFilterBtn);
 
         //test that the alert is not displayed
+        Thread.sleep(2000);
         Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
     }
 
@@ -505,7 +506,12 @@ public class AlertsModule {
         //click column
         actions.clickElement(alertsPage.alertsNameColumn);
 
+        //remove default sorting (name ascending)
+        actions.clickElement(alertsPage.sortAlertsByNameAscOption);
+        Thread.sleep(2000);
+
         //click asc
+        actions.clickElement(alertsPage.alertsNameColumn);
         actions.clickElement(alertsPage.sortAlertsByNameAscOption);
         Thread.sleep(2000);
 

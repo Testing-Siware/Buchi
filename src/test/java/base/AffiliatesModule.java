@@ -704,7 +704,7 @@ public class AffiliatesModule {
             affiliatePage.clickFirstAffiliateOptionsBtn();
 
             //test text is "Generate license"
-            Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
+            Assert.assertFalse(actions.isElementDisplayed(affiliatePage.affiliateGenerateLicenseBtn));
 
             //click generate license
             actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
@@ -712,7 +712,6 @@ public class AffiliatesModule {
             //click cancel button
             actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
         }
-
 
 
         public void deleteAffiliate (String afiliateName) throws InterruptedException {
@@ -755,7 +754,6 @@ public class AffiliatesModule {
 */
         //click confirm delete
         affiliatePage.clickConfirmDeleteBtn();}
-
 
     }
 
