@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import org.testng.reporters.jq.Main;
+import pages.Actions;
+import pages.AlertsPage;
 import pages.HomePage;
 import pages.InstrumentsPage;
 import utils.Helpers;
@@ -16,8 +18,16 @@ import java.util.Date;
 public class InstrumentsModule {
     InstrumentsPage instrumentsPage;
     HomePage homePage;
-
+    Actions actions;
+    
     @Test(priority = 0)
+    public void intializeClasses() {
+        homePage= new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        instrumentsPage= new InstrumentsPage((ChromeDriver) MainTestRunner.ChromeDriver); 
+        actions = new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
+    }
+
+    @Test(priority = 1)
     public void instrumentSearch() throws InterruptedException {
         instrumentsPage = new InstrumentsPage((ChromeDriver) MainTestRunner.ChromeDriver);
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
@@ -27,163 +37,162 @@ public class InstrumentsModule {
 
         //send text to search field
         Thread.sleep(2000);
-        instrumentsPage.sendTextToSearchField("B15FG115");
-        instrumentsPage.clickSearchBtn();
+        actions.enterText(instrumentsPage.searchField,"416FG106");
+        actions.clickElement(instrumentsPage.searchBtn);
 
         //test that results appear
         Thread.sleep(2000);
-        Assert.assertEquals(instrumentsPage.getFirstRowNameText(), "B15FG115");
+        
+        Assert.assertEquals(actions.getText(instrumentsPage.firstRowName), "416FG106");
 
         instrumentsPage.refreshWindow();
         Thread.sleep(8000);
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void filterByInstrumentName() throws InterruptedException {
         //clear any preset filter
 
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
+        
 
         //click clear
         Thread.sleep(2000);
-        instrumentsPage.clickClearFiltersBtn();
-
-        //click apply
-        instrumentsPage.clickApplyFilterBtn();
-
+        actions.clickElement(instrumentsPage.clearFiltersBtn);
+        
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //insert instrument name
-        instrumentsPage.sendTextToFilterNameTextField("B15FG115");
-
+        
+        actions.enterText(instrumentsPage.filterNameTextField,"416FG106");
+        
         //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.applyFilterBtn);
 
         //test that filtered instrument appears
         Thread.sleep(3000);
-        Assert.assertEquals(instrumentsPage.getFirstRowNameText(), "B15FG115");
+        Assert.assertEquals(actions.getText(instrumentsPage.firstRowName), "416FG106");
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void filterBySerialNumber() throws InterruptedException {
         //clear any preset filter
 
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //click clear
-        instrumentsPage.clickClearFiltersBtn();
-
-        //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.clearFiltersBtn);
+        
 
         Thread.sleep(2000);
-        String firstSerialNumber = instrumentsPage.getFirstRowSerialNumberText();
-
+        String firstSerialNumber = actions.getText(instrumentsPage.firstRowSerialNumber);
+        
 
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
 
         //insert serial number
-        instrumentsPage.sendTextToFilterSerialNumberTextField(firstSerialNumber);
+        actions.enterText(instrumentsPage.filterSerialNumber,firstSerialNumber);
 
         //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.applyFilterBtn);
 
         //test that filtered instrument appears
         Thread.sleep(2000);
-        Assert.assertEquals(instrumentsPage.getFirstRowSerialNumberText(), firstSerialNumber);
+        Assert.assertEquals(actions.getText(instrumentsPage.firstRowSerialNumber), firstSerialNumber);
     }
 
     @Ignore
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void filterByInstrumentType() throws InterruptedException {
         //clear any preset filter
 
         //click filter
         Thread.sleep(2000);
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //click clear
-        instrumentsPage.clickClearFiltersBtn();
-
-        //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.clearFiltersBtn);
+        
 
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //insert instrument name
-        instrumentsPage.sendTextToFilterTypeTextField("Buchi");
+        actions.enterText(instrumentsPage.filterTypeField,"Buchi");
 
         //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.applyFilterBtn);
 
         //test that filtered instrument appears
         Thread.sleep(2000);
-        Assert.assertEquals(instrumentsPage.getFirstRowTypeText(), "B15FG115");
+        Assert.assertEquals(actions.getText(instrumentsPage.firstRowType), "B15FG115");
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void filterByModel() throws InterruptedException {
         //clear any preset filter
 
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //click clear
-        instrumentsPage.clickClearFiltersBtn();
-
-        //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.clearFiltersBtn);
+        
 
         Thread.sleep(2000);
-        String firstModel= instrumentsPage.getFirstRowModelText();
+        String firstModel= actions.getText(instrumentsPage.firstRowModel);
 
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //insert model
-        instrumentsPage.sendTextToFilterModelTextField(firstModel);
+        actions.enterText(instrumentsPage.filterModelTextField,firstModel);
 
         //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.applyFilterBtn);
 
         //test that instrument appears
         Thread.sleep(3000);
-        Assert.assertEquals(instrumentsPage.getFirstRowModelText(), firstModel);
+        Assert.assertEquals(actions.getText(instrumentsPage.firstRowModel), firstModel);
     }
 
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void toggleColumns() throws InterruptedException {
 
-        //test that seventh column is created at
-        Assert.assertEquals(instrumentsPage.getEigtthColHeaderText(), "Created at");
+        //test that created at column is not visible
+        Assert.assertFalse(actions.isElementDisplayed(instrumentsPage.createdAtColumnHeader));
+
+        //test that last updated at column is not visible
+        Assert.assertFalse(actions.isElementDisplayed(instrumentsPage.lastUpdatedColumnHeader));
 
         //click view
-        instrumentsPage.clickViewBtn();
+        actions.clickElement(instrumentsPage.viewBtn);
 
         //toggle created at column
-        instrumentsPage.clickToggleCreatedAtColumnOption();
+        actions.clickElement(instrumentsPage.toggleCreatedAtColumnOption);
+
+        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        Assert.assertTrue(actions.isElementDisplayed(instrumentsPage.createdAtColumnHeader));
 
         //click view
         Thread.sleep(2000);
 
-        instrumentsPage.clickViewBtn();
+        actions.clickElement(instrumentsPage.viewBtn);
 
-        //toggle created at column
-        instrumentsPage.clickToggleLastUpdatedAtColumnOption();
+        //toggle updated at column
+        actions.clickElement(instrumentsPage.toggleLastUpdatedAtColumnOption);
 
         //test that seventh column is last updated at
-        Assert.assertEquals(instrumentsPage.getEigtthColHeaderText(), "Last updated at");
-
-
+        Thread.sleep(2000);
+        Assert.assertTrue(actions.isElementDisplayed(instrumentsPage.lastUpdatedColumnHeader));
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void cancelEditsInstrument() throws InterruptedException {
 
         String nameBeforeEdit;
@@ -199,35 +208,35 @@ public class InstrumentsModule {
         //navigate to instruments page
         homePage.clickInstrumentsDashboardBtn();
 
-        nameBeforeEdit = instrumentsPage.getFirstRowNameText();
+        nameBeforeEdit = actions.getText(instrumentsPage.firstRowName);
 
         //click options for first instrument
         Thread.sleep(2000);
-        instrumentsPage.clickFirstRowOptionsBtn();
+        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.clickElement(instrumentsPage.firstRowOptionsBtn);
 
         //click edit
-        instrumentsPage.clickFirstRowEditOption();
-
+        actions.clickElement(instrumentsPage.firstRowEditOption);
+        actions.clickElement(instrumentsPage.firstRowEditOption);
         //clear all fields
         Thread.sleep(2000);
-        instrumentsPage.resetEditNameField("");
-        instrumentsPage.resetEditModelField("");
-
+        actions.clearText(instrumentsPage.editName);
+        actions.clearText(instrumentsPage.editModel);
 
         //insert any dummy name
-        instrumentsPage.sendTextToEditNameTextField("ABCDE");
-        instrumentsPage.sendTextToEditModelTextField("ABCDE");
+        actions.enterText(instrumentsPage.editName,"EFGHD");
+        actions.enterText(instrumentsPage.editModel,"EFGHD");
 
         //click cancel
         Thread.sleep(2000);
 
-        instrumentsPage.clickEditCancelBtn();
+        actions.clickElement(instrumentsPage.cancelEditBtn);
 
         //test that name of first instrument didn't change
-        Assert.assertEquals(instrumentsPage.getFirstRowNameText(), nameBeforeEdit);
+        Assert.assertEquals(actions.getText(instrumentsPage.firstRowName), nameBeforeEdit);
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void editInstrument() throws InterruptedException {
         String editedName = "Edited_Name" + MainTestRunner.date;
         String editedModel = Helpers.generateRandomString();
@@ -236,125 +245,129 @@ public class InstrumentsModule {
 
         //click filter
         Thread.sleep(2000);
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //click clear
-        instrumentsPage.clickClearFiltersBtn();
-
-        //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.clearFiltersBtn);
 
         //click options for first instrument
         Thread.sleep(2000);
-        instrumentsPage.clickFirstRowOptionsBtn();
-
+        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.clickElement(instrumentsPage.firstRowOptionsBtn);
+        
         //click edit
-        instrumentsPage.clickFirstRowEditOption();
+        actions.clickElement(instrumentsPage.firstRowEditOption);
 
         //clear all fields
-        instrumentsPage.resetEditNameField("");
-        instrumentsPage.resetEditModelField("");
+        Thread.sleep(2000);
+        actions.clearText(instrumentsPage.editName);
+        actions.clearText(instrumentsPage.editModel);
 
-        //insert new name
-        instrumentsPage.sendTextToEditNameTextField(editedName);
-
-        //insert new Model
-        instrumentsPage.sendTextToEditModelTextField(editedModel);
+        //insert edited name
+        actions.enterText(instrumentsPage.editName,editedName);
+        actions.enterText(instrumentsPage.editModel,editedModel);
 
         //click save
         Thread.sleep(2000);
-        instrumentsPage.clickEditSaveBtn();
+        actions.clickElement(instrumentsPage.saveEditBtn);
 
         //confirm edits
         Thread.sleep(2000);
-
-        instrumentsPage.clickSubmitEditBtn();
+        actions.clickElement(instrumentsPage.submitEditBtn);
 
         //clear any preset filter
 
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //click clear
-        instrumentsPage.clickClearFiltersBtn();
-
-        //click apply
-        instrumentsPage.clickApplyFilterBtn();
-
+        actions.clickElement(instrumentsPage.clearFiltersBtn);
+        
         //click filter
-        instrumentsPage.clickFilterBtn();
+        actions.clickElement(instrumentsPage.filterBtn);
 
         //insert model
-        instrumentsPage.sendTextToFilterNameTextField(editedName);
+        actions.enterText(instrumentsPage.filterNameTextField,editedName);
 
         //click apply
-        instrumentsPage.clickApplyFilterBtn();
+        actions.clickElement(instrumentsPage.applyFilterBtn);
 
         //test that instrument appears
         Thread.sleep(2000);
-        Assert.assertEquals(instrumentsPage.getFirstRowNameText(), editedName);
+        Assert.assertEquals(actions.getText(instrumentsPage.firstRowName), editedName);
 
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void sortData() throws InterruptedException {
         //clear any preset filter
-        instrumentsPage.clickFilterBtn();
-        instrumentsPage.clickClearFiltersBtn();
-        instrumentsPage.clickApplyFilterBtn();
+        Thread.sleep(2000);
+        actions.clickElement(instrumentsPage.filterBtn);
+        actions.clickElement(instrumentsPage.clearFiltersBtn);
+
+        //remove default sort
+        Thread.sleep(2000);
+        actions.clickElement(instrumentsPage.nameSortingBtn);
+        actions.clickElement(instrumentsPage.sortingNameAsc);
 
         //click sort by name
-        instrumentsPage.clickSortByNameBtn();
+        Thread.sleep(2000);
+        actions.clickElement(instrumentsPage.nameSortingBtn);
 
         //choose sort ascending
-        instrumentsPage.clickSortingNameAscOption();
+        actions.clickElement(instrumentsPage.sortingNameAsc);
 
         //fetch first and second instruments name
-        Thread.sleep(2000);
-        String first = instrumentsPage.getFirstRowNameText();
-        String second = instrumentsPage.getSecondInstrumentNameText();
+        Thread.sleep(3000);
+        String first = actions.getText(instrumentsPage.firstRowName);
+        String second = actions.getText(instrumentsPage.secondInstrumentName);
 
         //test that data is sorted
         Assert.assertTrue(first.compareTo(second) <= 0);
 
         //click sort by name
-        instrumentsPage.clickSortByNameBtn();
+        actions.clickElement(instrumentsPage.nameSortingBtn);
 
         //choose sort descending
-        instrumentsPage.clickSortingNameDescOption();
+        actions.clickElement(instrumentsPage.sortingNameDesc);
 
         //fetch first and second instruments name
         Thread.sleep(2000);
-        first = instrumentsPage.getFirstRowNameText();
-        second = instrumentsPage.getSecondInstrumentNameText();
+        first = actions.getText(instrumentsPage.firstRowName);
+        second = actions.getText(instrumentsPage.secondInstrumentName);
 
         //test that data is sorted
         Assert.assertTrue(first.compareTo(second) >= 0);
 
+        //remove the descending name sort
+        actions.clickElement(instrumentsPage.nameSortingBtn);
+        actions.clickElement(instrumentsPage.sortingNameDesc);
+
         //click sort by serial number
-        instrumentsPage.clickSerialNumberSortingBtn();
+        Thread.sleep(3000);
+        actions.clickElement(instrumentsPage.serialNumberSortingBtn);
 
         //choose sort ascending
-        instrumentsPage.clickSortingSerialNumberAscOption();
+        actions.clickElement(instrumentsPage.sortingSerialNumberAsc);
 
         //fetch first and second serial numbers
-        first = instrumentsPage.getFirstRowSerialNumberText();
-        second=instrumentsPage.getSecondSerialNumber();
+        first = actions.getText(instrumentsPage.firstRowSerialNumber);
+        second=actions.getText(instrumentsPage.secondSerialNumber);
 
         //test that data is sorted
         Assert.assertTrue(first.compareTo(second) <= 0);
 
         //click sort by name
         Thread.sleep(2000);
-        instrumentsPage.clickSerialNumberSortingBtn();
+        actions.clickElement(instrumentsPage.serialNumberSortingBtn);
 
         //choose sort descending
-        instrumentsPage.clickSortingSerialNumberDescOption();
+        actions.clickElement(instrumentsPage.sortingSerialNumberDesc);
 
         //fetch first and second instruments name
         Thread.sleep(2000);
-        first = instrumentsPage.getFirstRowNameText();
-        second = instrumentsPage.getSecondInstrumentNameText();
+        first = actions.getText(instrumentsPage.firstRowName);
+        second=actions.getText(instrumentsPage.secondSerialNumber);
 
         //test that data is sorted
         Assert.assertTrue(first.compareTo(second) >= 0);

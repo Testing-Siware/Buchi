@@ -21,13 +21,12 @@ public class InstrumentsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[1]/h4")
     public WebElement instrumentsPageTitle;
 
-
     //search text field
-    @FindBy(id = "recipes-list-table-search-input")
+    @FindBy(id = "instruments-list-table-search-input")
     public WebElement searchField;
 
     //search button
-    @FindBy(id = "recipes-list-table-search-submit")
+    @FindBy(id = "instruments-list-table-search-submit")
     public WebElement searchBtn;
 
     //seventh column header
@@ -35,7 +34,7 @@ public class InstrumentsPage extends MethodHandles {
     public WebElement eigthColHeader;
 
     //filter button
-    @FindBy(id = "instruments-list-table-filter-hstack")
+    @FindBy(id = "instruments-list-table-filter-button")
     public WebElement filterBtn;
 
     //view button
@@ -54,8 +53,21 @@ public class InstrumentsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[2]/div/div[6]")
     public WebElement clearPinningOption;
 
+    @FindBy(id = "instruments-list-table-createdBy-column")
+    public WebElement createdByColumnHeader;
+
+    @FindBy(id = "instruments-list-table-createdAt-column")
+    public WebElement createdAtColumnHeader;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
+    public WebElement tableHorizontalScrollBar;
+
+
+    @FindBy(id = "instruments-list-table-lastUpdatedAt-column")
+    public WebElement lastUpdatedColumnHeader;
+
     //clear any sorting
-    @FindBy(id = "recipes-list-table-viewing-options-dropdown-menu-item-clear-sorting")
+    @FindBy(id = "instruments-list-table-viewing-options-dropdown-menu-item-clear-sorting")
     public WebElement clearSortingOption;
 
     //second instrument name
@@ -83,7 +95,7 @@ public class InstrumentsPage extends MethodHandles {
     public WebElement pinNameColumn;
 
     //sorting serial number button
-    @FindBy(id = "serialNumber")
+    @FindBy(id = "instruments-list-table-serialNumber-column")
     public WebElement serialNumberSortingBtn;
 
     //sorting serial number Asc
@@ -221,9 +233,6 @@ public class InstrumentsPage extends MethodHandles {
     public WebElement applyFilterBtn;
     //</editor-fold>
 
-    //sort by name option
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[1]/div/div/div")
-    public WebElement sortByNameBtn;
 
     //<editor-fold desc="Allocators for edit instrument page">
     //edit page instrument name
@@ -233,7 +242,7 @@ public class InstrumentsPage extends MethodHandles {
     @FindBy(id = "instrument-form-input-installationPoint")
     public WebElement installationPointTextField;
 
-    @FindBy(id = "instrument-form-container-button-submit")
+    @FindBy(id = "instrument-form-alert-dialog-button-confirm")
     public WebElement submitEditBtn;
 
     //edit page instrument serial number

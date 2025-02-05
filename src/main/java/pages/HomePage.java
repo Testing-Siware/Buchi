@@ -91,7 +91,7 @@ public class HomePage extends MethodHandles {
     private WebElement analyticsDashboardBtn;
 
     //instruments button in sidebar
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[3]/div")
+    @FindBy(id = "side-menu-fleet-management-instruments")
     private WebElement instrumentsSidebarBtn;
 
     //recipes button in sidebar
