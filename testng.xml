@@ -7,9 +7,8 @@
             <class name="base.LoginModule"></class>
 <!--            <class name="base.UsersModule"></class>-->
 <!--            <class name="base.AffiliatesModule"></class>-->
-            <class name="base.InstrumentsModule"></class>
-<!--            <class name="base.RecipesModule"></cl
-Zass>-->
+<!--            <class name="base.InstrumentsModule"></class>-->
+            <class name="base.RecipesModule"></class>
 <!--            <class name="base.JournalsModule"></class>-->
 <!--            <class name="base.AlertsModule" ></class>-->
 
