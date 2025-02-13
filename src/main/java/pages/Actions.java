@@ -80,7 +80,7 @@ public class Actions {
     }
 
     public void scrollToElementHorizontally(WebElement element,ChromeDriver driver){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollLeft += 500;", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollLeft += 1000;", element);
     }
 
     public void enterText(WebElement element, String text){

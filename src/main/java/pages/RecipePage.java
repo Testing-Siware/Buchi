@@ -47,7 +47,7 @@ public class RecipePage extends MethodHandles {
 
     //fourth column header in recipe
     @FindBy(id = "recipes-list-table-createdAt-column")
-    public WebElement fourthColumnHeader;
+    public WebElement recipeCreatedAtColumnHeader;
 
     //seventh column header in parameter
     @FindBy(id = "avg")
@@ -110,11 +110,11 @@ public class RecipePage extends MethodHandles {
     public WebElement sortingCreatedByDesc;
 
     //first row name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[1]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
     public WebElement firstRowName;
 
     //second row name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div[2]/div[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
     public WebElement secondRowName;
 
     //third row name
@@ -122,11 +122,11 @@ public class RecipePage extends MethodHandles {
     public WebElement thirdRowName;
 
     //first row affiliate
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]")
     public WebElement firstRowAffiliate;
 
     //first row created by
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[4]")
     public WebElement firstRowCreatedBy;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
@@ -193,7 +193,7 @@ public class RecipePage extends MethodHandles {
     public WebElement toggleToAffiliateView;
 
     //toggle to created by view
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    @FindBy(id = "createdBy")
     public WebElement toggleToCreatedByView;
 
     //toggle to created at view
@@ -405,6 +405,11 @@ public class RecipePage extends MethodHandles {
     @FindBy(id = "recipes-parameters-list-table-name-column-options-menu-item-asc")
     public WebElement sortingRPNameAsc;
 
+    @FindBy(id="recipes-list-table-name-column-options-menu-item-asc")
+    public WebElement sortRecipeNameAsc;
+
+    @FindBy(id="recipes-list-table-nam-column-options-menu-item-desc")
+    public WebElement sortRecipeNameDesc;
     //sorting name column in recipe parameters page Desc
     @FindBy(id = "recipes-parameters-list-table-name-column-options-menu-item-desc")
     public WebElement sortingRPNameDesc;
@@ -583,6 +588,66 @@ public class RecipePage extends MethodHandles {
     @FindBy(id = "recipes-calibration-list-table-name-column-options-menu-item-asc")
     public WebElement sortingCalibrationFilesNameAsc;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[1]")
+    public WebElement firstCalibrationExpandBtn;
+
+    @FindBy(id="recipes-list-table-pagination-navigators-next-page")
+    public WebElement nextPageTablePagination;
+
+    @FindBy(id="recipes-list-table-pagination-navigators-previous-page")
+    public WebElement previousPageTablePagination;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div[1]/div")
+    public WebElement tsvTableButtons;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[1]")
+    public WebElement expandFirstRowTsvTable;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[4]/div/div/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div")
+    public WebElement tsvTableRecords;
+
+    @FindBy(id="affiliates-list-table-actions-cell-1")
+    public WebElement secondCalibrationFileVersionActionBtn;
+
+    @FindBy(id="navbar-breadcrumbs-desktop-view")
+    public WebElement navBarBreadCrumbs;
+
+    @FindBy(id="dropdown-menu-item-deploy")
+    public WebElement deployOptionAction;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/h4")
+    public WebElement deployCalibrationFilePopupHeader;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[3]/button")
+    public WebElement deployCalibrationFilePopupCancelBtn;
+
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[4]/div/button[1]")
+    public WebElement deployCalibrationFilePopupNoBtn;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
+    public WebElement firstCalibrationFileName;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
+    public WebElement secondCalibrationFileName;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[5]")
+    public WebElement firstCalibrationFileCreatedAt;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[5]")
+    public WebElement secondCalibrationFileCreatedAt;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[6]")
+    public WebElement firstCalibrationFileDeployedAt;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[6]")
+    public WebElement secondCalibrationFileDeployedAt;
+
+    @FindBy(id="recipes-calibration-list-table-deployedAt-column-options-menu-item-asc")
+    public WebElement calibrationSortDeployedAtAsc;
+
+    @FindBy(id="recipes-calibration-list-table-deployedAt-column-options-menu-item-desc")
+    public WebElement calibrationSortDeployedAtDesc;
+
     //sorting name column in calibration files page Desc
     @FindBy(id = "recipes-calibration-list-table-name-column-options-menu-item-desc")
     public WebElement sortingCalibrationFilesNameDesc;
@@ -623,9 +688,15 @@ public class RecipePage extends MethodHandles {
     @FindBy(id = "recipes-calibration-list-table-createdAt-column")
     public WebElement createdAtColumnHeader;
 
+    @FindBy(id="recipes-calibration-list-table-createdAt-column-options-menu-item-asc")
+    public WebElement calibrationCreatedAtAsc;
+
+    @FindBy(id="recipes-calibration-list-table-createdAt-column-options-menu-item-desc")
+    public WebElement calibrationCreatedAtDesc;
+
     //fifth column header in calibration files
     @FindBy(id = "recipes-calibration-list-table-deployedAt-column")
-    public WebElement fifthColumnHeaderCalibrationFiles;
+    public WebElement deplyedAtCalibrationColumn;
 
 
     //expand and collapse the calibration files button

@@ -1,5 +1,9 @@
 package base;
+import com.beust.ah.A;
 import com.google.gson.internal.bind.util.ISO8601Utils;
+import data.Credentials;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -7,7 +11,11 @@ import pages.Actions;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.RecipePage;
+import picocli.CommandLine;
+import utils.Helpers;
 
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TransferQueue;
 
 
@@ -18,20 +26,21 @@ public class RecipesModule {
     Actions actions;
 
     @BeforeClass
-public void startTestRecipesList() throws InterruptedException {
-    homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
-    recipesPage= new RecipePage((ChromeDriver) MainTestRunner.ChromeDriver);
-    loginPage= new LoginPage((ChromeDriver) MainTestRunner.ChromeDriver);
-    actions= new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
+    public void startTestRecipesList() throws InterruptedException {
+        homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        recipesPage = new RecipePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        loginPage = new LoginPage((ChromeDriver) MainTestRunner.ChromeDriver);
+        actions = new Actions((ChromeDriver) MainTestRunner.ChromeDriver, 20);
 
-    //login and navigate to Recipes page
-    Thread.sleep(1000);
+        //login and navigate to Recipes page
+        Thread.sleep(1000);
 //    loginPage.loginWithCredentials("mostafa.hassan+pa@si-ware.com","Cqc@12345");
 
 
-}
-    @Test(priority = 1)
-    public void sortRecipesList () throws InterruptedException {
+    }
+
+    @Test(priority = 1, dependsOnMethods = "verifyPagingFunctionality")
+    public void sortRecipesList() throws InterruptedException {
         Thread.sleep(2000);
         homePage.clickRecipesSidebarBtn();
         Thread.sleep(2000);
@@ -43,14 +52,12 @@ public void startTestRecipesList() throws InterruptedException {
 
         //sort by name ascending
         Thread.sleep(3000);
-        actions.clickElement(recipesPage.nameRecipesColumnHeader);
+        actions.clickElement(recipesPage.nameColumnHeader);
 
-        actions.clickElement(recipesPage.sortingRPNameAsc);
+        actions.clickElement(recipesPage.sortRecipeNameAsc);
         Thread.sleep(2000);
 
-        System.out.println(actions.getText(recipesPage.firstRowName));
-        System.out.println(actions.getText(recipesPage.secondRowName));
-        System.out.println((actions.getText(recipesPage.firstRowName)).compareTo(actions.getText(recipesPage.secondRowName)));
+        Assert.assertTrue((actions.getText(recipesPage.firstRowName)).compareTo(actions.getText(recipesPage.secondRowName)) <= 0);
     }
 
     @Test(priority = 3)
@@ -62,14 +69,14 @@ public void startTestRecipesList() throws InterruptedException {
 
         //fetch data to filter by
         Thread.sleep(2000);
-        String recipeToFilter=actions.getText(recipesPage.thirdRowName);
+        String recipeToFilter = actions.getText(recipesPage.thirdRowName);
         actions.clickElement(recipesPage.filterBtn);
 
         //click filter
         actions.clickElement(recipesPage.filterBtn);
 
         //send text to name filter
-        actions.enterText(recipesPage.filterName,recipeToFilter);
+        actions.enterText(recipesPage.filterName, recipeToFilter);
 
         //click apply
         actions.clickElement(recipesPage.filterApplyBtn);
@@ -78,13 +85,11 @@ public void startTestRecipesList() throws InterruptedException {
         Thread.sleep(2000);
 
         //test that results appear
-        System.out.println(recipeToFilter);
-        System.out.println(actions.getText(recipesPage.firstRowName));
-
+        Assert.assertEquals(actions.getText(recipesPage.firstRowName), recipeToFilter);
     }
 
     @Test(priority = 4)
-    public void viewColumns () throws InterruptedException {
+    public void viewColumns() throws InterruptedException {
 
         //clear any preset filter
         actions.clickElement(recipesPage.filterBtn);
@@ -100,7 +105,7 @@ public void startTestRecipesList() throws InterruptedException {
 
         //test that created at column is not visible
         Thread.sleep(1000);
-        Assert.assertFalse(actions.isElementDisplayed(recipesPage.createdAtColumnHeader));
+        Assert.assertFalse(actions.isElementDisplayed(recipesPage.recipeCreatedAtColumnHeader));
 
         //click view button
         actions.clickElement(recipesPage.viewBtn);
@@ -110,7 +115,7 @@ public void startTestRecipesList() throws InterruptedException {
 
         //test that created at column is visible
         Thread.sleep(1000);
-        Assert.assertTrue(actions.isElementDisplayed(recipesPage.createdAtColumnHeader));
+        Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeCreatedAtColumnHeader));
     }
 
     @Test(priority = 5)
@@ -125,13 +130,14 @@ public void startTestRecipesList() throws InterruptedException {
         String recipeName = actions.getText(recipesPage.firstRowName);
 
         //send the recipe name to search field
-        actions.enterText(recipesPage.searchField,recipeName);
+        actions.enterText(recipesPage.searchField, recipeName);
         actions.clickElement(recipesPage.searchBtn);
 
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(recipesPage.firstRowName),recipeName);
+        Assert.assertEquals(actions.getText(recipesPage.firstRowName), recipeName);
     }
-     //parameter list scenarios
+
+    //parameter list scenarios
     @Test(priority = 6)
     public void checkParameterList() throws InterruptedException {
         //go to parameters list
@@ -141,34 +147,35 @@ public void startTestRecipesList() throws InterruptedException {
         actions.clickElement(recipesPage.firstRowActions);
 
         //click view parameters
-        actions.clickElement(recipesPage.viewRecipeParametersBtn);
+        actions.clickElement(recipesPage.RowViewParametersAction);
 
-        //check display of parameter list
+        //test that user was re-directed
         Thread.sleep(2000);
-        System.out.println(MainTestRunner.ChromeDriver.getCurrentUrl());
+        Assert.assertTrue(MainTestRunner.ChromeDriver.getCurrentUrl().contains("parameters"));
     }
 
     @Test(priority = 7)
     public void searchByParameterName() throws InterruptedException {
 
-    //preset any filter
-    actions.clickElement(recipesPage.filterRecipeParametersBtn);
-    
-    //clear any preset filter
-    actions.clickElement(recipesPage.recipeParametersClearFilterBtn);
-    Thread.sleep(2000);
+        //preset any filter
+        actions.clickElement(recipesPage.filterRecipeParametersBtn);
 
-    //fetch data to search by
-    String parameterName = actions.getText(recipesPage.firstRowNameRP);
-    System.out.println(parameterName);
+        //clear any preset filter
+        actions.clickElement(recipesPage.recipeParametersClearFilterBtn);
+        Thread.sleep(2000);
 
-    //send data to search by
-    actions.enterText(recipesPage.recipeParameterSearchField,parameterName);
-    actions.clickElement(recipesPage.recipeParametersSearchBtn);
+        //fetch data to search by
+        String parameterName = actions.getText(recipesPage.firstRowNameRP);
+        System.out.println(parameterName);
 
-    //test that results appear
-    Thread.sleep(2000);
-    Assert.assertEquals(actions.getText(recipesPage.firstRowNameRP),parameterName);
+        //send data to search by
+        actions.enterText(recipesPage.recipeParameterSearchField, parameterName);
+        actions.clickElement(recipesPage.recipeParametersSearchBtn);
+
+        //test that results appear
+        MainTestRunner.ChromeDriver.navigate().refresh();
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(recipesPage.firstRowNameRP), parameterName);
     }
 
     @Test(priority = 8)
@@ -183,12 +190,12 @@ public void startTestRecipesList() throws InterruptedException {
 
         //filter by first row name
         actions.clickElement(recipesPage.filterRecipeParametersBtn);
-        actions.enterText(recipesPage.recipeParametersFilterName,parameterName);
+        actions.enterText(recipesPage.recipeParametersFilterName, parameterName);
         actions.clickElement(recipesPage.recipeParametersApplyFilterBtn);
 
         //test that data appears
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(recipesPage.firstRowNameRP),parameterName);
+        Assert.assertEquals(actions.getText(recipesPage.firstRowNameRP), parameterName);
     }
 
     @Test(priority = 9)
@@ -206,10 +213,10 @@ public void startTestRecipesList() throws InterruptedException {
 
         //test that data is sorted
         Thread.sleep(2000);
-        String first=actions.getText(recipesPage.firstRowNameRP);
-        String second=actions.getText(recipesPage.secondRowNameRP);
+        String first = actions.getText(recipesPage.firstRowNameRP);
+        String second = actions.getText(recipesPage.secondRowNameRP);
         System.out.println(first.compareTo(second));
-        Assert.assertTrue((first.compareTo(second))<=0);
+        Assert.assertTrue((first.compareTo(second)) <= 0);
 
 
         //click sort by name button
@@ -221,14 +228,15 @@ public void startTestRecipesList() throws InterruptedException {
 
         //test that data is sorted
         Thread.sleep(2000);
-         first=actions.getText(recipesPage.firstRowNameRP);
-         second=actions.getText(recipesPage.secondRowNameRP);
+        first = actions.getText(recipesPage.firstRowNameRP);
+        second = actions.getText(recipesPage.secondRowNameRP);
         System.out.println(first.compareTo(second));
-        Assert.assertTrue((first.compareTo(second))>=0);
+        Assert.assertTrue((first.compareTo(second)) >= 0);
 
     }
+
     @Test(priority = 10)
-    public void viewColumnsInParametersList () throws InterruptedException {
+    public void viewColumnsInParametersList() throws InterruptedException {
         //click view
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
@@ -250,84 +258,360 @@ public void startTestRecipesList() throws InterruptedException {
         //click view
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
-        //toggle index column
+        //toggle avg column
         actions.clickElement(recipesPage.toggleToAvgViewRP);
 
         //scroll horizontally in table
         actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
 
-        //test that index column appears
+        //test that avg column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterAvgColumn));
 
         //click view
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
-        //toggle index column
+        //toggle slope column
         actions.clickElement(recipesPage.toggleToSlopeViewRP);
 
         //scroll horizontally in table
         actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
 
-        //test that index column appears
+        //test that slope column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterSlopeColumn));
 
         //click view
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
-        //toggle index column
+        //toggle min column
         actions.clickElement(recipesPage.toggleToMinViewRP);
 
         //scroll horizontally in table
         actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
 
-        //test that index column appears
+        //test that min column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterMinColumn));
 
         //click view
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
-        //toggle index column
+        //toggle max column
         actions.clickElement(recipesPage.toggleToMaxViewRP);
 
         //scroll horizontally in table
         actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
 
-        //test that index column appears
+        //test that  column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterMaxColumn));
 
         //click view
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
-        //toggle index column
+        //toggle Mahalanobis column
         actions.clickElement(recipesPage.toggleToMahalanobisViewRP);
 
         //scroll horizontally in table
         actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
 
-        //test that index column appears
+        //test that Mahalanobis column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterMahalanobisColumn));
 
         //click view
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
-        //toggle index column
-        actions.clickElement(recipesPage.toggleToCreatedAtView);
+        //toggle created by column
+        actions.clickElement(recipesPage.toggleToCreatedByView);
 
         //scroll horizontally in table
         actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
 
-        //test that index column appears
+        //test that created by column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterCreatedByColumn));
     }
 
     @Test(priority = 11)
     public void viewCalibrationFiles() throws InterruptedException {
-    //recipesPage.refreshWindow();
-    Thread.sleep(1000);
-    actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
-    actions.clickElement(recipesPage.firstRowViewCalibrationActions);
-    System.out.println(MainTestRunner.ChromeDriver.getCurrentUrl());
+        //recipesPage.refreshWindow();
+        Thread.sleep(1000);
+        actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
+        actions.clickElement(recipesPage.firstRowViewCalibrationActions);
+        Assert.assertTrue(MainTestRunner.ChromeDriver.getCurrentUrl().contains("calibration-files"));
     }
+
+    @Test(priority = 12)
+    public void sortCalibrationFiles() throws InterruptedException {
+        //navigate to recipes page
+        homePage.clickRecipesSidebarBtn();
+
+        //search for milk recipe
+        Thread.sleep(2000);
+        //send the recipe name to search field
+        actions.enterText(recipesPage.searchField, "Milk");
+        actions.clickElement(recipesPage.searchBtn);
+
+        Thread.sleep(3000);
+
+        //click actions button
+        actions.clickElement(recipesPage.firstRowActions);
+
+        //click view parameters
+        actions.clickElement(recipesPage.RowViewParametersAction);
+
+        //click first parameter action button
+        Thread.sleep(3000);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
+
+        //click view calibration files
+        actions.clickElement(recipesPage.firstRowViewCalibrationActions);
+
+        //click name column
+        Thread.sleep(3000);
+        actions.clickElement(recipesPage.calibrationFilesTableNameColumn);
+
+        //click sort descending
+        actions.clickElement(recipesPage.sortingCalibrationFilesNameDesc);
+        Thread.sleep(2000);
+
+        Assert.assertTrue(actions.getText(recipesPage.firstCalibrationFileName).compareTo(actions.getText(recipesPage.secondCalibrationFileName)) >= 0);
+
+        //click name column
+        actions.clickElement(recipesPage.calibrationFilesTableNameColumn);
+
+        //click sort ascending
+        actions.clickElement(recipesPage.sortingCalibrationFilesNameAsc);
+        Thread.sleep(2000);
+
+        Assert.assertTrue(actions.getText(recipesPage.firstCalibrationFileName).compareTo(actions.getText(recipesPage.secondCalibrationFileName)) <= 0);
+
+        //clear ascending name sorting
+        //click name column
+        actions.clickElement(recipesPage.calibrationFilesTableNameColumn);
+
+        //click sort ascending
+        actions.clickElement(recipesPage.sortingCalibrationFilesNameAsc);
+
+        //click created at column
+        actions.clickElement(recipesPage.createdAtColumnHeader);
+
+        //click sort ascending
+        actions.clickElement(recipesPage.calibrationCreatedAtAsc);
+
+        //test sorting
+        Thread.sleep(2000);
+        Date first = new Date(actions.getText(recipesPage.firstCalibrationFileCreatedAt));
+        Date second = new Date(actions.getText(recipesPage.secondCalibrationFileCreatedAt));
+
+        Assert.assertTrue(first.compareTo(second) <= 0);
+
+        //click created at column
+        actions.clickElement(recipesPage.createdAtColumnHeader);
+
+        //click sort descending
+        actions.clickElement(recipesPage.calibrationCreatedAtDesc);
+
+        //test sorting
+        Thread.sleep(2000);
+        first = new Date(actions.getText(recipesPage.firstCalibrationFileCreatedAt));
+        second = new Date(actions.getText(recipesPage.secondCalibrationFileCreatedAt));
+
+        Assert.assertTrue(first.compareTo(second) >= 0);
+
+
+        //click deployed at column
+        actions.clickElement(recipesPage.deplyedAtCalibrationColumn);
+
+        //sort ascending
+        actions.clickElement(recipesPage.calibrationSortDeployedAtAsc);
+
+        Thread.sleep(2000);
+        first = new Date(actions.getText(recipesPage.firstCalibrationFileDeployedAt));
+        second = new Date(actions.getText(recipesPage.secondCalibrationFileDeployedAt));
+
+        Assert.assertTrue(first.compareTo(second) <= 0);
+
+
+        //click deployed at column
+        actions.clickElement(recipesPage.deplyedAtCalibrationColumn);
+
+        //sort descending
+        actions.clickElement(recipesPage.calibrationSortDeployedAtDesc);
+
+        Thread.sleep(2000);
+        first = new Date(actions.getText(recipesPage.firstCalibrationFileDeployedAt));
+        second = new Date(actions.getText(recipesPage.secondCalibrationFileDeployedAt));
+        System.out.println(first.compareTo(second));
+        Assert.assertTrue(first.compareTo(second) >= 0);
+    }
+
+    @Test(priority = 13)
+    public void deployCalibrationFile() throws InterruptedException {
+        //expand first calibration file
+        actions.clickElement(recipesPage.firstCalibrationExpandBtn);
+
+        //click action button for second version
+        actions.clickElement(recipesPage.secondCalibrationFileVersionActionBtn);
+
+        //click deploy option
+        actions.clickElement(recipesPage.deployOptionAction);
+
+        Assert.assertEquals(actions.getText(recipesPage.deployCalibrationFilePopupHeader),"Deploy Calibration Files");
+
+        //click cancel
+        actions.clickElement(recipesPage.deployCalibrationFilePopupCancelBtn);
+    }
+
+    @Test(priority = 13)
+    public void verifyBreadCrumbsText() throws InterruptedException {
+        Assert.assertTrue(actions.getText(recipesPage.navBarBreadCrumbs).contains("Recipes"));
+        Assert.assertTrue(actions.getText(recipesPage.navBarBreadCrumbs).contains("Milk"));
+        Assert.assertTrue(actions.getText(recipesPage.navBarBreadCrumbs).contains("Fat"));
+    }
+
+    @Test(priority = 13)
+    public void verifyTsvTableBtns(){
+        //fetch all children of tsv table buttons (view and refresh only)
+       List<WebElement> tsvTableBtns= recipesPage.tsvTableButtons.findElements(By.xpath("./child::*"));
+       Assert.assertEquals(tsvTableBtns.size(),2);
+
+    }
+
+    @Test(priority = 14)
+    public void verifyNumberOfRecordsInTsvFile(){
+        //expand first tsv file
+        actions.clickElement(recipesPage.expandFirstRowTsvTable);
+
+        //fetch records fo tsv file
+        List<WebElement> tsvTableRecords= recipesPage.tsvTableRecords.findElements(By.xpath("./child::*"));
+
+        //test that records are not more than 10
+        System.out.println(tsvTableRecords.size());
+        Assert.assertTrue(tsvTableRecords.size()<=10);
+    }
+
+    @Test(priority = 15)
+    public void verifyRollbackAsPartnerAdmin() throws InterruptedException{
+        //logout from support and login as Partner Admin
+        homePage.clickProfileIconBtn();
+        homePage.clickSignoutBtn();
+
+        Helpers.loginWithValidUser( (ChromeDriver) MainTestRunner.ChromeDriver,Credentials.partnerAdminUsername,Credentials.partnerAdminPassword);
+
+        //navigate to recipes page
+        homePage.clickRecipesSidebarBtn();
+
+        //search for milk recipe
+        Thread.sleep(2000);
+        //send the recipe name to search field
+        actions.enterText(recipesPage.searchField, "Milk");
+        actions.clickElement(recipesPage.searchBtn);
+
+        Thread.sleep(3000);
+
+        //click actions button
+        actions.clickElement(recipesPage.firstRowActions);
+
+        //click view parameters
+        actions.clickElement(recipesPage.RowViewParametersAction);
+
+        //click first parameter action button
+        Thread.sleep(3000);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
+
+        //click view calibration files
+        actions.clickElement(recipesPage.firstRowViewCalibrationActions);
+
+        //expand first calibration file
+        actions.clickElement(recipesPage.firstCalibrationExpandBtn);
+
+        //click action button for second version
+        actions.clickElement(recipesPage.secondCalibrationFileVersionActionBtn);
+
+        //click deploy option
+        actions.clickElement(recipesPage.deployOptionAction);
+
+        Assert.assertEquals(actions.getText(recipesPage.deployCalibrationFilePopupHeader),"Deploy Calibration Files");
+
+        //click cancel
+        actions.clickElement(recipesPage.deployCalibrationFilePopupCancelBtn);
+    }
+
+    @Test(priority = 15)
+    public void verifyRollbackAsAdmin() throws InterruptedException{
+        //logout from Partner Admin and login as Partner Admin
+        homePage.clickProfileIconBtn();
+        homePage.clickSignoutBtn();
+
+        Helpers.loginWithValidUser( (ChromeDriver) MainTestRunner.ChromeDriver,Credentials.adminUsername,Credentials.adminPassword);
+
+        //navigate to recipes page
+        homePage.clickRecipesSidebarBtn();
+
+        //search for milk recipe
+        Thread.sleep(2000);
+        //send the recipe name to search field
+        actions.enterText(recipesPage.searchField, "Milk");
+        actions.clickElement(recipesPage.searchBtn);
+
+        Thread.sleep(3000);
+
+        //click actions button
+        actions.clickElement(recipesPage.firstRowActions);
+
+        //click view parameters
+        actions.clickElement(recipesPage.RowViewParametersAction);
+
+        //click first parameter action button
+        Thread.sleep(3000);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
+
+        //click view calibration files
+        actions.clickElement(recipesPage.firstRowViewCalibrationActions);
+
+        //expand first calibration file
+        actions.clickElement(recipesPage.firstCalibrationExpandBtn);
+
+        //click action button for second version
+        actions.clickElement(recipesPage.secondCalibrationFileVersionActionBtn);
+
+        //click deploy option
+        actions.clickElement(recipesPage.deployOptionAction);
+
+        Assert.assertEquals(actions.getText(recipesPage.deployCalibrationFilePopupHeader),"Deploy Calibration Files");
+
+
+        //click cancel
+        actions.clickElement(recipesPage.deployCalibrationFilePopupCancelBtn);
+    }
+
+    @Test(priority = 1)
+    public void verifyPagingFunctionality() throws InterruptedException{
+
+        //navigate to recipes page
+        homePage.clickRecipesSidebarBtn();
+        Thread.sleep(2000);
+
+        //fetch name of first recipe
+        String firstRecipe=actions.getText(recipesPage.firstRowName);
+
+        //click next page in table
+        actions.clickElement(recipesPage.nextPageTablePagination);
+
+        //test that first row recipe changed
+        Thread.sleep(2000);
+        Assert.assertNotEquals(actions.getText(recipesPage.firstRowName),firstRecipe);
+
+        //navigate to previous page again
+        actions.clickElement(recipesPage.previousPageTablePagination);
+    }
+
+
+
+}
+
+
+
 
     //delay until migrate the calibration files table to AG-grid
 //    @Test(priority = 13)
@@ -367,10 +651,10 @@ public void startTestRecipesList() throws InterruptedException {
 
 
 
-
-@AfterClass
-    public void closeBrowser(){
-    MainTestRunner.ChromeDriver.quit();
-}
-
-}
+//
+//@AfterClass
+//    public void closeBrowser(){
+//    MainTestRunner.ChromeDriver.quit();
+//}
+//
+//}
