@@ -15,190 +15,191 @@ public class AffiliatePage extends MethodHandles {
         PageFactory.initElements(driver, this);
     }
 
-    
     /************************Allocators*****************************/
     //<editor-fold desc="Affiliates page allocators">
     //sidebar button expands and collapses it
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[1]/div[1]/div[1]/button")
-    private WebElement sidebarBtn;
+    @FindBy(id = "side-menu-access-management-affiliates-tooltip-trigger")
+    public WebElement sidebarBtn;
 
     //profile icon
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[1]/div[2]/div[1]/div/span/span")
-    private WebElement profileIconBtn;
+    public WebElement profileIconBtn;
 
     //profile name
     @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/span")
-    private WebElement profileName;
+    public WebElement profileName;
 
     //sign out button
     @FindBy(xpath = "/html/body/div[2]/div/div[2]")
-    private WebElement signOutBtn;
+    public WebElement signOutBtn;
 
     //change theme button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/div[2]/button[2]")
-    private WebElement changeThemeBtn;
+    public WebElement changeThemeBtn;
 
     //change language button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/div[2]/button[1]")
-    private WebElement changeLanguageBtn;
+    public WebElement changeLanguageBtn;
 
     //first language option (English)
     @FindBy(xpath = "/html/body/div[2]/div/div[3]")
-    private WebElement firstLanguageOption;
+    public WebElement firstLanguageOption;
 
     //second language option (Portuguese)
     @FindBy(xpath = "/html/body/div[2]/div/div[4]")
-    private WebElement secondLanguageOption;
+    public WebElement secondLanguageOption;
 
     //third language option (Chinese)
     @FindBy(xpath = "/html/body/div[2]/div/div[5]")
-    private WebElement thirdLanguageOption;
+    public WebElement thirdLanguageOption;
 
     //fourth language option (Korean)
     @FindBy(xpath = "/html/body/div[2]/div/div[6]")
-    private WebElement fourthLanguageOption;
+    public WebElement fourthLanguageOption;
 
     //fifth language option (Polish)
     @FindBy(xpath = "/html/body/div[2]/div/div[7]")
-    private WebElement fifthLanguageOption;
+    public WebElement fifthLanguageOption;
 
     //sixth language option (Spanish)
     @FindBy(xpath = "/html/body/div[2]/div/div[8]")
-    private WebElement sixthLanguageOption;
+    public WebElement sixthLanguageOption;
 
     //button to return to homepage
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/div[1]/nav/ol/li[1]/button")
-    private WebElement homeBtn;
+    public WebElement homeBtn;
 
     //dashboard button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[1]/div")
-    private WebElement dashboardSidebarBtn;
+    public WebElement dashboardSidebarBtn;
 
     //analytics button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[2]/div")
-    private WebElement analyticsBtn;
+    public WebElement analyticsBtn;
 
     //instruments button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[3]/div")
-    private WebElement instrumentsBtn;
+    public WebElement instrumentsBtn;
 
     //recipes button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[4]/div")
-    private WebElement recipesBtn;
+    public WebElement recipesBtn;
 
     //journals button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[5]/div")
-    private WebElement journalsBtn;
+    public WebElement journalsBtn;
 
     //alerts button in sidebar
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[6]/div")
-    private WebElement alertsBtn;
+    public WebElement alertsBtn;
 
     //users button in sidebar
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[8]/div")
-    private WebElement usersBtn;
+    public WebElement usersBtn;
 
     //help and support sidebar btn
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[3]/div[2]/div")
-    private WebElement helpAndSupportBtn;
+    public WebElement helpAndSupportBtn;
 
     //affiliates page title
     @FindBy(id = "affiliate-list-add-section-text-content")
-    private WebElement affiliatesPageTitle;
+    public WebElement affiliatesPageTitle;
 
     //add affiliates button
     @FindBy(id = "affiliate-list-add-section-button")
-    private WebElement addAffiliateBtn;
+    public WebElement addAffiliateBtn;
 
     //search field to search by user
-    @FindBy(id="search")
-    private WebElement searchField;
+    @FindBy(id="affiliates-list-table-search-input")
+    public WebElement searchField;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
     public WebElement tableHorizontalScrollBar;
 
     //search button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
-    private WebElement searchBtn;
+    @FindBy(id = "affiliates-list-table-search-submit")
+    public WebElement searchBtn;
 
     //filter button
     @FindBy(id = "affiliates-list-table-filter-button")
-    private WebElement filterBtn;
+    public WebElement filterBtn;
 
     //views button
     @FindBy(id = "affiliates-list-table-viewing-options")
-    private WebElement viewBtn;
+    public WebElement viewBtn;
 
     //toggle the created at view
-    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
-    private WebElement toggleCreatedAtColumnOption;
+    @FindBy(id = "createdAt")
+    public WebElement toggleCreatedAtColumnOption;
 
     //toggle the modified at view
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
-    private WebElement toggleModifiedAtColumnOption;
+    @FindBy(id = "lastUpdatedAt")
+    public WebElement toggleLastUpdatedAtColumnOption;
 
-    //clear any pinning
-    @FindBy(xpath = "/html/body/div[2]/div/div[6]")
-    private WebElement clearPinningOption;
 
     //clear any sorting
-    @FindBy(xpath = "/html/body/div[2]/div/div[7]")
-    private WebElement clearSortingOption;
+    @FindBy(id = "affiliates-list-table-viewing-options-dropdown-menu-item-clear-sorting")
+    public WebElement clearSortingOption;
 
     //fifth column header (can be created or modified at)
-    @FindBy(id = "affiliates-list-table-lastUpdatedAt-column-options-trigger")
-    private WebElement lastUpdatedAtColumn;
+    @FindBy(id = "affiliates-list-table-lastUpdatedAt-column")
+    public WebElement lastUpdatedAtColumn;
 
-    @FindBy(id="affiliates-list-table-name-column-options-trigger")
-    private WebElement nameColumn;
+    @FindBy(id="affiliates-list-table-name-column")
+    public WebElement nameColumn;
 
     @FindBy(id="affiliates-list-table-type-column")
-    private WebElement typeColumn;
+    public WebElement typeColumn;
 
     @FindBy(id="affiliates-list-table-currentActiveUsers-column")
-    private WebElement currentActiveUsersColumn;
+    public WebElement currentActiveUsersColumn;
 
     @FindBy(id="affiliates-list-table-maxUsersNumber-column")
-    private WebElement maxUsersNumberColumn;
+    public WebElement maxUsersNumberColumn;
 
-    @FindBy(id="affiliates-list-table-createdAt-column-options-trigger")
-    private WebElement createdAtColumn;
+    @FindBy(id="affiliates-list-table-createdAt-column")
+    public WebElement createdAtColumn;
 
     @FindBy(id="affiliates-list-table-name-column-options-menu-item-asc")
-    private WebElement sortNamesAscOption;
+    public WebElement sortNamesAscOption;
 
     @FindBy(id="affiliates-list-table-name-column-options-menu-item-desc")
-    private WebElement sortNamesDescOption;
+    public WebElement sortNamesDescOption;
 
     @FindBy(id="affiliates-list-table-name-column-options-menu-item-pin")
-    private WebElement pinNameColumnOption;
+    public WebElement pinNameColumnOption;
 
     @FindBy(id="affiliates-list-table-currentActiveUsers-column-options-menu-item-asc")
-    private WebElement sortActiveUsersAscOption;
+    public WebElement sortActiveUsersAscOption;
 
     @FindBy(id="affiliates-list-table-currentActiveUsers-column-options-menu-item-desc")
-    private WebElement sortActiveUsersDescOption;
+    public WebElement sortActiveUsersDescOption;
 
 
     //name of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
     public WebElement firstAffiliateName;
 
     //type of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[3]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]")
     public WebElement firstAffiliateType;
 
     //users count of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div")
-    private WebElement firstAffiliateUsersCount;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[4]")
+    public WebElement firstAffiliateActiveUsersCount;
 
     //max users count of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]/div/p")
-    private WebElement firstAffiliateMaxUsers;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[5]")
+    public WebElement firstAffiliateMaxUsers;
 
-    //status of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[6]/div/div")
-    private WebElement firstAffiliateStatus;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[6]")
+    public WebElement firstAffiliateCreatedAt;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[7]")
+    public WebElement firstAffiliateLastUpdatedAt;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[8]")
+    public WebElement firstAffiliateStatus;
 
     //option of first affiliate in the table
     @FindBy(id = "affiliates-list-table-actions-cell-0")
@@ -234,91 +235,91 @@ public class AffiliatePage extends MethodHandles {
 
     //rows per page field
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[1]/div[2]/div/div/div[1]/div[2]/input")
-    private WebElement rowsPerPage;
+    public WebElement rowsPerPage;
 
     //back page button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[1]")
-    private WebElement backPageBtn;
+    public WebElement backPageBtn;
 
     //back row button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[2]")
-    private WebElement backRowBtn;
+    public WebElement backRowBtn;
 
     //froward row button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[3]")
-    private WebElement frowardRowBtn;
+    public WebElement frowardRowBtn;
 
     //froward page button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div[2]/button[4]")
-    private WebElement frowardPageBtn;
+    public WebElement frowardPageBtn;
     //</editor-fold>
 
     //<editor-fold desc="Add affiliate page allocators">
     //add affiliates page title
     @FindBy(id = "affiliate-form-container-typography-title")
-    private WebElement addAffiliatePageTitle;
+    public WebElement addAffiliatePageTitle;
 
     //upload logo
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[1]/div/div/div/button")
-    private WebElement uploadLogoBtn;
+    public WebElement uploadLogoBtn;
 
     //affiliate name text field
     @FindBy(id = "affiliate-form-input-name")
-    private WebElement affiliateName;
+    public WebElement affiliateName;
 
     //max users field
     @FindBy(id = "affiliate-form-input-maxUsersNumber")
-    private WebElement maxUsers;
+    public WebElement maxUsers;
 
     //abbreviation text field
     @FindBy(id = "affiliate-form-input-abbreviation")
-    private WebElement affiliateAbbreviation;
+    public WebElement affiliateAbbreviation;
 
     //affiliate type
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div/div/div[1]/div[2]/input")
-    private WebElement affiliateType;
+    public WebElement affiliateType;
 
     //cancel button
     @FindBy(id = "affiliate-form-container-button-cancel")
-    private WebElement cancelBtn;
+    public WebElement cancelBtn;
 
     //reset button
     @FindBy(id = "affiliate-form-container-button-clear")
-    private WebElement resetBtn;
+    public WebElement resetBtn;
 
     //save button
     @FindBy(id = "affiliate-form-container-button-submit")
-    private WebElement saveBtn;
+    public WebElement saveBtn;
     //</editor-fold>
 
     //<editor-fold desc="Filter window allocators">
     //title
     @FindBy(xpath = "/html/body/div[3]/div/h4")
-    private WebElement filterPopTitle;
+    public WebElement filterPopTitle;
 
     //filter affiliate name
     @FindBy(id = "affiliates-list-table-filter-input-name")
-    private WebElement filterAffiliateName;
+    public WebElement filterAffiliateName;
 
     //filter affiliate type
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[2]/div/div/div[1]/div[2]/input")
-    private WebElement filterAffiliateType;
+    public WebElement filterAffiliateType;
 
     //filter cancel button
     @FindBy(id = "affiliates-list-table-filter-button-cancel")
-    private WebElement cancelFilterBtn;
+    public WebElement cancelFilterBtn;
 
     //clear filter button
     @FindBy(id = "affiliates-list-table-filter-button-clear")
-    private WebElement clearFiltersBtn;
+    public WebElement clearFiltersBtn;
 
     //apply filter button
     @FindBy(id = "affiliates-list-table-filter-button-submit")
-    private WebElement applyFilterBtn;
+    public WebElement applyFilterBtn;
 
     //close filter button X
     @FindBy(xpath = "/html/body/div[3]/button/svg")
-    private WebElement closeFilterBtn;
+    public WebElement closeFilterBtn;
     //</editor-fold>
 
     /************************Is Displayed Methods*****************************/
@@ -465,13 +466,9 @@ public class AffiliatePage extends MethodHandles {
 
     //method check if toggle modified at column option is displayed
     public boolean toggleModifiedAtColumnOptionIsDisplayed() {
-        return isDisplayed(toggleModifiedAtColumnOption, 10);
+        return isDisplayed(toggleLastUpdatedAtColumnOption, 10);
     }
 
-    //method check if clear pinning option is displayed
-    public boolean clearPinningOptionIsDisplayed() {
-        return isDisplayed(clearPinningOption, 10);
-    }
 
     //method check if clear sorting option is displayed
     public boolean clearSortingOptionIsDisplayed() {
@@ -723,13 +720,10 @@ public class AffiliatePage extends MethodHandles {
 
     //method to click toggle modified at column option
     public boolean clickToggleModifiedAtColumnOption() {
-        return clickElement(toggleModifiedAtColumnOption);
+        return clickElement(toggleLastUpdatedAtColumnOption);
     }
 
-    //method to click clear pinning option
-    public boolean clickClearPinningOption() {
-        return clickElement(clearPinningOption);
-    }
+
 
     //method to click clear sorting option
     public boolean clickClearSortingOption() {
@@ -900,7 +894,7 @@ public class AffiliatePage extends MethodHandles {
 
     //method to get first affiliate user count in table
     public String getFirstAffiliateUsersCount() {
-        return getElementText(firstAffiliateUsersCount);
+        return getElementText(firstAffiliateActiveUsersCount);
     }
 
     //method to get first affiliate max users count in table
@@ -1024,37 +1018,37 @@ public class AffiliatePage extends MethodHandles {
 
     //the error message appears under affiliate text field
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
-    private WebElement affiliateRequiredErrorMsg;
+    public WebElement affiliateRequiredErrorMsg;
 
     //the error message appears under max users text field
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
-    private WebElement maxUsersRequiredErrorMsg;
+    public WebElement maxUsersRequiredErrorMsg;
 
     //the error message appears under type text field
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div[2]/span")
-    private WebElement typeRequiredErrorMsg;
+    public WebElement typeRequiredErrorMsg;
 
     //the input field to upload image as logo
     @FindBy(xpath = "//*[@id=\"main-layout\"]/div[2]/form/div/div[3]/div/div/div[1]/div/input")
-    private WebElement uploadAffiliateLogoField;
+    public WebElement uploadAffiliateLogoField;
 
     //submit affiliate edits button
     @FindBy(id = "affiliate-form-alert-dialog-button-confirm")
-    private WebElement submitAffiliateEditBtn;
+    public WebElement submitAffiliateEditBtn;
 
     //second affiliate name
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
-    private WebElement secondAffiliateName;
+    public WebElement secondAffiliateName;
 
     //second afffiliate users count
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[4]")
     public WebElement secondAffiliateUsersCount;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
-    private WebElement confirmDeleteBtn;
+    public WebElement confirmDeleteBtn;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
-    private WebElement cancelDeleteBtn;
+    public WebElement cancelDeleteBtn;
 
     public boolean clickCancelDeleteBtn(){
         return clickElement(cancelDeleteBtn);

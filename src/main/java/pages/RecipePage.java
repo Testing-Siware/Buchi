@@ -136,6 +136,7 @@ public class RecipePage extends MethodHandles {
     @FindBy(id = "recipes-list-table-actions-cell-0")
     public WebElement firstRowActions;
 
+
     //second row action button
     @FindBy(id = "recipes-list-table-actions-cell-1")
     public WebElement secondRowActions;
@@ -415,7 +416,7 @@ public class RecipePage extends MethodHandles {
     public WebElement sortingRPNameDesc;
 
     //index sorting button in recipe parameters page
-    @FindBy(id = "recipes-parameters-list-table-index-column-options-trigger")
+    @FindBy(id = "recipes-parameters-list-table-index-column")
     public WebElement indexSortingRPBtn;
 
     //sorting name column in recipe parameters page Asc
@@ -591,6 +592,9 @@ public class RecipePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[1]")
     public WebElement firstCalibrationExpandBtn;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[1]")
+    public WebElement secondCalibrationExpandBtn;
+
     @FindBy(id="recipes-list-table-pagination-navigators-next-page")
     public WebElement nextPageTablePagination;
 
@@ -609,6 +613,9 @@ public class RecipePage extends MethodHandles {
     @FindBy(id="affiliates-list-table-actions-cell-1")
     public WebElement secondCalibrationFileVersionActionBtn;
 
+    @FindBy(id="affiliates-list-table-actions-cell-2")
+    public WebElement thirdCalibrationFileVersionActionBtn;
+
     @FindBy(id="navbar-breadcrumbs-desktop-view")
     public WebElement navBarBreadCrumbs;
 
@@ -622,8 +629,8 @@ public class RecipePage extends MethodHandles {
     public WebElement deployCalibrationFilePopupCancelBtn;
 
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[4]/div/button[1]")
-    public WebElement deployCalibrationFilePopupNoBtn;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[4]/button")
+    public WebElement deployCalibrationFilePopupCancelAnotherBtn;
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
     public WebElement firstCalibrationFileName;
 

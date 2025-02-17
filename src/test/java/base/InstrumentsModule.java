@@ -176,7 +176,7 @@ public class InstrumentsModule {
         //toggle created at column
         actions.clickElement(instrumentsPage.toggleCreatedAtColumnOption);
 
-        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, 500);
         Assert.assertTrue(actions.isElementDisplayed(instrumentsPage.createdAtColumnHeader));
 
         //click view
@@ -212,7 +212,7 @@ public class InstrumentsModule {
 
         //click options for first instrument
         Thread.sleep(2000);
-        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, 500);
         actions.clickElement(instrumentsPage.firstRowOptionsBtn);
 
         //click edit
@@ -252,7 +252,7 @@ public class InstrumentsModule {
 
         //click options for first instrument
         Thread.sleep(2000);
-        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, 500);
         actions.clickElement(instrumentsPage.firstRowOptionsBtn);
         
         //click edit

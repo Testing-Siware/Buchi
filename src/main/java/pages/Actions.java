@@ -12,6 +12,7 @@ import java.time.Duration;
 public class Actions {
 
     WebDriverWait wait;
+    ChromeDriver driver;
 
     public Actions(){
     }
@@ -22,6 +23,7 @@ public class Actions {
 //    }
 
     public Actions(ChromeDriver driver, int duration){
+        this.driver = driver;
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
     }
@@ -79,8 +81,13 @@ public class Actions {
         }
     }
 
-    public void scrollToElementHorizontally(WebElement element,ChromeDriver driver){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollLeft += 1000;", element);
+    public void scrollToElementHorizontally(WebElement element,int scrollAmount){
+        String script="arguments[0].scrollLeft += "+String.valueOf(scrollAmount)+";";
+        ((JavascriptExecutor) driver).executeScript(script, element);
+    }
+
+    public void scrollToElement(WebElement element){
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     public void enterText(WebElement element, String text){
@@ -90,6 +97,10 @@ public class Actions {
         }
         catch (Exception ignored){
         }
+    }
+
+    public void refreshWindow(){
+        driver.navigate().refresh();
     }
 
     public String getText(WebElement element){

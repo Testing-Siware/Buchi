@@ -353,7 +353,7 @@ public class UsersModule {
 
         //click actions button
         Thread.sleep(2000);
-        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, 500);
         usersPage.clickActionsBtn();
 
         //click edit
@@ -425,7 +425,7 @@ public class UsersModule {
 
         //click actions button
         Thread.sleep(2000);
-        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, 500);
         usersPage.clickActionsBtn();
 
         //click edit
@@ -732,7 +732,7 @@ public class UsersModule {
 */
         //click actions
         Thread.sleep(2000);
-        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, 500);
         usersPage.clickActionsBtn();
 
         //click delete
@@ -1615,7 +1615,7 @@ public class UsersModule {
         //click actions
 
         Thread.sleep(2000);
-        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, 500);
         actions.clickElement(usersPage.actionsBtn);
 
         //click delete
@@ -1646,7 +1646,7 @@ public class UsersModule {
 
         //click actions
         Thread.sleep(2000);
-        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, 500);
         usersPage.clickActionsBtnAdmin();
 
         //click delete

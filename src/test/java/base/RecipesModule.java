@@ -1,6 +1,4 @@
 package base;
-import com.beust.ah.A;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import data.Credentials;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,12 +9,10 @@ import pages.Actions;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.RecipePage;
-import picocli.CommandLine;
 import utils.Helpers;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TransferQueue;
 
 
 public class RecipesModule {
@@ -204,6 +200,27 @@ public class RecipesModule {
         actions.clickElement(recipesPage.filterRecipeParametersBtn);
         actions.clickElement(recipesPage.recipeParametersClearFilterBtn);
 
+        //clear index sort
+
+        //click view button
+        Thread.sleep(2000);
+        actions.clickElement(recipesPage.viewRecipeParametersBtn);
+
+        //toggle index column
+        actions.clickElement(recipesPage.toggleToIndexViewRP);
+
+        //click index column
+        actions.clickElement(recipesPage.indexSortingRPBtn);
+
+        //remove ascending sort
+        actions.clickElement(recipesPage.sortingRPIndexAsc);
+
+        //click view button
+        actions.clickElement(recipesPage.viewRecipeParametersBtn);
+
+        //toggle index column
+        actions.clickElement(recipesPage.toggleToIndexViewRP);
+
         //click sort by name button
         Thread.sleep(2000);
         actions.clickElement(recipesPage.nameSortingRPBtn);
@@ -217,7 +234,6 @@ public class RecipesModule {
         String second = actions.getText(recipesPage.secondRowNameRP);
         System.out.println(first.compareTo(second));
         Assert.assertTrue((first.compareTo(second)) <= 0);
-
 
         //click sort by name button
         Thread.sleep(2000);
@@ -233,11 +249,18 @@ public class RecipesModule {
         System.out.println(first.compareTo(second));
         Assert.assertTrue((first.compareTo(second)) >= 0);
 
+        //remove sorting
+        //click view
+        actions.clickElement(recipesPage.viewRecipeParametersBtn);
+
+        //click clear sorting
+        actions.clickElement(recipesPage.clearSortingViewRP);
     }
 
     @Test(priority = 10)
     public void viewColumnsInParametersList() throws InterruptedException {
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
         //toggle index column
@@ -247,82 +270,89 @@ public class RecipesModule {
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.indexSortingRPBtn));
 
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
-        //toggle index column
+        //toggle bias column
         actions.clickElement(recipesPage.toggleToBiasViewRP);
 
         //test that index column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterBiasColumn));
 
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
         //toggle avg column
         actions.clickElement(recipesPage.toggleToAvgViewRP);
 
         //scroll horizontally in table
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
 
         //test that avg column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterAvgColumn));
 
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
         //toggle slope column
         actions.clickElement(recipesPage.toggleToSlopeViewRP);
 
         //scroll horizontally in table
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
 
         //test that slope column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterSlopeColumn));
 
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
         //toggle min column
         actions.clickElement(recipesPage.toggleToMinViewRP);
 
         //scroll horizontally in table
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
 
         //test that min column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterMinColumn));
 
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
         //toggle max column
         actions.clickElement(recipesPage.toggleToMaxViewRP);
 
         //scroll horizontally in table
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
 
         //test that  column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterMaxColumn));
 
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
         //toggle Mahalanobis column
         actions.clickElement(recipesPage.toggleToMahalanobisViewRP);
 
         //scroll horizontally in table
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
 
         //test that Mahalanobis column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterMahalanobisColumn));
 
         //click view
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.viewRecipeParametersBtn);
 
         //toggle created by column
         actions.clickElement(recipesPage.toggleToCreatedByView);
 
         //scroll horizontally in table
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
 
         //test that created by column appears
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.recipeParameterCreatedByColumn));
@@ -358,7 +388,7 @@ public class RecipesModule {
 
         //click first parameter action button
         Thread.sleep(3000);
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
         actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
 
         //click view calibration files
@@ -428,8 +458,7 @@ public class RecipesModule {
         second = new Date(actions.getText(recipesPage.secondCalibrationFileDeployedAt));
 
         Assert.assertTrue(first.compareTo(second) <= 0);
-
-
+        
         //click deployed at column
         actions.clickElement(recipesPage.deplyedAtCalibrationColumn);
 
@@ -441,6 +470,8 @@ public class RecipesModule {
         second = new Date(actions.getText(recipesPage.secondCalibrationFileDeployedAt));
         System.out.println(first.compareTo(second));
         Assert.assertTrue(first.compareTo(second) >= 0);
+        
+
     }
 
     @Test(priority = 13)
@@ -462,6 +493,8 @@ public class RecipesModule {
 
     @Test(priority = 13)
     public void verifyBreadCrumbsText() throws InterruptedException {
+        System.out.println(actions.getText(recipesPage.navBarBreadCrumbs));
+        Thread.sleep(2000);
         Assert.assertTrue(actions.getText(recipesPage.navBarBreadCrumbs).contains("Recipes"));
         Assert.assertTrue(actions.getText(recipesPage.navBarBreadCrumbs).contains("Milk"));
         Assert.assertTrue(actions.getText(recipesPage.navBarBreadCrumbs).contains("Fat"));
@@ -479,6 +512,9 @@ public class RecipesModule {
     public void verifyNumberOfRecordsInTsvFile(){
         //expand first tsv file
         actions.clickElement(recipesPage.expandFirstRowTsvTable);
+
+        //scroll down
+        actions.scrollToElement(recipesPage.expandFirstRowTsvTable);
 
         //fetch records fo tsv file
         List<WebElement> tsvTableRecords= recipesPage.tsvTableRecords.findElements(By.xpath("./child::*"));
@@ -515,7 +551,7 @@ public class RecipesModule {
 
         //click first parameter action button
         Thread.sleep(3000);
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
         actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
 
         //click view calibration files
@@ -538,6 +574,9 @@ public class RecipesModule {
 
     @Test(priority = 15)
     public void verifyRollbackAsAdmin() throws InterruptedException{
+        //scroll back up
+        actions.scrollToElement(homePage.profileIconBtn);
+
         //logout from Partner Admin and login as Partner Admin
         homePage.clickProfileIconBtn();
         homePage.clickSignoutBtn();
@@ -550,7 +589,7 @@ public class RecipesModule {
         //search for milk recipe
         Thread.sleep(2000);
         //send the recipe name to search field
-        actions.enterText(recipesPage.searchField, "Milk");
+        actions.enterText(recipesPage.searchField, "A");
         actions.clickElement(recipesPage.searchBtn);
 
         Thread.sleep(3000);
@@ -563,7 +602,7 @@ public class RecipesModule {
 
         //click first parameter action button
         Thread.sleep(3000);
-        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, (ChromeDriver) MainTestRunner.ChromeDriver);
+        actions.scrollToElementHorizontally(recipesPage.tableHorizontalScrollBar, 1000);
         actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
 
         //click view calibration files
@@ -573,16 +612,19 @@ public class RecipesModule {
         actions.clickElement(recipesPage.firstCalibrationExpandBtn);
 
         //click action button for second version
-        actions.clickElement(recipesPage.secondCalibrationFileVersionActionBtn);
+        actions.clickElement(recipesPage.thirdCalibrationFileVersionActionBtn);
 
         //click deploy option
         actions.clickElement(recipesPage.deployOptionAction);
 
+        Thread.sleep(2000);
         Assert.assertEquals(actions.getText(recipesPage.deployCalibrationFilePopupHeader),"Deploy Calibration Files");
-
 
         //click cancel
         actions.clickElement(recipesPage.deployCalibrationFilePopupCancelBtn);
+
+        //click no
+        actions.clickElement(recipesPage.deployCalibrationFilePopupCancelAnotherBtn);
     }
 
     @Test(priority = 1)
