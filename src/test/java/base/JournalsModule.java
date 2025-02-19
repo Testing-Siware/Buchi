@@ -18,8 +18,8 @@ public class JournalsModule {
     @BeforeClass
     public void initializeClasses(){
         homePage=new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
-        journalsPage=new JournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
-        journalsListPage=new ListJournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
+        journalsPage=new JournalsPage( MainTestRunner.ChromeDriver);
+        journalsListPage=new ListJournalsPage(MainTestRunner.ChromeDriver);
         actions= new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
     }
 
@@ -119,7 +119,7 @@ public class JournalsModule {
         //get length of downloads directory
         int filesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
 
-        journalsListPage=new ListJournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
+        journalsListPage=new ListJournalsPage( MainTestRunner.ChromeDriver);
 
         //clear any preset filter
         //click filter
