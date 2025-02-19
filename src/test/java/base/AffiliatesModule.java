@@ -643,7 +643,6 @@ public class AffiliatesModule {
         public void createAffiliateBySuperAdmin () throws InterruptedException {
 
             //sign-out from support
-
             actions.clickElement(homePage.profileIconBtn);
             actions.clickElement(homePage.signoutBtn);
 

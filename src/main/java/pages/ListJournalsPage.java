@@ -19,70 +19,94 @@ public class ListJournalsPage extends MethodHandles {
     }
 
     //edit filters button in journals' instruments page
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[2]/div[2]/button")
-    private WebElement editFiltersBtn;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[2]/div[2]/div[2]/button[1]")
+    public WebElement editFiltersBtn;
 
     //recipe filter dropdown
     @FindBy(xpath="/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[1]/div/div/div[1]/div[2]/input")
-    private WebElement recipeFilterText;
+    public WebElement recipeFilterText;
 
     //instrument SNR filter
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[2]/div/div/div[1]/div[2]/input")
-    private WebElement instrumentSNRFilterText;
+    public WebElement instrumentSNRFilterText;
 
     //sample name filter text box
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div/input")
-    private WebElement sampleNameFilterText;
+    public WebElement sampleNameFilterText;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div[1]/div[2]/input")
+    public WebElement journalsFilterDropdown;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div[1]/div[2]/input")
+    public WebElement journalsFilter;
 
     ///cancel filter button
     @FindBy(xpath="/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[4]/button")
-    private WebElement cancelFilterBtn;
+    public WebElement cancelFilterBtn;
 
     //save filter button
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[4]/div/button")
-    private WebElement saveFilterBtn;
+    public WebElement saveFilterBtn;
 
     //search text field
-    @FindBy(id = "search")
-    private WebElement searchTextFields;
+    @FindBy(id = "journal-details-list-search-input")
+    public WebElement searchTextFields;
 
     //search button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[1]/form/div/button")
-    private WebElement searchBtn;
+    @FindBy(id = "journal-details-list-search-submit")
+    public WebElement searchBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[5]")
+    public WebElement exportBtn;
+
+    @FindBy(id = "journal-details-list-viewing-options")
+    public WebElement viewBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[1]")
+    public WebElement manageReferenceValuesBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[2]")
+    public WebElement manageJournalsBtn;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[3]")
-    private WebElement exportBtn;
-
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[1]/div/button[2]")
-    private WebElement viewBtn;
+    public WebElement spectraOptionsBtn;
 
     //clear pinning button
     @FindBy(xpath = "/html/body/div[2]/div/div[5]")
-    private WebElement clearPinningBtn;
+    public WebElement clearPinningBtn;
 
     //clear sorting button
-    @FindBy(xpath = "/html/body/div[2]/div/div[6]")
-    private WebElement clearSortingBtn;
+    @FindBy(id = "journal-details-list-viewing-options-dropdown-menu-item-clear-sorting")
+    public WebElement clearSortingBtn;
+
+    @FindBy(id = "metadata")
+    public WebElement toggleMetadataBtn;
+
+    @FindBy(id = "values")
+    public WebElement toggleValuesBtn;
+
+    @FindBy(id = "spectra")
+    public WebElement toggleSpectraBtn;
 
     //first scan checkbox
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[1]/div[1]/div/div/div/div/div[2]")
-    private WebElement firstSampleCheckBox;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[1]/div/div[1]/div/div/div/div[2]")
+    public WebElement firstSampleCheckBox;
 
     //minimize expanded recipe name
     @FindBy(xpath = "/html/body/div[3]/button")
-    private WebElement minimizeSampleBtn;
+    public WebElement minimizeSampleBtn;
 
     //first sample name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/span")
-    private WebElement firstSampleName;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[1]/div/div[2]/div")
+    public WebElement firstSampleName;
 
     //first sample recipe name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[2]/div[3]/div[1]/div")
-    private WebElement firstSampleRecipeName;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[1]")
+    public WebElement firstSampleRecipeName;
 
     //first sample instrument
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[2]/div[3]/div[2]/div")
-    private WebElement firstSampleInstrument;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[3]")
+    public WebElement firstSampleInstrument;
 
     //-----------------------Click Methods-----------------------//
     public boolean clickEditFiltersBtn() {

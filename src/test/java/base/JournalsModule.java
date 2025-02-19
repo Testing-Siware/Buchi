@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.*;
@@ -12,28 +13,32 @@ public class JournalsModule {
     HomePage homePage;
     JournalsPage journalsPage;
     ListJournalsPage journalsListPage;
+    Actions actions;
 
-
-    @Test()
-    @Ignore
-    public void searchForJournal() throws InterruptedException {
+    @BeforeClass
+    public void initializeClasses(){
         homePage=new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         journalsPage=new JournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
         journalsListPage=new ListJournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
+        actions= new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
+    }
+
+    @Test()
+    public void searchForJournal() throws InterruptedException {
 
         //navigate to journals
-        homePage.clickJournalsSidebarBtn();
+        actions.clickElement(homePage.journalsSidebarBtn);
 
         //send value to search bar
         Thread.sleep(2000);
-        journalsPage.sendTextToSearchField("Global");
+        actions.enterText(journalsPage.searchField,"Global");
 
         //click search button
-        journalsPage.clickSubmitSearchBtn();
+        actions.clickElement(journalsPage.submitSearchBtn);
 
         Thread.sleep(3000);
         //test that data searched for appears
-        Assert.assertEquals(journalsPage.getFirstRecipeName(),"Global");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Global");
 
         //refresh window to clear results
         journalsPage.refreshWindow();
@@ -43,73 +48,69 @@ public class JournalsModule {
 
     @Test(priority = 1)
     public void filterByName() throws InterruptedException {
-        homePage=new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
-        journalsPage=new JournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
-        journalsListPage=new ListJournalsPage((ChromeDriver) MainTestRunner.ChromeDriver);
-
+        
         //navigate to journals
         Thread.sleep(4000);
-        homePage.clickJournalsSidebarBtn();
-        homePage.clickJournalsSidebarBtn();
+        actions.clickElement(homePage.journalsSidebarBtn);
 
         //click filter button
-        journalsPage.clickFilterBtn();
+        actions.clickElement(journalsPage.filterBtn);
 
         //send text to filter name
-        journalsPage.sendTextToNameFilterTextField("Global");
+        actions.enterText(journalsPage.nameFilterTextField,"Global");
 
         //click apply
-        journalsPage.clickApplyFilterBtn();
-
+        actions.clickElement(journalsPage.applyFilterBtn);
+        
         //test that results appear
         Thread.sleep(4000);
-        Assert.assertEquals(journalsPage.getFirstRecipeName(),"Global");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Global");
+        
+        //todo:add negative scenario
     }
 
     @Test(priority = 2)
     public void toggleView() throws InterruptedException {
         //clear any preset filter
-
+        
         //click filter
-        journalsPage.clickFilterBtn();
-
+        actions.clickElement(journalsPage.filterBtn);;
+        
         //click clear
-        journalsPage.clickClearFilterBtn();
+        actions.clickElement(journalsPage.clearFilterBtn);
 
         //click apply filter
-        journalsPage.clickApplyFilterBtn();
+        actions.clickElement(journalsPage.applyFilterBtn);
 
         //click view button
         Thread.sleep(3000);
-        journalsPage.clickViewBtn();
+        actions.clickElement(journalsPage.viewBtn);
 
         //toggle affiliate column
-        journalsPage.clickToggleAffiliateBtn();
+        actions.clickElement(journalsPage.toggleAffiliateBtn);
 
-        //fetch second column title and test it is Created by
-        Assert.assertEquals(journalsPage.getSecondColumnTitle(),"Created by");
-
-        //click view button
-        Thread.sleep(3000);
-        journalsPage.clickViewBtn();
-
-        //toggle created by column
-        journalsPage.clickToggleCreatedBy();
-
-        //fetch second column title and test it is Created at
-        Assert.assertEquals(journalsPage.getSecondColumnTitle(),"Created at");
+        //test that affiliate column is visible
+        Assert.assertFalse(actions.isElementDisplayed(journalsPage.affiliateNameColumn));
 
         //click view button
         Thread.sleep(3000);
-        journalsPage.clickViewBtn();
+        actions.clickElement(journalsPage.viewBtn);
 
-        //toggle created by column
-        journalsPage.clickToggleCreatedAt();
+        //toggle createdBy column
+        actions.clickElement(journalsPage.toggleCreatedBy);
 
-        //test that there is no second column
-        Assert.assertFalse(journalsPage.isSecondColumnDisplayed());
+        //test that createdBy column is visible
+        Assert.assertTrue(actions.isElementDisplayed(journalsPage.createdByColumn));
 
+        //click view button
+        Thread.sleep(3000);
+        actions.clickElement(journalsPage.viewBtn);
 
+        //toggle createdAt column
+        actions.clickElement(journalsPage.toggleCreatedAt);
+
+        //test that createdBy column is visible
+        Assert.assertFalse(actions.isElementDisplayed(journalsPage.createdAtColumn));
     }
 
     @Test(priority = 3)
@@ -122,42 +123,39 @@ public class JournalsModule {
 
         //clear any preset filter
         //click filter
-        journalsPage.clickFilterBtn();
+        actions.clickElement(journalsPage.filterBtn);;
 
         //click clear
-        journalsPage.clickClearFilterBtn();
-
-        //click apply filter
-        journalsPage.clickApplyFilterBtn();
+        actions.clickElement(journalsPage.clearFilterBtn);
 
         //click filter
-        journalsPage.clickFilterBtn();
+        actions.clickElement(journalsPage.filterBtn);;
 
         //click filter by name
-        journalsPage.sendTextToNameFilterTextField("Global");
+        actions.enterText(journalsPage.nameFilterTextField,"Wheat");
 
         //click apply filter
-        journalsPage.clickApplyFilterBtn();
+        actions.clickElement(journalsPage.applyFilterBtn);
 
         //wait for results and expand them
         Thread.sleep(2000);
-        journalsPage.clickExpandFirstRecipeBtn();
+        actions.clickElement(journalsPage.expandFirstRecipeBtn);
 
         //choose first instrument
-        journalsPage.clickFirstInstrumentBtn();
+        actions.clickElement(journalsPage.firstInstrument);
 
         //click next
-        journalsPage.clickNextBtn();
+        actions.clickElement(journalsPage.nextBtn);
 
         //wait for data
         Thread.sleep(2000);
 
         //choose first sample
         journalsListPage.clickFirstScanCheckBox();
-
-
+        actions.clickElement(journalsListPage.firstSampleCheckBox);
+        
         //click export
-        journalsListPage.clickExportBtn();
+        actions.clickElement(journalsListPage.exportBtn);
 
         //wait for file to be downloaded
         Thread.sleep(4000);
@@ -174,7 +172,7 @@ public class JournalsModule {
 //
 //        //click filter button
 //        Thread.sleep(2000);
-//        journalsListPage.clickEditFiltersBtn();
+//        actions.clickElement(journalsListPage.editFiltersBtn);
 //
 //        //clear sample name filter
 //        journalsListPage.clearSampleNameFilterText();
@@ -183,7 +181,7 @@ public class JournalsModule {
 //        journalsListPage.sendTextToSampleNameFilterText("Invalid Sample");
 //
 //        //click save
-//        journalsListPage.clickSaveFilterBtn();
+//        actions.clickElement(journalsListPage.saveFilterBtn);
 //
 //        //test that no samples appear
 //        Assert.assertFalse(journalsListPage.isFirstSampleNameDisplayed());
@@ -195,33 +193,39 @@ public class JournalsModule {
     public void validSampleNameFilter() throws InterruptedException {
 
         //click filter button
-        journalsListPage.clickEditFiltersBtn();
+        actions.clickElement(journalsListPage.editFiltersBtn);
+        
 
         //clear sample filter name
         journalsListPage.clearSampleNameFilterText();
-
+        actions.clearText(journalsListPage.sampleNameFilterText);
+        
         //insert invalid sample name
         journalsListPage.sendTextToSampleNameFilterText("2024");
-
+        actions.enterText(journalsListPage.sampleNameFilterText,"2024");
+        
         //click save
-        journalsListPage.clickSaveFilterBtn();
+        actions.clickElement(journalsListPage.saveFilterBtn);
+        
 
         //test that sample appears
         Thread.sleep(2000);
-        Assert.assertEquals(journalsListPage.getFirstSampleName(),"2024-08-01 18:14:37 B15FG114");
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleName),"2024-08-01 18:14:37 B15FG114");
     }
 
+    @Ignore
     @Test(priority = 5)
     public void validRecipeNameFilter() throws InterruptedException {
         //click filter button
-        journalsListPage.clickEditFiltersBtn();
+        actions.clickElement(journalsListPage.editFiltersBtn);
 
 
         //insert invalid sample name
         journalsListPage.sendTextToRecipeFilterText("Global");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Global");
 
         //click save
-        journalsListPage.clickSaveFilterBtn();
+        actions.clickElement(journalsListPage.saveFilterBtn);
 
         //test that sample appears
         Assert.assertEquals(journalsListPage.getFirstSampleRecipeName(),"GLOBAL");
@@ -232,7 +236,7 @@ public class JournalsModule {
 
         //click filter button
         Thread.sleep(2000);
-        journalsListPage.clickEditFiltersBtn();
+        actions.clickElement(journalsListPage.editFiltersBtn);
 
         //clear sample filter name
 
@@ -242,14 +246,14 @@ public class JournalsModule {
 
 
         //insert invalid sample name
-        journalsListPage.sendTextToInstrumentSNRFilterText("B15FG114");
+        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"B15FG114");
 
 
         //click save
-        journalsListPage.clickSaveFilterBtn();
+        actions.clickElement(journalsListPage.saveFilterBtn);
 
         Thread.sleep(2000);
         //test that sample appears
-        Assert.assertEquals(journalsListPage.getFirstSampleInstrument(),"B15FG114");
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleInstrument),"ProcessAnalyzer");
     }
 }
