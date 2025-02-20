@@ -25,12 +25,12 @@ public class UsersPage extends MethodHandles {
     private WebElement searchField;
 
     //confirm delete button
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
-    private WebElement confirmDeleteBtn;
+    @FindBy(id = "user-list-alert-dialog-button-confirm")
+    public WebElement confirmDeleteBtn;
 
     //confirm edit button
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
-    private WebElement confirmEditBtn;
+    @FindBy(id = "user-edit-form-alert-dialog-button-confirm")
+    public WebElement confirmEditBtn;
 
     //search button to fetch searched results
     @FindBy(id = "users-list-table-search-submit")
@@ -38,7 +38,7 @@ public class UsersPage extends MethodHandles {
 
     //filter button to show filter menu
     @FindBy(id = "users-list-table-filter-button")
-    private WebElement filterBtn;
+    public WebElement filterBtn;
 
     //text field to filter by first name
     @FindBy(id = "users-list-table-filter-input-firstName")
@@ -65,85 +65,93 @@ public class UsersPage extends MethodHandles {
     private WebElement cancelFiltersBtn;
 
     //views button to view extra columns in grid view
-    @FindBy(id = "user-list-table-viewing-option-dropdown-trigger")
-    private WebElement viewBtn;
+    @FindBy(id = "users-list-table-viewing-options")
+    public WebElement viewBtn;
+
+    @FindBy(id="users-list-table-viewing-options-dropdown-menu-item-clear-sorting")
+    public WebElement clearSortingBtn;
 
     //name of first user in search results
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[2]")
-    private WebElement filteredUserName;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
+    public WebElement filteredUserName;
 
     //email of first user in search results
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[4]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[5]")
     private WebElement filteredEmail;
 
     //created at of first user in search result
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[4]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[6]")
     private WebElement filteredCreatedAt;
 
     //modified at of first user in search result
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[3]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[7]")
     private WebElement filteredModifiedAt;
 
     //actions button to edit or delete user
-    @FindBy(xpath="/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[3]/div[1]/div[2]/div/div/div[5]/button")
-    private WebElement actionsBtn;
+    @FindBy(id="users-list-table-actions-cell-0")
+    public WebElement actionsBtn;
 
     //actions button to edit or delete user when logged in with admin
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[7]/button")
     private WebElement actionsBtnAdmin;
 
     //option to edit user from actions button dropdown
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    @FindBy(id = "dropdown-menu-item-user-list-table-option-edit")
     private WebElement editUserOption;
 
     //option to delete user from actions button dropdown
-    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
-    private WebElement deleteUserOption;
+    @FindBy(id = "dropdown-menu-item-user-list-table-option-delete")
+    public WebElement deleteUserOption;
 
     //fifth column header (can be created or modified at)
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[1]/div[2]/div[1]/div[2]/div/div/div[3]/div[3]/div/div/div")
     private WebElement fifthColumnHeader;
 
+    @FindBy(id = "users-list-table-createdAt-column")
+    public WebElement createdAtColumnHeader;
+
+    @FindBy(id = "users-list-table-lastUpdatedAt-column")
+    public WebElement lastUpdatedAtColumnHeader;
+
     //toggle the created at column option to hide or view
-    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
+    @FindBy(id = "createdAt")
     private WebElement toggleCreatedAtColumnOption;
 
     //toggle the modified at column option to hide or view
-    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    @FindBy(id = "lastUpdatedAt")
     private WebElement toggleModifiedAtColumnOption;
 
-    //clear any pinning
-    @FindBy(xpath = "/html/body/div[2]/div/div[6]")
-    private WebElement clearPinningOption;
 
     //clear any sorting
     @FindBy(xpath = "/html/body/div[2]/div/div[7]")
     private WebElement clearSortingOption;
 
     //second user in table name
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
     private WebElement secondUsername;
 
     //email of second user in table name
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[5]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[5]")
     private WebElement secondUserEmail;
 
     //second user created at
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[5]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[6]")
     private WebElement secondUserCreatedAt;
 
     //second user modified at
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[7]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[7]")
     private WebElement secondUserModifiedAt;
 
     //sort ascending button for any column
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
-    private WebElement sortAscOption;
+    @FindBy(id = "users-list-table-name-column-options-menu-item-asc")
+    public WebElement sortNameAscOption;
 
     //sort descending button for any column
-    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
-    private WebElement sortDescOption;
+    @FindBy(id = "users-list-table-name-column-options-menu-item-desc")
+    public WebElement sortNameDescOption;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
+    public WebElement tableHorizontalScrollBar;
     ///////////////////////////////////////Add User Page///////////////////////////////////////
 
     //first name text field
@@ -169,6 +177,14 @@ public class UsersPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[4]/div[1]/div/div[1]/div[2]/input")
     private WebElement roleDropDown;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[3]/div[2]/div[1]/div[1]/div/div[1]/div[2]/input")
+    public WebElement superAdminAffiliateDropDown;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[3]/div[2]/div[2]/div[1]/div/div[1]/div[2]/input")
+    public WebElement superAdminRoleDropDown;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[3]/div[2]/div[3]/button")
+    public WebElement superAdminAddAffiliateBtn;
     //email text field
     @FindBy(id= "user-create-form-input-email")
     private WebElement createEmailTextField;
@@ -209,11 +225,11 @@ public class UsersPage extends MethodHandles {
     private WebElement emailErrorMsg;
 
     //error message if first name is invalid
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[2]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[3]/div[2]/span")
     private WebElement passwordErrorMsg;
 
-    //error message if first name is invalid
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[3]/div[2]/span")
+    //error message if passwords don't match
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[4]/div[2]/span")
     private WebElement confirmPasswordErrorMsg;
 
     //button to reset and clear all data entered in all fields
@@ -248,20 +264,38 @@ public class UsersPage extends MethodHandles {
     private WebElement clearSearchIcon;
 
     //sort by email button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[5]/div/div/div")
-    private WebElement sortByEmail;
+    @FindBy(id = "users-list-table-email-column-options-trigger")
+    public WebElement sortByEmail;
+
+    @FindBy(id="users-list-table-email-column-options-menu-item-asc")
+    public WebElement sortEmailAscOption;
+
+    @FindBy(id="users-list-table-email-column-options-menu-item-desc")
+    public WebElement sortEmailDescOption;
 
     //sort by created at button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[6]/div/div/div")
-    private WebElement sortByCreatedAt;
+    @FindBy(id = "users-list-table-createdAt-column-options-trigger")
+    public WebElement sortByCreatedAt;
+
+    @FindBy(id="users-list-table-createdAt-column-options-menu-item-asc")
+    public WebElement sortCreatedAtAscOption;
+
+    @FindBy(id="users-list-table-createdAt-column-options-menu-item-desc")
+    public WebElement sortCreatedAtDescOption;
 
     //sort by modified at button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[7]/div/div/div")
-    private WebElement sortByModifiedAt;
+    @FindBy(id = "users-list-table-lastUpdatedAt-column-options-trigger")
+    public WebElement sortByUpdatedAt;
+
+    @FindBy(id="users-list-table-lastUpdatedAt-column-options-menu-item-asc")
+    public WebElement sortUpdatedAtAscOption;
+
+    @FindBy(id="users-list-table-lastUpdatedAt-column-options-menu-item-desc")
+    public WebElement sortUpdatedAtDescOption;
 
     //sort by name button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
-    private WebElement sortByName;
+    @FindBy(id = "users-list-table-name-column-options-trigger")
+    public WebElement sortByName;
 
     ///////////////////////////////////////Click Methods///////////////////////////////////////
 
@@ -329,9 +363,7 @@ public class UsersPage extends MethodHandles {
         return clickElement(toggleModifiedAtColumnOption);
     }
 
-    public boolean clickClearPinningOption() {
-        return clickElement(clearPinningOption);
-    }
+
 
     public boolean clickClearSortingOption() {
         return clickElement(clearSortingOption);
@@ -363,14 +395,6 @@ public class UsersPage extends MethodHandles {
         return clickElement(sortByEmail);
     }
 
-    public boolean clickSortByCreatedAtBtn(){
-        return clickElement(sortByCreatedAt);
-    }
-
-    public boolean clickSortByModifiedAtBtn(){
-        return clickElement(sortByModifiedAt);
-    }
-
     public boolean clickSortByName(){
         return clickElement(sortByName);
     }
@@ -379,13 +403,6 @@ public class UsersPage extends MethodHandles {
         return clickElement(createPasswordOnBehalfCheckBox);
     }
 
-    public boolean clickSortAscBtn(){
-        return clickElement(sortAscOption);
-    }
-
-    public boolean clickSortDescBtn(){
-        return clickElement(sortDescOption);
-    }
 
     ///////////////////////////////////////Get Text Methods///////////////////////////////////////
     public String getFilteredUserNameText() {

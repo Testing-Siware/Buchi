@@ -1,6 +1,8 @@
 package base;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -203,6 +205,29 @@ public class AlertsModule {
     }
 
     @Test(priority = 2)
+    public void filterByStatus() throws InterruptedException{
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert status of alert
+        actions.chooseFromDropDown(alertsPage.filterStatusInput,"Active");
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that displayed alert is active
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"ACTIVE");
+    }
+    @Test(priority = 2)
     public void filterAffiliate() throws InterruptedException {
         //navigate to alerts page
         homePage.clickAlertsSidebarBtn();
@@ -225,6 +250,286 @@ public class AlertsModule {
         //test that alert is created
         Thread.sleep(2000);
         Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+    }
+
+    @Test(priority = 3)
+    public void editAlert() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //click actions button
+        Thread.sleep(2000);
+
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //test that user is redirected to edit page
+        Thread.sleep(1000);
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/fleet-management/alert/edit");
+
+
+        //edit name
+        createdAlert="Edit_Alert_"+MainTestRunner.formatter.format(new Date());
+        actions.clearText(alertsPage.newAlertName);
+        actions.enterText(alertsPage.newAlertName,createdAlert);
+
+        //choose new affiliate
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub1");
+
+        //choose new recipe
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Milk");
+
+        //choose instrument
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"B15");
+
+        //select parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+
+        //click save
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //verify it redirects user to listing page
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/fleet-management/alert/edit");
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is created
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+
+    }
+
+    @Test(priority = 3)
+    public void emptyEdits() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //clear alert name
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.newAlertName);
+        actions.sendKeys(alertsPage.newAlertName,new Keys[]{Keys.NUMPAD0,Keys.BACK_SPACE});
+
+        //clear alert recipients
+        actions.sendKeys(alertsPage.newAlertRecipients,new Keys[]{Keys.BACK_SPACE});
+
+        //click save
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that alert messages appear
+        Assert.assertEquals(actions.getText(alertsPage.newAlertRecipientsEmptyMsg),"Alert recipients can not be empty!");
+        Assert.assertEquals(actions.getText(alertsPage.newAlertNameEmptyMsg),"Name is required.");
+
+        //click cancel
+        actions.clickElement(alertsPage.newAlertCancelBtn);
+    }
+
+    @Test(priority = 3)
+    public void cancelEdits() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //clear alert name
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.newAlertName);
+        actions.sendKeys(alertsPage.newAlertName,new Keys[]{Keys.NUMPAD0,Keys.BACK_SPACE});
+
+        //insert a temporary name
+        actions.enterText(alertsPage.newAlertName,"Temp_Name");
+
+        //click cancel
+        actions.clickElement(alertsPage.newAlertCancelBtn);
+
+        //test that alert name didn't change
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+        Thread.sleep(3000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+    }
+
+    @Test(priority = 4)
+    public void deleteAlert() throws InterruptedException{
+
+
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+
+        //click delete option
+        actions.clickElement(alertsPage.deleteAlertOptionBtn);
+
+        //confirm delete
+        actions.clickElement(alertsPage.confirmDeleteBtn);
+
+        //navigate to alerts page
+        Thread.sleep(2000);
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply filter
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that the alert is not displayed
+        Thread.sleep(2000);
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
+    }
+
+    @Test(priority = 5)
+    public void sortByName() throws InterruptedException {
+        //navigate to alerts page
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        Thread.sleep(2000);
+
+        //click column
+        actions.clickElement(alertsPage.alertsNameColumn);
+
+        //remove default sorting (name ascending)
+        actions.clickElement(alertsPage.sortAlertsByNameAscOption);
+        Thread.sleep(2000);
+
+        //click asc
+        actions.clickElement(alertsPage.alertsNameColumn);
+        actions.clickElement(alertsPage.sortAlertsByNameAscOption);
+        Thread.sleep(2000);
+
+        System.out.println(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName)));
+        Assert.assertTrue(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName))<=0);
+        Thread.sleep(2000);
+
+        //click column
+        actions.clickElement(alertsPage.alertsNameColumn);
+
+        //click desc
+
+        actions.clickElement(alertsPage.sortAlertsByNameDescOption);
+        Thread.sleep(2000);
+        System.out.println(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName)));
+        Assert.assertTrue(actions.getText(alertsPage.firstAlertName).compareTo(actions.getText(alertsPage.secondAlertName))>=0);
+
+
     }
 
 }

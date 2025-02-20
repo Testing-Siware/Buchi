@@ -9,8 +9,8 @@
 <!--            <class name="base.AffiliatesModule"></class>-->
 <!--            <class name="base.InstrumentsModule"></class>-->
 <!--            <class name="base.RecipesModule"></class>-->
-<!--            <class name="base.JournalsModule"></class>-->
-            <class name="base.AlertsModule" ></class>
+            <class name="base.JournalsModule"></class>
+<!--            <class name="base.AlertsModule" ></class>-->
 
         </classes>
     </test>

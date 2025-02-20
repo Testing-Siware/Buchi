@@ -23,109 +23,109 @@ public class HomePage extends MethodHandles {
 
     //sidebar button expands and collapses it
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/div[1]/div[1]/button")
-    private WebElement sideBarBtn;
+    public WebElement sideBarBtn;
 
     //profile icon
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[1]/div[2]/div[1]/div/span/span/div")
-    private WebElement profileIconBtn;
+    @FindBy(id = "navbar-avatar-desktop-view-tooltip-trigger")
+    public WebElement profileIconBtn;
 
     //profile info displayed after expanding profile
     @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div")
-    private WebElement profileInfo;
+    public WebElement profileInfo;
 
     //button to signout from user
     @FindBy(id = "navbar-avatar-desktop-view-dropdown-menu-item-sign-out")
-    private WebElement signoutBtn;
+    public WebElement signoutBtn;
 
     @FindBy(id = "navbar-avatar-desktop-view-dropdown-menu-item-sign-out")
-    private WebElement signoutBtnAdmin;
+    public WebElement signoutBtnAdmin;
     //button to view profile info
     @FindBy(xpath = "/html/body/div[2]/div/div[3]")
-    private WebElement securityBtn;
+    public WebElement securityBtn;
 
     @FindBy(xpath = "/html/body/div[2]/div/div[4]")
-    private WebElement profileBtn;
+    public WebElement profileBtn;
 
     //change theme button
     @FindBy(xpath = "//*[@id=\"main-layout\"]/div[1]/div[2]/button[2]")
-    private WebElement changeThemeBtn;
+    public WebElement changeThemeBtn;
 
     //change language button
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[1]/div[2]/button[1]")
-    private WebElement changeLanguageBtn;
+    public WebElement changeLanguageBtn;
 
     //first language option (English)
     @FindBy(xpath = "/html/body/div[2]/div/div[3]")
-    private WebElement firstLanguageOption;
+    public WebElement firstLanguageOption;
 
     //second language option (Portuguese)
     @FindBy(xpath = "/html/body/div[2]/div/div[4]")
-    private WebElement secondLanguageOption;
+    public WebElement secondLanguageOption;
 
     //third language option (Chinese)
     @FindBy(xpath = "/html/body/div[2]/div/div[5]")
-    private WebElement thirdLanguageOption;
+    public WebElement thirdLanguageOption;
 
     //fourth language option (Korean)
     @FindBy(xpath = "/html/body/div[2]/div/div[6]")
-    private WebElement fourthLanguageOption;
+    public WebElement fourthLanguageOption;
 
     //fifth language option (Polish)
     @FindBy(xpath = "/html/body/div[2]/div/div[7]")
-    private WebElement fifthLanguageOption;
+    public WebElement fifthLanguageOption;
 
     //sixth language option (Spanish)
     @FindBy(xpath = "/html/body/div[2]/div/div[8]")
-    private WebElement sixthLanguageOption;
+    public WebElement sixthLanguageOption;
 
     //button to return to homepage
     @FindBy(xpath = "//*[@id=\"main-layout\"]/div[1]/div[1]/nav/ol/li/button")
-    private WebElement homeBtn;
+    public WebElement homeBtn;
 
     //dashboard button in sidebar
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[1]/div")
-    private WebElement dashboardSidebarBtn;
+    public WebElement dashboardSidebarBtn;
 
     //analytics button in sidebar
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[2]/div")
-    private WebElement analyticsDashboardBtn;
+    public WebElement analyticsDashboardBtn;
 
     //instruments button in sidebar
-    @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[3]/div")
-    private WebElement instrumentsSidebarBtn;
+    @FindBy(id = "side-menu-fleet-management-instruments")
+    public WebElement instrumentsSidebarBtn;
 
     //recipes button in sidebar
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div[4]/div/div")
-    private WebElement recipesSidebarBtn;
+    @FindBy(id = "side-menu-fleet-management-recipes")
+    public WebElement recipesSidebarBtn;
 
     //journals button in sidebar
     @FindBy(id = "side-menu-fleet-management-journals")
-    private WebElement journalsSidebarBtn;
+    public WebElement journalsSidebarBtn;
 
     //alerts button in sidebar
     @FindBy(id = "side-menu-fleet-management-alerts")
-    private WebElement alertsSidebarBtn;
+    public WebElement alertsSidebarBtn;
 
     @FindBy(id = "side-menu-access-management-affiliates")
-    private WebElement affiliateSidebarBtn;
+    public WebElement affiliateSidebarBtn;
 
     @FindBy(id = "side-menu-access-management-users-tooltip-trigger")
-    private WebElement usersSidebarBtn;
+    public WebElement usersSidebarBtn;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[8]/div")
-    private WebElement helpAndSupportSidebarBtn;
+    public WebElement helpAndSupportSidebarBtn;
 
     //users sidebar button for superadmin
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[3]/div")
-    private WebElement usersSidebarBtnSuperAdmin;
+    public WebElement usersSidebarBtnSuperAdmin;
 
     //users sidebar button for superadmin
     @FindBy(xpath = "//*[@id=\"root\"]/div[1]/div[2]/div[2]/div[7]/div")
-    private WebElement usersSidebarBtnAdmin;
+    public WebElement usersSidebarBtnAdmin;
 
     //affiliates sidebar button for superadmin
     @FindBy(id = "/html/body/div/div[1]/div[2]/div[2]/div[2]/div")
-    private WebElement affiliateSidebarBtnSuperAdmin;
+    public WebElement affiliateSidebarBtnSuperAdmin;
 
     ///////////////////////////////////////Click Methods///////////////////////////////////////
     public boolean clickAffiliateSidebarBtnSuperAdmin(){ return clickElement(affiliateSidebarBtnSuperAdmin);}

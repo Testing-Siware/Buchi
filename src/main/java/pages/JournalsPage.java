@@ -17,265 +17,123 @@ public class JournalsPage extends MethodHandles {
     //-----------------------Journals main page elements-----------------------//
 
     //search field
-    @FindBy(id="search")
-    private WebElement searchField;
+    @FindBy(id = "journals-select-recipe-list-table-search-input")
+    public WebElement searchField;
 
     //submit search button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/form/div/button")
-    private WebElement  submitSearchBtn;
+    @FindBy(id = "journals-select-recipe-list-table-search-submit")
+    public WebElement submitSearchBtn;
 
     //filter button
-    @FindBy(id = "select-recipe-table-filter-button")
-    private WebElement filterBtn;
+    @FindBy(id = "journals-select-recipe-list-table-filter-button")
+    public WebElement filterBtn;
 
     //name filter text field
-    @FindBy(id = "select-recipe-table-filter-input-name")
-    private WebElement nameFilterTextField;
+    @FindBy(id = "journals-select-recipe-list-table-filter-input-name")
+    public WebElement nameFilterTextField;
+
+    //affiliate filter
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[3]/div/div[1]/div[1]/div[2]/input")
+    public WebElement affiliateFilterDropDown;
 
     //apply filter button
-    @FindBy(id = "select-recipe-table-filter-button-submit")
-    private WebElement applyFilterBtn;
+    @FindBy(id = "journals-select-recipe-list-table-filter-button-submit")
+    public WebElement applyFilterBtn;
 
     //cancel filter button
-    @FindBy(id = "select-recipe-table-filter-button-cancel")
-    private WebElement cancelFilterBtn;
+    @FindBy(id = "journals-select-recipe-list-table-filter-button-cancel")
+    public WebElement cancelFilterBtn;
 
     //clear filters button
-    @FindBy(id = "select-recipe-table-filter-button-clear")
-    private WebElement clearFilterBtn;
+    @FindBy(id = "journals-select-recipe-list-table-filter-button-clear")
+    public WebElement clearFilterBtn;
 
     //view button
-    @FindBy(id = "select-recipe-table-viewing-option-dropdown-trigger")
-    private WebElement viewBtn;
+    @FindBy(id = "journals-select-recipe-list-table-viewing-options")
+    public WebElement viewBtn;
 
     //toggle affiliate button from view
-    @FindBy(id = "select-recipe-table-column-affiliate-name-view-option")
-    private WebElement toggleAffiliateBtn;
+    @FindBy(id = "affiliateName")
+    public WebElement toggleAffiliateBtn;
 
     //toggle created by button from view
-    @FindBy(id = "select-recipe-table-column-created-by-view-option")
-    private WebElement toggleCreatedBy;
+    @FindBy(id = "createdBy")
+    public WebElement toggleCreatedBy;
 
     //toggle created at button from view
-    @FindBy(id = "select-recipe-table-column-created-at-view-option")
-    private WebElement toggleCreatedAt;
+    @FindBy(id = "createdAt")
+    public WebElement toggleCreatedAt;
 
     //clear pinning button
     @FindBy(id = "select-recipe-table-viewing-option-dropdown-menu-item-clear-pin")
-    private WebElement clearPinningBtn;
+    public WebElement clearPinningBtn;
 
     //clear sorting button
-    @FindBy(id = "select-recipe-table-viewing-option-dropdown-menu-item-clear-sort")
-    private WebElement clearSortingBtn;
+    @FindBy(id = "journals-select-recipe-list-table-viewing-options-dropdown-menu-item-clear-sorting")
+    public WebElement clearSortingBtn;
 
     //fetch recipes button
     @FindBy(id = "select-recipe-table-refresh")
-    private WebElement fetchRecipesBtn;
+    public WebElement fetchRecipesBtn;
 
     //expand first recipe button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[1]/div")
-    private WebElement expandFirstRecipeBtn;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[3]")
+    public WebElement expandFirstRecipeBtn;
 
     //first recipe name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div")
-    private WebElement firstRecipeName;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[1]")
+    public WebElement firstRecipeName;
 
     //first recipe affiliate
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[3]/div")
-    private WebElement firstRecipeAffiliate;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
+    public WebElement firstRecipeAffiliate;
 
     //first recipe created by
-    @FindBy(xpath ="/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[4]/div")
-    private WebElement firstRecipeCreatedBy;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]")
+    public WebElement firstRecipeCreatedBy;
 
     //first recipe created at date
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[1]/td[5]")
-    private WebElement firstRecipeCreatedAt;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[4]")
+    public WebElement firstRecipeCreatedAt;
 
     //first recipe name
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[2]/div")
-    private WebElement secondRecipeName;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[1]")
+    public WebElement secondRecipeName;
 
     //first recipe affiliate
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[3]/div")
-    private WebElement secondRecipeAffiliate;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
+    public WebElement secondRecipeAffiliate;
 
     //first recipe created by
-    @FindBy(xpath ="/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[4]/div")
-    private WebElement secondRecipeCreatedBy;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[3]")
+    public WebElement secondRecipeCreatedBy;
 
     //first recipe created at date
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/tr[2]/td[5]")
-    private WebElement secondRecipeCreatedAt;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[4]")
+    public WebElement secondRecipeCreatedAt;
 
     //sort by name button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[2]/div/div/div")
-    private WebElement sortRecipesByNameBtn;
+    @FindBy(id = "journals-select-recipe-list-table-name-column")
+    public WebElement RecipesNameColumn;
 
     //sort by affiliate button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[3]/div/div/div")
-    private WebElement sortRecipesByAffiliateBtn;
+    @FindBy(id = "journals-select-recipe-list-table-affiliateName-column")
+    public WebElement affiliateNameColumn;
 
     //sort by created by button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[4]/div/div/div")
-    private WebElement sortRecipesByCreatedByBtn;
+    @FindBy(id = "journals-select-recipe-list-table-createdBy-column")
+    public WebElement createdByColumn;
 
     //sort by created at button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/thead/tr/th[5]/div/div/div")
-    private WebElement sortRecipesByCreatedAtBtn;
+    @FindBy(id = "journals-select-recipe-list-table-createdAt-column")
+    public WebElement createdAtColumn;
 
     //first instrument name of first recipe
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/div/div[1]/table/tbody/tr[1]/td")
-    private WebElement firstInstrument;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[4]/div/div/div/div/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div")
+    public WebElement firstInstrument;
 
     //next button to expand instrument
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/table/tbody/div/div[2]/button")
-    private WebElement nextBtn;
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[4]/div/div/button")
+    public WebElement nextBtn;
 
-
-    //-----------------------send text methods-----------------------//
-    public boolean sendTextToSearchField(String text) {
-        return sendTextToElement(searchField, text);
-    }
-
-    public boolean sendTextToNameFilterTextField(String text) {
-        return sendTextToElement(nameFilterTextField, text);
-    }
-
-    //-----------------------clear text methods-----------------------//
-    public boolean clearSearchField() {
-        return clearText(searchField);
-    }
-
-    //-----------------------click methods-----------------------//
-    public boolean clickSubmitSearchBtn() {
-        return clickElement(submitSearchBtn);
-    }
-
-    public boolean clickFilterBtn() {
-        return clickElement(filterBtn);
-    }
-
-    public boolean clickApplyFilterBtn(){return clickElement(applyFilterBtn);}
-
-    public boolean clickClearFilterBtn(){return clickElement(clearFilterBtn);}
-
-    public boolean clickToggleAffiliateBtn() {
-        return clickElement(toggleAffiliateBtn);
-    }
-
-    public boolean clickToggleCreatedBy() {
-        return clickElement(toggleCreatedBy);
-    }
-
-    public boolean clickToggleCreatedAt() {
-        return clickElement(toggleCreatedAt);
-    }
-
-    public boolean clickClearPinningBtn() {
-        return clickElement(clearPinningBtn);
-    }
-
-    public boolean clickClearSortingBtn() {
-        return clickElement(clearSortingBtn);
-    }
-
-    public boolean clickViewBtn(){
-        return clickElement(viewBtn);
-    }
-
-    public boolean clickFetchRecipesBtn(){
-        return clickElement(fetchRecipesBtn);
-    }
-
-    public boolean clickExpandFirstRecipeBtn(){
-        return clickElement(expandFirstRecipeBtn);
-    }
-
-    public boolean clickSortRecipesByName() {
-        return clickElement(sortRecipesByNameBtn);
-    }
-
-    public boolean clickSortRecipesByAffiliate() {
-        return clickElement(sortRecipesByAffiliateBtn);
-    }
-
-    public boolean clickSortRecipesByCreatedBy(){
-        return clickElement(sortRecipesByCreatedByBtn);
-    }
-
-    public boolean clickSortRecipesByCreatedAt() {
-        return clickElement(sortRecipesByCreatedAtBtn);
-    }
-
-    public boolean clickFirstInstrumentBtn(){
-        return clickElement(firstInstrument);
-    }
-
-    public boolean clickNextBtn(){return clickElement(nextBtn);}
-    //-----------------------get text methods-----------------------//
-    public String getFirstRecipeName() {
-        return getElementText(firstRecipeName);
-    }
-
-    public String getFirstRecipeAffiliate(){
-        return getElementText(firstRecipeAffiliate);
-    }
-
-    public String getFirstRecipeCreatedByText(){
-        return getElementText(firstRecipeCreatedBy);
-    }
-
-    public String getFirstRecipeCreatedAt(){
-        return getElementText(firstRecipeCreatedAt);
-    }
-
-    public String getSecondRecipeName() {
-        return getElementText(secondRecipeName);
-    }
-
-    public String getSecondRecipeAffiliate(){
-        return getElementText(secondRecipeAffiliate);
-    }
-
-    public String getSecondRecipeCreatedByText(){
-        return getElementText(secondRecipeCreatedBy);
-    }
-
-    public String getSecondRecipeCreatedAt(){
-        return getElementText(secondRecipeCreatedAt);
-    }
-
-    public String getFirstColumnTitle(){
-        return getElementText(sortRecipesByNameBtn);
-    }
-
-    public String getSecondColumnTitle(){
-        return getElementText(sortRecipesByAffiliateBtn);
-    }
-
-    public String getThirdColumnTitle(){
-        return getElementText(sortRecipesByCreatedByBtn);
-    }
-
-    public String getFourthColumnTitle(){
-        return getElementText(sortRecipesByCreatedAtBtn);
-    }
-
-    //-----------------------isDisplayed  methods-----------------------//
-    public boolean isFirstColumnDisplayed(){
-        return isDisplayed(sortRecipesByNameBtn,5);
-    }
-
-    public boolean isSecondColumnDisplayed(){
-        return isDisplayed(sortRecipesByAffiliateBtn,5);
-    }
-
-    public boolean isThirdColumnDisplayed(){
-        return isDisplayed(sortRecipesByCreatedByBtn,5);
-    }
-
-    public boolean isFourthColumnDisplayed(){
-        return isDisplayed(sortRecipesByCreatedAtBtn,5);
-    }
 }

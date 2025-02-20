@@ -216,17 +216,7 @@ public class LoginModule {
         loginPage.ClickLoginNextButton();
         loginPage.EnterPasswordField(Credentials.supportPassword);
         loginPage.ClickSignInButton();
-
-        //test that user logged in with partner admin
-//        homePage.clickProfileIconBtn();
-//        Assert.assertTrue(homePage.getProfileInfoText().contains("Support"));
-//        homePage.refreshWindow();
-
     }
-
-
-
-
 
     /*
     @Test(priority = 4)
