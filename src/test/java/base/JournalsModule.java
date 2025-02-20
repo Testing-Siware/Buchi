@@ -167,29 +167,8 @@ public class JournalsModule {
         Assert.assertTrue(filesNum<Helpers.getNumberOfFiles(MainTestRunner.downloadDir));
     }
 
-//    @Test(priority = 5)
-//    public void invalidSampleNameFilter() throws InterruptedException {
-//
-//        //click filter button
-//        Thread.sleep(2000);
-//        actions.clickElement(journalsListPage.editFiltersBtn);
-//
-//        //clear sample name filter
-//        journalsListPage.clearSampleNameFilterText();
-//
-//        //insert invalid sample name
-//        journalsListPage.sendTextToSampleNameFilterText("Invalid Sample");
-//
-//        //click save
-//        actions.clickElement(journalsListPage.saveFilterBtn);
-//
-//        //test that no samples appear
-//        Assert.assertFalse(journalsListPage.isFirstSampleNameDisplayed());
-//    }
-
-
-    @Test(priority = 5)
     @Ignore
+    @Test(priority = 5)
     public void validSampleNameFilter() throws InterruptedException {
 
         //click filter button
@@ -213,7 +192,6 @@ public class JournalsModule {
         Assert.assertEquals(actions.getText(journalsListPage.firstSampleName),"2024-08-01 18:14:37 B15FG114");
     }
 
-    @Ignore
     @Test(priority = 5)
     public void validRecipeNameFilter() throws InterruptedException {
         //click filter button
@@ -221,14 +199,26 @@ public class JournalsModule {
 
 
         //insert invalid sample name
-        journalsListPage.sendTextToRecipeFilterText("Global");
         actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Global");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
 
+        //test that no sample appears
+        Thread.sleep(2000);
+        Assert.assertFalse(actions.isElementDisplayed(journalsListPage.firstSampleRecipeName));
+
+        //click filter button
+        actions.clickElement(journalsListPage.editFiltersBtn);
+
+        //insert invalid sample name
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"TestTsv");
+
+        //click save
+        actions.clickElement(journalsListPage.saveFilterBtn);
+
         //test that sample appears
-        Assert.assertEquals(journalsListPage.getFirstSampleRecipeName(),"GLOBAL");
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleRecipeName),"TestTsv");
     }
 
     @Test(priority = 4)
@@ -238,16 +228,12 @@ public class JournalsModule {
         Thread.sleep(2000);
         actions.clickElement(journalsListPage.editFiltersBtn);
 
-        //clear sample filter name
-
         //change recipe name to "A"
         Thread.sleep(2000);
         journalsListPage.sendTextToRecipeFilterText("Test");
 
-
         //insert invalid sample name
         actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"B15FG114");
-
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
