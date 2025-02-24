@@ -808,6 +808,7 @@ public class UsersModule {
         actions.clickElement(usersPage.searchBtn);
         
         //test that no results image appears
+        Thread.sleep(2000);
         Assert.assertFalse(actions.isElementDisplayed(usersPage.filteredUserName));
 
         //clear search field by refreshing the browser
