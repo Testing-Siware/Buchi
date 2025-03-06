@@ -27,7 +27,7 @@ public class UsersModule {
         actions=new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
     }
 
-    @Test(priority = 0)
+    @Test()
     public void createInvalidUserBySupport() throws InterruptedException {
         //navigate to users page
         Thread.sleep(2000);
@@ -79,7 +79,6 @@ public class UsersModule {
         actions.clickElement(usersPage.cancelBtn);
     }
 
-    @Test(priority = 0)
     public void createPartnerAdminUserBySupport() throws InterruptedException {
         //navigate to users page
         actions.clickElement(homePage.usersSidebarBtn);
@@ -140,7 +139,6 @@ public class UsersModule {
         deleteUser(userFirstName);
     }
 
-    @Test(priority = 0)
     public void createPartnerUserBySupport() throws InterruptedException {
         //navigate to users page
         actions.clickElement(homePage.usersSidebarBtn);
@@ -198,7 +196,6 @@ public class UsersModule {
         deleteUser(userFirstName);
     }
 
-    @Test(priority = 0)
     public void createAdminUserBySupport() throws InterruptedException {
         Thread.sleep(2000);
         //navigate to users page
@@ -259,7 +256,6 @@ public class UsersModule {
         deleteUser(userFirstName);
     }
 
-    @Test(priority = 0)
     public void createUserBySupport() throws InterruptedException {
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
