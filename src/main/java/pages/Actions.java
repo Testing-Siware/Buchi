@@ -27,16 +27,8 @@ public class Actions {
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
     }
-
-    //Elements Needed Actions//
-    public boolean isElementVisible(WebElement element){
-        try{
-            wait.until(ExpectedConditions.visibilityOf(element));
-            return element.isDisplayed();
-        }
-        catch (Exception e){
-            return false;
-        }
+    public String getCurrentUrl(){
+        return driver.getCurrentUrl();
     }
 
     public boolean isElementSelected(WebElement element){

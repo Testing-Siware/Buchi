@@ -65,6 +65,10 @@ public class RecipePage extends MethodHandles {
     @FindBy(id = "max")
     public WebElement tenthColumnHeaderRP;
 
+    //manage calibration deployment button
+    @FindBy(id="recipe-list-header-button")
+    public WebElement manageCalibrationBtn;
+
     //eleventh column header in parameter
     @FindBy(id = "mahalanobis")
     public WebElement eleventhColumnHeaderRP;
@@ -129,13 +133,18 @@ public class RecipePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[4]")
     public WebElement firstRowCreatedBy;
 
+    @FindBy(id="recipes-list-table-filter-input-alias")
+    public WebElement aliasFilterInput;
+
+    @FindBy(id = "recipes-list-table-alias-column")
+    public WebElement aliasColumnHeader;
+
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
     public WebElement tableHorizontalScrollBar;
 
     //first row action button
     @FindBy(id = "recipes-list-table-actions-cell-0")
     public WebElement firstRowActions;
-
 
     //second row action button
     @FindBy(id = "recipes-list-table-actions-cell-1")

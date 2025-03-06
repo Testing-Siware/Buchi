@@ -66,7 +66,7 @@ public class RecipesModule {
         //fetch data to filter by
         Thread.sleep(2000);
         String recipeToFilter = actions.getText(recipesPage.thirdRowName);
-        actions.clickElement(recipesPage.filterBtn);
+
 
         //click filter
         actions.clickElement(recipesPage.filterBtn);
@@ -83,6 +83,32 @@ public class RecipesModule {
         //test that results appear
         Assert.assertEquals(actions.getText(recipesPage.firstRowName), recipeToFilter);
     }
+
+    @Test(priority = 3)
+    public void filterByAlias() throws InterruptedException {
+        //clear any preset filter
+        actions.clickElement(recipesPage.filterBtn);
+        actions.clickElement(recipesPage.filterClearBtn);
+
+        //fetch data to filter by
+        Thread.sleep(2000);
+        String recipeToFilter = actions.getText(recipesPage.thirdRowName);
+
+        //click filter
+        actions.clickElement(recipesPage.filterBtn);
+
+        //insert alias name to filter by
+        actions.enterText(recipesPage.aliasFilterInput, "Corn");
+
+        //click apply
+        actions.clickElement(recipesPage.filterApplyBtn);
+
+        //test that recipe is filtered
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(recipesPage.firstRowAliasRP), "Corn");
+    }
+
+
 
     @Test(priority = 4)
     public void viewColumns() throws InterruptedException {
@@ -136,6 +162,9 @@ public class RecipesModule {
     //parameter list scenarios
     @Test(priority = 6)
     public void checkParameterList() throws InterruptedException {
+        //test that alias column header is in recipes table
+        Assert.assertTrue(actions.isElementDisplayed(recipesPage.aliasColumnHeader));
+
         //go to parameters list
         Thread.sleep(2000);
 
@@ -148,6 +177,10 @@ public class RecipesModule {
         //test that user was re-directed
         Thread.sleep(2000);
         Assert.assertTrue(MainTestRunner.ChromeDriver.getCurrentUrl().contains("parameters"));
+
+        //test that alias column header is not visible
+        Assert.assertFalse(actions.isElementDisplayed(recipesPage.aliasColumnHeader));
+
     }
 
     @Test(priority = 7)
@@ -446,7 +479,6 @@ public class RecipesModule {
 
         Assert.assertTrue(first.compareTo(second) >= 0);
 
-
         //click deployed at column
         actions.clickElement(recipesPage.deplyedAtCalibrationColumn);
 
@@ -489,6 +521,9 @@ public class RecipesModule {
 
         //click cancel
         actions.clickElement(recipesPage.deployCalibrationFilePopupCancelBtn);
+
+        //click alternative cancel button
+        actions.clickElement(recipesPage.deployCalibrationFilePopupCancelAnotherBtn);
     }
 
     @Test(priority = 13)
