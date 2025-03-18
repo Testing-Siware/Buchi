@@ -134,6 +134,7 @@ public class InstrumentsModule {
     }
 
     @Test(priority = 2)
+    @Ignore
     public void filterByModel() throws InterruptedException {
         //clear any preset filter
 

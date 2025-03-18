@@ -62,7 +62,6 @@ public class InstrumentsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
     public WebElement tableHorizontalScrollBar;
 
-
     @FindBy(id = "instruments-list-table-lastUpdatedAt-column")
     public WebElement lastUpdatedColumnHeader;
 
