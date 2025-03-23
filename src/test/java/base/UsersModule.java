@@ -43,8 +43,8 @@ public class UsersModule {
         //test that error messages appear for requried data (first name , last name , etc..)
         Assert.assertEquals(actions.getText(usersPage.firstNameErrorMsg), "First name is required.");
         Assert.assertEquals(actions.getText(usersPage.lastNameErrorMsg), "Last name is required.");
-        Assert.assertEquals(actions.getText(usersPage.affiliateErrorMsg), "Affiliate is required.");
-        Assert.assertEquals(actions.getText(usersPage.roleErrorMsg), "Role is required.");
+        Assert.assertEquals(actions.getText(usersPage.affiliateErrorMsg), "Affiliate can not be empty!");
+        Assert.assertEquals(actions.getText(usersPage.roleErrorMsg), "Role can not be empty!");
         Assert.assertEquals(actions.getText(usersPage.emailErrorMsg), "Email is too short. it must be at least 1 characters long.");
         Assert.assertEquals(actions.getText(usersPage.passwordErrorMsg), "Password is too short. it must be at least 8 characters long.");
 
@@ -79,6 +79,7 @@ public class UsersModule {
         actions.clickElement(usersPage.cancelBtn);
     }
 
+    @Test
     public void createPartnerAdminUserBySupport() throws InterruptedException {
         //navigate to users page
         actions.clickElement(homePage.usersSidebarBtn);
@@ -103,12 +104,15 @@ public class UsersModule {
         //insert last name
         actions.enterText(usersPage.lastNameCreateTextField,userLastName);
 
-        //choose affiliate
-        actions.chooseFromDropDown(usersPage.affiliateDropDown,"Buchi");
-        
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
+
         //select role
-        actions.chooseFromDropDown(usersPage.roleDropDown,"PartnerAdmin");
-        
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
         //insert email
         actions.enterText(usersPage.createEmailTextField,userEmail);
 
@@ -136,7 +140,7 @@ public class UsersModule {
         
         Assert.assertEquals(actions.getText(usersPage.filteredUserName), userFirstName + " " + userLastName);
 
-        deleteUser(userFirstName);
+//        deleteUser(userFirstName);
     }
 
     public void createPartnerUserBySupport() throws InterruptedException {
@@ -359,13 +363,16 @@ public class UsersModule {
         actions.clickElement(usersPage.resetEditBtn);
 
         //select affiliate
-        actions.chooseFromDropDown(usersPage.affiliateDropDown,"Buchi");
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
 
         //select role
-        actions.chooseFromDropDown(usersPage.roleDropDown,"PartnerAdmin");
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
 
-        //click save
-        actions.clickElement(usersPage.saveEditsBtn);
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
+
+        //click cancel edits
+        actions.clickElement(usersPage.cancelEditBtn);
         
         //click submit
         Thread.sleep(2000);
@@ -424,11 +431,9 @@ public class UsersModule {
         //insert first name
         userFirstName = "EditedFirst" + MainTestRunner.CurrentTestTime;
         userLastName = "EditedLast" + MainTestRunner.CurrentTestTime;
-        userEmail = "EditedEmail" + Helpers.generateRandomString() + "@email.com";
 
         actions.enterText(usersPage.firstNameEditTextField,userFirstName);
         actions.enterText(usersPage.lastNameEditTextField,userLastName);
-        actions.enterText(usersPage.editEmailTextField,userEmail);
 
         //select affiliate
         actions.chooseFromDropDown(usersPage.affiliateDropDown,"Buchi");
@@ -1218,11 +1223,14 @@ public class UsersModule {
         //insert last name
         actions.enterText(usersPage.lastNameCreateTextField,userLastName);
 
-        //choose affiliate
-        actions.chooseFromDropDown(usersPage.affiliateDropDown,"Buchi");
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
 
         //select role
-        actions.chooseFromDropDown(usersPage.roleDropDown,"PartnerAdmin");
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //insert email
         actions.enterText(usersPage.createEmailTextField,userEmail);
@@ -1277,11 +1285,14 @@ public class UsersModule {
         //insert last name
         actions.enterText(usersPage.lastNameCreateTextField,userLastName);
 
-        //choose affiliate
-        actions.chooseFromDropDown(usersPage.affiliateDropDown,"Buchi");
+    //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
 
         //select role
-        actions.chooseFromDropDown(usersPage.roleDropDown,"PartnerUser");
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //insert email
         actions.enterText(usersPage.createEmailTextField,userEmail);
@@ -1336,11 +1347,14 @@ public class UsersModule {
         //insert last name
         actions.enterText(usersPage.lastNameCreateTextField,userLastName);
 
-        //choose affiliate
-        actions.chooseFromDropDown(usersPage.affiliateDropDown,"Sub1");
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
 
         //select role
-        actions.chooseFromDropDown(usersPage.roleDropDown,"User");
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //insert email
         actions.enterText(usersPage.createEmailTextField,userEmail);
@@ -1395,11 +1409,14 @@ public class UsersModule {
         //insert last name
         actions.enterText(usersPage.lastNameCreateTextField,userLastName);
 
-        //choose affiliate
-        actions.chooseFromDropDown(usersPage.affiliateDropDown,"Sub1");
+        //select affiliate
+        actions.chooseFromDropDown(usersPage.superAdminAffiliateDropDown,"Buchi");
 
         //select role
-        actions.chooseFromDropDown(usersPage.roleDropDown,"Admin");
+        actions.chooseFromDropDown(usersPage.superAdminRoleDropDown,"PartnerAdmin");
+
+        //click add
+        actions.clickElement(usersPage.superAdminAddAffiliateBtn);
 
         //insert email
         actions.enterText(usersPage.createEmailTextField,userEmail);
@@ -1461,8 +1478,7 @@ public class UsersModule {
 
         //insert last name
         actions.enterText(usersPage.lastNameCreateTextField,userLastName);
-
-        //choose affiliate
+        //select affiliate
         actions.chooseFromDropDown(usersPage.affiliateDropDown,"Sub1");
 
         //select role

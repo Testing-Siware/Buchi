@@ -149,7 +149,7 @@ public class RecipesModule {
 
         //fetch data too search by
         Thread.sleep(1000);
-        String recipeName = actions.getText(recipesPage.firstRowName);
+        String recipeName ="Milk";
 
         //send the recipe name to search field
         actions.enterText(recipesPage.searchField, recipeName);
@@ -164,6 +164,19 @@ public class RecipesModule {
     public void checkParameterList() throws InterruptedException {
         //test that alias column header is in recipes table
         Assert.assertTrue(actions.isElementDisplayed(recipesPage.aliasColumnHeader));
+
+        Thread.sleep(2000);
+        actions.clickElement(recipesPage.filterBtn);
+        actions.clickElement(recipesPage.filterClearBtn);
+
+        Thread.sleep(2000);
+
+        //filter for milk recipe
+        actions.clickElement(recipesPage.filterBtn);
+        actions.enterText(recipesPage.filterName, "Milk");
+
+        //click apply
+        actions.clickElement(recipesPage.filterApplyBtn);
 
         //go to parameters list
         Thread.sleep(2000);
@@ -394,7 +407,7 @@ public class RecipesModule {
     @Test(priority = 11)
     public void viewCalibrationFiles() throws InterruptedException {
         //recipesPage.refreshWindow();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.firstRowActionsBtnInParameters);
         actions.clickElement(recipesPage.firstRowViewCalibrationActions);
         Assert.assertTrue(MainTestRunner.ChromeDriver.getCurrentUrl().contains("calibration-files"));
@@ -479,7 +492,16 @@ public class RecipesModule {
 
         Assert.assertTrue(first.compareTo(second) >= 0);
 
+
+        //click created at column
+        actions.clickElement(recipesPage.createdAtColumnHeader);
+
+        //click sort descending
+        actions.clickElement(recipesPage.calibrationCreatedAtDesc);
+
+
         //click deployed at column
+        Thread.sleep(2000);
         actions.clickElement(recipesPage.deplyedAtCalibrationColumn);
 
         //sort ascending
@@ -489,6 +511,8 @@ public class RecipesModule {
         first = new Date(actions.getText(recipesPage.firstCalibrationFileDeployedAt));
         second = new Date(actions.getText(recipesPage.secondCalibrationFileDeployedAt));
 
+        System.out.println(first);
+        System.out.println(first.compareTo(second));
         Assert.assertTrue(first.compareTo(second) <= 0);
         
         //click deployed at column

@@ -44,13 +44,14 @@ public class AlertsModule {
         actions.enterText(alertsPage.newAlertName,createdAlert);
 
         //affiliate
-        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub2");
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub1");
 
         //recipe
+        Thread.sleep(2000);
         actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
 
         //instruments SNR
-        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"416FG106");
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"522FG020");
 
         //alerts constraints
         //first parameter
@@ -125,7 +126,7 @@ public class AlertsModule {
         actions.enterText(alertsPage.newAlertName,"Alert Name");
 
         //affiliate
-        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub2");
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub1");
 
         //recipe
         actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
@@ -178,6 +179,9 @@ public class AlertsModule {
 
     @Test(priority = 2)
     public void filterRecipe() throws InterruptedException {
+        //refresh the browser (to reset scroll)
+        actions.refreshWindow();
+
         //navigate to alerts page
         homePage.clickAlertsSidebarBtn();
 
@@ -194,14 +198,14 @@ public class AlertsModule {
         actions.chooseFromDropDown(alertsPage.filterAffiliateInput,"Sub1");
 
         //insert recipe
-         actions.chooseFromDropDown(alertsPage.filterRecipeInput,"Milk");
+         actions.chooseFromDropDown(alertsPage.filterRecipeInput,"Bcloned");
 
         //click apply
         actions.clickElement(alertsPage.submitFilterBtn);
 
         //test that alert is created
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(alertsPage.firstAlertRecipe),"Milk");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertRecipe),"Bcloned");
     }
 
     @Test(priority = 2)
@@ -224,8 +228,15 @@ public class AlertsModule {
         //click apply
         actions.clickElement(alertsPage.submitFilterBtn);
 
+        //scroll table horizontal bar
+        Thread.sleep(2000);
+        actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
+
         //test that displayed alert is active
-        Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"ACTIVE");
+        Thread.sleep(3000);
+        String status =actions.getText(alertsPage.firstAlertStatus);
+        System.out.println(status);
+        Assert.assertEquals(status,"ACTIVE");
     }
     @Test(priority = 2)
     public void filterAffiliate() throws InterruptedException {
@@ -242,14 +253,14 @@ public class AlertsModule {
         actions.clickElement(alertsPage.filterBtn);
 
         //insert affiliate
-        actions.chooseFromDropDown(alertsPage.filterAffiliateInput,"Sub2");
+        actions.chooseFromDropDown(alertsPage.filterAffiliateInput,"sub1");
 
         //click apply
         actions.clickElement(alertsPage.submitFilterBtn);
 
         //test that alert is created
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub1");
     }
 
     @Test(priority = 3)
@@ -274,6 +285,8 @@ public class AlertsModule {
 
         //click actions button
         Thread.sleep(2000);
+
+        actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
 
         actions.clickElement(alertsPage.firstAlertActionsBtn);
 
@@ -325,7 +338,7 @@ public class AlertsModule {
 
         //test that alert is created
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub1");
         Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
 
     }
@@ -355,6 +368,7 @@ public class AlertsModule {
         actions.clickElement(alertsPage.firstAlertActionsBtn);
 
         //choose edit option
+        actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,200);
         actions.clickElement(alertsPage.editAlertOptionBtn);
 
         //clear alert name
@@ -492,8 +506,8 @@ public class AlertsModule {
 
     @Test(priority = 5)
     public void sortByName() throws InterruptedException {
-        //navigate to alerts page
-        homePage.clickAlertsSidebarBtn();
+        //refresh the browser (to reset scroll)
+        actions.refreshWindow();
 
         //click filter
         actions.clickElement(alertsPage.filterBtn);

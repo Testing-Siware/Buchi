@@ -31,14 +31,14 @@ public class JournalsModule {
 
         //send value to search bar
         Thread.sleep(2000);
-        actions.enterText(journalsPage.searchField,"Global");
+        actions.enterText(journalsPage.searchField,"Milk");
 
         //click search button
         actions.clickElement(journalsPage.submitSearchBtn);
 
         Thread.sleep(3000);
         //test that data searched for appears
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Global");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
 
         //refresh window to clear results
         journalsPage.refreshWindow();
@@ -57,16 +57,34 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);
 
         //send text to filter name
-        actions.enterText(journalsPage.nameFilterTextField,"Global");
+        actions.enterText(journalsPage.nameFilterTextField,"Milk");
 
         //click apply
         actions.clickElement(journalsPage.applyFilterBtn);
         
         //test that results appear
         Thread.sleep(4000);
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Global");
-        
-        //todo:add negative scenario
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
+
+        //click filter
+        actions.clickElement(journalsPage.filterBtn);
+
+        //click clear
+        actions.clickElement(journalsPage.clearFilterBtn);
+
+        //click filter
+        actions.clickElement(journalsPage.filterBtn);
+
+        //send text to filter name
+        actions.enterText(journalsPage.nameFilterTextField,"None");
+
+        //click apply
+        actions.clickElement(journalsPage.applyFilterBtn);
+
+        //test that no results appear
+        Thread.sleep(4000);
+        Assert.assertFalse(actions.isElementDisplayed(journalsPage.firstRecipeName));
+
     }
 
     @Test(priority = 2)
@@ -132,7 +150,7 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);;
 
         //click filter by name
-        actions.enterText(journalsPage.nameFilterTextField,"Wheat");
+        actions.enterText(journalsPage.nameFilterTextField,"TestTsv");
 
         //click apply filter
         actions.clickElement(journalsPage.applyFilterBtn);
@@ -197,9 +215,8 @@ public class JournalsModule {
         //click filter button
         actions.clickElement(journalsListPage.editFiltersBtn);
 
-
         //insert invalid sample name
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Global");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Wheat");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);

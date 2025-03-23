@@ -32,6 +32,10 @@ public class UsersPage extends MethodHandles {
     @FindBy(id = "user-edit-form-alert-dialog-button-confirm")
     public WebElement confirmEditBtn;
 
+    //cancel edits button
+    @FindBy(id="user-edit-form-container-button-cancel")
+    public WebElement cancelEditBtn;
+
     //search button to fetch searched results
     @FindBy(id = "users-list-table-search-submit")
     public WebElement searchBtn;
@@ -211,11 +215,11 @@ public class UsersPage extends MethodHandles {
     public WebElement lastNameErrorMsg;
 
     //error message if affiliate name is invalid
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[3]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[3]/div[2]/div[1]/div[2]/span")
     public WebElement affiliateErrorMsg;
 
     //error message if role is invalid
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[4]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[3]/div[2]/div[2]/div[2]/span")
     public WebElement roleErrorMsg;
 
     //error message if email is invalid

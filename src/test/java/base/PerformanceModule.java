@@ -350,7 +350,7 @@ public class PerformanceModule {
     public void createSubAffiliates() throws InterruptedException {
         String partnerAdminEmail;
         String affiliateName;
-        for(int i=22;i<500;i++){
+        for(int i=46;i<500;i++){
             partnerAdminEmail="partnerAdmin";
 
             if((i+1)<=9){
