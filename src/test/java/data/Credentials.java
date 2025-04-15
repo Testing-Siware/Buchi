@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Credentials {
 
     public static String partnerAdminUsername = "Mostafa.hassan+pa@si-ware.com";
-    public static String partnerAdminPassword = "Cqc@12345";
+    public static String partnerAdminPassword = "Cqc@12345!";
 
     public static String adminUsername = "Admin@email.com";
     public static String adminPassword = "Cqc@12345";
@@ -20,7 +20,7 @@ public class Credentials {
     public static String partnerUserPassword="Cqc@12345";
 
     public static String superAdminUsername = "superadmin@si-ware.com";
-    public static String superAdminPassword = "@SwS@2023$$!!";
+    public static String superAdminPassword = "@SwS@2025$$!!";
 
 
 

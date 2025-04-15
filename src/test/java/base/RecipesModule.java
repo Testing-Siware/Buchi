@@ -188,7 +188,7 @@ public class RecipesModule {
         actions.clickElement(recipesPage.RowViewParametersAction);
 
         //test that user was re-directed
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Assert.assertTrue(MainTestRunner.ChromeDriver.getCurrentUrl().contains("parameters"));
 
         //test that alias column header is not visible
@@ -289,7 +289,7 @@ public class RecipesModule {
         actions.clickElement(recipesPage.sortingRPNameDesc);
 
         //test that data is sorted
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         first = actions.getText(recipesPage.firstRowNameRP);
         second = actions.getText(recipesPage.secondRowNameRP);
         System.out.println(first.compareTo(second));

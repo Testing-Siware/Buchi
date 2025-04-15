@@ -178,6 +178,7 @@ public class InstrumentsModule {
         actions.clickElement(instrumentsPage.toggleCreatedAtColumnOption);
 
         actions.scrollToElementHorizontally(instrumentsPage.tableHorizontalScrollBar, 500);
+        Thread.sleep(2000);
         Assert.assertTrue(actions.isElementDisplayed(instrumentsPage.createdAtColumnHeader));
 
         //click view
