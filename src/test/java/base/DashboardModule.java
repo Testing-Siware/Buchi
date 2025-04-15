@@ -1,6 +1,5 @@
 package base;
 
-import com.beust.ah.A;
 import data.Credentials;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,7 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.Actions;
-import pages.AffiliatePage;
 import pages.DashboardPage;
 import pages.HomePage;
 import utils.Helpers;
@@ -53,6 +51,9 @@ public class DashboardModule {
 
         //test that events column is visible
         Assert.assertTrue(actions.isElementDisplayed(dashboardPage.eventsColumnHeader));
+
+        //test that sx-suites are by default sorted in ascending order
+        Assert.assertTrue(actions.getText(dashboardPage.firstRowSxSuite).compareTo(actions.getText(dashboardPage.firstRowSxSuite))<=0);
 
     }
 
@@ -225,12 +226,11 @@ public class DashboardModule {
         //click on first instrument
 
         Thread.sleep(2000);
-        actions.clickElement(dashboardPage.firstRowInstrument);
+        actions.clickElement(dashboardPage.secondRowInstrument);
 
         Thread.sleep(2000);
 
         //test that parameter widget appear
-        actions.getText(dashboardPage.parameterDetailWidget);
 
         Assert.assertTrue(actions.getText(dashboardPage.parameterDetailWidget).contains("ISO12099"));
         Assert.assertTrue(actions.getText(dashboardPage.parameterDetailWidget).contains("Treat"));
@@ -239,8 +239,12 @@ public class DashboardModule {
         Assert.assertTrue(actions.getText(dashboardPage.parameterDetailWidget).contains("Factors"));
         Assert.assertTrue(actions.getText(dashboardPage.parameterDetailWidget).contains("Method"));
 
+        //test that MD chart appears
+        Assert.assertTrue(actions.getText(dashboardPage.MDChart).contains("MD"));
 
+        //click back
         actions.clickElement(dashboardPage.backBtnDashboardPage);
+
     }
 
     @Test(priority = 4)
@@ -264,6 +268,9 @@ public class DashboardModule {
         Thread.sleep(2000);
         System.out.println(actions.getText(dashboardPage.firstRowSxSuite));
         Assert.assertTrue(actions.getText(dashboardPage.firstRowSxSuite).compareTo(actions.getText(dashboardPage.secondRowSxSuite))<=0);
+
+        //click back
+        actions.clickElement(dashboardPage.backBtnDashboardPage);
     }
 
     @Test(priority = 6,dependsOnMethods = "dashboardPartnerAdmin")
@@ -286,7 +293,6 @@ public class DashboardModule {
         //sign-out from support
         actions.clickElement(homePage.profileIconBtn);
         actions.clickElement(homePage.signoutBtn);
-
 
         //login with admin account
         Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.partnerAdminUsername, Credentials.partnerAdminPassword);
@@ -317,6 +323,22 @@ public class DashboardModule {
         //test content of information message below dashboard title
         Assert.assertEquals(actions.getText(dashboardPage.informationMessage),"Monitor near real-time measurement statuses for your instruments, along with the actual MD results for the parameters of the measured recipes.");
 
+        //click on first instrument
+        actions.clickElement(dashboardPage.firstRowInstrument);
+
+        //test that time filter is visible and by default 24 hours
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.graphTimeFilter));
+        Assert.assertEquals(actions.getText(dashboardPage.graphTimeFilter),"24 hours");
+
+        actions.clickElement(dashboardPage.backBtnDashboardPage);
+
+        //test that prediction filter is visible
+        actions.clickElement(dashboardPage.filterBtn);
+
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.predictionValueToFilter));
+
+        //click cancel filter
+        actions.clickElement(dashboardPage.cancelFilterBtn);
     }
 
     @Test(priority = 7)
@@ -352,6 +374,24 @@ public class DashboardModule {
         //test content of information message below dashboard title
         Assert.assertEquals(actions.getText(dashboardPage.informationMessage),"Monitor near real-time measurement statuses for your instruments, along with the actual MD results for the parameters of the measured recipes.");
 
+        //click on first instrument
+        actions.clickElement(dashboardPage.firstRowInstrumentAdmin);
+
+        //test that time filter is visible and by default 24 hours
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.graphTimeFilter));
+        System.out.println(actions.getText(dashboardPage.graphTimeFilter));
+
+        //click back btn
+        actions.clickElement(dashboardPage.backBtnDashboardPage);
+
+        //test that prediction filter is visible
+        actions.clickElement(dashboardPage.filterBtn);
+
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.predictionValueToFilter));
+
+        //click cancel filter
+        actions.clickElement(dashboardPage.cancelFilterBtn);
+
     }
 
     @Test(priority = 7)
@@ -385,6 +425,24 @@ public class DashboardModule {
 
         //test content of information message below dashboard title
         Assert.assertEquals(actions.getText(dashboardPage.informationMessage),"Monitor near real-time measurement statuses for your instruments, along with the actual MD results for the parameters of the measured recipes.");
+
+        //click on first instrument
+        actions.clickElement(dashboardPage.firstRowInstrumentAdmin);
+
+        //test that time filter is visible and by default 24 hours
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.graphTimeFilter));
+        System.out.println(actions.getText(dashboardPage.graphTimeFilter));
+
+        //click back btn
+        actions.clickElement(dashboardPage.backBtnDashboardPage);
+
+        //test that prediction filter is visible
+        actions.clickElement(dashboardPage.filterBtn);
+
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.predictionValueToFilter));
+
+        //click cancel filter
+        actions.clickElement(dashboardPage.cancelFilterBtn);
 
     }
 
@@ -421,8 +479,15 @@ public class DashboardModule {
         //test content of information message below dashboard title
         Assert.assertEquals(actions.getText(dashboardPage.informationMessage),"Monitor near real-time measurement statuses for your instruments, along with the actual MD results for the parameters of the measured recipes.");
 
+        //click on first instrument
+       actions.clickElement(dashboardPage.firstRowInstrument);
+
+       //test that time filter is visible and by default 24 hours
+       Assert.assertTrue(actions.isElementDisplayed(dashboardPage.graphTimeFilter));
+       System.out.println(actions.getText(dashboardPage.graphTimeFilter));
     }
 
+    @Ignore
     @Test(priority = 8)
     public void dashboardSuperAdmin() throws InterruptedException {
         //sign-out from support

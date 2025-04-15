@@ -27,6 +27,12 @@ public class DashboardPage {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]/div/p")
     public WebElement firstRowInstrument;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]/div/p")
+    public WebElement firstRowInstrumentAdmin;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div[2]/div/div")
+    public WebElement MDChart;
+
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[4]/div")
     public WebElement firstRowStatus;
 
@@ -42,7 +48,7 @@ public class DashboardPage {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]/div")
     public  WebElement secondRowSxSuite;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[3]/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[3]/div/p")
     public WebElement secondRowInstrument;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[4]/div")
@@ -125,7 +131,7 @@ public class DashboardPage {
     @FindBy(xpath = "//*[@id=\"admin-layout\"]/div[2]/div/div[1]/div/div[1]/button")
     public WebElement backBtnDashboardPage;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div[2]/div/div/div/div/div[3]")
     public WebElement parameterDetailWidget;
 
     @FindBy(id="dashboard-suites-list-table-suiteName-column-options-menu-item-asc")
