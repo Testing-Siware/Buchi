@@ -117,9 +117,15 @@ public class RecipePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
     public WebElement firstRowName;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]")
+    public WebElement firstRowAlias;
+
     //second row name
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
     public WebElement secondRowName;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[3]")
+    public WebElement secondRowAlias;
 
     //third row name
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[3]/div[2]")
@@ -138,6 +144,12 @@ public class RecipePage extends MethodHandles {
 
     @FindBy(id = "recipes-list-table-alias-column")
     public WebElement aliasColumnHeader;
+
+    @FindBy(id="recipes-list-table-alias-column-options-menu-item-asc")
+    public WebElement sortByAliasAsc;
+
+    @FindBy(id="recipes-list-table-alias-column-options-menu-item-desc")
+    public WebElement sortByAliasDesc;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
     public WebElement tableHorizontalScrollBar;
@@ -418,7 +430,7 @@ public class RecipePage extends MethodHandles {
     @FindBy(id="recipes-list-table-name-column-options-menu-item-asc")
     public WebElement sortRecipeNameAsc;
 
-    @FindBy(id="recipes-list-table-nam-column-options-menu-item-desc")
+    @FindBy(id="recipes-list-table-name-column-options-menu-item-desc")
     public WebElement sortRecipeNameDesc;
     //sorting name column in recipe parameters page Desc
     @FindBy(id = "recipes-parameters-list-table-name-column-options-menu-item-desc")
@@ -487,6 +499,9 @@ public class RecipePage extends MethodHandles {
     //first row actions button in recipe parameter page
     @FindBy(id = "recipes-parameters-list-table-actions-cell-0")
     public WebElement firstRowActionsBtnInParameters;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[1]/div[2]/div/div")
+    public WebElement viewCalibrationFilesGridHeader;
 
 
     //first row view calibration files action
@@ -619,6 +634,9 @@ public class RecipePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[4]/div/div/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div")
     public WebElement tsvTableRecords;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[4]/div/div/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div")
+    public WebElement calibrationFilesTableRecords;
+
     @FindBy(id="affiliates-list-table-actions-cell-1")
     public WebElement secondCalibrationFileVersionActionBtn;
 
@@ -636,6 +654,8 @@ public class RecipePage extends MethodHandles {
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[3]/button")
     public WebElement deployCalibrationFilePopupCancelBtn;
+
+
 
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[4]/button")
