@@ -35,7 +35,7 @@ public class DashboardModule {
 
         //test that user is redirected to dashboard
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
 
         //test that Sx-Suite column is visible
         Assert.assertTrue(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -198,7 +198,7 @@ public class DashboardModule {
         actions.clickElement(dashboardPage.firstRowInstrument);
 
         //test that user is redirected to instrument page
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard/parameters");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard/parameters");
         Assert.assertTrue(actions.getText(dashboardPage.dashboardInstrumentHeader).contains("Sub1"));
         Assert.assertTrue(actions.getText(dashboardPage.dashboardInstrumentHeader).contains("522FG020"));
 
@@ -212,7 +212,7 @@ public class DashboardModule {
         //test that go back button redirects to dashboard
         actions.clickElement(dashboardPage.backBtnDashboardPage);
 
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
     }
 
     @Test(priority = 3)
@@ -301,7 +301,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
 
         //test that data is displayed using sx-suite in ascending order
         System.out.println(actions.getText(dashboardPage.firstRowSxSuite));
@@ -355,7 +355,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -407,7 +407,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -460,7 +460,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -501,7 +501,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));

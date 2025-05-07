@@ -28,9 +28,14 @@ public class JournalsPage extends MethodHandles {
     @FindBy(id = "journals-select-recipe-list-table-filter-button")
     public WebElement filterBtn;
 
+
+
     //name filter text field
     @FindBy(id = "journals-select-recipe-list-table-filter-input-name")
     public WebElement nameFilterTextField;
+
+    @FindBy(id="journals-select-recipe-list-table-filter-select-affiliates-component")
+    public WebElement affiliateFilterDropdown;
 
     //affiliate filter
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[3]/div/div[1]/div[1]/div[2]/input")
@@ -83,6 +88,9 @@ public class JournalsPage extends MethodHandles {
     //first recipe name
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[1]")
     public WebElement firstRecipeName;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
+    public WebElement firstJournalAffiliate;
 
     //first recipe affiliate
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")

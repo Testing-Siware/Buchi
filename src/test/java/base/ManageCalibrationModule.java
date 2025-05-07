@@ -33,7 +33,7 @@ public class ManageCalibrationModule {
 
         //test that user got redirected to manage calibration deployment page
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/fleet-management/recipe/manage-calibration-deployment");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/fleet-management/recipe/manage-calibration-deployment");
     }
 
     @Test(priority = 1,dependsOnMethods = "isManageDeploymentBtnDisplayed")
