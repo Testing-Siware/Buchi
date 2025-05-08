@@ -1,5 +1,6 @@
 package base;
 
+import com.beust.ah.A;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -472,6 +473,48 @@ public class JournalsModule {
     }
 
     @Test(priority = 11)
+    public void checkJournals() throws InterruptedException{
+        //select first sample
+        actions.clickElement(journalsListPage.firstSampleCheckBox);
+
+        //click manage journals
+        actions.clickElement(journalsListPage.manageJournalsBtn);
+
+        //test that both option mark as uncheck & mark as check are enables
+        Assert.assertTrue(actions.isElementEnabled(journalsListPage.markAsCheckedOption));
+        Assert.assertTrue(actions.isElementEnabled(journalsListPage.markAsUncheckedOption));
+
+        //test that both options show number of selected samples
+        Assert.assertTrue(actions.getText(journalsListPage.markAsCheckedOption).contains("1"));
+        Assert.assertTrue(actions.getText(journalsListPage.markAsUncheckedOption).contains("1"));
+
+        //click mark as unchecked
+        actions.clickElement(journalsListPage.markAsUncheckedOption);
+
+        //test that sample no longer appears
+        Assert.assertFalse(actions.isElementDisplayed(journalsListPage.firstSampleName));
+
+        //scroll to edit filters button
+        actions.scrollToElement(journalsListPage.editFiltersBtn);
+
+        //click edit filters
+        actions.clickElement(journalsListPage.editFiltersBtn);
+
+        //change journal entries to "Unchecked Journal Entries"
+        actions.chooseFromDropDown(journalsListPage.journalEntriesFilter,"Unch");
+
+        //click save filter
+        actions.clickElement(journalsListPage.saveFilterBtn);
+
+        //test that sample appears
+        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.firstSampleName));
+
+
+
+
+    }
+
+    @Test(priority = 12)
     public void histogramTab(){
         //click on histogram button tab
         actions.clickElement(journalsListPage.journalListHistogramBtn);

@@ -28,6 +28,9 @@ public class ListJournalsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[2]/div/div/div[1]/div[2]/input")
     public WebElement instrumentSNRFilterText;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div[1]/div[2]/input")
+    public WebElement journalEntriesFilter;
+
     //sample name filter text box
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div/input")
     public WebElement sampleNameFilterText;
@@ -63,10 +66,6 @@ public class ListJournalsPage extends MethodHandles {
 
     @FindBy(id = "journal-details-list-viewing-options")
     public WebElement viewBtn;
-
-
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[2]")
-    public WebElement manageJournalsBtn;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[3]")
     public WebElement spectraOptionsBtn;
@@ -174,5 +173,14 @@ public class ListJournalsPage extends MethodHandles {
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[3]/div/div[2]")
     public WebElement secondHistogram;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[2]")
+    public WebElement manageJournalsBtn;
+
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]")
+    public WebElement markAsCheckedOption;
+
+    @FindBy(xpath = "/html/body/div[2]/div/div[2]")
+    public WebElement markAsUncheckedOption;
 
 }
