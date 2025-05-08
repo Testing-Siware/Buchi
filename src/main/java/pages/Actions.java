@@ -124,4 +124,15 @@ public class Actions {
             System.out.println(ignored.toString());
         }
     }
+
+    public boolean isElementEnabled(WebElement element){
+        try {
+            wait.until(ExpectedConditions.visibilityOf(element));
+            return element.isEnabled();
+
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
 }

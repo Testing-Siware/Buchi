@@ -45,7 +45,7 @@ public class EnvironmentSelector {
         {
             Credentials.SetCredentials("DEV");
 
-            PortaMainlUrl = "https://lablake-dev.neospectra.cloud/auth/login";
+            PortaMainlUrl = "http://nir-online-dev.neospectra.cloud/";
 
         }
         else if (Objects.equals(s, "TEST"))

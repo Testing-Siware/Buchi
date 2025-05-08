@@ -33,7 +33,7 @@ public class ManageCalibrationModule {
 
         //test that user got redirected to manage calibration deployment page
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getCurrentUrl(),"https://lablake-dev.neospectra.cloud/fleet-management/recipe/manage-calibration-deployment");
+        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/fleet-management/recipe/manage-calibration-deployment");
     }
 
     @Test(priority = 1,dependsOnMethods = "isManageDeploymentBtnDisplayed")
@@ -63,7 +63,7 @@ public class ManageCalibrationModule {
         Assert.assertTrue(actions.isElementDisplayed(manageCalibrationPage.transferCalibrationBtn));
 
         //test that the latest calibration timestamp display
-        Assert.assertTrue(actions.isElementDisplayed(manageCalibrationPage.firstSelectedRecipeFirstParameterCalibrationTimesstamp));
+        Assert.assertTrue(actions.isElementDisplayed(manageCalibrationPage.firstSelectedRecipeFirstParameterCalibrationTimestamp));
 
         //test that grid is displayed
         Assert.assertTrue(actions.isElementDisplayed(manageCalibrationPage.firstSelectedRecipeGrid));
@@ -106,7 +106,36 @@ public class ManageCalibrationModule {
 
         //verify that pop-up disappears
         Assert.assertTrue(actions.isElementDisplayed(manageCalibrationPage.firstSelectedRecipeGrid));
+    }
 
+    @Test(priority = 3)
+    public void verifyManageCalibrationDeploymentNestedGrid() throws InterruptedException {
+        //navigate back to recipes main page
+        actions.clickElement(homePage.recipesSidebarBtn);
 
+        //click on manage calibration deployment
+        actions.clickElement(recipePage.manageCalibrationBtn);
+
+        //insert recipe name in dropdown
+        actions.chooseFromDropDown(manageCalibrationPage.recipeNameDropdown,"Milk" );
+
+        //click view recipes
+        actions.clickElement(manageCalibrationPage.viewRecipesBtn);
+
+        //expand first parameter
+        actions.clickElement(manageCalibrationPage.firstParameterExpandGridManageDeployment);
+
+        //test the content of the nested grid
+        Thread.sleep(2000);
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("Range"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("Samples"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("SEC"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("SECV"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("R2"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("Method"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("Treat"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("Factors"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("SEP"));
+        Assert.assertTrue(actions.getText(manageCalibrationPage.firstSelectedRecipeFirstParameterNestedGrid).contains("ISO12099"));
     }
 }
