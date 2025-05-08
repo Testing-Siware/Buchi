@@ -5,22 +5,22 @@ import java.util.Objects;
 public class Credentials {
 
     public static String partnerAdminUsername = "Mostafa.hassan+pa@si-ware.com";
-    public static String partnerAdminPassword = "Cqc@12345";
+    public static String partnerAdminPassword = "Cqc@12345!";
 
-    public static String adminUsername = "Mostafa.hassan+A@si-ware.com";
+    public static String adminUsername = "Admin@email.com";
     public static String adminPassword = "Cqc@12345";
 
     public static String userName = "Mostafa.hassan+U@si-ware.com";
     public static String userPassword = "Cqc@12345";
 
-    public static String supportUsername="mohamed.khaled+Support@si-ware.com";
+    public static String supportUsername="malek.ali@email.com";
     public static String supportPassword = "Qwer@1234";
 
     public static String partnerUserUsername="Mohamed.khaled+PU@si-ware.com";
     public static String partnerUserPassword="Cqc@12345";
 
     public static String superAdminUsername = "superadmin@si-ware.com";
-    public static String superAdminPassword = "@SwS@2023$$!!";
+    public static String superAdminPassword = "@SwS@2025$$!!";
 
 
 

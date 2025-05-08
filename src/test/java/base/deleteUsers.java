@@ -3,6 +3,7 @@ package base;
 import data.Credentials;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+import pages.Actions;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.UsersPage;
@@ -11,6 +12,7 @@ public class deleteUsers {
 
     UsersPage usersPage;
     HomePage homePage;
+    Actions actions;
 
     @Test(priority = 0)
     public void deleteUsers() throws InterruptedException {
@@ -21,16 +23,24 @@ public class deleteUsers {
         LoginPage loginPage=new LoginPage((ChromeDriver) MainTestRunner.ChromeDriver);
 
 
-        loginPage.EnterEmailField(Credentials.supportUsername);
+        loginPage.EnterEmailField(Credentials.superAdminUsername);
         loginPage.ClickLoginNextButton();
-        loginPage.EnterPasswordField(Credentials.supportPassword);
+        loginPage.EnterPasswordField(Credentials.superAdminPassword);
         loginPage.ClickSignInButton();
 
         homePage.clickUsersSidebarBtn();
 
-
-        for (int i=0;i<17;i++){
-            deleteUser("first");
+        String name;
+        actions=new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
+        for (int i=44;i<=99;i++){
+             name="partnerAdmin";
+            if(i<=9){
+                name+="00"+i;
+            }
+            else{
+                name+="0"+i;
+            }
+            deleteUser(name);
             Thread.sleep(4000);
         }
 
@@ -41,7 +51,6 @@ public class deleteUsers {
         //clear any preset filter
         usersPage.clickFilterBtn();
         usersPage.clickClearFiltersBtn();
-        usersPage.clickApplyFiltersBtn();
 
         Thread.sleep(4000);
 
@@ -51,8 +60,9 @@ public class deleteUsers {
         //click search
         usersPage.clickSearchBtn();
 
-
         //click actions
+        Thread.sleep(2000);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar,500);
         Thread.sleep(2000);
         usersPage.clickActionsBtn();
 
