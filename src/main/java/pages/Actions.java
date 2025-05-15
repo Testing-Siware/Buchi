@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.io.File;
 import java.time.Duration;
 import java.awt.event.KeyEvent;
 
@@ -143,8 +144,12 @@ public class Actions {
 
 
     public void uploadFileWithRobot(String filePath) throws AWTException {
+
+        File file = new File(filePath);
+        String absolutePath = file.getAbsolutePath();
+//
         // Copy the file path to clipboard
-        StringSelection selection = new StringSelection(filePath);
+        StringSelection selection = new StringSelection(absolutePath);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
 
         // Create Robot instance

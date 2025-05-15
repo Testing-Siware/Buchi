@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
 import pages.*;
 import utils.Helpers;
 
+import java.awt.*;
+
 
 public class JournalsModule {
     HomePage homePage;
@@ -476,7 +478,30 @@ public class JournalsModule {
         //click import references option
         actions.clickElement(journalsListPage.importRefValuesBtn);
 
-        
+        try {
+            actions.uploadFileWithRobot("src/main/resources/import_ref_values.xlsx" +
+                    "");
+        } catch (AWTException e) {
+            System.out.println("Error");
+        }
+
+        Thread.sleep(6000);
+        actions.refreshWindow();
+
+        //expand first sample details
+        actions.clickElement(journalsListPage.firstSampleName);
+
+        String[] newRefValues=actions.getText(journalsListPage.sampleSettingsDetails).split("--");
+        System.out.println("LEN: "+newRefValues.length);
+
+        for (int i=1;i<newRefValues.length;i++){
+            System.out.println(newRefValues[i]+"\n----------\n");
+            Assert.assertTrue(newRefValues[i].contains("74"));
+        }
+
+        //close dialog
+        actions.clickElement(journalsListPage.closeJournalDetailsDialog);
+
     }
 
     @Test(priority = 10)
