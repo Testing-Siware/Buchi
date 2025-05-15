@@ -4,8 +4,9 @@ import java.util.Objects;
 
 public class Credentials {
 
-    public static String partnerAdminUsername = "Mostafa.hassan+pa@si-ware.com";
-    public static String partnerAdminPassword = "Cqc@12345!";
+
+    public static String partnerAdminUsername = "ahmed.maher+pa_1@si-ware.com";
+    public static String partnerAdminPassword = "Abcd@123";
 
     public static String adminUsername = "Admin@email.com";
     public static String adminPassword = "Cqc@12345";
@@ -17,7 +18,7 @@ public class Credentials {
     public static String supportPassword = "Qwer@1234";
 
     public static String partnerUserUsername="Mohamed.khaled+PU@si-ware.com";
-    public static String partnerUserPassword="Cqc@12345";
+    public static String partnerUserPassword="Cqc@1234";
 
     public static String superAdminUsername = "superadmin@si-ware.com";
     public static String superAdminPassword = "@SwS@2025$$!!";
