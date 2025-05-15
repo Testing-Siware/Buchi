@@ -7,7 +7,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.time.Duration;
+import java.awt.event.KeyEvent;
+
 
 public class Actions {
 
@@ -135,4 +140,28 @@ public class Actions {
             return false;
         }
     }
+
+
+    public void uploadFileWithRobot(String filePath) throws AWTException {
+        // Copy the file path to clipboard
+        StringSelection selection = new StringSelection(filePath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+
+        // Create Robot instance
+        Robot robot = new Robot();
+        robot.delay(1000); // Wait for file dialog to appear
+
+        // Press CTRL+V
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+
+        robot.delay(500);
+
+        // Press ENTER
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+
 }
