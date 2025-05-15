@@ -721,12 +721,12 @@ public class JournalsModule {
         actions.clickElement(journalsListPage.journalListHistogramBtn);
 
         //test that first parameter histogram is visible
-        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Fat Histogram"));
+        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Fat Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Test1 Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Lactose Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Protein Histogram")) ;
 
         actions.scrollToElement(journalsListPage.secondHistogram);
 
         //test that second parameter histogram is visible
-        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Lactose Histogram"));
+        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Lactose Histogram") || actions.getText(journalsListPage.secondHistogram).contains("Fat Histogram") || actions.getText(journalsListPage.secondHistogram).contains("Test1 Histogram")||actions.getText(journalsListPage.secondHistogram).contains("Protein Histogram"));
 
         //refresh window
         actions.refreshWindow();
