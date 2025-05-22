@@ -223,7 +223,7 @@ public class UsersPage extends MethodHandles {
     public WebElement roleErrorMsg;
 
     //error message if email is invalid
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[1]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]/div[1]/div/div[2]")
     public WebElement emailErrorMsg;
 
     //error message if first name is invalid

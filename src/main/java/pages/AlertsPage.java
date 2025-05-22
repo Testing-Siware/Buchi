@@ -17,8 +17,9 @@ public class AlertsPage {
     public AlertsPage(ChromeDriver driver){
         PageFactory.initElements(driver, this);
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        newAlertPageURL="https://lablake-dev.neospectra.cloud/fleet-management/alert/add";
     }
+    @FindBy(id="alert-list-add-section-text-content")
+    public WebElement alertsPageTitle;
 
     //new alert button
     @FindBy(id="alert-list-add-section-button")
@@ -39,11 +40,32 @@ public class AlertsPage {
     @FindBy(id="alerts-list-table-search-submit")
     public WebElement searchBtn;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[2]/div[1]/div/button[1]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/button[1]")
     public WebElement optionsBtn;
+
+    @FindBy(xpath = "//*[@id=\"alert-list-container\"]/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[1]/div[2]/div/div/div[1]/div[2]")
+    public WebElement selectAllAlertsCheckbox;
 
     @FindBy(id="alerts-list-table-actions-cell-0")
     public WebElement firstAlertActionsBtn;
+
+    @FindBy(id="dropdown-menu-item-deactivate")
+    public WebElement dropDownMenuDeactivate;
+
+    @FindBy(id="dropdown-menu-item-activate")
+    public WebElement dropDownMenuActivate;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[1]/div[2]/div/div")
+    public WebElement alertsGridHeader;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div")
+    public WebElement alertsGrid;
+
+    @FindBy(id="alerts-list-table-pagination-navigators-go-to-last-page")
+    public WebElement alertsGridPaginationLastPage;
+
+    @FindBy(id = "alerts-list-table-pagination-navigators-next-page")
+    public WebElement alertsGridPaginationNextPage;
 
     @FindBy(id="dropdown-menu-item-alert-list-table-option-edit")
     public WebElement editAlertOptionBtn;
@@ -85,7 +107,10 @@ public class AlertsPage {
     public WebElement deleteOption;
 
     @FindBy(id="alerts-list-table-name-column-options-trigger")
-    public WebElement alertsNameColumn;
+    public WebElement alertsNameColumnHeader;
+
+    @FindBy(id="alerts-list-table-createdAt-column-options-trigger")
+    public WebElement alertsCreatedAtColumnHeader;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[2]")
     public WebElement firstAlertName;
@@ -99,14 +124,35 @@ public class AlertsPage {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[8]/div/div")
     public WebElement firstAlertStatus;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[6]")
+    public WebElement firstAlertCreatedAt;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[1]/div/div/div/div[2]")
+    public WebElement firstAlertCheckBox;
+
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[2]")
     public WebElement secondAlertName;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[6]")
+    public WebElement secondAlertCreatedAt;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[1]/div/div/div/div[2]")
+    public WebElement secondAlertCheckBox;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[8]/div/div")
+    public WebElement secondAlertStatus;
     @FindBy(id = "alerts-list-table-name-column-options-menu-item-asc")
     public WebElement sortAlertsByNameAscOption;
 
     @FindBy(id = "alerts-list-table-name-column-options-menu-item-desc")
     public WebElement sortAlertsByNameDescOption;
+
+    @FindBy(id="alerts-list-table-createdAt-column-options-menu-item-asc")
+    public WebElement sortAlertsByCreatedAtAscOption;
+
+    @FindBy(id="alerts-list-table-createdAt-column-options-menu-item-desc")
+    public WebElement sortAlertsByCreatedAtDescOption;
+
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[1]/div[2]/span")
     public WebElement newAlertNameEmptyMsg;
@@ -127,7 +173,7 @@ public class AlertsPage {
     public WebElement newAlertRecipientsEmptyMsg;
 
     @FindBy(id = "alert-list-alert-dialog-button-confirm")
-    public WebElement confirmDeleteBtn;
+    public WebElement confirmAlertDialogBtn;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[8]/div[2]")
     public WebElement tableHorizontalScrollBar;
@@ -149,7 +195,10 @@ public class AlertsPage {
     public WebElement newAlertFirstParameter;
 
     @FindBy(id="alert-form-input-parameters[0].min-0")
-    public WebElement newAlertFirstParameterMinValue;
+    public WebElement newAlertFirstParameterMinValueInput;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div/div/div/div[2]/div/div")
+    public WebElement newAlertFirstParameterMinValueLabel;
 
     @FindBy(id="alert-form-input-parameters[0].max-0")
     public WebElement newAlertFirstParameterMaxValue;

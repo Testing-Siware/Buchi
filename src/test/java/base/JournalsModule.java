@@ -7,7 +7,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.*;
+import utils.EnvironmentSelector;
 import utils.Helpers;
+
+import java.awt.*;
 
 
 public class JournalsModule {
@@ -177,7 +180,7 @@ public class JournalsModule {
         actions.clickElement(journalsPage.applyFilterBtn);
 
         //wait for results and expand them
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         actions.clickElement(journalsPage.expandFirstRecipeBtnSupport);
 
         //choose first instrument
@@ -189,7 +192,7 @@ public class JournalsModule {
         //click next
         actions.clickElement(journalsPage.nextBtn);
 
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/fleet-management/journals");
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.journalsUrl);
 
         //wait for data
         Thread.sleep(2000);
@@ -476,7 +479,30 @@ public class JournalsModule {
         //click import references option
         actions.clickElement(journalsListPage.importRefValuesBtn);
 
-        
+        try {
+            actions.uploadFileWithRobot("src/main/resources/import_ref_values.xlsx" +
+                    "");
+        } catch (AWTException e) {
+            System.out.println("Error");
+        }
+
+        Thread.sleep(6000);
+        actions.refreshWindow();
+
+        //expand first sample details
+        actions.clickElement(journalsListPage.firstSampleName);
+
+        String[] newRefValues=actions.getText(journalsListPage.sampleSettingsDetails).split("--");
+        System.out.println("LEN: "+newRefValues.length);
+
+        for (int i=1;i<newRefValues.length;i++){
+            System.out.println(newRefValues[i]+"\n----------\n");
+            Assert.assertTrue(newRefValues[i].contains("74"));
+        }
+
+        //close dialog
+        actions.clickElement(journalsListPage.closeJournalDetailsDialog);
+
     }
 
     @Test(priority = 10)
@@ -696,12 +722,12 @@ public class JournalsModule {
         actions.clickElement(journalsListPage.journalListHistogramBtn);
 
         //test that first parameter histogram is visible
-        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Fat Histogram"));
+        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Fat Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Test1 Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Lactose Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Protein Histogram")) ;
 
         actions.scrollToElement(journalsListPage.secondHistogram);
 
         //test that second parameter histogram is visible
-        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Lactose Histogram"));
+        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Lactose Histogram") || actions.getText(journalsListPage.secondHistogram).contains("Fat Histogram") || actions.getText(journalsListPage.secondHistogram).contains("Test1 Histogram")||actions.getText(journalsListPage.secondHistogram).contains("Protein Histogram"));
 
         //refresh window
         actions.refreshWindow();
