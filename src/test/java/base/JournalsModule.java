@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.*;
+import utils.EnvironmentSelector;
 import utils.Helpers;
 
 import java.awt.*;
@@ -179,7 +180,7 @@ public class JournalsModule {
         actions.clickElement(journalsPage.applyFilterBtn);
 
         //wait for results and expand them
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         actions.clickElement(journalsPage.expandFirstRecipeBtnSupport);
 
         //choose first instrument
@@ -191,7 +192,7 @@ public class JournalsModule {
         //click next
         actions.clickElement(journalsPage.nextBtn);
 
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/fleet-management/journals");
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.journalsUrl);
 
         //wait for data
         Thread.sleep(2000);

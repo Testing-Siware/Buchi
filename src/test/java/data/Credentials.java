@@ -34,6 +34,17 @@ public class Credentials {
         else if (Objects.equals(s, "TEST"))
         {
         }
+
+        else if(Objects.equals(s,"STAGE")){
+            partnerAdminUsername="mohamed.khaled+PA@si-ware.com";
+            partnerAdminPassword="Cqc@12345";
+
+            supportUsername="ahmed.maher+PA+test@si-ware.com";
+            supportPassword="Admin@1234";
+
+            adminUsername="ahmed.maher+stage1@si-ware.com";
+            adminPassword="Abcd@123";
+        }
         else
         {
             System.out.println("Credentials Not Set Correctly!, Make Sure Credentials is Set to 'DEV' or 'TEST'.");

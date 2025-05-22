@@ -118,14 +118,14 @@ public class LoginModule {
 
         Assert.assertEquals(loginPage.getUnableToSigninMessageText(),"Unable to sign in");
 
-        loginPage.navigateTo(EnvironmentSelector.PortaMainlUrl);
+        loginPage.navigateTo(EnvironmentSelector.PortalMainlUrl);
     }
 
     @Test(priority = 5)
     @Ignore
     public void loginWithPartnerAdmin() throws  InterruptedException {
 
-        loginPage.navigateTo(EnvironmentSelector.PortaMainlUrl);
+        loginPage.navigateTo(EnvironmentSelector.PortalMainlUrl);
 
         loginPage.EnterEmailField(Credentials.partnerAdminUsername);
         loginPage.ClickLoginNextButton();

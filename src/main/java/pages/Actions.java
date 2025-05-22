@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.time.Duration;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 
 public class Actions {
@@ -167,6 +169,10 @@ public class Actions {
         // Press ENTER
         robot.keyPress(KeyEvent.VK_ENTER);
         robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+
+    public List<WebElement> getElementChildren(WebElement element){
+        return element.findElements(By.xpath("./child::*"));
     }
 
 }
