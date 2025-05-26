@@ -153,6 +153,23 @@ public class AlertsPage {
     @FindBy(id="alerts-list-table-createdAt-column-options-menu-item-desc")
     public WebElement sortAlertsByCreatedAtDescOption;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div")
+    public WebElement filterPopUp;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]")
+    public WebElement deleteConfirmationPopUp;
+
+    @FindBy(xpath = "/html/body/div/div[2]/div/div/div[2]/div")
+    public WebElement alertPageNotification;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/div/div/form/div[1]/div[3]/label/div/div[1]")
+    public WebElement recipeFilterHeader;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[3]/label/div/div[1]")
+    public WebElement newAlertRecipeDropdownTitle;
+
+    @FindBy(id="alert-list-alert-dialog-button-cancel")
+    public WebElement cancelDeleteBtn;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[1]/div[2]/span")
     public WebElement newAlertNameEmptyMsg;

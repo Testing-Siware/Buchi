@@ -29,7 +29,22 @@ public class AlertsModule {
         //navigate to alerts page
         homePage.clickAlertsSidebarBtn();
 
-        Thread.sleep(20000);
+        Thread.sleep(2000);
+
+        //test that filter button is displayed & enabled
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.filterBtn) && actions.isElementEnabled(alertsPage.filterBtn));
+
+        //test that new alert button is displayed & enabled
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.newAlertBtn) && actions.isElementEnabled(alertsPage.newAlertBtn));
+
+        //test that view button is displayed & enabled
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.viewingOptions) && actions.isElementEnabled(alertsPage.viewingOptions));
+
+        //test that refresh button is displayed & enabled
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.refreshBtn) && actions.isElementEnabled(alertsPage.refreshBtn));
+
+        //test that options button is displayed & disabled
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.optionsBtn) && !actions.isElementEnabled(alertsPage.optionsBtn));
 
         //test that grid & related components appear
         Assert.assertTrue(actions.getText(alertsPage.alertsGridHeader).contains("Name"));
@@ -57,6 +72,9 @@ public class AlertsModule {
 
         //test that user is redirected to new alert creation page
         Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(), EnvironmentSelector.NewAlertUrl);
+
+        //test that recipe dropdown title div has the title , red asterisk for required & info icon
+        Assert.assertEquals(actions.getElementChildren(alertsPage.newAlertRecipeDropdownTitle).size(),3);
 
         //insert alert details1
         //alert name
@@ -119,6 +137,9 @@ public class AlertsModule {
 
         //click save alert
         actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that alert appeared
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +"Alert created successfully!");
 
         //test that user id re-directed to alerts page
         Thread.sleep(2000);
@@ -196,11 +217,25 @@ public class AlertsModule {
         //click filter button
         actions.clickElement(alertsPage.filterBtn);
 
+        //test that all filter inputs are visible
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.filterNameInput));
+
+
         //click clear button
         actions.clickElement(alertsPage.clearFilterBtn);
 
         //click filter button
         actions.clickElement(alertsPage.filterBtn);
+
+        //test that all elements of filter pop-up are available
+        Assert.assertTrue(actions.getText(alertsPage.filterPopUp).contains("Name"));
+        Assert.assertTrue(actions.getText(alertsPage.filterPopUp).contains("Affiliate"));
+        Assert.assertTrue(actions.getText(alertsPage.filterPopUp).contains("Recipe"));
+        Assert.assertTrue(actions.getText(alertsPage.filterPopUp).contains("Created at"));
+        Assert.assertTrue(actions.getText(alertsPage.filterPopUp).contains("Status"));
+
+        //test that recipe filter header div ahs two elements recipes and info icon
+        Assert.assertEquals(actions.getElementChildren(alertsPage.recipeFilterHeader).size(),2);
 
         //insert name of created alert
         actions.enterText(alertsPage.filterNameInput,createdAlert);
@@ -276,6 +311,7 @@ public class AlertsModule {
         System.out.println(status);
         Assert.assertEquals(status,"ACTIVE");
     }
+
     @Test(priority = 2)
     public void filterAffiliate() throws InterruptedException {
         //navigate to alerts page
@@ -335,9 +371,11 @@ public class AlertsModule {
         Thread.sleep(1000);
         Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),EnvironmentSelector.EditAlertUrl);
 
+        System.out.println("Alert Name: "+actions.getText(alertsPage.newAlertName));
 
         //edit name
         createdAlert="Edit_Alert_"+MainTestRunner.formatter.format(new Date());
+        System.out.println(actions.getText(alertsPage.newAlertName));
         actions.clearText(alertsPage.newAlertName);
         actions.enterText(alertsPage.newAlertName,createdAlert);
 
@@ -356,6 +394,9 @@ public class AlertsModule {
 
         //click save
         actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that notification appears
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" + "Alert updated successfully!");
 
         //verify it redirects user to listing page
         Thread.sleep(2000);
@@ -377,11 +418,10 @@ public class AlertsModule {
         actions.clickElement(alertsPage.submitFilterBtn);
 
         //test that alert is edited
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
         Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
         System.out.println(actions.getText(alertsPage.firstAlertRecipe));
-
     }
 
     @Test(priority = 3)
@@ -490,8 +530,6 @@ public class AlertsModule {
 
     @Test(priority = 4)
     public void deleteAlert() throws InterruptedException{
-
-
         //navigate to alerts page
         homePage.clickAlertsSidebarBtn();
 
@@ -514,6 +552,25 @@ public class AlertsModule {
         Thread.sleep(2000);
         actions.clickElement(alertsPage.firstAlertActionsBtn);
 
+        //test that delete option is visible
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.deleteAlertOptionBtn));
+
+        //click delete option
+        actions.clickElement(alertsPage.deleteAlertOptionBtn);
+
+        //test that delete pop-up appears
+        Assert.assertTrue(actions.getText(alertsPage.deleteConfirmationPopUp).contains("Are you sure that you want to delete selected alerts?" ));
+        Assert.assertTrue(actions.getText(alertsPage.deleteConfirmationPopUp).contains( "If you delete these alerts, they will be disappeared from the system" ));
+
+        //click cancel
+        actions.clickElement(alertsPage.cancelDeleteBtn);
+
+        //test that alert is not deleted
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
 
         //click delete option
         actions.clickElement(alertsPage.deleteAlertOptionBtn);
@@ -554,7 +611,7 @@ public class AlertsModule {
         actions.clickElement(alertsPage.filterBtn);
 
         //click clear
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         actions.clickElement(alertsPage.clearFilterBtn);
 
         Thread.sleep(2000);
@@ -635,7 +692,8 @@ public class AlertsModule {
         actions.clickElement(alertsPage.selectAllAlertsCheckbox);
 
         //test that options button is affected & becomes enabled
-        Assert.assertTrue(actions.getText(alertsPage.optionsBtn).contains("10"));
+        int numOfAlerts=actions.getElementChildren(alertsPage.alertsGrid).size();
+        Assert.assertTrue(actions.getText(alertsPage.optionsBtn).contains(""+numOfAlerts));
         Assert.assertTrue(actions.isElementEnabled(alertsPage.optionsBtn));
 
         //deselect all alerts
@@ -656,6 +714,8 @@ public class AlertsModule {
         //confirm deactivation
         actions.clickElement(alertsPage.confirmAlertDialogBtn);
 
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" + "Alert deactivated successfully!");
+
         Thread.sleep(3000);
 
         //test that alerts become inactive
@@ -675,6 +735,9 @@ public class AlertsModule {
         //confirm activation
         actions.clickElement(alertsPage.confirmAlertDialogBtn);
 
+        //test that notification appears
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +
+                "Alert activated successfully!");
         Thread.sleep(2000);
 
         Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"ACTIVE");
@@ -696,6 +759,9 @@ public class AlertsModule {
         //confirm deactivation
         actions.clickElement(alertsPage.confirmAlertDialogBtn);
 
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +
+                "Alert deactivated successfully!");
+
         //test that alert is deactivated
         Thread.sleep(2000);
         Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"INACTIVE");
@@ -714,12 +780,61 @@ public class AlertsModule {
         //confirm activation
         actions.clickElement(alertsPage.confirmAlertDialogBtn);
 
-        //test that alert is deactivated
+        //test that notification appears
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +
+                "Alert activated successfully!");
+        //test that alert is activated
         Thread.sleep(2000);
         Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"ACTIVE");
+    }
 
+    @Test(priority = 7)
+    public void multipleAlertDeletion() throws InterruptedException {
+        //fetch the names of first two alerts
+        String firstAlert=actions.getText(alertsPage.firstAlertName);
+        String secondAlert=actions.getText(alertsPage.secondAlertName);
 
+        //select first two alerts
+        actions.clickElement(alertsPage.firstAlertCheckBox);
+        actions.clickElement(alertsPage.secondAlertCheckBox);
 
+        //click options button
+        actions.clickElement(alertsPage.optionsBtn);
+
+        //choose delete option
+        actions.clickElement(alertsPage.deleteOption);
+
+        //confirm delete
+        actions.clickElement(alertsPage.confirmAlertDialogBtn);
+
+        //filter for first alert & test it is not found
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,firstAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is not found
+        Thread.sleep(2000);
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.filterNameInput);
+        actions.enterText(alertsPage.filterNameInput,secondAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is not found
+        Thread.sleep(2000);
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
     }
 
 }
