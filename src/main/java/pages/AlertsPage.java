@@ -168,6 +168,12 @@ public class AlertsPage {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div[2]/div[3]/label/div/div[1]")
     public WebElement newAlertRecipeDropdownTitle;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]")
+    public WebElement newAlertConfigurations;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div/div/div/div[2]/div/div/div")
+    public WebElement firstParameterWindow;
+
     @FindBy(id="alert-list-alert-dialog-button-cancel")
     public WebElement cancelDeleteBtn;
 

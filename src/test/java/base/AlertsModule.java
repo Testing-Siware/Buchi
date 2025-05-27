@@ -1,5 +1,7 @@
 package base;
 
+import data.Credentials;
+import org.apache.poi.ss.formula.functions.T;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -8,6 +10,7 @@ import pages.Actions;
 import pages.AlertsPage;
 import pages.HomePage;
 import utils.EnvironmentSelector;
+import utils.Helpers;
 
 import java.util.Date;
 
@@ -100,6 +103,10 @@ public class AlertsModule {
         //alerts constraints
         //first parameter
         actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Protein");
+
+        System.out.println(actions.getText(alertsPage.newAlertConfigurations));
+        System.out.println(actions.getText(alertsPage.newAlertFirstParameterMinValueInput));
+
 
         //clear min and max value
         //first parameter max value
@@ -371,7 +378,14 @@ public class AlertsModule {
         Thread.sleep(1000);
         Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),EnvironmentSelector.EditAlertUrl);
 
-        System.out.println("Alert Name: "+actions.getText(alertsPage.newAlertName));
+        //test that all data of alert are populated before editing
+
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Sub1"));
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Bcloned"));
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("522FG020"));
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Protein"));
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Moisture"));
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("mohamed.khaled+support@si-ware.com"));
 
         //edit name
         createdAlert="Edit_Alert_"+MainTestRunner.formatter.format(new Date());
@@ -837,4 +851,475 @@ public class AlertsModule {
         Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
     }
 
+    @Test(priority = 8)
+    public void accessAsPartnerAdmin() throws InterruptedException {
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.partnerAdminUsername, Credentials.partnerAdminPassword);
+
+        //navigate to alerts page
+        actions.clickElement(homePage.alertsSidebarBtn);
+
+        int maxValue = (int)(Math.random()*100) +1;
+        int minValue= (int)(Math.random()*100) +1;
+
+        while(maxValue<=minValue){
+            maxValue = (int)(Math.random()*100) +1;
+            minValue= (int)(Math.random()*100) +1;
+        }
+
+        //create an alert as a partner-admin
+        createAlertHelper(String.valueOf(minValue),String.valueOf(maxValue));
+
+        maxValue = (int)(Math.random()*100) +1;
+
+        //edit alert
+        editAlertHelper(String.valueOf(maxValue));
+
+        //scroll to actions button
+        actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
+
+        Thread.sleep(2000);
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //test that delete option is visible
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.deleteAlertOptionBtn));
+
+        //click delete option
+        actions.clickElement(alertsPage.deleteAlertOptionBtn);
+
+        //test that delete pop-up appears
+        Assert.assertTrue(actions.getText(alertsPage.deleteConfirmationPopUp).contains("Are you sure that you want to delete selected alerts?" ));
+        Assert.assertTrue(actions.getText(alertsPage.deleteConfirmationPopUp).contains( "If you delete these alerts, they will be disappeared from the system" ));
+
+        //click cancel
+        actions.clickElement(alertsPage.cancelDeleteBtn);
+
+        //test that alert is not deleted
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //click delete option
+        actions.clickElement(alertsPage.deleteAlertOptionBtn);
+
+        //confirm delete
+        actions.clickElement(alertsPage.confirmAlertDialogBtn);
+
+        //navigate to alerts page
+        Thread.sleep(2000);
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply filter
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that the alert is not displayed
+        Thread.sleep(2000);
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
+    }
+
+    @Test(priority = 9)
+    public void accessAsAdmin() throws InterruptedException{
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.adminUsername, Credentials.adminPassword);
+
+        //navigate to alerts page
+        actions.clickElement(homePage.alertsSidebarBtn);
+
+        int maxValue = (int)(Math.random()*100) +1;
+        int minValue= (int)(Math.random()*100) +1;
+
+        while(maxValue<=minValue){
+            maxValue = (int)(Math.random()*100) +1;
+            minValue= (int)(Math.random()*100) +1;
+        }
+
+        //click new alert button
+        actions.clickElement(alertsPage.newAlertBtn);
+
+        //create an alert as an admin
+        //insert alert details1
+        //alert name
+        createdAlert="Alert_"+MainTestRunner.formatter.format(new Date());
+        actions.enterText(alertsPage.newAlertName,createdAlert);
+
+        //recipe
+        Thread.sleep(2000);
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Bcloned");
+
+        //instruments SNR
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"522");
+
+        //alerts constraints
+        //first parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Protein");
+
+        //clear min and max value
+        //first parameter max value
+        actions.clearText(alertsPage.newAlertFirstParameterMaxValue);
+
+        //first parameter min value
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.newAlertFirstParameterMinValueInput);
+
+        //insert equal value
+        actions.enterText(alertsPage.newAlertFirstParameterMinValueInput,String.valueOf(minValue));
+
+        //click add parameter button
+        actions.clickElement(alertsPage.newAlertAddParameterBtn);
+
+        //first parameter
+        actions.chooseFromDropDown(alertsPage.newAlertSecondParameter,"Moisture");
+
+        //clear min and max value
+        //first parameter max value
+        Thread.sleep(1000);
+        actions.clearText(alertsPage.newAlertSecondParameterMaxValue);
+
+        //first parameter min value
+        actions.clearText(alertsPage.newAlertSecondParameterMinValue);
+
+        //insert max value
+        actions.enterText(alertsPage.newAlertSecondParameterMaxValue,String.valueOf(maxValue));
+
+        //insert alert recipients
+        actions.chooseFromDropDown(alertsPage.newAlertRecipients,"mohamed.khaled+support@si-ware.com");
+
+        //click save alert
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that alert appeared
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +"Alert created successfully!");
+
+        //test that user id re-directed to alerts page
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.AlertsUrl);
+
+        //filter for alert
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is created
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+
+        int firstRandomNum= (int)(Math.random()*100) +1;
+
+        //edit alert
+        //click actions button
+        Thread.sleep(2000);
+
+        actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //test that user is redirected to edit page
+        Thread.sleep(1000);
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),EnvironmentSelector.EditAlertUrl);
+
+        //edit name
+        createdAlert="Edit_Alert_"+MainTestRunner.formatter.format(new Date());
+        System.out.println(actions.getText(alertsPage.newAlertName));
+        actions.clearText(alertsPage.newAlertName);
+        actions.enterText(alertsPage.newAlertName,createdAlert);
+
+
+        //choose new recipe
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Milk");
+
+        //choose instrument
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"416");
+
+        //select parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+        actions.enterText(alertsPage.newAlertFirstParameterMinValueInput,String.valueOf(firstRandomNum));
+
+        //click save
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that notification appears
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" + "Alert updated successfully!");
+
+        //verify it redirects user to listing page
+        Thread.sleep(2000);
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),EnvironmentSelector.AlertsUrl);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is edited
+        Thread.sleep(3000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+        System.out.println(actions.getText(alertsPage.firstAlertRecipe));
+
+        //scroll to actions button
+        actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
+
+        Thread.sleep(2000);
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //test that delete option is visible
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.deleteAlertOptionBtn));
+
+        //click delete option
+        actions.clickElement(alertsPage.deleteAlertOptionBtn);
+
+        //test that delete pop-up appears
+        Assert.assertTrue(actions.getText(alertsPage.deleteConfirmationPopUp).contains("Are you sure that you want to delete selected alerts?" ));
+        Assert.assertTrue(actions.getText(alertsPage.deleteConfirmationPopUp).contains( "If you delete these alerts, they will be disappeared from the system" ));
+
+        //click cancel
+        actions.clickElement(alertsPage.cancelDeleteBtn);
+
+        //test that alert is not deleted
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+
+        //click actions button
+        Thread.sleep(2000);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //click delete option
+        actions.clickElement(alertsPage.deleteAlertOptionBtn);
+
+        //confirm delete
+        actions.clickElement(alertsPage.confirmAlertDialogBtn);
+
+        //navigate to alerts page
+        Thread.sleep(2000);
+        homePage.clickAlertsSidebarBtn();
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply filter
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that the alert is not displayed
+        Thread.sleep(2000);
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.firstAlertName));
+    }
+
+    @Test(priority = 9)
+    public void accessAsUser() throws InterruptedException{
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.userName, Credentials.userPassword);
+
+        //navigate to alerts page
+        actions.clickElement(homePage.alertsSidebarBtn);
+
+        int maxValue = (int)(Math.random()*100) +1;
+        int minValue= (int)(Math.random()*100) +1;
+
+        while(maxValue<=minValue){
+            maxValue = (int)(Math.random()*100) +1;
+            minValue= (int)(Math.random()*100) +1;
+        }
+
+        //click new alert button
+        //test that user cannot create an alert
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.newAlertBtn));
+
+        //test that edit option is not available
+        Assert.assertFalse(actions.isElementDisplayed(alertsPage.editAlertOptionBtn));
+    }
+
+    public void createAlertHelper(String minVal,String maxVal) throws InterruptedException{
+
+        //click new alert button
+        actions.clickElement(alertsPage.newAlertBtn);
+
+        //test that user is redirected to new alert creation page
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(), EnvironmentSelector.NewAlertUrl);
+
+
+        //insert alert details1
+        //alert name
+        createdAlert="Alert_"+MainTestRunner.formatter.format(new Date());
+        actions.enterText(alertsPage.newAlertName,createdAlert);
+
+        //affiliate
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub1");
+
+        //recipe
+        Thread.sleep(2000);
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
+
+        //instruments SNR
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"522");
+
+        //alerts constraints
+        //first parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Protein");
+
+        //clear min and max value
+        //first parameter max value
+        actions.clearText(alertsPage.newAlertFirstParameterMaxValue);
+
+        //first parameter min value
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.newAlertFirstParameterMinValueInput);
+
+        //insert equal value
+        actions.enterText(alertsPage.newAlertFirstParameterMinValueInput,minVal);
+
+        //click add parameter button
+        actions.clickElement(alertsPage.newAlertAddParameterBtn);
+
+        //first parameter
+        actions.chooseFromDropDown(alertsPage.newAlertSecondParameter,"Moisture");
+
+        //clear min and max value
+        //first parameter max value
+        Thread.sleep(1000);
+        actions.clearText(alertsPage.newAlertSecondParameterMaxValue);
+
+        //first parameter min value
+        actions.clearText(alertsPage.newAlertSecondParameterMinValue);
+
+        //insert max value
+        actions.enterText(alertsPage.newAlertSecondParameterMaxValue,maxVal);
+
+        //insert alert recipients
+        actions.chooseFromDropDown(alertsPage.newAlertRecipients,"mohamed.khaled+support@si-ware.com");
+
+        //click save alert
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that alert appeared
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +"Alert created successfully!");
+
+        //test that user id re-directed to alerts page
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.AlertsUrl);
+
+        //filter for alert
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is created
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+    }
+
+    public void editAlertHelper(String minVal) throws InterruptedException{
+        //click actions button
+        Thread.sleep(2000);
+
+        actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //choose edit option
+        actions.clickElement(alertsPage.editAlertOptionBtn);
+
+        //test that user is redirected to edit page
+        Thread.sleep(1000);
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),EnvironmentSelector.EditAlertUrl);
+
+        //edit name
+        createdAlert="Edit_Alert_"+MainTestRunner.formatter.format(new Date());
+        System.out.println(actions.getText(alertsPage.newAlertName));
+        actions.clearText(alertsPage.newAlertName);
+        actions.enterText(alertsPage.newAlertName,createdAlert);
+
+        //choose new affiliate
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Sub2");
+
+        //choose new recipe
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Milk");
+
+        //choose instrument
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"416");
+
+        //select parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+        actions.enterText(alertsPage.newAlertFirstParameterMinValueInput,minVal);
+
+        //click save
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+
+        //test that notification appears
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" + "Alert updated successfully!");
+
+        //verify it redirects user to listing page
+        Thread.sleep(2000);
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(),EnvironmentSelector.AlertsUrl);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //click clear button
+        actions.clickElement(alertsPage.clearFilterBtn);
+
+        //click filter button
+        actions.clickElement(alertsPage.filterBtn);
+
+        //insert name of created alert
+        actions.enterText(alertsPage.filterNameInput,createdAlert);
+
+        //click apply
+        actions.clickElement(alertsPage.submitFilterBtn);
+
+        //test that alert is edited
+        Thread.sleep(3000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
+        System.out.println(actions.getText(alertsPage.firstAlertRecipe));
+
+    }
 }
