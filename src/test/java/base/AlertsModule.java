@@ -804,10 +804,31 @@ public class AlertsModule {
 
     @Test(priority = 7)
     public void multipleAlertDeletion() throws InterruptedException {
-        //fetch the names of first two alerts
-        String firstAlert=actions.getText(alertsPage.firstAlertName);
-        String secondAlert=actions.getText(alertsPage.secondAlertName);
 
+        String firstAlert="Alert A";
+        String secondAlert="Alert B";
+
+        int maxValue = (int)(Math.random()*100) +1;
+        int minValue= (int)(Math.random()*100) +1;
+
+        while(maxValue<=minValue){
+            maxValue = (int)(Math.random()*100) +1;
+            minValue= (int)(Math.random()*100) +1;
+        }
+
+        //create two alerts
+        createAlertHelper(String.valueOf(minValue),String.valueOf(maxValue+1),firstAlert);
+
+        maxValue = (int)(Math.random()*100) +1;
+        minValue= (int)(Math.random()*100) +1;
+
+        while(maxValue<=minValue){
+            maxValue = (int)(Math.random()*100) +1;
+            minValue= (int)(Math.random()*100) +1;
+        }
+        createAlertHelper(String.valueOf(minValue),String.valueOf(maxValue),secondAlert);
+
+        Thread.sleep(2000);
         //select first two alerts
         actions.clickElement(alertsPage.firstAlertCheckBox);
         actions.clickElement(alertsPage.secondAlertCheckBox);
@@ -870,17 +891,60 @@ public class AlertsModule {
         }
 
         //create an alert as a partner-admin
-        createAlertHelper(String.valueOf(minValue),String.valueOf(maxValue));
+        createAlertHelper(String.valueOf(minValue),String.valueOf(minValue+1));
 
         maxValue = (int)(Math.random()*100) +1;
 
         //edit alert
         editAlertHelper(String.valueOf(maxValue));
 
-        //scroll to actions button
+        //scroll table horizontal bar
+        Thread.sleep(2000);
         actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
 
+        //click actions button
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //test that deactivate options available
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.dropDownMenuDeactivate));
+
+        //click deactivate option
+        actions.clickElement(alertsPage.dropDownMenuDeactivate);
+
+        //confirm deactivation
+        actions.clickElement(alertsPage.confirmAlertDialogBtn);
+
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +
+                "Alert deactivated successfully!");
+
+        //test that alert is deactivated
         Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"INACTIVE");
+
+        Thread.sleep(2000);
+
+        //click actions button
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //test that activate options available
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.dropDownMenuActivate));
+
+        //click activate option
+        actions.clickElement(alertsPage.dropDownMenuActivate);
+
+        //confirm activation
+        actions.clickElement(alertsPage.confirmAlertDialogBtn);
+
+        //test that notification appears
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +
+                "Alert activated successfully!");
+
+        //test that alert is activated
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertStatus),"ACTIVE");
+
+        Thread.sleep(2000);
+
         //click actions button
         Thread.sleep(2000);
         actions.clickElement(alertsPage.firstAlertActionsBtn);
@@ -1090,8 +1154,49 @@ public class AlertsModule {
         Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
         System.out.println(actions.getText(alertsPage.firstAlertRecipe));
 
-        //scroll to actions button
+        //scroll table horizontal bar
+        Thread.sleep(2000);
         actions.scrollToElementHorizontally(alertsPage.tableHorizontalScrollBar,500);
+
+        //click actions button
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //test that deactivate options available
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.dropDownMenuDeactivate));
+
+        //click deactivate option
+        actions.clickElement(alertsPage.dropDownMenuDeactivate);
+
+        //confirm deactivation
+        actions.clickElement(alertsPage.confirmAlertDialogBtn);
+
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +
+                "Alert deactivated successfully!");
+
+        //test that alert is deactivated
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertStatusAdmin),"INACTIVE");
+
+        Thread.sleep(2000);
+
+        //click actions button
+        actions.clickElement(alertsPage.firstAlertActionsBtn);
+
+        //test that activate options available
+        Assert.assertTrue(actions.isElementDisplayed(alertsPage.dropDownMenuActivate));
+
+        //click activate option
+        actions.clickElement(alertsPage.dropDownMenuActivate);
+
+        //confirm activation
+        actions.clickElement(alertsPage.confirmAlertDialogBtn);
+
+        //test that notification appears
+        Assert.assertEquals(actions.getText(alertsPage.alertPageNotification),"Success\n" +
+                "Alert activated successfully!");
+        //test that alert is activated
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertStatusAdmin),"ACTIVE");
 
         Thread.sleep(2000);
         //click actions button
@@ -1181,7 +1286,6 @@ public class AlertsModule {
 
         //test that user is redirected to new alert creation page
         Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(), EnvironmentSelector.NewAlertUrl);
-
 
         //insert alert details1
         //alert name
@@ -1322,4 +1426,66 @@ public class AlertsModule {
         System.out.println(actions.getText(alertsPage.firstAlertRecipe));
 
     }
+
+    public void createAlertHelper(String minVal,String maxVal,String alertName) throws InterruptedException{
+
+        //click new alert button
+        actions.clickElement(alertsPage.newAlertBtn);
+
+        //test that user is redirected to new alert creation page
+        Assert.assertEquals(MainTestRunner.ChromeDriver.getCurrentUrl(), EnvironmentSelector.NewAlertUrl);
+
+
+        //insert alert details1
+        actions.enterText(alertsPage.newAlertName,alertName);
+
+        //affiliate
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub1");
+
+        //recipe
+        Thread.sleep(2000);
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
+
+        //instruments SNR
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"522");
+
+        //alerts constraints
+        //first parameter
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Protein");
+
+        //clear min and max value
+        //first parameter max value
+        actions.clearText(alertsPage.newAlertFirstParameterMaxValue);
+
+        //first parameter min value
+        Thread.sleep(2000);
+        actions.clearText(alertsPage.newAlertFirstParameterMinValueInput);
+
+        //insert equal value
+        actions.enterText(alertsPage.newAlertFirstParameterMinValueInput,minVal);
+
+        //click add parameter button
+        actions.clickElement(alertsPage.newAlertAddParameterBtn);
+
+        //first parameter
+        actions.chooseFromDropDown(alertsPage.newAlertSecondParameter,"Moisture");
+
+        //clear min and max value
+        //first parameter max value
+        Thread.sleep(1000);
+        actions.clearText(alertsPage.newAlertSecondParameterMaxValue);
+
+        //first parameter min value
+        actions.clearText(alertsPage.newAlertSecondParameterMinValue);
+
+        //insert max value
+        actions.enterText(alertsPage.newAlertSecondParameterMaxValue,maxVal);
+
+        //insert alert recipients
+        actions.chooseFromDropDown(alertsPage.newAlertRecipients,"mohamed.khaled+support@si-ware.com");
+
+        //click save alert
+        actions.clickElement(alertsPage.newAlertSaveBtn);
+    }
+
 }
