@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import pages.Actions;
 import pages.DashboardPage;
 import pages.HomePage;
+import utils.EnvironmentSelector;
 import utils.Helpers;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class DashboardModule {
 
         //test that user is redirected to dashboard
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.dashboardUrl);
 
         //test that Sx-Suite column is visible
         Assert.assertTrue(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -52,8 +53,22 @@ public class DashboardModule {
         //test that events column is visible
         Assert.assertTrue(actions.isElementDisplayed(dashboardPage.eventsColumnHeader));
 
+        //test that alias column is visible
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.aliasColumnHeader));
+
         //test that sx-suites are by default sorted in ascending order
         Assert.assertTrue(actions.getText(dashboardPage.firstRowSxSuite).compareTo(actions.getText(dashboardPage.firstRowSxSuite))<=0);
+
+        //expand second row
+        actions.clickElement(dashboardPage.secondRowExpandBtn);
+
+        //test that there is "--" for no value parameter
+        Assert.assertEquals(actions.getText(dashboardPage.firstParameterPredictionValue),"--");
+
+        //test that the first row recipe is oats and its alias
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowRecipe),"Oats");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowAlias),"oats alias");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowInstrument),"522FG020");
 
     }
 
@@ -279,7 +294,7 @@ public class DashboardModule {
         actions.clickElement(dashboardPage.firstRowExpand);
         Thread.sleep(2000);
         List<WebElement> nestedGridHeaders=dashboardPage.firstRowNestedGridHeader.findElements(By.xpath("./child::*"));
-        List<String> expectedHeaders = List.of("Parameter","MD", "Prediction Value", "Calibration age", "ISO12099");
+        List<String> expectedHeaders = List.of("Parameter","Parameter Alias","MD", "Prediction Value", "Calibration age", "ISO12099");
 
         //test that all 5 headers are present
         Assert.assertEquals(nestedGridHeaders.size(),5);

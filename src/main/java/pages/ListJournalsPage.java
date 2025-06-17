@@ -49,6 +49,9 @@ public class ListJournalsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div[1]/div[2]/input")
     public WebElement journalEntriesFilter;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/label/div/div[1]")
+    public WebElement journalEntryFilterTitle;
+
     //sample name filter text box
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div/input")
     public WebElement sampleNameFilterText;

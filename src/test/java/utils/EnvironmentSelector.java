@@ -8,6 +8,7 @@ public class EnvironmentSelector {
 
     public static String PortalMainlUrl = "";
     public static String OverviewUrl = "";
+    public static String dashboardUrl = "";
     public static String AnalyticsUrl = "";
     public static String LablakeAnalyticsUrl = "";
     public static String LablakeInstrumentsUrl = "";
@@ -53,6 +54,7 @@ public class EnvironmentSelector {
             NewAlertUrl="https://nir-online-dev.neospectra.cloud/fleet-management/alert/add";
             EditAlertUrl="https://nir-online-dev.neospectra.cloud/fleet-management/alert/edit";
             journalsUrl="https://nir-online-dev.neospectra.cloud/fleet-management/journals";
+            dashboardUrl="https://nir-online-dev.neospectra.cloud/dashboard";
 
         }
         else if (Objects.equals(s, "TEST"))
@@ -66,6 +68,8 @@ public class EnvironmentSelector {
             EditAlertUrl="https://nir-online-stage.neospectra.cloud/fleet-management/alert/edit";
             AlertsUrl="https://nir-online-stage.neospectra.cloud/fleet-management/alerts";
             journalsUrl="https://nir-online-stage.neospectra.cloud/fleet-management/journals";
+            dashboardUrl="https://nir-online-stage.neospectra.cloud/dashboard";
+
 
 
 

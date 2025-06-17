@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Helpers {
@@ -41,6 +42,23 @@ public class Helpers {
         return 0; // Return 0 if the directory doesn't exist or has no files
     }
 
+    public static String getLatestDownloadedFile(String directoryPath) {
+        File directory = new File(directoryPath);
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles(File::isFile); // Only get files, not directories
+
+            if (files == null || files.length == 0) {
+                return null;
+            }
+
+            // Sort by last modified date in descending order
+            Arrays.sort(files, (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified()));
+
+            return files[0].getName();
+        }
+        return null;
+    }
 
     public static String generateRandomString() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
