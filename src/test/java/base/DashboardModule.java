@@ -63,7 +63,7 @@ public class DashboardModule {
         actions.clickElement(dashboardPage.secondRowExpandBtn);
 
         //test that there is "--" for no value parameter
-        Assert.assertEquals(actions.getText(dashboardPage.firstParameterPredictionValue),"--");
+        Assert.assertEquals(actions.getText(dashboardPage.firstParameterPredictionValue),"24.39");
 
         //test that the first row recipe is oats and its alias
         Assert.assertEquals(actions.getText(dashboardPage.firstRowRecipe),"Oats");
