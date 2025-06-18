@@ -271,12 +271,16 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id = "affiliate-form-input-maxUsersNumber")
     public WebElement maxUsers;
 
+    //max instruments field
+    @FindBy(id = "affiliate-form-input-maxInstruments")
+    public WebElement maxInstruments;
+
     //abbreviation text field
     @FindBy(id = "affiliate-form-input-abbreviation")
     public WebElement affiliateAbbreviation;
 
     //affiliate type
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div/div/div[1]/div[2]/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[5]/div[1]/div/div[1]/div[2]/input")
     public WebElement affiliateType;
 
     //cancel button
@@ -517,10 +521,7 @@ public class AffiliatePage extends MethodHandles {
         return isDisplayed(affiliateName, 10);
     }
 
-    //method check if affiliate max users field is displayed
-    public boolean affiliateMaxUsersIsDisplayed() {
-        return isDisplayed(maxUsers, 10);
-    }
+
 
     //method check if affiliate abbreviation field is displayed
     public boolean affiliateAbbreviationIsDisplayed() {
@@ -777,10 +778,6 @@ public class AffiliatePage extends MethodHandles {
         return clickElement(affiliateName);
     }
 
-    //method to click affiliate max users text field
-    public boolean clickAffiliateMaxUsersTextField() {
-        return clickElement(maxUsers);
-    }
 
     //method to click affiliate type text field
     public boolean clickAffiliateTypeTextField() {
@@ -959,13 +956,10 @@ public class AffiliatePage extends MethodHandles {
 
     //method to send text to affiliate max users text field
     public boolean sendTextToAffiliateMaxUsersTextField(String text) {
-        return sendTextToElement(maxUsers, text);
+        return sendTextToElement(maxInstruments, text);
     }
 
-    //method to clear affiliate max users text field
-    public boolean resetAffiliateMaxUsersTextField() {
-        return clearText(maxUsers);
-    }
+
 
     //method to send text to affiliate abbreviation text field
     public boolean sendTextToAffiliateAbbreviationTextField(String text) {
@@ -1025,7 +1019,7 @@ public class AffiliatePage extends MethodHandles {
     public WebElement maxUsersRequiredErrorMsg;
 
     //the error message appears under type text field
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[5]/div[2]/span")
     public WebElement typeRequiredErrorMsg;
 
     //the input field to upload image as logo
@@ -1083,10 +1077,6 @@ public class AffiliatePage extends MethodHandles {
 
     public boolean clearAffiliateNameTextField(){
         return clearText(affiliateName);
-    }
-
-    public boolean clearMaxUsersTextField(){
-        return clearText(maxUsers);
     }
 
     public boolean clearAbbreviation(){

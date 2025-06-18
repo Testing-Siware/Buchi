@@ -69,7 +69,7 @@ public class PerformanceModule {
         actions.enterText(affiliatePage.affiliateName,affiliateName);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"50");;
+        actions.enterText(affiliatePage.maxInstruments,"50");;
 
         //choose affiliate type
         actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
@@ -220,7 +220,7 @@ public class PerformanceModule {
         actions.enterText(affiliatePage.affiliateName,affiliateName);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"50");;
+        actions.enterText(affiliatePage.maxInstruments,"50");;
 
         //choose affiliate type
         actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");

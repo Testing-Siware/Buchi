@@ -43,7 +43,7 @@ public class AffiliatesModule {
         //test that error messages appear under required fields
         Assert.assertEquals(actions.getText(affiliatePage.affiliateRequiredErrorMsg), "Name is required.");
         Assert.assertEquals(actions.getText(affiliatePage.typeRequiredErrorMsg), "Type is required.");
-        Assert.assertEquals(actions.getText(affiliatePage.maxUsersRequiredErrorMsg), "Maxusers is required.");
+        Assert.assertEquals(actions.getText(affiliatePage.maxUsersRequiredErrorMsg), "Max users is required.");
 
         //insert affiliate name more than 30 characters
         actions.enterText(affiliatePage.affiliateName, "222222222222222222222222222222222222222222222222222222222222222222");
@@ -77,8 +77,10 @@ public class AffiliatesModule {
         actions.enterText(affiliatePage.affiliateName,affiliateName);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"20");;
-        
+        actions.enterText(affiliatePage.maxUsers,"20");
+
+        //insert max instruments
+        actions.enterText(affiliatePage.maxInstruments,"3");
 
         //choose affiliate type
         actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
@@ -215,7 +217,11 @@ public class AffiliatesModule {
         actions.clearText(affiliatePage.affiliateAbbreviation);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"25");
+        actions.enterText(affiliatePage.maxUsers,"20");
+
+        //insert max instruments
+        actions.enterText(affiliatePage.maxInstruments,"3");
+
 
         //insert abbreviation
         actions.enterText(affiliatePage.affiliateAbbreviation,Helpers.generateRandomString());
@@ -272,10 +278,15 @@ public class AffiliatesModule {
 
             //clear all affiliate details
             actions.clearText(affiliatePage.maxUsers);
+            actions.clearText(affiliatePage.maxInstruments);
             actions.clearText(affiliatePage.affiliateAbbreviation);
 
-            //insert max users
-            affiliatePage.sendTextToAffiliateMaxUsersTextField("30");
+            //insert max user
+            actions.enterText(affiliatePage.maxUsers,"20");
+
+            //insert max instruments
+            actions.enterText(affiliatePage.maxInstruments,"3");
+
 
             //insert abbreviation
             actions.enterText(affiliatePage.affiliateAbbreviation,Helpers.generateRandomString());
@@ -600,7 +611,11 @@ public class AffiliatesModule {
             actions.enterText(affiliatePage.affiliateName,affiliateName);;
 
             //insert max user
-            actions.enterText(affiliatePage.maxUsers,"20");;
+            actions.enterText(affiliatePage.maxUsers,"20");
+
+            //insert max instruments
+            actions.enterText(affiliatePage.maxInstruments,"3");
+
 
             //choose affiliate type
             actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
@@ -661,7 +676,11 @@ public class AffiliatesModule {
             actions.enterText(affiliatePage.affiliateName,affiliateName);;
 
             //insert max user
-            actions.enterText(affiliatePage.maxUsers,"20");;
+            actions.enterText(affiliatePage.maxUsers,"20");
+
+            //insert max instruments
+            actions.enterText(affiliatePage.maxInstruments,"3");
+
 
             //choose affiliate type
             actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");

@@ -34,7 +34,7 @@ public class RecipesModule {
 
     }
 
-    @Test(priority = 1, dependsOnMethods = "verifyPagingFunctionality")
+    @Test(priority = 1)
     public void sortRecipesList() throws InterruptedException {
 
         Thread.sleep(2000);
@@ -129,19 +129,18 @@ public class RecipesModule {
         //fetch data to filter by
         Thread.sleep(2000);
 
-
         //click filter
         actions.clickElement(recipesPage.filterBtn);
 
         //insert alias name to filter by
-        actions.enterText(recipesPage.aliasFilterInput, "Global");
+        actions.enterText(recipesPage.aliasFilterInput, "test");
 
         //click apply
         actions.clickElement(recipesPage.filterApplyBtn);
 
         //test that recipe is filtered
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(recipesPage.firstRowAliasRP), "GLobal");
+        Assert.assertEquals(actions.getText(recipesPage.firstRowAliasRP), "test");
     }
 
 
@@ -185,7 +184,7 @@ public class RecipesModule {
 
         //fetch data too search by
         Thread.sleep(1000);
-        String recipeName ="Milk";
+        String recipeName ="Acloned";
 
         //send the recipe name to search field
         actions.enterText(recipesPage.searchField, recipeName);
@@ -209,7 +208,7 @@ public class RecipesModule {
 
         //filter for milk recipe
         actions.clickElement(recipesPage.filterBtn);
-        actions.enterText(recipesPage.filterName, "Milk");
+        actions.enterText(recipesPage.filterName, "Acloned");
 
         //click apply
         actions.clickElement(recipesPage.filterApplyBtn);

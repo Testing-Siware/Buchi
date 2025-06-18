@@ -34,14 +34,14 @@ public class JournalsModule {
 
         //send value to search bar
         Thread.sleep(2000);
-        actions.enterText(journalsPage.searchField,"Milk");
+        actions.enterText(journalsPage.searchField,"Peas");
 
         //click search button
         actions.clickElement(journalsPage.submitSearchBtn);
 
         Thread.sleep(3000);
         //test that data searched for appears
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Peas");
 
         //refresh window to clear results
         journalsPage.refreshWindow();
@@ -60,14 +60,14 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);
 
         //send text to filter name
-        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+        actions.enterText(journalsPage.nameFilterTextField,"Peas");
 
         //click apply
         actions.clickElement(journalsPage.applyFilterBtn);
 
         //test that results appear
         Thread.sleep(4000);
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Peas");
 
         //click filter
         actions.clickElement(journalsPage.filterBtn);
@@ -174,7 +174,7 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);;
 
         //click filter by name
-        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+        actions.enterText(journalsPage.nameFilterTextField,"Peas");
 
         //click apply filter
         actions.clickElement(journalsPage.applyFilterBtn);
@@ -313,10 +313,10 @@ public class JournalsModule {
 
         //change recipe name to "A"
         Thread.sleep(2000);
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Test");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Milk");
 
         //choose instrument
-        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"B15FG114");
+        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"522FG020");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
