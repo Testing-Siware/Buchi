@@ -9,6 +9,9 @@ public class EnvironmentSelector {
     public static String PortalMainlUrl = "";
     public static String OverviewUrl = "";
     public static String dashboardUrl = "";
+    public static String parametersDashboardUrl = "";
+    public static String licenseUrl ="";
+    public static String generateLicenseUrl="";
     public static String AnalyticsUrl = "";
     public static String LablakeAnalyticsUrl = "";
     public static String LablakeInstrumentsUrl = "";
@@ -55,7 +58,9 @@ public class EnvironmentSelector {
             EditAlertUrl="https://nir-online-dev.neospectra.cloud/fleet-management/alert/edit";
             journalsUrl="https://nir-online-dev.neospectra.cloud/fleet-management/journals";
             dashboardUrl="https://nir-online-dev.neospectra.cloud/dashboard";
-
+            parametersDashboardUrl="https://nir-online-dev.neospectra.cloud/dashboard/parameters";
+            licenseUrl ="https://nir-online-dev.neospectra.cloud/access-management/licenses";
+            generateLicenseUrl="https://nir-online-dev.neospectra.cloud/access-management/license/generate";
         }
         else if (Objects.equals(s, "TEST"))
         {
@@ -69,10 +74,9 @@ public class EnvironmentSelector {
             AlertsUrl="https://nir-online-stage.neospectra.cloud/fleet-management/alerts";
             journalsUrl="https://nir-online-stage.neospectra.cloud/fleet-management/journals";
             dashboardUrl="https://nir-online-stage.neospectra.cloud/dashboard";
-
-
-
-
+            parametersDashboardUrl="https://nir-online-stage.neospectra.cloud/dashboard/parameters";
+            licenseUrl ="https://nir-online-stage.neospectra.cloud/access-management/licenses";
+            generateLicenseUrl="https://nir-online-stage.neospectra.cloud/access-management/license/generate";
         }
         else
         {

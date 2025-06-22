@@ -1044,6 +1044,42 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
     public WebElement cancelDeleteBtn;
 
+    @FindBy(id="affiliate-licenses-button")
+    public WebElement licensesBtn;
+
+    @FindBy(id="license-list-add-section-button")
+    public WebElement generateLicenseBtn;
+
+    @FindBy(id="license-form-select-organizationId-input")
+    public WebElement licenseGenerationAffiliateDropdown;
+
+    @FindBy(id = "license-form-input-instruments")
+    public WebElement licenseGenerationInstrumentField;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[1]/button")
+    public WebElement licenseGenerationAddInstrumentBtn;
+
+    @FindBy(id="license-form-container-button-cancel")
+    public WebElement licenseGenerationCancelBtn;
+
+    @FindBy(id="license-form-container-button-clear")
+    public WebElement licenseGenerationClearBtn;
+
+    @FindBy(id="license-form-container-button-submit")
+    public WebElement licenseGenerationSubmitBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]")
+    public WebElement licenseGenerationAddedInstruments;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div/div/div[2]/span")
+    public WebElement licenseGenerationAffiliateRequiredMsg;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[1]/div/div/div[2]/span")
+    public WebElement licenseGenerationInstrumentRequiredMsg;
+
+    @FindBy(id="license-instrument-delete-button")
+    public WebElement licenseGenerationDeleteInstrumentBtn;
+
     public boolean clickCancelDeleteBtn(){
         return clickElement(cancelDeleteBtn);
     }

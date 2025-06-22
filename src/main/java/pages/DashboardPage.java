@@ -145,10 +145,10 @@ public class DashboardPage {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div[2]/div/div/div/div/div[3]")
     public WebElement parameterDetailWidget;
 
-    @FindBy(id="dashboard-suites-list-table-suiteName-column-options-menu-item-asc")
+    @FindBy(id="dashboard-suites-list-table-organizationName-column-options-menu-item-asc")
     public WebElement sxSuiteSortAscOption;
 
-    @FindBy(id="dashboard-suites-list-table-suiteName-column-options-menu-item-desc")
+    @FindBy(id="dashboard-suites-list-table-organizationName-column-options-menu-item-desc")
     public WebElement sxSuiteSortDescOption;
 
     @FindBy(id="dashboard-suites-list-table-suiteName-column-options-menu-item-pin")

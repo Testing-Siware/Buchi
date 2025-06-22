@@ -13,6 +13,10 @@ import pages.LoginPage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -291,7 +295,6 @@ public class Helpers {
         return null;
     }
 
-
     public static String getOCR() throws TesseractException, IOException, AWTException {
         JFrame frame = new JFrame();
         File image = makeScreenshot();
@@ -308,4 +311,17 @@ public class Helpers {
         loginPage.ClickSignInButton();
     }
 
+    public static String getClipboardContents() {
+        try {
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            Transferable contents = clipboard.getContents(null);
+
+            if (contents != null && contents.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                return (String) contents.getTransferData(DataFlavor.stringFlavor);
+            }
+        } catch (UnsupportedFlavorException | IllegalStateException | IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

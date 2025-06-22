@@ -1,6 +1,7 @@
 package base;
 
 import data.Credentials;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -9,10 +10,10 @@ import org.testng.annotations.Test;
 import pages.Actions;
 import pages.AffiliatePage;
 import pages.HomePage;
+import utils.EnvironmentSelector;
 import utils.Helpers;
 
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
+import java.util.List;
 
 
 public class AffiliatesModule {
@@ -30,7 +31,7 @@ public class AffiliatesModule {
     }
 
     @Test(priority = 1)
-    public void createInvalidAffilateBySupport() {
+    public void createInvalidAffiliateBySupport() throws InterruptedException {
         //navigate to affiliates page
         actions.clickElement(homePage.affiliateSidebarBtn);
 
@@ -62,6 +63,11 @@ public class AffiliatesModule {
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
 
+        //logout and login with the second support account
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.supportUsernameTwo, Credentials.supportPassword);
 
         //navigate to affiliates page
         Thread.sleep(4000);
@@ -105,10 +111,106 @@ public class AffiliatesModule {
         Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
     }
 
-    @Test(priority = 1 ,dependsOnMethods = "createAffiliateBySupport")
+    @Test(priority = 1, dependsOnMethods = "createAffiliateBySupport")
     public void generateLicense () throws InterruptedException {
-        //clear any preset filter
-        //click filter
+
+        String[] instrumentsNames =new String[2];
+        instrumentsNames[0]="instrument_"+Helpers.generateRandomString().substring(0,4);
+        instrumentsNames[1]="instrument_"+Helpers.generateRandomString().substring(0,4);
+
+        //click licenses button
+        actions.clickElement(affiliatePage.licensesBtn);
+
+        //test that user is redirected to license page
+        Thread.sleep(1000);
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.licenseUrl);
+
+        //click generate license button
+        actions.clickElement(affiliatePage.generateLicenseBtn);
+
+        //test that user is redirected to license generation page
+        Thread.sleep(1000);
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.generateLicenseUrl);
+
+        //click add
+        actions.clickElement(affiliatePage.licenseGenerationSubmitBtn);
+
+        //test that affiliate is required
+        Assert.assertEquals(actions.getText(affiliatePage.licenseGenerationAffiliateRequiredMsg),"Affiliate is required.");
+
+        //test that instrument is required
+        Assert.assertEquals(actions.getText(affiliatePage.licenseGenerationInstrumentRequiredMsg),"Instrument SNR can not be empty!");
+
+        //select affiliate from dropdown
+        actions.chooseFromDropDown(affiliatePage.licenseGenerationAffiliateDropdown,affiliateName);
+
+        //insert first instrument name
+        actions.enterText(affiliatePage.licenseGenerationInstrumentField, instrumentsNames[0]);
+        //click add
+        actions.clickElement(affiliatePage.licenseGenerationAddInstrumentBtn);
+
+        //insert second instrument name
+        actions.enterText(affiliatePage.licenseGenerationInstrumentField, instrumentsNames[1]);
+        //click add
+        actions.clickElement(affiliatePage.licenseGenerationAddInstrumentBtn);
+
+        //fetch added instruments
+        List<WebElement> addedInstruments= actions.getElementChildren(affiliatePage.licenseGenerationAddedInstruments);
+        int numOfInstruments=addedInstruments.size();
+
+        //test that 2 instruments were added
+        Assert.assertEquals(numOfInstruments,2);
+
+        //test that the instrument was added in list of instruments
+        for (int i=0;i<numOfInstruments;i++){
+            Assert.assertEquals(addedInstruments.get(i).getText(), instrumentsNames[i]);
+        }
+
+        //fetch clipboard content before license generation
+        String clipboardBeforeGeneration=Helpers.getClipboardContents();
+
+        //click save
+        actions.clickElement(affiliatePage.licenseGenerationSubmitBtn);
+
+        //fetch notification
+        Assert.assertEquals(actions.getText(homePage.alertMessage),"Success\n"+"License key generated successfully and copied to the clipboard");
+
+        //fetch clipboard content after license generation
+        Thread.sleep(2000);
+        String clipboardAfterGeneration=Helpers.getClipboardContents();
+
+        Assert.assertNotEquals(clipboardBeforeGeneration,clipboardAfterGeneration);
+
+        //navigate back to affiliate page
+        actions.clickElement(homePage.affiliateSidebarBtn);
+
+        Thread.sleep(2000);
+        //scroll the table
+        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar,2000);
+
+        //click actions button
+        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+
+        //test that the option visible "view license"
+        Assert.assertEquals(actions.getText(affiliatePage.affiliateViewLicenseOptionBtn),"View license");
+
+        //click view license option
+        actions.clickElement(affiliatePage.affiliateViewLicenseOptionBtn);
+
+        //click copy license button
+        actions.clickElement(affiliatePage.copyLicenseBtn);
+
+        String copiedLicense=Helpers.getClipboardContents();
+
+        //test that the license is copied
+        Assert.assertEquals(clipboardAfterGeneration,copiedLicense);
+
+        actions.clickElement(affiliatePage.cancelLicenseCopyBtn);
+
+
+        //filter for affiliate
+
+        /*
 
         actions.clickElement(affiliatePage.filterBtn);
 
@@ -182,7 +284,7 @@ public class AffiliatesModule {
         }
 
         //click cancel
-        actions.clickElement(affiliatePage.cancelLicenseCopyBtn);
+        actions.clickElement(affiliatePage.cancelLicenseCopyBtn);*/
     }
     @Test(priority = 2)
     public void cancelAffiliateEdits() throws InterruptedException {
