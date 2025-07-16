@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import pages.Actions;
 import pages.AffiliatePage;
 import pages.HomePage;
+import pages.LicensePage;
 import utils.EnvironmentSelector;
 import utils.Helpers;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class AffiliatesModule {
     HomePage homePage;
     AffiliatePage affiliatePage;
+    LicensePage licensePage;
     String affiliateName;
 
     Actions actions;
@@ -27,6 +29,7 @@ public class AffiliatesModule {
     public void intializeClasses(){
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        licensePage = new LicensePage((ChromeDriver) MainTestRunner.ChromeDriver);
         actions = new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
     }
 
@@ -119,43 +122,43 @@ public class AffiliatesModule {
         instrumentsNames[1]="instrument_"+Helpers.generateRandomString().substring(0,4);
 
         //click licenses button
-        actions.clickElement(affiliatePage.licensesBtn);
+        actions.clickElement(licensePage.licensesBtn);
 
         //test that user is redirected to license page
         Thread.sleep(1000);
         Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.licenseUrl);
 
         //click generate license button
-        actions.clickElement(affiliatePage.generateLicenseBtn);
+        actions.clickElement(licensePage.generateLicenseBtn);
 
         //test that user is redirected to license generation page
         Thread.sleep(1000);
         Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.generateLicenseUrl);
 
         //click add
-        actions.clickElement(affiliatePage.licenseGenerationSubmitBtn);
+        actions.clickElement(licensePage.licenseSubmitBtn);
 
         //test that affiliate is required
-        Assert.assertEquals(actions.getText(affiliatePage.licenseGenerationAffiliateRequiredMsg),"Affiliate is required.");
+        Assert.assertEquals(actions.getText(licensePage.licenseAffiliateRequiredMsg),"Affiliate is required.");
 
         //test that instrument is required
-        Assert.assertEquals(actions.getText(affiliatePage.licenseGenerationInstrumentRequiredMsg),"Instrument SNR can not be empty!");
+        Assert.assertEquals(actions.getText(licensePage.licenseInstrumentRequiredMsg),"Instrument SNR can not be empty!");
 
         //select affiliate from dropdown
-        actions.chooseFromDropDown(affiliatePage.licenseGenerationAffiliateDropdown,affiliateName);
+        actions.chooseFromDropDown(licensePage.licenseAffiliateDropdown,affiliateName);
 
         //insert first instrument name
-        actions.enterText(affiliatePage.licenseGenerationInstrumentField, instrumentsNames[0]);
+        actions.enterText(licensePage.licenseInstrumentField, instrumentsNames[0]);
         //click add
-        actions.clickElement(affiliatePage.licenseGenerationAddInstrumentBtn);
+        actions.clickElement(licensePage.licenseAddInstrumentBtn);
 
         //insert second instrument name
-        actions.enterText(affiliatePage.licenseGenerationInstrumentField, instrumentsNames[1]);
+        actions.enterText(licensePage.licenseInstrumentField, instrumentsNames[1]);
         //click add
-        actions.clickElement(affiliatePage.licenseGenerationAddInstrumentBtn);
+        actions.clickElement(licensePage.licenseAddInstrumentBtn);
 
         //fetch added instruments
-        List<WebElement> addedInstruments= actions.getElementChildren(affiliatePage.licenseGenerationAddedInstruments);
+        List<WebElement> addedInstruments= actions.getElementChildren(licensePage.licenseAddedInstruments);
         int numOfInstruments=addedInstruments.size();
 
         //test that 2 instruments were added
@@ -170,7 +173,7 @@ public class AffiliatesModule {
         String clipboardBeforeGeneration=Helpers.getClipboardContents();
 
         //click save
-        actions.clickElement(affiliatePage.licenseGenerationSubmitBtn);
+        actions.clickElement(licensePage.licenseSubmitBtn);
 
         //fetch notification
         Assert.assertEquals(actions.getText(homePage.alertMessage),"Success\n"+"License key generated successfully and copied to the clipboard");
@@ -179,7 +182,38 @@ public class AffiliatesModule {
         Thread.sleep(2000);
         String clipboardAfterGeneration=Helpers.getClipboardContents();
 
+        //test that license was copied into clipboard
         Assert.assertNotEquals(clipboardBeforeGeneration,clipboardAfterGeneration);
+
+        //search for the affiliate
+        actions.enterText(licensePage.licenseSearchInput,affiliateName);
+        actions.clickElement(licensePage.licenseSearchBtn);
+
+        //test that data matches license (name and number of instruments)
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowAffiliate),affiliateName);
+        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowInstruments),String.valueOf(numOfInstruments));
+
+        //click actions button
+        actions.clickElement(licensePage.licenseTableFirstRowActionCell);
+
+        //test that second option is view license
+        Assert.assertEquals(actions.getText(licensePage.viewLicenseOption),"View license");
+
+        //click view license option
+        actions.clickElement(licensePage.viewLicenseOption);
+
+        //click copy license
+        actions.clickElement(licensePage.copyLicenseBtn);
+
+        //click cancel copy license button
+        actions.clickElement(licensePage.cancelCopyLicenseBtn);
+
+        //test that copy pop-up is not visible
+        Assert.assertFalse(actions.isElementEnabled(licensePage.cancelCopyLicenseBtn));
+
+        //test that license is copied into clipboard
+        Assert.assertEquals(Helpers.getClipboardContents(),clipboardAfterGeneration);
 
         //navigate back to affiliate page
         actions.clickElement(homePage.affiliateSidebarBtn);
@@ -198,14 +232,14 @@ public class AffiliatesModule {
         actions.clickElement(affiliatePage.affiliateViewLicenseOptionBtn);
 
         //click copy license button
-        actions.clickElement(affiliatePage.copyLicenseBtn);
+        actions.clickElement(licensePage.copyLicenseBtn);
 
         String copiedLicense=Helpers.getClipboardContents();
 
         //test that the license is copied
         Assert.assertEquals(clipboardAfterGeneration,copiedLicense);
 
-        actions.clickElement(affiliatePage.cancelLicenseCopyBtn);
+        actions.clickElement(licensePage.cancelLicenseCopyBtn);
 
 
         //filter for affiliate
@@ -549,7 +583,6 @@ public class AffiliatesModule {
             Thread.sleep(2000);
             actions.clickElement(affiliatePage.filterBtn);
 
-
             //insert affiliate name
             actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
 
@@ -753,7 +786,7 @@ public class AffiliatesModule {
             actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
 
             //click cancel button
-            actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
+            actions.clickElement(licensePage.cancelLicenseGenerateBtn);
         }
 
         @Test(priority = 5)
@@ -818,7 +851,7 @@ public class AffiliatesModule {
             actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
 
             //click cancel button
-            actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
+            actions.clickElement(licensePage.cancelLicenseGenerateBtn);
         }
 
 

@@ -6,10 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import pages.Actions;
-import pages.AffiliatePage;
-import pages.HomePage;
-import pages.UsersPage;
+import pages.*;
 import utils.Helpers;
 
 import java.awt.*;
@@ -24,6 +21,7 @@ public class PerformanceModule {
     HomePage homePage;
     AffiliatePage affiliatePage;
     UsersPage usersPage;
+    LicensePage licensePage;
     Actions actions;
 
     @BeforeClass
@@ -35,6 +33,7 @@ public class PerformanceModule {
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
         usersPage = new UsersPage((ChromeDriver) MainTestRunner.ChromeDriver);
+        licensePage = new LicensePage((ChromeDriver) MainTestRunner.ChromeDriver);
         actions= new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
 
         //logout and login with super admin
@@ -258,10 +257,10 @@ public class PerformanceModule {
         actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
 
         //test that confirmation dialog box appears
-        Assert.assertTrue(actions.isElementDisplayed(affiliatePage.confirmLicenseGenerateBtn));
+        Assert.assertTrue(actions.isElementDisplayed(licensePage.confirmLicenseGenerateBtn));
 
         //confirm license generation
-        actions.clickElement(affiliatePage.confirmLicenseGenerateBtn);
+        actions.clickElement(licensePage.confirmLicenseGenerateBtn);
         System.out.println("License key generated for affiliate: "+affiliateName+"!");
 
         Thread.sleep(2000);

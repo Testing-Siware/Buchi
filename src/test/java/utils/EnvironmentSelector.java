@@ -12,6 +12,7 @@ public class EnvironmentSelector {
     public static String parametersDashboardUrl = "";
     public static String licenseUrl ="";
     public static String generateLicenseUrl="";
+    public static String editLicenseUrl="";
     public static String AnalyticsUrl = "";
     public static String LablakeAnalyticsUrl = "";
     public static String LablakeInstrumentsUrl = "";
@@ -61,6 +62,7 @@ public class EnvironmentSelector {
             parametersDashboardUrl="https://nir-online-dev.neospectra.cloud/dashboard/parameters";
             licenseUrl ="https://nir-online-dev.neospectra.cloud/access-management/licenses";
             generateLicenseUrl="https://nir-online-dev.neospectra.cloud/access-management/license/generate";
+            editLicenseUrl="https://nir-online-dev.neospectra.cloud/access-management/license/edit";
         }
         else if (Objects.equals(s, "TEST"))
         {
@@ -77,6 +79,8 @@ public class EnvironmentSelector {
             parametersDashboardUrl="https://nir-online-stage.neospectra.cloud/dashboard/parameters";
             licenseUrl ="https://nir-online-stage.neospectra.cloud/access-management/licenses";
             generateLicenseUrl="https://nir-online-stage.neospectra.cloud/access-management/license/generate";
+            editLicenseUrl="https://nir-online-stage.neospectra.cloud/access-management/license/edit";
+
         }
         else
         {

@@ -213,25 +213,6 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id = "dropdown-menu-item-delete")
     public WebElement affiliateDeleteOptionBtn;
 
-    @FindBy(id="license-button-cancel")
-    public WebElement cancelLicenseCopyBtn;
-
-    //generate license option of first affiliate in the table
-    @FindBy(id="dropdown-menu-item-generateLicense")
-    public WebElement affiliateGenerateLicenseBtn;
-
-    @FindBy(id="dropdown-menu-item-viewLicense")
-    public WebElement affiliateViewLicenseOptionBtn;
-
-    @FindBy(id="license-button-copy")
-    public WebElement copyLicenseBtn;
-
-    //confirm license generate butto
-    @FindBy(id="affiliate-list-alert-dialog-button-confirm")
-    public WebElement confirmLicenseGenerateBtn;
-
-    @FindBy(id = "affiliate-list-alert-dialog-button-cancel")
-    public WebElement cancelLicenseGenerateBtn;
 
     //rows per page field
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[1]/div[2]/div/div/div[1]/div[2]/input")
@@ -1014,6 +995,9 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
     public WebElement affiliateRequiredErrorMsg;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div[2]/span")
+    public WebElement maxInstrumentsErrorMsg;
+
     //the error message appears under max users text field
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
     public WebElement maxUsersRequiredErrorMsg;
@@ -1038,47 +1022,25 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[4]")
     public WebElement secondAffiliateUsersCount;
 
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    @FindBy(id = "affiliate-list-alert-dialog-button-confirm")
     public WebElement confirmDeleteBtn;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
     public WebElement cancelDeleteBtn;
 
-    @FindBy(id="affiliate-licenses-button")
-    public WebElement licensesBtn;
 
-    @FindBy(id="license-list-add-section-button")
-    public WebElement generateLicenseBtn;
+    //generate license option of first affiliate in the table
+    @FindBy(id="dropdown-menu-item-generateLicense")
+    public WebElement affiliateGenerateLicenseBtn;
 
-    @FindBy(id="license-form-select-organizationId-input")
-    public WebElement licenseGenerationAffiliateDropdown;
+    @FindBy(id="dropdown-menu-item-viewLicense")
+    public WebElement affiliateViewLicenseOptionBtn;
 
-    @FindBy(id = "license-form-input-instruments")
-    public WebElement licenseGenerationInstrumentField;
+    @FindBy(id="license-button-copy")
+    public WebElement copyLicenseBtn;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[1]/button")
-    public WebElement licenseGenerationAddInstrumentBtn;
-
-    @FindBy(id="license-form-container-button-cancel")
-    public WebElement licenseGenerationCancelBtn;
-
-    @FindBy(id="license-form-container-button-clear")
-    public WebElement licenseGenerationClearBtn;
-
-    @FindBy(id="license-form-container-button-submit")
-    public WebElement licenseGenerationSubmitBtn;
-
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]")
-    public WebElement licenseGenerationAddedInstruments;
-
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[1]/div/div/div[2]/span")
-    public WebElement licenseGenerationAffiliateRequiredMsg;
-
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[1]/div/div/div[2]/span")
-    public WebElement licenseGenerationInstrumentRequiredMsg;
-
-    @FindBy(id="license-instrument-delete-button")
-    public WebElement licenseGenerationDeleteInstrumentBtn;
+    @FindBy(id="license-button-cancel")
+    public WebElement cancelLicenseCopyBtn;
 
     public boolean clickCancelDeleteBtn(){
         return clickElement(cancelDeleteBtn);
