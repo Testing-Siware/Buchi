@@ -25,12 +25,20 @@ public class LicensePage extends MethodHandles {
     @FindBy(id = "licenses-list-table-status-column")
     public WebElement licenseStatusColumnHeader;
 
+    @FindBy(id="licenses-list-table-createdBy-column")
+    public WebElement createdByColumnHeader;
+
+    @FindBy(id="licenses-list-table-createdAt-column")
+    public WebElement createdAtColumnHeader;
+
+    @FindBy(id="licenses-list-table-lastUpdatedAt-column")
+    public WebElement lastUpdatedAtColumnHeader;
+
     @FindBy(id="licenses-list-table-status-column-options-menu-item-asc")
     public WebElement sortLicenseStatusAscOption;
 
     @FindBy(id="licenses-list-table-status-column-options-menu-item-asc")
     public WebElement sortLicenseStatusDescOption;
-
 
 
     @FindBy(xpath="/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]/div[2]/button")
@@ -106,6 +114,18 @@ public class LicensePage extends MethodHandles {
     @FindBy(id = "licenses-list-table-search-submit")
     public WebElement licenseSearchBtn;
 
+    @FindBy(id="licenses-list-table-viewing-options")
+    public WebElement viewBtn;
+
+    @FindBy(xpath = "/html/body/div[2]/div/div[3]")
+    public WebElement toggleCreatedByColumn;
+
+    @FindBy(xpath = "/html/body/div[2]/div/div[4]")
+    public WebElement toggleCreatedAtColumn;
+
+    @FindBy(xpath = "/html/body/div[2]/div/div[5]")
+    public WebElement toggleLastUpdatedAtColumn;
+
     @FindBy(id="licenses-list-table-filter-button")
     public WebElement licenseFilterBtn;
 
@@ -126,6 +146,9 @@ public class LicensePage extends MethodHandles {
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]/div[1]/button")
     public WebElement copyLicenseBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]/div[1]/button[2]")
+    public WebElement shareLicenseByEmail;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]/div[2]/button")
     public WebElement cancelCopyLicenseBtn;

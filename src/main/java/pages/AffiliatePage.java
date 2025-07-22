@@ -145,6 +145,9 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id = "affiliates-list-table-lastUpdatedAt-column")
     public WebElement lastUpdatedAtColumn;
 
+    @FindBy(id="affiliates-list-table-partner-column")
+    public WebElement partnerColumn;
+
     @FindBy(id="affiliates-list-table-name-column")
     public WebElement nameColumn;
 
@@ -156,6 +159,9 @@ public class AffiliatePage extends MethodHandles {
 
     @FindBy(id="affiliates-list-table-maxUsersNumber-column")
     public WebElement maxUsersNumberColumn;
+
+    @FindBy(id="affiliates-list-table-maxInstruments-column")
+    public WebElement maxInstrumentsColumn;
 
     @FindBy(id="affiliates-list-table-createdAt-column")
     public WebElement createdAtColumn;
