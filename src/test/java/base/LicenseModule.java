@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.reporters.jq.Main;
 import pages.Actions;
 import pages.AffiliatePage;
 import pages.HomePage;
@@ -24,6 +25,7 @@ public class LicenseModule {
     String affiliateName;
     List<WebElement> addedInstruments;
     ArrayList<String> addedInstrumentsNames;
+    int numOfInstruments;
 
     Actions actions;
 
@@ -187,9 +189,9 @@ public class LicenseModule {
 
         //fetch added instruments
         addedInstruments= actions.getElementChildren(licensePage.licenseAddedInstruments);
-        int numOfInstruments=addedInstruments.size();
-        for (int i=0;i<numOfInstruments;i++){
-            addedInstrumentsNames.add(addedInstruments.get(i).getText());
+        numOfInstruments=addedInstruments.size();
+        for (WebElement addedInstrument : addedInstruments) {
+            addedInstrumentsNames.add(addedInstrument.getText());
         }
 
         //test that 2 instruments were added
@@ -251,36 +253,7 @@ public class LicenseModule {
         //test that license is copied into clipboard
         Assert.assertEquals(Helpers.getClipboardContents(),clipboardAfterGeneration);
 
-        /*
-        //navigate back to affiliate page
-        actions.clickElement(homePage.affiliateSidebarBtn);
-
-        Thread.sleep(2000);
-        //scroll the table
-        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar,2000);
-
-        //click actions button
-        Thread.sleep(2000);
-        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-
-        //test that the option visible "view license"
-        Assert.assertEquals(actions.getText(affiliatePage.affiliateViewLicenseOptionBtn),"View license");
-
-        //click view license option
-        actions.clickElement(affiliatePage.affiliateViewLicenseOptionBtn);
-
-        //click copy license button
-        actions.clickElement(affiliatePage.copyLicenseBtn);
-        */
-
         String copiedLicense=Helpers.getClipboardContents();
-
-        /*
-        //test that the license is copied
-        Assert.assertEquals(clipboardAfterGeneration,copiedLicense);
-
-        actions.clickElement(affiliatePage.cancelLicenseCopyBtn);
-        */
 
         //navigate to license page
         Thread.sleep(2000);
@@ -302,7 +275,52 @@ public class LicenseModule {
         Assert.assertEquals(currentClipboard,copiedLicense);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, dependsOnMethods = "createAffiliateBySupport")
+    public void editPendingLicense() throws InterruptedException {
+        //click actions button
+        actions.clickElement(licensePage.licenseTableFirstRowActionCell);
+
+        //click edit option
+        actions.clickElement(licensePage.editLicenseOption);
+
+        //add new instrument
+        Thread.sleep(2000);
+        String newInstrument="instrument_"+Helpers.generateRandomString().substring(0,4);
+        addedInstrumentsNames.add(newInstrument);
+        actions.enterText(licensePage.licenseInstrumentField,newInstrument);
+        actions.clickElement(licensePage.licenseAddInstrumentBtn);
+        numOfInstruments+=1;
+
+        //click generate
+        actions.clickElement(licensePage.licenseSubmitBtn);
+
+        //test that pop-up appears and new license will be generated
+        Assert.assertTrue(actions.getText(licensePage.newLicenseGeneratePopUp).contains("Generate New License\n" +
+                "This action will generate a new license which will deactivate the current one and syncing of the data will be stopped.\n" +
+                "Please insert the new key in the sync app to ensure the continue syncing of the data.\n"));
+
+        //click cancel
+        actions.clickElement(licensePage.cancelNewLicenseGenerationBtn);
+
+        //test that user is still on the edit page
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.editLicenseUrl);
+
+        //click generate
+        actions.clickElement(licensePage.licenseSubmitBtn);
+
+        //click generate button
+        actions.clickElement(licensePage.generateNewLicenseGenerationBtn);
+
+        //test that notification and new license is created
+        Assert.assertEquals(homePage.getNotificationText(),"License key generated successfully and copied to the clipboard");
+
+        //test that instruments of affiliates became three
+        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowInstruments),String.valueOf(numOfInstruments));
+
+    }
+
+
+    @Test(priority = 4)
     public void searchAffiliateLicense() throws InterruptedException {
         //click filter
         actions.clickElement(licensePage.licenseFilterBtn);
@@ -320,7 +338,7 @@ public class LicenseModule {
         Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowAffiliate),affiliateName);
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void editGeneratedLicense() throws InterruptedException {
         //navigate to licenses
         Thread.sleep(2000);
@@ -354,9 +372,10 @@ public class LicenseModule {
         for (int i=0;i<currentInstruments.size();i++){
             Assert.assertEquals(currentInstruments.get(i).getText(),addedInstrumentsNames.get(i));
         }
+
     }
 
-    @Test(priority = 5)
+    @Test(priority = 6)
     public void viewColumnsLicense() throws InterruptedException {
         //navigate to affiliate page
         actions.clickElement(homePage.affiliateSidebarBtn);
@@ -402,7 +421,7 @@ public class LicenseModule {
 
     }
 
-    @Test(priority = 5)
+    @Test(priority = 6)
     public void deleteAffiliateWithLicenseNoDataSync() throws InterruptedException {
 
         //navigate to affiliate page
@@ -424,7 +443,7 @@ public class LicenseModule {
 
     }
 
-    @Test(priority = 6)
+    @Test(priority = 7)
     public void sortingFunctionality() throws InterruptedException {
 
         //refresh window
@@ -539,7 +558,7 @@ public class LicenseModule {
         Assert.assertFalse(affiliatePage.affiliateNameIsDisplayed());
     }
 
-    @Test(priority = 7)
+    @Test(priority = 8)
     public void createAffiliateSuperAdmin() throws InterruptedException {
 
         //logout and login with the super-admin account
@@ -611,16 +630,24 @@ public class LicenseModule {
         Thread.sleep(4000);
         Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
 
-        //click actions buttom
+        //click actions button
         actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar,600);
         actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
 
         //test that generate license option is not available
         Assert.assertFalse(actions.isElementDisplayed(affiliatePage.affiliateGenerateLicenseBtn));
 
+        //super-admin attempts to access license page
+        MainTestRunner.ChromeDriver.navigate().to(EnvironmentSelector.licenseUrl);
+
+        //test that user was not directed and stayed on affiliate
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.affiliatesUrl);
+
+
     }
 
-    @Test(priority = 7)
+    @Test(priority = 8)
     public void createAffiliatePartnerAdmin() throws InterruptedException {
 
         //logout and login with the super-admin account

@@ -156,4 +156,12 @@ public class LicensePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[1]")
     public WebElement licensePageTitle;
 
+    @FindBy(xpath = "//*[@id=\"license-form-container-content\"]/div[3]/div[3]/div/div/div/div[2]")
+    public WebElement newLicenseGeneratePopUp;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[3]/div/div/div/div[2]/div[3]/button[1]")
+    public WebElement cancelNewLicenseGenerationBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[3]/div/div/div/div[2]/div[3]/button[2]")
+    public WebElement generateNewLicenseGenerationBtn;
 }

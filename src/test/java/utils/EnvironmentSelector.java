@@ -34,7 +34,7 @@ public class EnvironmentSelector {
     public static String CouponsUrl = "";
     public static String MeasurementsUrl = "";
     public static String ModelsUrl = "";
-    public static String AffiliatesUrl = "";
+    public static String affiliatesUrl = "";
     public static String UsersUrl = "";
     public static String ModelTransferUrl = "";
     public static String ClassifiersManagementUrl = "";
@@ -63,6 +63,7 @@ public class EnvironmentSelector {
             licenseUrl ="https://nir-online-dev.neospectra.cloud/access-management/licenses";
             generateLicenseUrl="https://nir-online-dev.neospectra.cloud/access-management/license/generate";
             editLicenseUrl="https://nir-online-dev.neospectra.cloud/access-management/license/edit";
+            affiliatesUrl="https://nir-online-dev.neospectra.cloud/access-management/affiliates";
         }
         else if (Objects.equals(s, "TEST"))
         {
@@ -80,7 +81,7 @@ public class EnvironmentSelector {
             licenseUrl ="https://nir-online-stage.neospectra.cloud/access-management/licenses";
             generateLicenseUrl="https://nir-online-stage.neospectra.cloud/access-management/license/generate";
             editLicenseUrl="https://nir-online-stage.neospectra.cloud/access-management/license/edit";
-
+            affiliatesUrl="https://nir-online-stage.neospectra.cloud/access-management/affiliates";
         }
         else
         {
