@@ -99,6 +99,18 @@ public class LicensePage extends MethodHandles {
     @FindBy(id="license-form-container-button-submit")
     public WebElement licenseSubmitBtn;
 
+    @FindBy(id="license-email-select-input")
+    public WebElement emailDropdownShareLicense;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]/form/div/div[3]/div/div/div/div[2]/span")
+    public WebElement emailDropDownErrorMsg;
+
+    @FindBy(id="alert-form-container-button-submit")
+    public WebElement sendEmailBtn;
+
+    @FindBy(id="alert-form-container-button-cancel")
+    public WebElement cancelEmailBtn;
+
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div[2]/div[2]")
     public WebElement licenseAddedInstruments;
 
@@ -150,8 +162,6 @@ public class LicensePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]/div[1]/button[2]")
     public WebElement shareLicenseByEmail;
 
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[3]/div/div/div/div[2]/div[2]/button")
-    public WebElement cancelCopyLicenseBtn;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[1]/div[1]")
     public WebElement licensePageTitle;

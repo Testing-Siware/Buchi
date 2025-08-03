@@ -30,12 +30,12 @@ public class LicenseModule {
     Actions actions;
 
     @BeforeClass
-    public void intializeClasses(){
+    public void intializeClasses() {
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
         licensePage = new LicensePage((ChromeDriver) MainTestRunner.ChromeDriver);
-        actions = new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
-        addedInstrumentsNames= new ArrayList<>();
+        actions = new Actions((ChromeDriver) MainTestRunner.ChromeDriver, 20);
+        addedInstrumentsNames = new ArrayList<>();
     }
 
     @Test(priority = 1)
@@ -66,19 +66,19 @@ public class LicenseModule {
         //insert affiliate name
         Thread.sleep(2000);
         affiliateName = ("Affiliate_" + (MainTestRunner.date)).substring(0, 29);
-        actions.enterText(affiliatePage.affiliateName,affiliateName);
+        actions.enterText(affiliatePage.affiliateName, affiliateName);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"20");
+        actions.enterText(affiliatePage.maxUsers, "20");
 
         //insert max instruments
-        actions.enterText(affiliatePage.maxInstruments,"3");
+        actions.enterText(affiliatePage.maxInstruments, "3");
 
         //choose affiliate type
-        actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
+        actions.chooseFromDropDown(affiliatePage.affiliateType, "Farm");
 
         //insert abbreviation
-        actions.enterText(affiliatePage.affiliateAbbreviation,Helpers.generateRandomString());
+        actions.enterText(affiliatePage.affiliateAbbreviation, Helpers.generateRandomString());
 
         //click save
         actions.clickElement(affiliatePage.saveBtn);
@@ -88,7 +88,8 @@ public class LicenseModule {
         actions.clickElement(affiliatePage.filterBtn);
 
         //insert affiliate name
-        actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
+        actions.enterText(affiliatePage.filterAffiliateName, affiliateName);
+        ;
 
         //click apply filter
         actions.clickElement(affiliatePage.applyFilterBtn);
@@ -103,10 +104,10 @@ public class LicenseModule {
     }
 
     @Test(priority = 2, dependsOnMethods = "createAffiliateBySupport")
-    public void generateLicense () throws InterruptedException {
-        String[] instrumentsNames =new String[2];
-        instrumentsNames[0]="instrument_"+Helpers.generateRandomString().substring(0,4);
-        instrumentsNames[1]="instrument_"+Helpers.generateRandomString().substring(0,4);
+    public void generateLicense() throws InterruptedException {
+        String[] instrumentsNames = new String[2];
+        instrumentsNames[0] = "instrument_" + Helpers.generateRandomString().substring(0, 4);
+        instrumentsNames[1] = "instrument_" + Helpers.generateRandomString().substring(0, 4);
 
         //create another affiliate
         createAffiliateBySupport();
@@ -118,7 +119,7 @@ public class LicenseModule {
         Thread.sleep(1000);
         Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.licenseUrl);
 
-        Assert.assertEquals(actions.getText(licensePage.licensePageTitle),"Licenses\n" +
+        Assert.assertEquals(actions.getText(licensePage.licensePageTitle), "Licenses\n" +
                 "Here you can manage your affiliate's licenses");
 
         //click generate license button
@@ -132,35 +133,35 @@ public class LicenseModule {
         actions.clickElement(licensePage.licenseSubmitBtn);
 
         //test that affiliate is required
-        Assert.assertEquals(actions.getText(licensePage.licenseAffiliateRequiredMsg),"Affiliate is required.");
+        Assert.assertEquals(actions.getText(licensePage.licenseAffiliateRequiredMsg), "Affiliate is required.");
 
         //test that instrument is required
-        Assert.assertEquals(actions.getText(licensePage.licenseInstrumentRequiredMsg),"Instrument SNR can not be empty!");
+        Assert.assertEquals(actions.getText(licensePage.licenseInstrumentRequiredMsg), "Instrument SNR can not be empty!");
 
         //select affiliate from dropdown
-        actions.chooseFromDropDown(licensePage.licenseAffiliateDropdown,affiliateName);
+        actions.chooseFromDropDown(licensePage.licenseAffiliateDropdown, affiliateName);
 
         //add 8 random instruments
-        for(int i=0;i<8;i++){
-            actions.enterText(licensePage.licenseInstrumentField,Helpers.generateRandomString().substring(0,4));
+        for (int i = 0; i < 8; i++) {
+            actions.enterText(licensePage.licenseInstrumentField, Helpers.generateRandomString().substring(0, 4));
             actions.clickElement(licensePage.licenseAddInstrumentBtn);
         }
 
-        actions.enterText(licensePage.licenseInstrumentField,Helpers.generateRandomString().substring(0,4));
+        actions.enterText(licensePage.licenseInstrumentField, Helpers.generateRandomString().substring(0, 4));
         actions.clickElement(licensePage.licenseAddInstrumentBtn);
         actions.clearText(licensePage.licenseInstrumentField);
 
         //test that user cannot add more than 8 instruments
-        Assert.assertEquals(actions.getText(licensePage.licenseInstrumentRequiredMsg),"Allowed only 8 Instruments per Affiliate");
+        Assert.assertEquals(actions.getText(licensePage.licenseInstrumentRequiredMsg), "Allowed only 8 Instruments per Affiliate");
 
         //delete all 8 random instruments
-        for(int i=0;i<8;i++){
+        for (int i = 0; i < 8; i++) {
             actions.clickElement(licensePage.licenseDeleteInstrumentBtn);
         }
 
         //add 4 random instruments (exceeds limits of license)
-        for(int i=0;i<4;i++){
-            actions.enterText(licensePage.licenseInstrumentField,Helpers.generateRandomString().substring(0,4));
+        for (int i = 0; i < 4; i++) {
+            actions.enterText(licensePage.licenseInstrumentField, Helpers.generateRandomString().substring(0, 4));
             actions.clickElement(licensePage.licenseAddInstrumentBtn);
         }
         //click save
@@ -171,7 +172,7 @@ public class LicenseModule {
                 "The Count of Instruments added exceeds the defined license count. Please add only the allowed number of Instruments or contact the support to extend your license."));
 
         //delete all 4 random instruments
-        for(int i=0;i<4;i++){
+        for (int i = 0; i < 4; i++) {
             actions.clickElement(licensePage.licenseDeleteInstrumentBtn);
         }
 
@@ -188,22 +189,22 @@ public class LicenseModule {
         actions.clickElement(licensePage.licenseAddInstrumentBtn);
 
         //fetch added instruments
-        addedInstruments= actions.getElementChildren(licensePage.licenseAddedInstruments);
-        numOfInstruments=addedInstruments.size();
+        addedInstruments = actions.getElementChildren(licensePage.licenseAddedInstruments);
+        numOfInstruments = addedInstruments.size();
         for (WebElement addedInstrument : addedInstruments) {
             addedInstrumentsNames.add(addedInstrument.getText());
         }
 
         //test that 2 instruments were added
-        Assert.assertEquals(numOfInstruments,2);
+        Assert.assertEquals(numOfInstruments, 2);
 
         //test that the instrument was added in list of instruments
-        for (int i=0;i<numOfInstruments;i++){
+        for (int i = 0; i < numOfInstruments; i++) {
             Assert.assertEquals(addedInstrumentsNames.get(i), instrumentsNames[i]);
         }
 
         //fetch clipboard content before license generation
-        String clipboardBeforeGeneration=Helpers.getClipboardContents();
+        String clipboardBeforeGeneration = Helpers.getClipboardContents();
 
         Thread.sleep(3000);
 
@@ -215,25 +216,25 @@ public class LicenseModule {
 
         //fetch clipboard content after license generation
         Thread.sleep(2000);
-        String clipboardAfterGeneration=Helpers.getClipboardContents();
+        String clipboardAfterGeneration = Helpers.getClipboardContents();
 
         //test that license was copied into clipboard
-        Assert.assertNotEquals(clipboardBeforeGeneration,clipboardAfterGeneration);
+        Assert.assertNotEquals(clipboardBeforeGeneration, clipboardAfterGeneration);
 
         //search for the affiliate
-        actions.enterText(licensePage.licenseSearchInput,affiliateName);
+        actions.enterText(licensePage.licenseSearchInput, affiliateName);
         actions.clickElement(licensePage.licenseSearchBtn);
 
         //test that data matches license (name and number of instruments)
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowAffiliate),affiliateName);
-        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowInstruments),String.valueOf(numOfInstruments));
+        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowAffiliate), affiliateName);
+        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowInstruments), String.valueOf(numOfInstruments));
 
         //click actions button
         actions.clickElement(licensePage.licenseTableFirstRowActionCell);
 
         //test that second option is view license
-        Assert.assertEquals(actions.getText(licensePage.viewLicenseOption),"View license");
+        Assert.assertEquals(actions.getText(licensePage.viewLicenseOption), "View license");
 
         //click view license option
         actions.clickElement(licensePage.viewLicenseOption);
@@ -245,15 +246,15 @@ public class LicenseModule {
         actions.clickElement(licensePage.copyLicenseBtn);
 
         //click cancel copy license button
-        actions.clickElement(licensePage.cancelCopyLicenseBtn);
+        actions.clickElement(licensePage.cancelLicenseCopyBtn);
 
         //test that copy pop-up is not visible
-        Assert.assertFalse(actions.isElementEnabled(licensePage.cancelCopyLicenseBtn));
+        Assert.assertFalse(actions.isElementEnabled(licensePage.cancelLicenseCopyBtn));
 
         //test that license is copied into clipboard
-        Assert.assertEquals(Helpers.getClipboardContents(),clipboardAfterGeneration);
+        Assert.assertEquals(Helpers.getClipboardContents(), clipboardAfterGeneration);
 
-        String copiedLicense=Helpers.getClipboardContents();
+        String copiedLicense = Helpers.getClipboardContents();
 
         //navigate to license page
         Thread.sleep(2000);
@@ -271,8 +272,49 @@ public class LicenseModule {
 
         //test that clipboard content didn't change
         //test that the license is copied
-        String currentClipboard=Helpers.getClipboardContents();
-        Assert.assertEquals(currentClipboard,copiedLicense);
+        String currentClipboard = Helpers.getClipboardContents();
+        Assert.assertEquals(currentClipboard, copiedLicense);
+    }
+
+    @Test(priority = 2, dependsOnMethods = "generateLicense")
+    public void sendLicenseByEmail() throws InterruptedException {
+        //click actions button
+        actions.clickElement(licensePage.licenseTableFirstRowActionCell);
+
+        //click view license
+        actions.clickElement(licensePage.viewLicenseOption);
+
+        //test that share by email button is visible
+        Assert.assertTrue(actions.isElementDisplayed(licensePage.shareLicenseByEmail));
+
+        //click send by email button
+        actions.clickElement(licensePage.shareLicenseByEmail);
+
+        //click send
+        actions.clickElement(licensePage.sendEmailBtn);
+        //test that error message appears under dropdown
+        Assert.assertEquals(actions.getText(licensePage.emailDropDownErrorMsg), "Emails can not be empty!");
+
+        //insert email in dropdown
+        actions.chooseFromDropDown(licensePage.emailDropdownShareLicense, "testing@email.com");
+
+        //click cancel
+        actions.clickElement(licensePage.cancelEmailBtn);
+
+        //test that view license modal is still open
+        Assert.assertTrue(actions.isElementDisplayed(licensePage.cancelLicenseCopyBtn));
+
+        //click send by email button
+        actions.clickElement(licensePage.shareLicenseByEmail);
+
+        //insert email in dropdown
+        actions.chooseFromDropDown(licensePage.emailDropdownShareLicense, "testing@email.com");
+
+        //click send
+        actions.clickElement(licensePage.sendEmailBtn);
+
+        //test that notification appears
+        Assert.assertEquals(homePage.getNotificationText(), "Email(s) sent successfully!");
     }
 
     @Test(priority = 3, dependsOnMethods = "createAffiliateBySupport")
@@ -285,11 +327,11 @@ public class LicenseModule {
 
         //add new instrument
         Thread.sleep(2000);
-        String newInstrument="instrument_"+Helpers.generateRandomString().substring(0,4);
+        String newInstrument = "instrument_" + Helpers.generateRandomString().substring(0, 4);
         addedInstrumentsNames.add(newInstrument);
-        actions.enterText(licensePage.licenseInstrumentField,newInstrument);
+        actions.enterText(licensePage.licenseInstrumentField, newInstrument);
         actions.clickElement(licensePage.licenseAddInstrumentBtn);
-        numOfInstruments+=1;
+        numOfInstruments += 1;
 
         //click generate
         actions.clickElement(licensePage.licenseSubmitBtn);
@@ -303,19 +345,21 @@ public class LicenseModule {
         actions.clickElement(licensePage.cancelNewLicenseGenerationBtn);
 
         //test that user is still on the edit page
-        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.editLicenseUrl);
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.editLicenseUrl);
 
         //click generate
         actions.clickElement(licensePage.licenseSubmitBtn);
 
         //click generate button
+        Thread.sleep(3000);
         actions.clickElement(licensePage.generateNewLicenseGenerationBtn);
 
         //test that notification and new license is created
-        Assert.assertEquals(homePage.getNotificationText(),"License key generated successfully and copied to the clipboard");
+        Assert.assertEquals(homePage.getNotificationText(), "License key generated successfully and copied to the clipboard");
 
+        Thread.sleep(2000);
         //test that instruments of affiliates became three
-        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowInstruments),String.valueOf(numOfInstruments));
+        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowInstruments), String.valueOf(numOfInstruments));
 
     }
 
@@ -330,12 +374,12 @@ public class LicenseModule {
 
         //search for affiliate
         actions.clearText(licensePage.licenseSearchInput);
-        actions.enterText(licensePage.licenseSearchInput,affiliateName);
+        actions.enterText(licensePage.licenseSearchInput, affiliateName);
         actions.clickElement(licensePage.licenseSearchBtn);
 
         //test that affiliate appears
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowAffiliate),affiliateName);
+        Assert.assertEquals(actions.getText(licensePage.licenseTableFirstRowAffiliate), affiliateName);
     }
 
     @Test(priority = 5)
@@ -346,7 +390,7 @@ public class LicenseModule {
 
         //search for licensed affiliate
         actions.clearText(licensePage.licenseSearchInput);
-        actions.enterText(licensePage.licenseSearchInput,affiliateName);
+        actions.enterText(licensePage.licenseSearchInput, affiliateName);
         actions.clickElement(licensePage.licenseSearchBtn);
 
         //click actions button
@@ -354,23 +398,23 @@ public class LicenseModule {
         actions.clickElement(licensePage.licenseTableFirstRowActionCell);
 
         //test that edit license option is available
-        Assert.assertEquals(actions.getText(licensePage.editLicenseOption),"Edit");
+        Assert.assertEquals(actions.getText(licensePage.editLicenseOption), "Edit");
 
         //click edit license
         actions.clickElement(licensePage.editLicenseOption);
 
         //test that user is re-directed to edit license page
-        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.editLicenseUrl);
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.editLicenseUrl);
 
         //test that affiliate data appears
         System.out.println(actions.getText(licensePage.licenseAffiliateDropdown));
 
         //test that two instruments are available
-        List<WebElement> currentInstruments=actions.getElementChildren(licensePage.licenseAddedInstruments);
-        System.out.println("Size of current instruments: "+ currentInstruments.size());
+        List<WebElement> currentInstruments = actions.getElementChildren(licensePage.licenseAddedInstruments);
+        System.out.println("Size of current instruments: " + currentInstruments.size());
 
-        for (int i=0;i<currentInstruments.size();i++){
-            Assert.assertEquals(currentInstruments.get(i).getText(),addedInstrumentsNames.get(i));
+        for (int i = 0; i < currentInstruments.size(); i++) {
+            Assert.assertEquals(currentInstruments.get(i).getText(), addedInstrumentsNames.get(i));
         }
 
     }
@@ -390,6 +434,7 @@ public class LicenseModule {
         actions.clickElement(licensePage.toggleCreatedByColumn);
 
         //test that column appears
+        Thread.sleep(2000);
         Assert.assertTrue(actions.isElementDisplayed(licensePage.createdByColumnHeader));
 
         //click view button
@@ -399,6 +444,7 @@ public class LicenseModule {
         actions.clickElement(licensePage.toggleCreatedAtColumn);
 
         //test that column appears
+        Thread.sleep(2000);
         Assert.assertTrue(actions.isElementDisplayed(licensePage.createdAtColumnHeader));
 
         //click view button
@@ -408,6 +454,7 @@ public class LicenseModule {
         actions.clickElement(licensePage.toggleLastUpdatedAtColumn);
 
         //test that column appears
+        Thread.sleep(2000);
         Assert.assertTrue(actions.isElementDisplayed(licensePage.lastUpdatedAtColumnHeader));
 
         //refresh window
@@ -434,7 +481,7 @@ public class LicenseModule {
 
         //search for the affiliate deleted
         Thread.sleep(2000);
-        actions.enterText(licensePage.licenseSearchInput,affiliateName);
+        actions.enterText(licensePage.licenseSearchInput, affiliateName);
         actions.clickElement(licensePage.licenseSearchBtn);
 
         //test that there is no license displayed
@@ -449,6 +496,12 @@ public class LicenseModule {
         //refresh window
         actions.refreshWindow();
 
+        //clear filter
+        actions.clickElement(licensePage.licenseFilterBtn);
+
+        //click clear
+        actions.clickElement(licensePage.clearFilterBtn);
+
         Thread.sleep(4000);
         //click name column
         actions.clickElement(licensePage.licenseNameColumnHeader);
@@ -461,7 +514,7 @@ public class LicenseModule {
         actions.getText(licensePage.licenseTableFirstRowName);
         actions.getText(licensePage.licenseTableSecondRowName);
         System.out.println((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName)));
-        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName))<=0);
+        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName)) <= 0);
 
         //click name column
         actions.clickElement(licensePage.licenseNameColumnHeader);
@@ -474,7 +527,18 @@ public class LicenseModule {
         actions.getText(licensePage.licenseTableFirstRowName);
         actions.getText(licensePage.licenseTableSecondRowName);
         System.out.println((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName)));
-        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName))>=0);
+        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName)) >= 0);
+
+        //refresh page
+        actions.refreshWindow();
+
+        //test that sorting is still applied
+        Thread.sleep(3000);
+        actions.getText(licensePage.licenseTableFirstRowName);
+        actions.getText(licensePage.licenseTableSecondRowName);
+        System.out.println((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName)));
+        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondRowName)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowName)) >= 0);
+
 
         //remove applied sorting
         actions.clickElement(licensePage.licenseNameColumnHeader);
@@ -493,7 +557,7 @@ public class LicenseModule {
         actions.getText(licensePage.licenseTableFirstRowStatus);
         actions.getText(licensePage.licenseTableSecondtRowStatus);
         System.out.println((actions.getText(licensePage.licenseTableSecondtRowStatus)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowStatus)));
-        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondtRowStatus)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowStatus))<=0);
+        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondtRowStatus)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowStatus)) <= 0);
 
         //click status column
         actions.clickElement(licensePage.licenseStatusColumnHeader);
@@ -506,7 +570,7 @@ public class LicenseModule {
         actions.getText(licensePage.licenseTableFirstRowStatus);
         actions.getText(licensePage.licenseTableSecondtRowStatus);
         System.out.println((actions.getText(licensePage.licenseTableSecondtRowStatus)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowStatus)));
-        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondtRowStatus)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowStatus))>=0);
+        Assert.assertTrue((actions.getText(licensePage.licenseTableSecondtRowStatus)).compareToIgnoreCase(actions.getText(licensePage.licenseTableFirstRowStatus)) >= 0);
 
     }
 
@@ -522,13 +586,14 @@ public class LicenseModule {
         actions.clickElement(affiliatePage.filterBtn);
 
         //insert affiliate name
-        actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
+        actions.enterText(affiliatePage.filterAffiliateName, affiliateName);
+        ;
 
         //click apply filter
         actions.clickElement(affiliatePage.applyFilterBtn);
 
         //scroll the table horizontally
-        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar,600);
+        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 600);
         //click options
         Thread.sleep(2000);
         actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
@@ -549,7 +614,8 @@ public class LicenseModule {
         actions.clickElement(affiliatePage.filterBtn);
 
         //insert affiliate name
-        actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
+        actions.enterText(affiliatePage.filterAffiliateName, affiliateName);
+        ;
 
         //click apply filter
         actions.clickElement(affiliatePage.applyFilterBtn);
@@ -587,11 +653,11 @@ public class LicenseModule {
         actions.clickElement(affiliatePage.saveBtn);
 
         //test that max instruments is required
-        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg),"Max instruments is required.");
+        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg), "Max instruments is required.");
 
         //test that max instruments only takes positive values
-        actions.enterText(affiliatePage.maxInstruments,"0");
-        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg),"Invalid value: Expected >=1 but received 0");
+        actions.enterText(affiliatePage.maxInstruments, "0");
+        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg), "Invalid value: Expected >=1 but received 0");
 
         //click reset
         actions.clickElement(affiliatePage.resetBtn);
@@ -599,19 +665,19 @@ public class LicenseModule {
         //insert affiliate name
         Thread.sleep(2000);
         affiliateName = ("Affiliate_" + (MainTestRunner.date)).substring(0, 29);
-        actions.enterText(affiliatePage.affiliateName,affiliateName);
+        actions.enterText(affiliatePage.affiliateName, affiliateName);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"20");
+        actions.enterText(affiliatePage.maxUsers, "20");
 
         //insert max instruments
-        actions.enterText(affiliatePage.maxInstruments,"3");
+        actions.enterText(affiliatePage.maxInstruments, "3");
 
         //choose affiliate type
-        actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
+        actions.chooseFromDropDown(affiliatePage.affiliateType, "Farm");
 
         //insert abbreviation
-        actions.enterText(affiliatePage.affiliateAbbreviation,Helpers.generateRandomString());
+        actions.enterText(affiliatePage.affiliateAbbreviation, Helpers.generateRandomString());
 
         //click save
         actions.clickElement(affiliatePage.saveBtn);
@@ -621,7 +687,8 @@ public class LicenseModule {
         actions.clickElement(affiliatePage.filterBtn);
 
         //insert affiliate name
-        actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
+        actions.enterText(affiliatePage.filterAffiliateName, affiliateName);
+        ;
 
         //click apply filter
         actions.clickElement(affiliatePage.applyFilterBtn);
@@ -631,7 +698,7 @@ public class LicenseModule {
         Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
 
         //click actions button
-        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar,600);
+        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 600);
         actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
 
         //test that generate license option is not available
@@ -641,9 +708,8 @@ public class LicenseModule {
         MainTestRunner.ChromeDriver.navigate().to(EnvironmentSelector.licenseUrl);
 
         //test that user was not directed and stayed on affiliate
-        Thread.sleep(2000);
-        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.affiliatesUrl);
-
+        Thread.sleep(3000);
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.affiliatesUrl);
 
     }
 
@@ -670,11 +736,11 @@ public class LicenseModule {
         actions.clickElement(affiliatePage.saveBtn);
 
         //test that max instruments is required
-        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg),"Max instruments is required.");
+        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg), "Max instruments is required.");
 
         //test that max instruments only takes positive values
-        actions.enterText(affiliatePage.maxInstruments,"0");
-        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg),"Invalid value: Expected >=1 but received 0");
+        actions.enterText(affiliatePage.maxInstruments, "0");
+        Assert.assertEquals(actions.getText(affiliatePage.maxInstrumentsErrorMsg), "Invalid value: Expected >=1 but received 0");
 
         //click reset
         actions.clickElement(affiliatePage.resetBtn);
@@ -682,22 +748,22 @@ public class LicenseModule {
         //insert affiliate name
         Thread.sleep(2000);
         affiliateName = ("Affiliate_" + (MainTestRunner.date)).substring(0, 28);
-        actions.enterText(affiliatePage.affiliateName,affiliateName);
+        actions.enterText(affiliatePage.affiliateName, affiliateName);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"20");
+        actions.enterText(affiliatePage.maxUsers, "20");
 
         //test that max instruments cannot take a value more than max of main affiliate
-        actions.enterText(affiliatePage.maxInstruments,"900");
+        actions.enterText(affiliatePage.maxInstruments, "900");
 
         //insert max instruments
-        actions.enterText(affiliatePage.maxInstruments,"3");
+        actions.enterText(affiliatePage.maxInstruments, "3");
 
         //choose affiliate type
-        actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
+        actions.chooseFromDropDown(affiliatePage.affiliateType, "Farm");
 
         //insert abbreviation
-        actions.enterText(affiliatePage.affiliateAbbreviation,Helpers.generateRandomString());
+        actions.enterText(affiliatePage.affiliateAbbreviation, Helpers.generateRandomString());
 
         //click save
         actions.clickElement(affiliatePage.saveBtn);
@@ -710,7 +776,7 @@ public class LicenseModule {
         //insert max instruments
         Thread.sleep(4000);
         actions.clearText(affiliatePage.maxInstruments);
-        actions.enterText(affiliatePage.maxInstruments,"3");
+        actions.enterText(affiliatePage.maxInstruments, "3");
 
         //click save
         actions.clickElement(affiliatePage.saveBtn);
@@ -721,7 +787,8 @@ public class LicenseModule {
         actions.clickElement(affiliatePage.filterBtn);
 
         //insert affiliate name
-        actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
+        actions.enterText(affiliatePage.filterAffiliateName, affiliateName);
+        ;
 
         //click apply filter
         actions.clickElement(affiliatePage.applyFilterBtn);
@@ -730,4 +797,36 @@ public class LicenseModule {
         Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
 
     }
+
+    @Test(priority = 9)
+    public void accessRights() throws InterruptedException {
+        //logout and login with the admin account
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.adminUsername, Credentials.adminPassword);
+
+        Thread.sleep(4000);
+        String currentUrl=MainTestRunner.ChromeDriver.getCurrentUrl();
+        MainTestRunner.ChromeDriver.navigate().to(EnvironmentSelector.licenseUrl);
+
+        //test that user was not directed and stayed on same page
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getCurrentUrl(),currentUrl);
+
+        //logout and login with the admin account
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.userName, Credentials.userPassword);
+
+        Thread.sleep(4000);
+         currentUrl=MainTestRunner.ChromeDriver.getCurrentUrl();
+        MainTestRunner.ChromeDriver.navigate().to(EnvironmentSelector.licenseUrl);
+
+        //test that user was not directed and stayed on same page
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getCurrentUrl(),currentUrl);
+    }
+
 }

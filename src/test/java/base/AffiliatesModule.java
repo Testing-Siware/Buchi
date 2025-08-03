@@ -114,6 +114,7 @@ public class AffiliatesModule {
         Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
     }
 
+    @Ignore
     @Test(priority = 1, dependsOnMethods = "createAffiliateBySupport")
     public void generateLicense () throws InterruptedException {
 
@@ -207,10 +208,10 @@ public class AffiliatesModule {
         actions.clickElement(licensePage.copyLicenseBtn);
 
         //click cancel copy license button
-        actions.clickElement(licensePage.cancelCopyLicenseBtn);
+        actions.clickElement(licensePage.cancelLicenseCopyBtn);
 
         //test that copy pop-up is not visible
-        Assert.assertFalse(actions.isElementEnabled(licensePage.cancelCopyLicenseBtn));
+        Assert.assertFalse(actions.isElementEnabled(licensePage.cancelLicenseCopyBtn));
 
         //test that license is copied into clipboard
         Assert.assertEquals(Helpers.getClipboardContents(),clipboardAfterGeneration);
@@ -457,8 +458,8 @@ public class AffiliatesModule {
         }
     }
 
-        @Test(priority = 3)
-        public void filterByAffiliateName () throws InterruptedException {
+    @Test(priority = 3)
+    public void filterByAffiliateName () throws InterruptedException {
             //clear any preset filter
             //click filter
             actions.clickElement(affiliatePage.filterBtn);
@@ -717,9 +718,12 @@ public class AffiliatesModule {
             } catch (NumberFormatException ex) {
                 num2 = 0;
             }
+            System.out.println("Error: Was not able to parse both numbers");
             System.out.println(num1);
             System.out.println(num2);
             Assert.assertTrue(num1 >= num2);
+
+
         }
 
         @Test(priority = 5)

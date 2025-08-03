@@ -160,8 +160,21 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id="affiliates-list-table-maxUsersNumber-column")
     public WebElement maxUsersNumberColumn;
 
+    @FindBy(id="affiliates-list-table-maxInstruments-column-options-menu-item-asc")
+    public WebElement sortMaxInstrumentsAscOption;
+
+    @FindBy(id="affiliates-list-table-maxInstruments-column-options-menu-item-desc")
+    public WebElement sortMaxInstrumentsDescOption;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[6]")
+    public WebElement firstAffiliateMaxInstruments;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[6]")
+    public WebElement secondAffiliateMaxInstruments;
+
     @FindBy(id="affiliates-list-table-maxInstruments-column")
     public WebElement maxInstrumentsColumn;
+
 
     @FindBy(id="affiliates-list-table-createdAt-column")
     public WebElement createdAtColumn;
