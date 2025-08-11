@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import pages.Actions;
 import pages.DashboardPage;
 import pages.HomePage;
+import utils.EnvironmentSelector;
 import utils.Helpers;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class DashboardModule {
 
         //test that user is redirected to dashboard
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.dashboardUrl);
 
         //test that Sx-Suite column is visible
         Assert.assertTrue(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -52,13 +53,47 @@ public class DashboardModule {
         //test that events column is visible
         Assert.assertTrue(actions.isElementDisplayed(dashboardPage.eventsColumnHeader));
 
+        //test that alias column is visible
+        Assert.assertTrue(actions.isElementDisplayed(dashboardPage.aliasColumnHeader));
+
         //test that sx-suites are by default sorted in ascending order
         Assert.assertTrue(actions.getText(dashboardPage.firstRowSxSuite).compareTo(actions.getText(dashboardPage.firstRowSxSuite))<=0);
+
+        //expand second row
+        actions.clickElement(dashboardPage.secondRowExpandBtn);
+
+        //test that there is "--" for no value parameter
+        Assert.assertEquals(actions.getText(dashboardPage.firstParameterPredictionValue),"--");
+
+        //test that the first row recipe is oats and its alias
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowRecipe),"Oats");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowAlias),"oats alias");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowInstrument),"522FG020");
+
+        String filteredParameter="oat1";
+        //click filter button
+        actions.clickElement(dashboardPage.filterBtn);
+
+        //choose filtered parameter from dropdown
+        actions.chooseFromDropDown(dashboardPage.parameterDropdownFilter,filteredParameter);
+
+        //click apply
+        actions.clickElement(dashboardPage.submitFilterBtn);
+        Thread.sleep(2000);
+
+        //expand first row
+        actions.clickElement(dashboardPage.firstRowExpand);
+
+        //test that predicted value is two decimal places
+        String predVal=actions.getText(dashboardPage.firstParameterPredictionValue);
+        Assert.assertEquals(predVal.split("\\.")[1].length(),2);
 
     }
 
     @Test(priority = 1)
     public void filterByParameter() throws InterruptedException {
+
+        String filteredParameter="Fiber";
         //click filter button
         actions.clickElement(dashboardPage.filterBtn);
 
@@ -68,8 +103,8 @@ public class DashboardModule {
         //click filter button
         actions.clickElement(dashboardPage.filterBtn);
 
-        //choose Moisture from parameter dropdown
-        actions.chooseFromDropDown(dashboardPage.parameterDropdownFilter,"Moisture");
+        //choose filtered parameter from dropdown
+        actions.chooseFromDropDown(dashboardPage.parameterDropdownFilter,filteredParameter);
 
         //click apply
         actions.clickElement(dashboardPage.submitFilterBtn);
@@ -79,7 +114,7 @@ public class DashboardModule {
         actions.clickElement(dashboardPage.firstRowExpand);
 
         //test that first parameter is the filtered one
-        Assert.assertEquals(actions.getText(dashboardPage.firstRowNestedGridFirstRowParameter),"Moisture");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowNestedGridFirstRowParameter),filteredParameter);
 
     }
 
@@ -187,20 +222,38 @@ public class DashboardModule {
 
     @Test(priority = 2)
     public void instrumentNameRedirect()throws InterruptedException{
+        String instrumentName="";
+        String affiliateName="";
+        String filteredParameter="Fiber";
+
         //click filter button
         actions.clickElement(dashboardPage.filterBtn);
 
         //click clear filter
         actions.clickElement(dashboardPage.clearFilterBtn);
 
-        //click on first instrument
+        //click filter button
+        actions.clickElement(dashboardPage.filterBtn);
+
+        //choose filtered parameter from dropdown
+        actions.chooseFromDropDown(dashboardPage.parameterDropdownFilter,filteredParameter);
+
+        //click apply
+        actions.clickElement(dashboardPage.submitFilterBtn);
+
         Thread.sleep(2000);
+
+        //fetch affiliate name and instrument name
+        affiliateName=actions.getText(dashboardPage.firstRowSxSuite);
+        instrumentName=actions.getText(dashboardPage.firstRowInstrument);
+
+        //click on first instrument
         actions.clickElement(dashboardPage.firstRowInstrument);
 
         //test that user is redirected to instrument page
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard/parameters");
-        Assert.assertTrue(actions.getText(dashboardPage.dashboardInstrumentHeader).contains("Sub1"));
-        Assert.assertTrue(actions.getText(dashboardPage.dashboardInstrumentHeader).contains("522FG020"));
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.parametersDashboardUrl);
+        Assert.assertTrue(actions.getText(dashboardPage.dashboardInstrumentHeader).contains(affiliateName));
+        Assert.assertTrue(actions.getText(dashboardPage.dashboardInstrumentHeader).contains(instrumentName));
 
         //test that the chart appears for every parameter
         Thread.sleep(2000);
@@ -212,26 +265,38 @@ public class DashboardModule {
         //test that go back button redirects to dashboard
         actions.clickElement(dashboardPage.backBtnDashboardPage);
 
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.dashboardUrl);
     }
 
     @Test(priority = 3)
     public void parameterWidgetContent()throws InterruptedException{
+        String instrumentName="";
+        String affiliateName="";
+        String filteredParameter="Fiber";
+
         //click filter button
         actions.clickElement(dashboardPage.filterBtn);
 
         //click clear filter
         actions.clickElement(dashboardPage.clearFilterBtn);
 
+        //click filter button
+        actions.clickElement(dashboardPage.filterBtn);
+
+        //choose filtered parameter from dropdown
+        actions.chooseFromDropDown(dashboardPage.parameterDropdownFilter,filteredParameter);
+
+        //click apply
+        actions.clickElement(dashboardPage.submitFilterBtn);
+
         //click on first instrument
 
         Thread.sleep(2000);
-        actions.clickElement(dashboardPage.secondRowInstrument);
+        actions.clickElement(dashboardPage.firstRowInstrument);
 
         Thread.sleep(2000);
 
         //test that parameter widget appear
-
         Assert.assertTrue(actions.getText(dashboardPage.parameterDetailWidget).contains("ISO12099"));
         Assert.assertTrue(actions.getText(dashboardPage.parameterDetailWidget).contains("Treat"));
         Assert.assertTrue(actions.getText(dashboardPage.parameterDetailWidget).contains("Range"));
@@ -249,10 +314,17 @@ public class DashboardModule {
 
     @Test(priority = 4)
     public void sortBySxSuite() throws InterruptedException {
+
+        //click filter
+        actions.clickElement(dashboardPage.filterBtn);
+        actions.clickElement(dashboardPage.clearFilterBtn);
+
+        Thread.sleep(2000);
         //click on sx-suite column header
         actions.clickElement(dashboardPage.sxSuiteColumnHeader);
 
         //choose sort desc
+        Thread.sleep(1000);
         actions.clickElement(dashboardPage.sxSuiteSortDescOption);
 
         Thread.sleep(3000);
@@ -269,8 +341,6 @@ public class DashboardModule {
         System.out.println(actions.getText(dashboardPage.firstRowSxSuite));
         Assert.assertTrue(actions.getText(dashboardPage.firstRowSxSuite).compareTo(actions.getText(dashboardPage.secondRowSxSuite))<=0);
 
-        //click back
-        actions.clickElement(dashboardPage.backBtnDashboardPage);
     }
 
     @Test(priority = 6,dependsOnMethods = "dashboardPartnerAdmin")
@@ -279,10 +349,10 @@ public class DashboardModule {
         actions.clickElement(dashboardPage.firstRowExpand);
         Thread.sleep(2000);
         List<WebElement> nestedGridHeaders=dashboardPage.firstRowNestedGridHeader.findElements(By.xpath("./child::*"));
-        List<String> expectedHeaders = List.of("Parameter","MD", "Prediction Value", "Calibration age", "ISO12099");
+        List<String> expectedHeaders = List.of("Parameter","Parameter Alias","MD", "Prediction Value","Events / Alerts", "Calibration age", "ISO12099");
 
         //test that all 5 headers are present
-        Assert.assertEquals(nestedGridHeaders.size(),5);
+        Assert.assertEquals(nestedGridHeaders.size(),7);
         for(int i=0;i<nestedGridHeaders.size();i++){
             Assert.assertEquals(nestedGridHeaders.get(i).getText(),expectedHeaders.get(i));
         }
@@ -301,7 +371,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.dashboardUrl);
 
         //test that data is displayed using sx-suite in ascending order
         System.out.println(actions.getText(dashboardPage.firstRowSxSuite));
@@ -355,7 +425,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.dashboardUrl);
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -407,7 +477,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.dashboardUrl);
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -460,7 +530,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.dashboardUrl);
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));
@@ -501,7 +571,7 @@ public class DashboardModule {
         actions.clickElement(homePage.dashboardSidebarBtn);
 
         //test that user is redirected
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/dashboard");
+        Assert.assertEquals(actions.getCurrentUrl(),EnvironmentSelector.dashboardUrl);
 
         //test that sx-suite column is not visible
         Assert.assertFalse(actions.isElementDisplayed(dashboardPage.sxSuiteColumnHeader));

@@ -145,6 +145,9 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id = "affiliates-list-table-lastUpdatedAt-column")
     public WebElement lastUpdatedAtColumn;
 
+    @FindBy(id="affiliates-list-table-partner-column")
+    public WebElement partnerColumn;
+
     @FindBy(id="affiliates-list-table-name-column")
     public WebElement nameColumn;
 
@@ -156,6 +159,22 @@ public class AffiliatePage extends MethodHandles {
 
     @FindBy(id="affiliates-list-table-maxUsersNumber-column")
     public WebElement maxUsersNumberColumn;
+
+    @FindBy(id="affiliates-list-table-maxInstruments-column-options-menu-item-asc")
+    public WebElement sortMaxInstrumentsAscOption;
+
+    @FindBy(id="affiliates-list-table-maxInstruments-column-options-menu-item-desc")
+    public WebElement sortMaxInstrumentsDescOption;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[6]")
+    public WebElement firstAffiliateMaxInstruments;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[6]")
+    public WebElement secondAffiliateMaxInstruments;
+
+    @FindBy(id="affiliates-list-table-maxInstruments-column")
+    public WebElement maxInstrumentsColumn;
+
 
     @FindBy(id="affiliates-list-table-createdAt-column")
     public WebElement createdAtColumn;
@@ -213,25 +232,6 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id = "dropdown-menu-item-delete")
     public WebElement affiliateDeleteOptionBtn;
 
-    @FindBy(id="license-button-cancel")
-    public WebElement cancelLicenseCopyBtn;
-
-    //generate license option of first affiliate in the table
-    @FindBy(id="dropdown-menu-item-generateLicense")
-    public WebElement affiliateGenerateLicenseBtn;
-
-    @FindBy(id="dropdown-menu-item-viewLicense")
-    public WebElement affiliateViewLicenseOptionBtn;
-
-    @FindBy(id="license-button-copy")
-    public WebElement copyLicenseBtn;
-
-    //confirm license generate butto
-    @FindBy(id="affiliate-list-alert-dialog-button-confirm")
-    public WebElement confirmLicenseGenerateBtn;
-
-    @FindBy(id = "affiliate-list-alert-dialog-button-cancel")
-    public WebElement cancelLicenseGenerateBtn;
 
     //rows per page field
     @FindBy(xpath = "/html/body/div/div[1]/div[2]/div[2]/div/div[4]/div/div[1]/div[2]/div/div/div[1]/div[2]/input")
@@ -271,12 +271,16 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id = "affiliate-form-input-maxUsersNumber")
     public WebElement maxUsers;
 
+    //max instruments field
+    @FindBy(id = "affiliate-form-input-maxInstruments")
+    public WebElement maxInstruments;
+
     //abbreviation text field
     @FindBy(id = "affiliate-form-input-abbreviation")
     public WebElement affiliateAbbreviation;
 
     //affiliate type
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div/div/div[1]/div[2]/input")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[5]/div[1]/div/div[1]/div[2]/input")
     public WebElement affiliateType;
 
     //cancel button
@@ -517,10 +521,7 @@ public class AffiliatePage extends MethodHandles {
         return isDisplayed(affiliateName, 10);
     }
 
-    //method check if affiliate max users field is displayed
-    public boolean affiliateMaxUsersIsDisplayed() {
-        return isDisplayed(maxUsers, 10);
-    }
+
 
     //method check if affiliate abbreviation field is displayed
     public boolean affiliateAbbreviationIsDisplayed() {
@@ -777,10 +778,6 @@ public class AffiliatePage extends MethodHandles {
         return clickElement(affiliateName);
     }
 
-    //method to click affiliate max users text field
-    public boolean clickAffiliateMaxUsersTextField() {
-        return clickElement(maxUsers);
-    }
 
     //method to click affiliate type text field
     public boolean clickAffiliateTypeTextField() {
@@ -959,13 +956,10 @@ public class AffiliatePage extends MethodHandles {
 
     //method to send text to affiliate max users text field
     public boolean sendTextToAffiliateMaxUsersTextField(String text) {
-        return sendTextToElement(maxUsers, text);
+        return sendTextToElement(maxInstruments, text);
     }
 
-    //method to clear affiliate max users text field
-    public boolean resetAffiliateMaxUsersTextField() {
-        return clearText(maxUsers);
-    }
+
 
     //method to send text to affiliate abbreviation text field
     public boolean sendTextToAffiliateAbbreviationTextField(String text) {
@@ -1020,12 +1014,15 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[2]/div[2]/span")
     public WebElement affiliateRequiredErrorMsg;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div[2]/span")
+    public WebElement maxInstrumentsErrorMsg;
+
     //the error message appears under max users text field
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[3]/div[2]/span")
     public WebElement maxUsersRequiredErrorMsg;
 
     //the error message appears under type text field
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[4]/div[2]/span")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/form/div/div[3]/div/div/div[5]/div[2]/span")
     public WebElement typeRequiredErrorMsg;
 
     //the input field to upload image as logo
@@ -1044,11 +1041,25 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[2]/div[4]")
     public WebElement secondAffiliateUsersCount;
 
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[2]")
+    @FindBy(id = "affiliate-list-alert-dialog-button-confirm")
     public WebElement confirmDeleteBtn;
 
     @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
     public WebElement cancelDeleteBtn;
+
+
+    //generate license option of first affiliate in the table
+    @FindBy(id="dropdown-menu-item-generateLicense")
+    public WebElement affiliateGenerateLicenseBtn;
+
+    @FindBy(id="dropdown-menu-item-viewLicense")
+    public WebElement affiliateViewLicenseOptionBtn;
+
+    @FindBy(id="license-button-copy")
+    public WebElement copyLicenseBtn;
+
+    @FindBy(id="license-button-cancel")
+    public WebElement cancelLicenseCopyBtn;
 
     public boolean clickCancelDeleteBtn(){
         return clickElement(cancelDeleteBtn);
@@ -1083,10 +1094,6 @@ public class AffiliatePage extends MethodHandles {
 
     public boolean clearAffiliateNameTextField(){
         return clearText(affiliateName);
-    }
-
-    public boolean clearMaxUsersTextField(){
-        return clearText(maxUsers);
     }
 
     public boolean clearAbbreviation(){

@@ -34,14 +34,14 @@ public class JournalsModule {
 
         //send value to search bar
         Thread.sleep(2000);
-        actions.enterText(journalsPage.searchField,"Milk");
+        actions.enterText(journalsPage.searchField,"Peas");
 
         //click search button
         actions.clickElement(journalsPage.submitSearchBtn);
 
         Thread.sleep(3000);
         //test that data searched for appears
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Peas");
 
         //refresh window to clear results
         journalsPage.refreshWindow();
@@ -60,14 +60,14 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);
 
         //send text to filter name
-        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+        actions.enterText(journalsPage.nameFilterTextField,"Peas");
 
         //click apply
         actions.clickElement(journalsPage.applyFilterBtn);
 
         //test that results appear
         Thread.sleep(4000);
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Peas");
 
         //click filter
         actions.clickElement(journalsPage.filterBtn);
@@ -100,14 +100,14 @@ public class JournalsModule {
 
         //choose dropdown
         Thread.sleep(1500);
-        actions.chooseFromDropDown(journalsPage.affiliateFilterDropDown,"Sub2");
+        actions.chooseFromDropDown(journalsPage.affiliateFilterDropDown,"Sub1");
 
         //click apply
         actions.clickElement(journalsPage.applyFilterBtn);
 
         Thread.sleep(3000);
 
-        Assert.assertEquals(actions.getText(journalsPage.firstJournalAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(journalsPage.firstJournalAffiliate),"Sub1");
     }
 
     @Test(priority = 3)
@@ -157,8 +157,8 @@ public class JournalsModule {
     @Test(priority = 4)
     public void exportRecipeSamples() throws InterruptedException {
 
-        Thread.sleep(2000);
         //get length of downloads directory
+        Thread.sleep(2000);
         int filesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
 
         journalsListPage=new ListJournalsPage( MainTestRunner.ChromeDriver);
@@ -174,7 +174,7 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);;
 
         //click filter by name
-        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+        actions.enterText(journalsPage.nameFilterTextField,"Peas");
 
         //click apply filter
         actions.clickElement(journalsPage.applyFilterBtn);
@@ -209,8 +209,13 @@ public class JournalsModule {
         System.out.println(filesNum);
         int newFilesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
 
+        //test that exported file is .xlsx not .zip
+        Assert.assertTrue(Helpers.getLatestDownloadedFile(MainTestRunner.downloadDir).contains("xlsx"));
+
         //test that file is downloaded
         Assert.assertTrue(filesNum<newFilesNum);
+
+        System.out.println();
     }
 
     @Ignore
@@ -303,12 +308,15 @@ public class JournalsModule {
 
         System.out.println(actions.getText(journalsListPage.journalsFilterDropdown));
 
+        //test that The filter label is “Journal Entries”.
+        Assert.assertTrue(actions.getText(journalsListPage.journalEntryFilterTitle).contains("Journal Entries"));
+
         //change recipe name to "A"
         Thread.sleep(2000);
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Test");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Milk");
 
-        //insert invalid sample name
-        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"B15FG114");
+        //choose instrument
+        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"522FG020");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
@@ -364,11 +372,13 @@ public class JournalsModule {
         //test that all necessary fields appear
         Assert.assertEquals(actions.getText(journalsListPage.journalDetailsHeader),"Journal details");
 
+        System.out.println(actions.getText(journalsListPage.sampleSettingsDetails));
+        Thread.sleep(2000);
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Created By"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Captured At"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Instruments SNR"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Instrument Type"));
-        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Recipe Name"));
+        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Recipe"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Points"));
 
         //test that it contains parameters' names
@@ -456,6 +466,7 @@ public class JournalsModule {
         Assert.assertTrue(actions.isElementDisplayed(journalsListPage.manageRefValuesBtn));
 
         //test that export & import are accessible
+        Thread.sleep(2000);
         actions.clickElement(journalsListPage.manageRefValuesBtn);
 
         //test that export & import buttons are displayed
@@ -468,8 +479,9 @@ public class JournalsModule {
 
         Thread.sleep(7000);
 
-        //test that file is downloaded
+        //test that file is downloaded and .xlsx
         int newFilesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
+        Assert.assertTrue(Helpers.getLatestDownloadedFile(MainTestRunner.downloadDir).contains("xlsx"));
 
         Assert.assertTrue(filesNum+1==newFilesNum);
 

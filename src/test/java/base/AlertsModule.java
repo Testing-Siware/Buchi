@@ -92,13 +92,13 @@ public class AlertsModule {
 
         //recipe
         Thread.sleep(2000);
-        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Corn");
 
         //test that instrument dropdown is enabled after choosing an affiliate
         Assert.assertTrue(actions.isElementEnabled(alertsPage.newAlertInstrument));
 
         //instruments SNR
-        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"522");
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"320");
 
         //alerts constraints
         //first parameter
@@ -193,14 +193,14 @@ public class AlertsModule {
         actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"sub1");
 
         //recipe
-        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Corn");
 
         //instruments SNR
-        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"416FG106");
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"320");
 
         //alerts constraints
         //first parameter
-        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Protein");
 
         Thread.sleep(2000);
         //clear min and max value
@@ -276,14 +276,14 @@ public class AlertsModule {
         actions.chooseFromDropDown(alertsPage.filterAffiliateInput,"Sub1");
 
         //insert recipe
-         actions.chooseFromDropDown(alertsPage.filterRecipeInput,"Bcloned");
+         actions.chooseFromDropDown(alertsPage.filterRecipeInput,"Corn");
 
         //click apply
         actions.clickElement(alertsPage.submitFilterBtn);
 
         //test that alert is created
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(alertsPage.firstAlertRecipe),"Bcloned");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertRecipe),"Corn");
     }
 
     @Test(priority = 2)
@@ -347,6 +347,7 @@ public class AlertsModule {
     @Test(priority = 3)
     public void editAlert() throws InterruptedException {
         //navigate to alerts page
+        Thread.sleep(2000);
         homePage.clickAlertsSidebarBtn();
 
         //click filter button
@@ -380,9 +381,10 @@ public class AlertsModule {
 
         //test that all data of alert are populated before editing
 
+        System.out.println(actions.getText(alertsPage.newAlertConfigurations));
         Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Sub1"));
-        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Bcloned"));
-        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("522FG020"));
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Corn"));
+        Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("320FG103"));
         Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Protein"));
         Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("Moisture"));
         Assert.assertTrue(actions.getText(alertsPage.newAlertConfigurations).contains("mohamed.khaled+support@si-ware.com"));
@@ -394,7 +396,7 @@ public class AlertsModule {
         actions.enterText(alertsPage.newAlertName,createdAlert);
 
         //choose new affiliate
-        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Sub2");
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Sub1");
 
         //choose new recipe
         actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Milk");
@@ -403,7 +405,7 @@ public class AlertsModule {
         actions.chooseFromDropDown(alertsPage.newAlertInstrument,"416");
 
         //select parameter
-        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Lactose");
         actions.enterText(alertsPage.newAlertFirstParameterMinValueInput,"10");
 
         //click save
@@ -433,7 +435,7 @@ public class AlertsModule {
 
         //test that alert is edited
         Thread.sleep(3000);
-        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub1");
         Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
         System.out.println(actions.getText(alertsPage.firstAlertRecipe));
     }
@@ -1028,10 +1030,10 @@ public class AlertsModule {
 
         //recipe
         Thread.sleep(2000);
-        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Bcloned");
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Corn");
 
         //instruments SNR
-        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"522");
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"320FG103");
 
         //alerts constraints
         //first parameter
@@ -1297,10 +1299,10 @@ public class AlertsModule {
 
         //recipe
         Thread.sleep(2000);
-        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Corn");
 
         //instruments SNR
-        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"522");
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"320FG103");
 
         //alerts constraints
         //first parameter
@@ -1382,16 +1384,16 @@ public class AlertsModule {
         actions.enterText(alertsPage.newAlertName,createdAlert);
 
         //choose new affiliate
-        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Sub2");
+        actions.chooseFromDropDown(alertsPage.newAlertAffiliate,"Sub1");
 
         //choose new recipe
-        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Milk");
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Rice");
 
         //choose instrument
-        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"416");
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"720");
 
         //select parameter
-        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Fat");
+        actions.chooseFromDropDown(alertsPage.newAlertFirstParameter,"Carb");
         actions.enterText(alertsPage.newAlertFirstParameterMinValueInput,minVal);
 
         //click save
@@ -1421,7 +1423,7 @@ public class AlertsModule {
 
         //test that alert is edited
         Thread.sleep(3000);
-        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(alertsPage.firstAlertAffiliate),"Sub1");
         Assert.assertEquals(actions.getText(alertsPage.firstAlertName),createdAlert);
         System.out.println(actions.getText(alertsPage.firstAlertRecipe));
 
@@ -1444,10 +1446,10 @@ public class AlertsModule {
 
         //recipe
         Thread.sleep(2000);
-        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Bcloned");
+        actions.chooseFromDropDown(alertsPage.newAlertRecipe,"Corn");
 
         //instruments SNR
-        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"522");
+        actions.chooseFromDropDown(alertsPage.newAlertInstrument,"320");
 
         //alerts constraints
         //first parameter
