@@ -196,7 +196,7 @@ public class AffiliatePage extends MethodHandles {
 
 
     //name of first affiliate in the table
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[2]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div[2]")
     public WebElement firstAffiliateName;
 
     //type of first affiliate in the table
@@ -231,6 +231,21 @@ public class AffiliatePage extends MethodHandles {
     //delete option of first affiliate in the table
     @FindBy(id = "dropdown-menu-item-delete")
     public WebElement affiliateDeleteOptionBtn;
+
+    @FindBy(id="dropdown-menu-item-affiliate-list-table-option-deactivate")
+    public WebElement deactivateAffiliate;
+
+    @FindBy(id="dropdown-menu-item-affiliate-list-table-option-activate")
+    public WebElement activateAffiliate;
+
+    @FindBy(id="affiliate-list-alert-dialog-button-cancel")
+    public WebElement cancelDeactivatePopup;
+
+    @FindBy(id="affiliate-list-alert-dialog-button-confirm")
+    public WebElement confirmDeactivateBtn;
+
+    @FindBy(id="affiliate-list-alert-dialog-button-confirm")
+    public WebElement confirmActivateBtn;
 
 
     //rows per page field
@@ -1044,7 +1059,7 @@ public class AffiliatePage extends MethodHandles {
     @FindBy(id = "affiliate-list-alert-dialog-button-confirm")
     public WebElement confirmDeleteBtn;
 
-    @FindBy(xpath = "/html/body/div[3]/div[2]/button[1]")
+    @FindBy(id="affiliate-list-alert-dialog-button-cancel")
     public WebElement cancelDeleteBtn;
 
 
