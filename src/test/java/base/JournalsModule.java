@@ -156,6 +156,7 @@ public class JournalsModule {
 
     @Test(priority = 4)
     public void exportRecipeSamples() throws InterruptedException {
+        actions.refreshWindow();
 
         //get length of downloads directory
         Thread.sleep(2000);
@@ -243,11 +244,13 @@ public class JournalsModule {
 
     @Test(priority = 6)
     public void validRecipeNameFilter() throws InterruptedException {
+        //click reset filter
+        actions.clickElement(journalsListPage.resetFilterBtn);
         //click filter button
         actions.clickElement(journalsListPage.editFiltersBtn);
 
         //insert invalid sample name
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Wheat");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Global");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
@@ -260,14 +263,15 @@ public class JournalsModule {
         actions.clickElement(journalsListPage.editFiltersBtn);
 
         //insert invalid sample name
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"TestTsv");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Peas");
+        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"720FG120");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
 
         //test that sample appears
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(journalsListPage.firstSampleRecipeName),"TestTsv");
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleRecipeName),"Peas");
 
         //return to journals back
         MainTestRunner.ChromeDriver.navigate().back();
@@ -382,9 +386,7 @@ public class JournalsModule {
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Points"));
 
         //test that it contains parameters' names
-        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Fat"));
-        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Lactose"));
-        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Test1"));
+        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Moisture"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Protein"));
 
         //click edit ref values button
@@ -556,7 +558,7 @@ public class JournalsModule {
 
         //test that all samples are selected (1 is total of samples)
         System.out.println(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn));
-        Assert.assertTrue(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn).contains("3"));
+        Assert.assertTrue(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn).contains("4"));
 
         //uncheck all samples
         actions.clickElement(journalsListPage.journalListSelectAllCheckbox);

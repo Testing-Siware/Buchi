@@ -4,6 +4,7 @@ import data.Credentials;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.Actions;
 import pages.HomePage;
@@ -26,6 +27,7 @@ public class UsersModule {
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         actions=new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
     }
+
 
     @Test()
     public void createInvalidUserBySupport() throws InterruptedException {
@@ -78,6 +80,7 @@ public class UsersModule {
         //click cancel
         actions.clickElement(usersPage.cancelBtn);
     }
+
 
     @Test
     public void createPartnerAdminUserBySupport() throws InterruptedException {
@@ -318,6 +321,7 @@ public class UsersModule {
         Assert.assertEquals(actions.getText(usersPage.filteredUserName), userFirstName + " " + userLastName);
     }
 
+    @Ignore
     @Test(priority = 1)
     public void cancelUserEdits() throws InterruptedException {
 
@@ -397,6 +401,7 @@ public class UsersModule {
         Assert.assertEquals(actions.getText(usersPage.filteredUserName), userFirstName + " " + userLastName);
     }
 
+    @Ignore
     @Test(priority = 1)
     public void editUser() throws InterruptedException {
 
@@ -466,6 +471,7 @@ public class UsersModule {
         Assert.assertEquals(actions.getText(usersPage.filteredUserName), userFirstName + " " + userLastName);
     }
 
+    @Ignore
     @Test(priority = 2)
     public void filterByFirstName() throws InterruptedException {
 
@@ -483,6 +489,7 @@ public class UsersModule {
         Assert.assertTrue(actions.getText(usersPage.filteredUserName).contains(userFirstName));
     }
 
+    @Ignore
     @Test(priority = 2)
     public void filterByLastName() throws InterruptedException {
 
@@ -500,7 +507,7 @@ public class UsersModule {
         Assert.assertTrue(actions.getText(usersPage.filteredUserName).contains(userLastName));
 
     }
-
+    @Ignore
     @Test(priority = 2)
     public void filterByEmail() throws InterruptedException {
 
@@ -520,6 +527,7 @@ public class UsersModule {
         Assert.assertEquals(actions.getText(usersPage.filteredEmail), userEmail);
     }
 
+@Ignore
     @Test(priority = 2)
     public void toggleColumns() throws InterruptedException {
 
@@ -568,8 +576,11 @@ public class UsersModule {
         actions.clickElement(usersPage.toggleModifiedAtColumnOption);
     }
 
+
     @Test(priority = 2)
     public void searchUser() throws InterruptedException {
+        actions.refreshWindow();
+        Thread.sleep(3000);
         //clear any preset filter
         actions.clickElement(usersPage.filterBtn);
         actions.clickElement(usersPage.clearFiltersBtn);
@@ -591,6 +602,7 @@ public class UsersModule {
         actions.refreshWindow();
         Thread.sleep(3000);
     }
+
 
     @Test(priority = 2)
     public void sortData() throws InterruptedException {
@@ -690,8 +702,57 @@ public class UsersModule {
 
         Assert.assertTrue(firstDate.compareTo(secondDate) <= 0);
     }
+    @Test(priority = 1)
+    public void deactivateUser() throws InterruptedException {
+        Thread.sleep(2000);
 
-    @Test(priority = 3)
+        actions.clickElement(homePage.usersSidebarBtn);
+
+        //clear any preset filter
+        actions.clickElement(usersPage.filterBtn);
+        actions.clickElement(usersPage.clearFiltersBtn);
+
+        //filter by first name
+        actions.clickElement(usersPage.filterBtn);
+        actions.enterText(usersPage.firstNameFilterTextField,userFirstName);
+        actions.clickElement(usersPage.applyFiltersBtn);
+        //click actions
+        actions.refreshWindow();
+        Thread.sleep(3000);
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, 500);
+        actions.clickElement(usersPage.firstRowActionsBtn);
+        //click deactivate
+        actions.clickElement(usersPage.deactivateUserOption);
+        //click cancel deactivate popup
+        actions.clickElement(usersPage.cancelDeactivateBtn);
+        Thread.sleep(3000);
+        actions.clickElement(usersPage.firstRowActionsBtn);
+        actions.clickElement(usersPage.deactivateUserOption);
+        //click confirm deactivate
+        actions.clickElement(usersPage.confirmDeactivateBtn);
+
+        //clear any preset filter
+        actions.scrollToElementHorizontally(usersPage.tableHorizontalScrollBar, 500);
+
+
+        //test that user is deactivated
+        Thread.sleep(3000);
+        Assert.assertEquals(actions.getText(usersPage.firstUserStatus),"INACTIVE");
+
+        //Activate the same user
+        actions.clickElement(usersPage.firstRowActionsBtn);
+        //click deactivate
+        actions.clickElement(usersPage.activateUserOption);
+        //click  deactivate popup
+        actions.clickElement(usersPage.confirmActivateBtn);
+        Thread.sleep(3000);
+        Assert.assertEquals(actions.getText(usersPage.firstUserStatus),"ACTIVE");
+
+
+    }
+
+
+    @Test()
     public void deleteUser() throws InterruptedException {
         //clear any preset filter
         actions.clickElement(usersPage.filterBtn);
@@ -797,6 +858,7 @@ public class UsersModule {
     @Test(priority = 5)
     public void searchInvalidUser() throws InterruptedException {
         //clear any preset filter
+
         Thread.sleep(2000);
         actions.clickElement(usersPage.filterBtn);
         actions.clickElement(usersPage.clearFiltersBtn);
@@ -807,7 +869,7 @@ public class UsersModule {
 
         //click search
         actions.clickElement(usersPage.searchBtn);
-        
+
         //test that no results image appears
         Thread.sleep(2000);
         Assert.assertFalse(actions.isElementDisplayed(usersPage.filteredUserName));

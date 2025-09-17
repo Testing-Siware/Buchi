@@ -39,6 +39,22 @@ public class UsersPage extends MethodHandles {
     //search button to fetch searched results
     @FindBy(id = "users-list-table-search-submit")
     public WebElement searchBtn;
+    @FindBy(id="dropdown-menu-item-user-list-table-option-deactivate")
+    public WebElement deactivateUserOption;
+
+    @FindBy(id="dropdown-menu-item-user-list-table-option-activate")
+    public WebElement  activateUserOption;
+
+    @FindBy(id="user-list-alert-dialog-button-confirm")
+    public WebElement confirmDeactivateBtn;
+    @FindBy(id="user-list-alert-dialog-button-confirm")
+    public WebElement confirmActivateBtn;
+
+    @FindBy(id="user-list-alert-dialog-button-cancel")
+    public WebElement cancelDeactivateBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[6]")
+    public WebElement firstUserStatus;
 
     //filter button to show filter menu
     @FindBy(id = "users-list-table-filter-button")

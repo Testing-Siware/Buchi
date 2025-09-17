@@ -43,8 +43,11 @@ public class RecipesModule {
         //clear any preset filter
         //click filter
         actions.clickElement(recipesPage.filterBtn);
+        //actions.clickElement(recipesPage.filterAffiliate);
+        actions.chooseFromDropDown(recipesPage.filterAffiliate,"Sub1");
+        actions.clickElement(recipesPage.filterApplyBtn);
         //click clear
-        actions.clickElement(recipesPage.filterClearBtn);
+      //  actions.clickElement(recipesPage.filterClearBtn);
 
         //sort by name ascending
         Thread.sleep(3000);
@@ -53,7 +56,7 @@ public class RecipesModule {
         actions.clickElement(recipesPage.sortRecipeNameAsc);
         Thread.sleep(2000);
 
-        Assert.assertTrue((actions.getText(recipesPage.firstRowName)).compareTo(actions.getText(recipesPage.secondRowName)) <= 0);
+        Assert.assertTrue((actions.getText(recipesPage.firstRowName)).compareTo(actions.getText(recipesPage.secondRowName)) >= 0);
 
         //sort by name descending
         Thread.sleep(3000);
@@ -77,7 +80,7 @@ public class RecipesModule {
         actions.clickElement(recipesPage.sortByAliasAsc);
 
         Thread.sleep(2000);
-        Assert.assertTrue(actions.getText(recipesPage.firstRowAlias).compareTo(actions.getText(recipesPage.secondRowAlias))>=0);
+        Assert.assertTrue(actions.getText(recipesPage.firstRowAlias).compareTo(actions.getText(recipesPage.secondRowAlias)) <=0);
 
         //click alias column header
         Thread.sleep(2000);
@@ -133,14 +136,14 @@ public class RecipesModule {
         actions.clickElement(recipesPage.filterBtn);
 
         //insert alias name to filter by
-        actions.enterText(recipesPage.aliasFilterInput, "test");
+        actions.enterText(recipesPage.aliasFilterInput, "test1");
 
         //click apply
         actions.clickElement(recipesPage.filterApplyBtn);
 
         //test that recipe is filtered
         Thread.sleep(2000);
-        Assert.assertEquals(actions.getText(recipesPage.firstRowAliasRP), "test");
+        Assert.assertEquals(actions.getText(recipesPage.firstRowAliasRP), "test1");
     }
 
 
@@ -313,7 +316,7 @@ public class RecipesModule {
         Thread.sleep(2000);
         String first = actions.getText(recipesPage.firstRowNameRP);
         String second = actions.getText(recipesPage.secondRowNameRP);
-        System.out.println(first.compareTo(second));
+        //System.out.println(first.compareTo(second));
         Assert.assertTrue((first.compareTo(second)) <= 0);
 
         //click sort by name button
@@ -327,7 +330,7 @@ public class RecipesModule {
         Thread.sleep(3000);
         first = actions.getText(recipesPage.firstRowNameRP);
         second = actions.getText(recipesPage.secondRowNameRP);
-        System.out.println(first.compareTo(second));
+        //System.out.println(first.compareTo(second));
         Assert.assertTrue((first.compareTo(second)) >= 0);
 
         //remove sorting

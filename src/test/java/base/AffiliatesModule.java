@@ -459,10 +459,9 @@ public class AffiliatesModule {
 
         //click delete
         actions.clickElement(affiliatePage.affiliateDeleteOptionBtn);
-
+        Thread.sleep(2000);
         //click cancel  delete button
         affiliatePage.clickCancelDeleteBtn();
-            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, -1000);
             actions.refreshWindow();
             Thread.sleep(5000);
         //test that affiliate not deleted

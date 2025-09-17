@@ -82,7 +82,7 @@ public class JournalsPage extends MethodHandles {
     public WebElement fetchRecipesBtn;
 
     //expand first recipe button
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[4]")
     public WebElement expandFirstRecipeBtnSupport;
 
     //first recipe name
@@ -139,7 +139,7 @@ public class JournalsPage extends MethodHandles {
     public WebElement createdAtColumn;
 
     //first instrument name of first recipe
-    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[4]/div/div/div/div/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div/div")
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[4]/div/div/div/div/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div")
     public WebElement firstInstrument;
 
     //next button to expand instrument

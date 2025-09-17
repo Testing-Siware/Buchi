@@ -66,9 +66,9 @@ public class DashboardModule {
         Assert.assertEquals(actions.getText(dashboardPage.firstParameterPredictionValue),"--");
 
         //test that the first row recipe is oats and its alias
-        Assert.assertEquals(actions.getText(dashboardPage.firstRowRecipe),"Oats");
-        Assert.assertEquals(actions.getText(dashboardPage.firstRowAlias),"oats alias");
-        Assert.assertEquals(actions.getText(dashboardPage.firstRowInstrument),"522FG020");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowRecipe),"Wine");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowAlias),"--");
+        Assert.assertEquals(actions.getText(dashboardPage.firstRowInstrument),"416FG106");
 
         String filteredParameter="oat1";
         //click filter button
