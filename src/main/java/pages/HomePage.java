@@ -127,6 +127,10 @@ public class HomePage extends MethodHandles {
     @FindBy(id = "/html/body/div/div[1]/div[2]/div[2]/div[2]/div")
     public WebElement affiliateSidebarBtnSuperAdmin;
 
+    @FindBy(xpath ="/html/body/div/div[2]/div/div/div[2]/div")
+    public WebElement alertMessage;
+
+
     ///////////////////////////////////////Click Methods///////////////////////////////////////
     public boolean clickAffiliateSidebarBtnSuperAdmin(){ return clickElement(affiliateSidebarBtnSuperAdmin);}
 

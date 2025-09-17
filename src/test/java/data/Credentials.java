@@ -4,8 +4,10 @@ import java.util.Objects;
 
 public class Credentials {
 
-    public static String partnerAdminUsername = "Mostafa.hassan+pa@si-ware.com";
-    public static String partnerAdminPassword = "Cqc@12345!";
+
+    public static String partnerAdminUsername = "partner_admin@email.com";
+    public static String partnerAdminUsernameTwo = "partner_admin@email.com";
+    public static String partnerAdminPassword = "Cqc@12345";
 
     public static String adminUsername = "Admin@email.com";
     public static String adminPassword = "Cqc@12345";
@@ -14,10 +16,12 @@ public class Credentials {
     public static String userPassword = "Cqc@12345";
 
     public static String supportUsername="malek.ali@email.com";
-    public static String supportPassword = "Qwer@1234";
+    public static String supportUsernameTwo="ahmed.maher+PA+test@si-ware.com";
+
+    public static String supportPassword = "Abcd@123";
 
     public static String partnerUserUsername="Mohamed.khaled+PU@si-ware.com";
-    public static String partnerUserPassword="Cqc@12345";
+    public static String partnerUserPassword="Cqc@1234";
 
     public static String superAdminUsername = "superadmin@si-ware.com";
     public static String superAdminPassword = "@SwS@2025$$!!";
@@ -32,6 +36,17 @@ public class Credentials {
         }
         else if (Objects.equals(s, "TEST"))
         {
+        }
+
+        else if(Objects.equals(s,"STAGE")){
+            partnerAdminUsername="mohamed.khaled+PA@si-ware.com";
+            partnerAdminPassword="Cqc@12345";
+
+            supportUsername="ahmed.maher+PA+test@si-ware.com";
+            supportPassword="Admin@1234";
+
+            adminUsername="ahmed.maher+stage1@si-ware.com";
+            adminPassword="Abcd@123";
         }
         else
         {

@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -7,7 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.io.File;
 import java.time.Duration;
+import java.awt.event.KeyEvent;
+import java.util.List;
+
 
 public class Actions {
 
@@ -135,4 +143,36 @@ public class Actions {
             return false;
         }
     }
+
+
+    public void uploadFileWithRobot(String filePath) throws AWTException {
+
+        File file = new File(filePath);
+        String absolutePath = file.getAbsolutePath();
+//
+        // Copy the file path to clipboard
+        StringSelection selection = new StringSelection(absolutePath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
+
+        // Create Robot instance
+        Robot robot = new Robot();
+        robot.delay(1000); // Wait for file dialog to appear
+
+        // Press CTRL+V
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+
+        robot.delay(500);
+
+        // Press ENTER
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+
+    public List<WebElement> getElementChildren(WebElement element){
+        return element.findElements(By.xpath("./child::*"));
+    }
+
 }

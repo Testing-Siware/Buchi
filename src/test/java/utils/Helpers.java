@@ -13,10 +13,15 @@ import pages.LoginPage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Helpers {
@@ -41,6 +46,23 @@ public class Helpers {
         return 0; // Return 0 if the directory doesn't exist or has no files
     }
 
+    public static String getLatestDownloadedFile(String directoryPath) {
+        File directory = new File(directoryPath);
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles(File::isFile); // Only get files, not directories
+
+            if (files == null || files.length == 0) {
+                return null;
+            }
+
+            // Sort by last modified date in descending order
+            Arrays.sort(files, (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified()));
+
+            return files[0].getName();
+        }
+        return null;
+    }
 
     public static String generateRandomString() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -273,7 +295,6 @@ public class Helpers {
         return null;
     }
 
-
     public static String getOCR() throws TesseractException, IOException, AWTException {
         JFrame frame = new JFrame();
         File image = makeScreenshot();
@@ -290,4 +311,17 @@ public class Helpers {
         loginPage.ClickSignInButton();
     }
 
+    public static String getClipboardContents() {
+        try {
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            Transferable contents = clipboard.getContents(null);
+
+            if (contents != null && contents.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                return (String) contents.getTransferData(DataFlavor.stringFlavor);
+            }
+        } catch (UnsupportedFlavorException | IllegalStateException | IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

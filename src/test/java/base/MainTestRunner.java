@@ -1,6 +1,5 @@
 package base;
 
-import com.beust.ah.A;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -51,10 +50,10 @@ public class MainTestRunner {
 
         /////////////////IMPORTANT/////////////////
         //Set Environment
-        EnvironmentSelector.SetEnvironment("DEV"); //"DEV" OR "TEST"
+        EnvironmentSelector.SetEnvironment("STAGE"); //"DEV" OR "TEST" OR "STAGE"
 
         //Launch
-        ChromeDriver.navigate().to(utils.EnvironmentSelector.PortaMainlUrl);
+        ChromeDriver.navigate().to(utils.EnvironmentSelector.PortalMainlUrl);
         //ChromeDriver.manage().window().maximize();
     }
 

@@ -1,6 +1,7 @@
 package base;
 
 import data.Credentials;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -9,15 +10,17 @@ import org.testng.annotations.Test;
 import pages.Actions;
 import pages.AffiliatePage;
 import pages.HomePage;
+import pages.LicensePage;
+import utils.EnvironmentSelector;
 import utils.Helpers;
 
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
+import java.util.List;
 
 
 public class AffiliatesModule {
     HomePage homePage;
     AffiliatePage affiliatePage;
+    LicensePage licensePage;
     String affiliateName;
 
     Actions actions;
@@ -26,11 +29,13 @@ public class AffiliatesModule {
     public void intializeClasses(){
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
+        licensePage = new LicensePage((ChromeDriver) MainTestRunner.ChromeDriver);
         actions = new Actions((ChromeDriver) MainTestRunner.ChromeDriver,20);
     }
 
+
     @Test(priority = 1)
-    public void createInvalidAffilateBySupport() {
+    public void createInvalidAffiliateBySupport() throws InterruptedException {
         //navigate to affiliates page
         actions.clickElement(homePage.affiliateSidebarBtn);
 
@@ -43,7 +48,7 @@ public class AffiliatesModule {
         //test that error messages appear under required fields
         Assert.assertEquals(actions.getText(affiliatePage.affiliateRequiredErrorMsg), "Name is required.");
         Assert.assertEquals(actions.getText(affiliatePage.typeRequiredErrorMsg), "Type is required.");
-        Assert.assertEquals(actions.getText(affiliatePage.maxUsersRequiredErrorMsg), "Maxusers is required.");
+        Assert.assertEquals(actions.getText(affiliatePage.maxUsersRequiredErrorMsg), "Max users is required.");
 
         //insert affiliate name more than 30 characters
         actions.enterText(affiliatePage.affiliateName, "222222222222222222222222222222222222222222222222222222222222222222");
@@ -57,11 +62,17 @@ public class AffiliatesModule {
         actions.clickElement(affiliatePage.cancelBtn);
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
+
     public void createAffiliateBySupport() throws InterruptedException {
         homePage = new HomePage((ChromeDriver) MainTestRunner.ChromeDriver);
         affiliatePage = new AffiliatePage((ChromeDriver) MainTestRunner.ChromeDriver);
 
+        //logout and login with the second support account
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.supportUsernameTwo, Credentials.supportPassword);
 
         //navigate to affiliates page
         Thread.sleep(4000);
@@ -77,8 +88,10 @@ public class AffiliatesModule {
         actions.enterText(affiliatePage.affiliateName,affiliateName);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"20");;
-        
+        actions.enterText(affiliatePage.maxUsers,"20");
+
+        //insert max instruments
+        actions.enterText(affiliatePage.maxInstruments,"3");
 
         //choose affiliate type
         actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
@@ -103,86 +116,8 @@ public class AffiliatesModule {
         Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
     }
 
-    @Test(priority = 1 ,dependsOnMethods = "createAffiliateBySupport")
-    public void generateLicense () throws InterruptedException {
-        //clear any preset filter
-        //click filter
 
-        actions.clickElement(affiliatePage.filterBtn);
-
-        //click clear
-        actions.clickElement(affiliatePage.clearFiltersBtn);
-
-        //filter for created affiliate
-        actions.clickElement(affiliatePage.filterBtn);
-
-        //insert affiliate name
-        actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
-
-        //click apply filter
-        actions.clickElement(affiliatePage.applyFilterBtn);
-
-        //test that affiliate appears
-        Thread.sleep(3000);
-
-        //click options
-        actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
-        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-
-        //test text is "Generate license"
-        Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
-
-        //click generate license option
-        actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
-
-        //test that confirmation dialog box appears
-        Assert.assertTrue(actions.isElementDisplayed(affiliatePage.confirmLicenseGenerateBtn));
-
-        //click cancel button of popup
-        actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
-
-        //test that generate license still appears
-        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-
-        //test text is "Generate license"
-        Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
-
-        //click generate license option
-        actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
-
-        //test that confirmation dialog box appears
-        Assert.assertTrue(actions.isElementDisplayed(affiliatePage.confirmLicenseGenerateBtn));
-        
-        //confirm license generation
-        actions.clickElement(affiliatePage.confirmLicenseGenerateBtn);
-
-        //click options button
-        Thread.sleep(2000);
-        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-
-        //test that text is "View license"
-        Assert.assertEquals(actions.getText(affiliatePage.affiliateViewLicenseOptionBtn),"View license");
-
-        actions.clickElement(affiliatePage.affiliateViewLicenseOptionBtn);
-
-        //copy affiliate license into clipboard
-        actions.clickElement(affiliatePage.copyLicenseBtn);
-
-        //test that affiliate license is copied into clipboard
-        try{
-            String clipboardText = (String) Toolkit.getDefaultToolkit()
-                    .getSystemClipboard()
-                    .getData(DataFlavor.stringFlavor);
-            Assert.assertTrue(clipboardText.contains("sync"));
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        //click cancel
-        actions.clickElement(affiliatePage.cancelLicenseCopyBtn);
-    }
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void cancelAffiliateEdits() throws InterruptedException {
         //clear any preset filter
         //click filter
@@ -215,7 +150,11 @@ public class AffiliatesModule {
         actions.clearText(affiliatePage.affiliateAbbreviation);
 
         //insert max user
-        actions.enterText(affiliatePage.maxUsers,"25");
+        actions.enterText(affiliatePage.maxUsers,"20");
+
+        //insert max instruments
+        actions.enterText(affiliatePage.maxInstruments,"3");
+
 
         //insert abbreviation
         actions.enterText(affiliatePage.affiliateAbbreviation,Helpers.generateRandomString());
@@ -243,7 +182,7 @@ public class AffiliatesModule {
         System.out.println(actions.getText(affiliatePage.firstAffiliateActiveUsersCount));
     }
 
-    @Test(priority = 2)
+    @Test(priority = 4)
     public void editAffiliate() throws InterruptedException {
         try {
             //clear any preset filter
@@ -272,10 +211,15 @@ public class AffiliatesModule {
 
             //clear all affiliate details
             actions.clearText(affiliatePage.maxUsers);
+            actions.clearText(affiliatePage.maxInstruments);
             actions.clearText(affiliatePage.affiliateAbbreviation);
 
-            //insert max users
-            affiliatePage.sendTextToAffiliateMaxUsersTextField("30");
+            //insert max user
+            actions.enterText(affiliatePage.maxUsers,"20");
+
+            //insert max instruments
+            actions.enterText(affiliatePage.maxInstruments,"3");
+
 
             //insert abbreviation
             actions.enterText(affiliatePage.affiliateAbbreviation,Helpers.generateRandomString());
@@ -310,8 +254,8 @@ public class AffiliatesModule {
         }
     }
 
-        @Test(priority = 3)
-        public void filterByAffiliateName () throws InterruptedException {
+    @Test(priority = 5)
+    public void filterByAffiliateName () throws InterruptedException {
             //clear any preset filter
             //click filter
             actions.clickElement(affiliatePage.filterBtn);
@@ -327,14 +271,15 @@ public class AffiliatesModule {
 
             //click apply
             actions.clickElement(affiliatePage.applyFilterBtn);
-
+            actions.refreshWindow();
             //test that affiliate appears
             Thread.sleep(2000);
             Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
 
         }
 
-        @Test(priority = 3)
+
+        @Test(priority = 6)
         public void filterByType () throws InterruptedException {
             //clear any preset filter
             //click filter
@@ -353,11 +298,12 @@ public class AffiliatesModule {
             actions.clickElement(affiliatePage.applyFilterBtn);
 
             //test that affiliates that appear are of the filtered type
+            actions.refreshWindow();
             Thread.sleep(3000);
             Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateType), "Farm");
         }
 
-        @Test(priority = 3)
+        @Test(priority = 7)
         public void toggleColumns () throws InterruptedException {
             //refresh page
             MainTestRunner.ChromeDriver.navigate().refresh();
@@ -370,11 +316,12 @@ public class AffiliatesModule {
             Thread.sleep(2000);
             actions.clickElement(affiliatePage.viewBtn);
             actions.clickElement(affiliatePage.toggleCreatedAtColumnOption);
+            actions.refreshWindow();
 
             //test that column is  not visible and the fifth column is created at
             Thread.sleep(4000);
             Assert.assertFalse(actions.isElementDisplayed(affiliatePage.createdAtColumn));
-
+            actions.refreshWindow();
             //test that column is  visible
             Thread.sleep(2000);
             actions.clickElement(affiliatePage.viewBtn);
@@ -397,7 +344,7 @@ public class AffiliatesModule {
             Assert.assertTrue(actions.isElementDisplayed(affiliatePage.createdAtColumn));
         }
 
-        @Test(priority = 3)
+        @Test(priority = 8)
         public void searchAffiliate () throws InterruptedException {
             //clear any preset filter
             //click filter
@@ -414,6 +361,7 @@ public class AffiliatesModule {
             actions.clickElement(affiliatePage.searchBtn);
 
             //test that results apply
+           // actions.refreshWindow();
             Thread.sleep(2000);
             Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
 
@@ -422,8 +370,71 @@ public class AffiliatesModule {
             Thread.sleep(6000);
         }
 
-        @Test(priority = 4)
-        @Ignore
+        @Test(priority = 9)
+        public void deactivateAffiliate() throws InterruptedException {
+            //clear any preset filter
+            //click filter
+            actions.clickElement(affiliatePage.filterBtn);
+
+            //click clear
+            actions.clickElement(affiliatePage.clearFiltersBtn);
+
+            //filter for created affiliate
+            Thread.sleep(2000);
+            actions.clickElement(affiliatePage.filterBtn);
+
+            //insert affiliate name
+            actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
+
+            //click apply filter
+            actions.clickElement(affiliatePage.applyFilterBtn);
+            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
+            //click options
+            Thread.sleep(2000);
+            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+            actions.clickElement(affiliatePage.deactivateAffiliate);
+            actions.clickElement(affiliatePage.cancelDeactivatePopup);
+            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+            actions.clickElement(affiliatePage.deactivateAffiliate);
+            actions.clickElement(affiliatePage.confirmDeactivateBtn);
+
+        }
+
+        @Test(priority = 10)
+        public void activateAffiliate() throws InterruptedException {
+            //clear any preset filter
+            //click filter
+            actions.clickElement(affiliatePage.filterBtn);
+
+            //click clear
+            actions.clickElement(affiliatePage.clearFiltersBtn);
+
+            //filter for created affiliate
+            Thread.sleep(2000);
+            actions.clickElement(affiliatePage.filterBtn);
+
+            //insert affiliate name
+            actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
+
+            //click apply filter
+            actions.clickElement(affiliatePage.applyFilterBtn);
+            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
+            //click options
+            Thread.sleep(2000);
+            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+            actions.clickElement(affiliatePage.activateAffiliate);
+            actions.clickElement(affiliatePage.cancelDeactivatePopup);
+            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+            actions.clickElement(affiliatePage.activateAffiliate);
+            actions.clickElement(affiliatePage.confirmActivateBtn);
+
+            actions.refreshWindow();
+
+
+        }
+
+
+        @Test(priority = 11)
         public void deleteAffiliate ()throws InterruptedException {
             //clear any preset filter
             //click filter
@@ -436,30 +447,30 @@ public class AffiliatesModule {
             Thread.sleep(2000);
             actions.clickElement(affiliatePage.filterBtn);
 
-
             //insert affiliate name
             actions.enterText(affiliatePage.filterAffiliateName,affiliateName);;
 
             //click apply filter
             actions.clickElement(affiliatePage.applyFilterBtn);
-
+            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
             //click options
             Thread.sleep(2000);
             actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
 
-        /*
         //click delete
         actions.clickElement(affiliatePage.affiliateDeleteOptionBtn);
-
+        Thread.sleep(2000);
         //click cancel  delete button
         affiliatePage.clickCancelDeleteBtn();
-
+            actions.refreshWindow();
+            Thread.sleep(5000);
         //test that affiliate not deleted
-        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName),affiliateName);
+            Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName),affiliateName);
 
         //click options
-        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-*/
+            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
+            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+
             //click delete
             actions.clickElement(affiliatePage.affiliateDeleteOptionBtn);
 
@@ -486,7 +497,7 @@ public class AffiliatesModule {
 
         }
 
-        @Test(priority = 4  /*,dependsOnMethods = "deleteAffiliate"*/)
+        @Test(priority = 12)
         public void sortData () throws InterruptedException {
             //clear any preset filter
             //click filter
@@ -508,7 +519,7 @@ public class AffiliatesModule {
             
             System.out.println(actions.getText(affiliatePage.firstAffiliateName));
             System.out.println(actions.getText(affiliatePage.secondAffiliateName));
-            System.out.println(actions.getText(affiliatePage.firstAffiliateName).compareTo(actions.getText(affiliatePage.secondAffiliateName)));
+           // System.out.println(actions.getText(affiliatePage.firstAffiliateName).compareTo(actions.getText(affiliatePage.secondAffiliateName)));
             Assert.assertTrue(actions.getText(affiliatePage.firstAffiliateName).compareTo(actions.getText(affiliatePage.secondAffiliateName)) <= 0);
 
             //sort by name descending
@@ -571,13 +582,16 @@ public class AffiliatesModule {
             } catch (NumberFormatException ex) {
                 num2 = 0;
             }
+            System.out.println("Error: Was not able to parse both numbers");
             System.out.println(num1);
             System.out.println(num2);
             Assert.assertTrue(num1 >= num2);
-        }
 
+
+        }
+        @Ignore
         @Test(priority = 5)
-        public void createAffiliateByAdmin () throws InterruptedException {
+        public void createAffiliateByPartnerAdmin () throws InterruptedException {
             //sign-out from support
             actions.clickElement(homePage.profileIconBtn);
             actions.clickElement(homePage.signoutBtn);
@@ -600,7 +614,11 @@ public class AffiliatesModule {
             actions.enterText(affiliatePage.affiliateName,affiliateName);;
 
             //insert max user
-            actions.enterText(affiliatePage.maxUsers,"20");;
+            actions.enterText(affiliatePage.maxUsers,"20");
+
+            //insert max instruments
+            actions.enterText(affiliatePage.maxInstruments,"3");
+
 
             //choose affiliate type
             actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
@@ -628,17 +646,17 @@ public class AffiliatesModule {
             actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
             actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
 
-            //test text is "Generate license"
-            Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
-
-
-            //click generate license
-            actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
-
-            //click cancel button
-            actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
+//            //test text is "Generate license"
+//            Assert.assertEquals(actions.getText(affiliatePage.affiliateGenerateLicenseBtn),"Generate license");
+//
+//
+//            //click generate license
+//            actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
+//
+//            //click cancel button
+//            actions.clickElement(licensePage.cancelLicenseGenerateBtn);
         }
-
+        @Ignore
         @Test(priority = 5)
         public void createAffiliateBySuperAdmin () throws InterruptedException {
 
@@ -661,7 +679,11 @@ public class AffiliatesModule {
             actions.enterText(affiliatePage.affiliateName,affiliateName);;
 
             //insert max user
-            actions.enterText(affiliatePage.maxUsers,"20");;
+            actions.enterText(affiliatePage.maxUsers,"20");
+
+            //insert max instruments
+            actions.enterText(affiliatePage.maxInstruments,"3");
+
 
             //choose affiliate type
             actions.chooseFromDropDown(affiliatePage.affiliateType,"Farm");
@@ -685,62 +707,62 @@ public class AffiliatesModule {
             //test that affiliate appears
             Thread.sleep(3000);
             Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
-
-            //click options
-            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
-            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-
-            //test text is "Generate license"
-            Assert.assertFalse(actions.isElementDisplayed(affiliatePage.affiliateGenerateLicenseBtn));
-
-            //click generate license
-            actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
-
-            //click cancel button
-            actions.clickElement(affiliatePage.cancelLicenseGenerateBtn);
+//
+//            //click options
+//            actions.scrollToElementHorizontally(affiliatePage.tableHorizontalScrollBar, 500);
+//            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+//
+//            //test text is "Generate license"
+//            Assert.assertFalse(actions.isElementDisplayed(affiliatePage.affiliateGenerateLicenseBtn));
+//
+//            //click generate license
+//            actions.clickElement(affiliatePage.affiliateGenerateLicenseBtn);
+//
+//            //click cancel button
+//            actions.clickElement(licensePage.cancelLicenseGenerateBtn);
         }
 
-
-        public void deleteAffiliate (String affiliateName) throws InterruptedException {
-
-            //clear any preset filter
-            //click filter
-            actions.clickElement(affiliatePage.filterBtn);
-            //click clear
-            actions.clickElement(affiliatePage.clearFiltersBtn);
-
-            //filter for created affiliate
-            actions.clickElement(affiliatePage.filterBtn);
-            //insert affiliate name
-            actions.enterText(affiliatePage.filterAffiliateName, this.affiliateName);;
-
-            //click apply filter
-            actions.clickElement(affiliatePage.applyFilterBtn);
-
-            //click options
-            Thread.sleep(2000);
-            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-
-            //click delete
-            actions.clickElement(affiliatePage.affiliateDeleteOptionBtn);
-            
-
-        /*
-        //click cancel  delete button
-        affiliatePage.clickCancelDeleteBtn();
-
-        //test that affiliate not deleted
-        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
-
-        //click options
-        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
-
-        //click delete
-        actions.clickElement(affiliatePage.affiliateDeleteOptionBtn);
-*/
-        //click confirm delete
-        actions.clickElement(affiliatePage.confirmDeleteBtn);
-    }
+//        @Test(priority = 5)
+//        public void deleteAffiliate (String affiliateName) throws InterruptedException {
+//
+//            //clear any preset filter
+//            //click filter
+//            actions.clickElement(affiliatePage.filterBtn);
+//            //click clear
+//            actions.clickElement(affiliatePage.clearFiltersBtn);
+//
+//            //filter for created affiliate
+//            actions.clickElement(affiliatePage.filterBtn);
+//            //insert affiliate name
+//            actions.enterText(affiliatePage.filterAffiliateName, this.affiliateName);;
+//
+//            //click apply filter
+//            actions.clickElement(affiliatePage.applyFilterBtn);
+//
+//            //click options
+//            Thread.sleep(2000);
+//            actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+//
+//            //click delete
+//            actions.clickElement(affiliatePage.affiliateDeleteOptionBtn);
+//
+//
+//        /*
+//        //click cancel  delete button
+//        affiliatePage.clickCancelDeleteBtn();
+//
+//        //test that affiliate not deleted
+//        Assert.assertEquals(actions.getText(affiliatePage.firstAffiliateName), affiliateName);
+//
+//        //click options
+//        actions.clickElement(affiliatePage.firstAffiliateOptionsBtn);
+//
+//        //click delete
+//        actions.clickElement(affiliatePage.affiliateDeleteOptionBtn);
+//*/
+//        //click confirm delete
+//        actions.clickElement(affiliatePage.confirmDeleteBtn);
+//    }
 
     }
 

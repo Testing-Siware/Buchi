@@ -20,6 +20,24 @@ public class ListJournalsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[1]/div[2]/div[2]/div[2]/button[1]")
     public WebElement editFiltersBtn;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div[2]/div[1]/div/button")
+    public WebElement journalDetailsEditRefBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[3]/div/div/div/div/div/h4")
+    public WebElement journalDetailsEditRefsTitle;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[3]/div[2]/div[3]/div/div/div/div/div[3]/div[2]/div[2]/div[4]/div[1]/div[2]/div/div[1]/div[3]")
+    public WebElement journalDetailsFirstElementRefValue;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div[3]/div/div/div/form/div[1]/div[2]/div/div/div/div/input")
+    public WebElement journalDetailsFirstElementRefValueEdit;
+
+    @FindBy(id = "edit-ref-values-button-submit")
+    public WebElement editRefValuesSubmitBtn;
+
+    @FindBy(id="edit-ref-values-button-cancel")
+    public WebElement editRefValuesCancelBtn;
+
     //recipe filter dropdown
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[1]/div/div/div[1]/div[2]/input")
     public WebElement recipeFilterText;
@@ -30,6 +48,9 @@ public class ListJournalsPage extends MethodHandles {
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div[1]/div[2]/input")
     public WebElement journalEntriesFilter;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/label/div/div[1]/span[1]")
+    public WebElement journalEntryFilterTitle;
 
     //sample name filter text box
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/form/div/div[3]/div/div/div[3]/div/div/div/input")
@@ -136,13 +157,13 @@ public class ListJournalsPage extends MethodHandles {
 
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[1]/div")
-    public WebElement manageReferenceValuesBtn;
+    public WebElement manageRefValuesBtn;
 
     @FindBy(xpath = "/html/body/div[2]/div/div[1]")
-    public WebElement exportReferenceValuesBtn;
+    public WebElement exportRefValuesBtn;
 
     @FindBy(xpath = "/html/body/div[2]/div/div[2]")
-    public WebElement importReferenceValuesBtn;
+    public WebElement importRefValuesBtn;
 
     @FindBy(xpath = "/html/body/div[2]/div/div[3]")
     public WebElement exportTemplateBtn;
@@ -165,14 +186,26 @@ public class ListJournalsPage extends MethodHandles {
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/div[3]/div[2]/div[2]/div[1]/div[1]/div[2]/div[1]/div[2]/div[2]")
     public WebElement journalListSelectAllCheckbox;
 
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[1]/button[1]")
+    public WebElement journalListDataBtn;
+
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[1]/button[2]")
     public WebElement journalListHistogramBtn;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[1]/button[3]")
+    public WebElement journalListResidualPlotBtn;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[3]/div/div[1]/div")
     public WebElement firstHistogram;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[3]/div/div[2]")
     public WebElement secondHistogram;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[4]/div/div[1]/div")
+    public WebElement firstResidualPlot;
+
+    @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[4]/div/div[2]/div")
+    public WebElement secondResidualPlot;
 
     @FindBy(xpath = "/html/body/div/div[1]/div[3]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button[2]")
     public WebElement manageJournalsBtn;

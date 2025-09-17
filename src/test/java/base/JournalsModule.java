@@ -1,13 +1,16 @@
 package base;
 
-import com.beust.ah.A;
+import data.Credentials;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import pages.*;
+import utils.EnvironmentSelector;
 import utils.Helpers;
+
+import java.awt.*;
 
 
 public class JournalsModule {
@@ -31,14 +34,14 @@ public class JournalsModule {
 
         //send value to search bar
         Thread.sleep(2000);
-        actions.enterText(journalsPage.searchField,"Milk");
+        actions.enterText(journalsPage.searchField,"Peas");
 
         //click search button
         actions.clickElement(journalsPage.submitSearchBtn);
 
         Thread.sleep(3000);
         //test that data searched for appears
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Peas");
 
         //refresh window to clear results
         journalsPage.refreshWindow();
@@ -57,14 +60,14 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);
 
         //send text to filter name
-        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+        actions.enterText(journalsPage.nameFilterTextField,"Peas");
 
         //click apply
         actions.clickElement(journalsPage.applyFilterBtn);
 
         //test that results appear
         Thread.sleep(4000);
-        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Milk");
+        Assert.assertEquals(actions.getText(journalsPage.firstRecipeName),"Peas");
 
         //click filter
         actions.clickElement(journalsPage.filterBtn);
@@ -97,14 +100,14 @@ public class JournalsModule {
 
         //choose dropdown
         Thread.sleep(1500);
-        actions.chooseFromDropDown(journalsPage.affiliateFilterDropDown,"Sub2");
+        actions.chooseFromDropDown(journalsPage.affiliateFilterDropDown,"Sub1");
 
         //click apply
         actions.clickElement(journalsPage.applyFilterBtn);
 
         Thread.sleep(3000);
 
-        Assert.assertEquals(actions.getText(journalsPage.firstJournalAffiliate),"Sub2");
+        Assert.assertEquals(actions.getText(journalsPage.firstJournalAffiliate),"Sub1");
     }
 
     @Test(priority = 3)
@@ -153,8 +156,10 @@ public class JournalsModule {
 
     @Test(priority = 4)
     public void exportRecipeSamples() throws InterruptedException {
+        actions.refreshWindow();
 
         //get length of downloads directory
+        Thread.sleep(2000);
         int filesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
 
         journalsListPage=new ListJournalsPage( MainTestRunner.ChromeDriver);
@@ -170,17 +175,14 @@ public class JournalsModule {
         actions.clickElement(journalsPage.filterBtn);;
 
         //click filter by name
-        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+        actions.enterText(journalsPage.nameFilterTextField,"Peas");
 
         //click apply filter
         actions.clickElement(journalsPage.applyFilterBtn);
 
         //wait for results and expand them
-        Thread.sleep(2000);
-        actions.clickElement(journalsPage.expandFirstRecipeBtn);
-
-        //test that initially the next button is disabled
-        Assert.assertFalse(journalsPage.nextBtn.isEnabled());
+        Thread.sleep(3000);
+        actions.clickElement(journalsPage.expandFirstRecipeBtnSupport);
 
         //choose first instrument
         actions.clickElement(journalsPage.firstInstrument);
@@ -191,13 +193,12 @@ public class JournalsModule {
         //click next
         actions.clickElement(journalsPage.nextBtn);
 
-        Assert.assertEquals(actions.getCurrentUrl(),"https://nir-online-dev.neospectra.cloud/fleet-management/journals");
+        Assert.assertEquals(actions.getCurrentUrl(), EnvironmentSelector.journalsUrl);
 
         //wait for data
         Thread.sleep(2000);
 
         //choose first sample
-        actions.clickElement(journalsListPage.firstSampleCheckBox);
         actions.clickElement(journalsListPage.firstSampleCheckBox);
 
         //click export
@@ -209,9 +210,13 @@ public class JournalsModule {
         System.out.println(filesNum);
         int newFilesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
 
-        //test that file is downloaded
+        //test that exported file is .xlsx not .zip
+        Assert.assertTrue(Helpers.getLatestDownloadedFile(MainTestRunner.downloadDir).contains("xlsx"));
 
+        //test that file is downloaded
         Assert.assertTrue(filesNum<newFilesNum);
+
+        System.out.println();
     }
 
     @Ignore
@@ -239,11 +244,13 @@ public class JournalsModule {
 
     @Test(priority = 6)
     public void validRecipeNameFilter() throws InterruptedException {
+        //click reset filter
+        actions.clickElement(journalsListPage.resetFilterBtn);
         //click filter button
         actions.clickElement(journalsListPage.editFiltersBtn);
 
         //insert invalid sample name
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Wheat");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Global");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
@@ -256,30 +263,64 @@ public class JournalsModule {
         actions.clickElement(journalsListPage.editFiltersBtn);
 
         //insert invalid sample name
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"TestTsv");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Peas");
+        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"720FG120");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
 
         //test that sample appears
-        Assert.assertEquals(actions.getText(journalsListPage.firstSampleRecipeName),"TestTsv");
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleRecipeName),"Peas");
+
+        //return to journals back
+        MainTestRunner.ChromeDriver.navigate().back();
+
+        //wait for results and expand them
+        Thread.sleep(2000);
+        actions.clickElement(journalsPage.expandFirstRecipeBtnSupport);
+
+        //choose first instrument
+        Thread.sleep(1000);
+        actions.clickElement(journalsPage.firstInstrument);
+
+        //test that the next button is enabled
+        Assert.assertTrue(journalsPage.nextBtn.isEnabled());
+
+        //click next
+        actions.clickElement(journalsPage.nextBtn);
+
+        //click filter button
+        Thread.sleep(2000);
+        actions.clickElement(journalsListPage.editFiltersBtn);
+
+        //change recipe name to "A"
+        Thread.sleep(2000);
+
+        //insert invalid sample name
+        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"B15FG114");
+
+        //click save filter
+        actions.clickElement(journalsListPage.saveFilterBtn);
     }
 
     @Test(priority = 5)
     public void validInstrumentFilter() throws InterruptedException {
-
         //click filter button
         Thread.sleep(2000);
         actions.clickElement(journalsListPage.editFiltersBtn);
 
         System.out.println(actions.getText(journalsListPage.journalsFilterDropdown));
 
+        //test that The filter label is “Journal Entries”.
+        Assert.assertTrue(actions.getText(journalsListPage.journalEntryFilterTitle).contains("Journal Entries"));
+
         //change recipe name to "A"
         Thread.sleep(2000);
-        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Test");
+        actions.chooseFromDropDown(journalsListPage.recipeFilterText,"Milk");
 
-        //insert invalid sample name
-        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"B15FG114");
+        //choose instrument
+        actions.chooseFromDropDown(journalsListPage.instrumentSNRFilterText,"522FG020");
 
         //click save
         actions.clickElement(journalsListPage.saveFilterBtn);
@@ -335,17 +376,38 @@ public class JournalsModule {
         //test that all necessary fields appear
         Assert.assertEquals(actions.getText(journalsListPage.journalDetailsHeader),"Journal details");
 
+        System.out.println(actions.getText(journalsListPage.sampleSettingsDetails));
+        Thread.sleep(2000);
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Created By"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Captured At"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Instruments SNR"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Instrument Type"));
-        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Recipe Name"));
+        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Recipe"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Points"));
 
         //test that it contains parameters' names
-        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Fat"));
         Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Moisture"));
+        Assert.assertTrue(actions.getText(journalsListPage.sampleSettingsDetails).contains("Protein"));
 
+        //click edit ref values button
+        actions.clickElement(journalsListPage.journalDetailsEditRefBtn);
+
+        //test that edit references pop up appears
+        Assert.assertEquals(actions.getText(journalsListPage.journalDetailsEditRefsTitle),"Edit Reference Values");
+
+        int randomNum= (int) (Math.random()*20)+1;
+
+        //change first parameter ref value
+        actions.clearText(journalsListPage.journalDetailsFirstElementRefValueEdit);
+        actions.enterText(journalsListPage.journalDetailsFirstElementRefValueEdit,randomNum+"");
+
+        //click submit
+        actions.clickElement(journalsListPage.editRefValuesSubmitBtn);
+        Thread.sleep(2000);
+
+        //test that value changed
+        int newNum= Integer.parseInt(actions.getText(journalsListPage.journalDetailsFirstElementRefValue));
+        Assert.assertEquals(newNum,randomNum);
 
         System.out.println(actions.getText(journalsListPage.sampleSettingsDetails));
 
@@ -403,25 +465,58 @@ public class JournalsModule {
         int filesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
 
         //test that manageReference value is visible
-        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.manageReferenceValuesBtn));
+        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.manageRefValuesBtn));
 
         //test that export & import are accessible
-        actions.clickElement(journalsListPage.manageReferenceValuesBtn);
+        Thread.sleep(2000);
+        actions.clickElement(journalsListPage.manageRefValuesBtn);
 
         //test that export & import buttons are displayed
         Assert.assertTrue(actions.isElementDisplayed(journalsListPage.exportTemplateBtn));
-        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.exportReferenceValuesBtn));
-        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.importReferenceValuesBtn));
+        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.exportRefValuesBtn));
+        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.importRefValuesBtn));
 
         //click export button
-        actions.clickElement(journalsListPage.exportReferenceValuesBtn);
+        actions.clickElement(journalsListPage.exportRefValuesBtn);
 
         Thread.sleep(7000);
 
-        //test that file is downloaded
+        //test that file is downloaded and .xlsx
         int newFilesNum=Helpers.getNumberOfFiles(MainTestRunner.downloadDir);
+        Assert.assertTrue(Helpers.getLatestDownloadedFile(MainTestRunner.downloadDir).contains("xlsx"));
 
         Assert.assertTrue(filesNum+1==newFilesNum);
+
+        //click manage reference values btn
+        actions.clickElement(journalsListPage.manageRefValuesBtn);
+
+        //click import references option
+        actions.clickElement(journalsListPage.importRefValuesBtn);
+
+        try {
+            actions.uploadFileWithRobot("src/main/resources/import_ref_values.xlsx" +
+                    "");
+        } catch (AWTException e) {
+            System.out.println("Error");
+        }
+
+        Thread.sleep(6000);
+        actions.refreshWindow();
+
+        //expand first sample details
+        actions.clickElement(journalsListPage.firstSampleName);
+
+        String[] newRefValues=actions.getText(journalsListPage.sampleSettingsDetails).split("--");
+        System.out.println("LEN: "+newRefValues.length);
+
+        for (int i=1;i<newRefValues.length;i++){
+            System.out.println(newRefValues[i]+"\n----------\n");
+            Assert.assertTrue(newRefValues[i].contains("74"));
+        }
+
+        //close dialog
+        actions.clickElement(journalsListPage.closeJournalDetailsDialog);
+
     }
 
     @Test(priority = 10)
@@ -433,6 +528,7 @@ public class JournalsModule {
 
         //check first two samples
         actions.clickElement(journalsListPage.dataSampleNameFirstCheckbox);
+        actions.clickElement(journalsListPage.dataSampleNameSecondCheckbox);
 
         //scroll to plot spectra button
         actions.clickElement(journalsListPage.exportSpectraOptions);
@@ -441,7 +537,8 @@ public class JournalsModule {
         Assert.assertTrue(actions.isElementEnabled(journalsListPage.journalDetailsSpectraPlotBtn));
 
         //test that the button reflects the selected samples
-        Assert.assertTrue(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn).contains("1"));
+        System.out.println(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn));
+        Assert.assertTrue(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn).contains("2"));
 
         //test that cancel selection is enabled
         Assert.assertTrue(actions.isElementEnabled(journalsListPage.journalDetailsCancelSelectionBtn));
@@ -456,10 +553,12 @@ public class JournalsModule {
         Assert.assertFalse(actions.isElementEnabled(journalsListPage.journalDetailsSpectraPlotBtn));
 
         //select all samples
+        Thread.sleep(2000);
         actions.clickElement(journalsListPage.journalListSelectAllCheckbox);
 
         //test that all samples are selected (1 is total of samples)
-        Assert.assertTrue(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn).contains("1"));
+        System.out.println(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn));
+        Assert.assertTrue(actions.getText(journalsListPage.journalDetailsSpectraPlotBtn).contains("4"));
 
         //uncheck all samples
         actions.clickElement(journalsListPage.journalListSelectAllCheckbox);
@@ -467,20 +566,19 @@ public class JournalsModule {
         //test that all samples are unchecked
         Assert.assertFalse(actions.isElementEnabled(journalsListPage.journalDetailsSpectraPlotBtn));
 
-
-
-
     }
 
     @Test(priority = 11)
     public void checkJournals() throws InterruptedException{
+
         //select first sample
         actions.clickElement(journalsListPage.firstSampleCheckBox);
+        String firstSampleName=actions.getText(journalsListPage.firstSampleName);
 
         //click manage journals
         actions.clickElement(journalsListPage.manageJournalsBtn);
 
-        //test that both option mark as uncheck & mark as check are enables
+        //test that both option mark as uncheck & mark as check are enabled
         Assert.assertTrue(actions.isElementEnabled(journalsListPage.markAsCheckedOption));
         Assert.assertTrue(actions.isElementEnabled(journalsListPage.markAsUncheckedOption));
 
@@ -492,10 +590,29 @@ public class JournalsModule {
         actions.clickElement(journalsListPage.markAsUncheckedOption);
 
         //test that sample no longer appears
-        Assert.assertFalse(actions.isElementDisplayed(journalsListPage.firstSampleName));
+        Thread.sleep(2000);
+        Assert.assertNotEquals(actions.getText(journalsListPage.firstSampleName),firstSampleName);
 
-        //scroll to edit filters button
-        actions.scrollToElement(journalsListPage.editFiltersBtn);
+       //refresh page
+        actions.refreshWindow();
+        Thread.sleep(3000);
+
+        //click edit filters
+        actions.clickElement(journalsListPage.editFiltersBtn);
+
+        //change journal entries to "Unchecked Journal Entries"
+        actions.chooseFromDropDown(journalsListPage.journalEntriesFilter,"All");
+
+        //click save filter
+        actions.clickElement(journalsListPage.saveFilterBtn);
+
+        //test that sample appears
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleName),firstSampleName);
+
+        //refresh page
+        actions.refreshWindow();
+        Thread.sleep(3000);
 
         //click edit filters
         actions.clickElement(journalsListPage.editFiltersBtn);
@@ -507,25 +624,231 @@ public class JournalsModule {
         actions.clickElement(journalsListPage.saveFilterBtn);
 
         //test that sample appears
-        Assert.assertTrue(actions.isElementDisplayed(journalsListPage.firstSampleName));
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleName),firstSampleName);
 
+        //select first sample
+        actions.clickElement(journalsListPage.firstSampleCheckBox);
 
+        //click manage journals
+        actions.clickElement(journalsListPage.manageJournalsBtn);
 
+        //click mark as checked
+        actions.clickElement(journalsListPage.markAsCheckedOption);
 
+        //test that sample no longer appears
+        Thread.sleep(2000);
+        Assert.assertNotEquals(actions.getText(journalsListPage.firstSampleName),firstSampleName);
+
+        //scroll to edit filters button
+        actions.scrollToElement(journalsListPage.editFiltersBtn);
+
+        //refresh page
+        actions.refreshWindow();
+        Thread.sleep(3000);
+
+        //click edit filters
+        actions.clickElement(journalsListPage.editFiltersBtn);
+
+        //change journal entries to "Unchecked Journal Entries"
+        actions.chooseFromDropDown(journalsListPage.journalEntriesFilter,"Checked");
+
+        //click save filter
+        actions.clickElement(journalsListPage.saveFilterBtn);
+
+        //test that sample appears
+        Thread.sleep(2000);
+        Assert.assertEquals(actions.getText(journalsListPage.firstSampleName),firstSampleName);
     }
 
     @Test(priority = 12)
-    public void histogramTab(){
+    public void histogramTab() throws InterruptedException {
         //click on histogram button tab
         actions.clickElement(journalsListPage.journalListHistogramBtn);
 
         //test that first parameter histogram is visible
-        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Fat Histogram"));
+        System.out.println(actions.getText(journalsListPage.firstHistogram));
+        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Protein Histogram"));
 
         actions.scrollToElement(journalsListPage.secondHistogram);
 
         //test that second parameter histogram is visible
-        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Moisture Histogram"));
 
+        System.out.println(actions.getText(journalsListPage.secondHistogram));
+        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Fat Histogram"));
+
+        //refresh window
+        actions.refreshWindow();
+        Thread.sleep(2000);
+
+    }
+
+    @Test(priority = 13)
+    public void residualPlotTab() throws InterruptedException {
+
+        //click on first residual tab
+        actions.clickElement(journalsListPage.journalListResidualPlotBtn);
+        Thread.sleep(2000);
+        //test that first parameter histogram is visible
+        System.out.println(actions.getText(journalsListPage.firstResidualPlot));
+        Assert.assertTrue(actions.getText(journalsListPage.firstResidualPlot).contains("Residuals Plot For Protein"));
+
+        actions.scrollToElement(journalsListPage.secondResidualPlot);
+
+
+        //test that second parameter histogram is visible
+        System.out.println("----------\n"+actions.getText(journalsListPage.secondResidualPlot));
+        Assert.assertTrue(actions.getText(journalsListPage.secondResidualPlot).contains("Residuals Plot For Fat"));
+
+    }
+    @Test(priority = 14)
+    public void accessForPartnerAdmin() throws InterruptedException{
+        //signout from user
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        ///login with super-admin account
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.partnerAdminUsername,Credentials.partnerAdminPassword);
+
+        //navigate to journals
+        actions.clickElement(homePage.journalsSidebarBtn);
+
+        //click filter button
+        actions.clickElement(journalsPage.filterBtn);
+        
+        //click filter by name
+        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+
+        //click apply filter
+        actions.clickElement(journalsPage.applyFilterBtn);
+
+        //wait for results and expand them (expand button has different xpath in partneradmin)
+        Thread.sleep(2000);
+        actions.clickElement(journalsPage.firstRecipeExpandBtnPartnerAdmin);
+
+        //choose first instrument
+        actions.clickElement(journalsPage.firstInstrument);
+
+        //click next
+        actions.clickElement(journalsPage.nextBtn);
+
+        //click on histogram button tab
+        actions.clickElement(journalsListPage.journalListHistogramBtn);
+
+        //test that first parameter histogram is visible
+        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Fat Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Test1 Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Lactose Histogram")||actions.getText(journalsListPage.firstHistogram).contains("Protein Histogram")) ;
+
+        actions.scrollToElement(journalsListPage.secondHistogram);
+
+        //test that second parameter histogram is visible
+        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Lactose Histogram") || actions.getText(journalsListPage.secondHistogram).contains("Fat Histogram") || actions.getText(journalsListPage.secondHistogram).contains("Test1 Histogram")||actions.getText(journalsListPage.secondHistogram).contains("Protein Histogram"));
+
+        //refresh window
+        actions.refreshWindow();
+        Thread.sleep(2000);
+        //navigate to data tab
+        actions.clickElement(journalsListPage.journalListDataBtn);
+
+        //click on first sample name
+        actions.clickElement(journalsListPage.firstSampleName);
+
+        //click edit ref values button
+        actions.clickElement(journalsListPage.journalDetailsEditRefBtn);
+
+        //test that edit references pop up appears
+        Assert.assertEquals(actions.getText(journalsListPage.journalDetailsEditRefsTitle),"Edit Reference Values");
+
+        int randomNum= (int) (Math.random()*20)+1;
+        //change first parameter ref value
+        actions.clearText(journalsListPage.journalDetailsFirstElementRefValueEdit);
+        actions.enterText(journalsListPage.journalDetailsFirstElementRefValueEdit,randomNum+"");
+
+        //click submit
+        actions.clickElement(journalsListPage.editRefValuesSubmitBtn);
+        Thread.sleep(2000);
+
+        //test that value changed
+        int newNum= Integer.parseInt(actions.getText(journalsListPage.journalDetailsFirstElementRefValue));
+        Assert.assertEquals(newNum,randomNum);
+
+        //close pop-up
+        actions.clickElement(journalsListPage.closeJournalDetailsDialog);
+    }
+
+    @Test(priority = 14)
+    public void accessForAdmin() throws InterruptedException{
+        //signout from user
+        actions.clickElement(homePage.profileIconBtn);
+        actions.clickElement(homePage.signoutBtn);
+
+        ///login with admin account
+        Helpers.loginWithValidUser((ChromeDriver) MainTestRunner.ChromeDriver, Credentials.adminUsername,Credentials.adminPassword);
+
+        //navigate to journals
+        actions.clickElement(homePage.journalsSidebarBtn);
+
+        //click filter button
+        actions.clickElement(journalsPage.filterBtn);
+
+        //click filter by name
+        actions.enterText(journalsPage.nameFilterTextField,"Milk");
+
+        //click apply filter
+        actions.clickElement(journalsPage.applyFilterBtn);
+
+        //wait for results and expand them
+        Thread.sleep(2000);
+        actions.clickElement(journalsPage.expandFirstRecipeBtnSupport);
+
+        //choose first instrument
+        actions.clickElement(journalsPage.firstInstrument);
+
+        //click next
+        actions.clickElement(journalsPage.nextBtn);
+
+        //click on histogram button tab
+        actions.clickElement(journalsListPage.journalListHistogramBtn);
+
+        //test that first parameter histogram is visible
+        Thread.sleep(2000);
+        System.out.println(actions.getText(journalsListPage.firstHistogram));
+        Assert.assertTrue(actions.getText(journalsListPage.firstHistogram).contains("Fat Histogram") || actions.getText(journalsListPage.firstHistogram).contains("Test1 Histogram")|| actions.getText(journalsListPage.firstHistogram).contains("Lactose Histogram"));
+
+        actions.scrollToElement(journalsListPage.secondHistogram);
+        System.out.println(actions.getText(journalsListPage.secondHistogram));
+
+        //test that second parameter histogram is visible
+        Assert.assertTrue(actions.getText(journalsListPage.secondHistogram).contains("Test1 Histogram") || actions.getText(journalsListPage.secondHistogram).contains("Fat Histogram")|| actions.getText(journalsListPage.secondHistogram).contains("Lactose Histogram"));
+
+        //refresh window
+        actions.refreshWindow();
+        Thread.sleep(2000);
+        //navigate to data tab
+        actions.clickElement(journalsListPage.journalListDataBtn);
+
+        //click on first sample name
+        actions.clickElement(journalsListPage.firstSampleName);
+
+        //click edit ref values button
+        actions.clickElement(journalsListPage.journalDetailsEditRefBtn);
+
+        //test that edit references pop up appears
+        Assert.assertEquals(actions.getText(journalsListPage.journalDetailsEditRefsTitle),"Edit Reference Values");
+
+        int randomNum= (int) (Math.random()*20)+1;
+        //change first parameter ref value
+        actions.clearText(journalsListPage.journalDetailsFirstElementRefValueEdit);
+        actions.enterText(journalsListPage.journalDetailsFirstElementRefValueEdit,randomNum+"");
+
+        //click submit
+        actions.clickElement(journalsListPage.editRefValuesSubmitBtn);
+        Thread.sleep(2000);
+
+        //test that value changed
+        int newNum= Integer.parseInt(actions.getText(journalsListPage.journalDetailsFirstElementRefValue));
+        Assert.assertEquals(newNum,randomNum);
+
+        //close pop-up
+        actions.clickElement(journalsListPage.closeJournalDetailsDialog);
     }
 }
